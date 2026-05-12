@@ -1,21 +1,7 @@
+import "server-only"
 import Stripe from "stripe"
 
-let stripe: Stripe | null = null
-
-try {
-  if (process.env.STRIPE_SECRET_KEY) {
-    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2024-12-18.acacia",
-      typescript: true,
-    })
-  } else {
-    console.log("[v0] Stripe not configured. Running in demo mode. Add STRIPE_SECRET_KEY to enable payments.")
-  }
-} catch (error) {
-  console.log("[v0] Failed to initialize Stripe:", error)
-}
-
-export { stripe }
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
 export const PLANS = {
   free: {

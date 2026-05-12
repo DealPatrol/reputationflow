@@ -7,7 +7,6 @@ import Link from "next/link"
 import { useState } from "react"
 
 export default function PricingPage() {
-  const [selectedPlan, setSelectedPlan] = useState("pro")
   const [businessSize, setBusinessSize] = useState(50)
 
   // ROI calculation
@@ -115,16 +114,12 @@ export default function PricingPage() {
                 <p className="text-foreground/60 font-medium">Try it out, see the magic</p>
               </div>
 
-              <button
-                onClick={() => setSelectedPlan("free")}
-                className={`w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all ${
-                  selectedPlan === "free"
-                    ? "bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30"
-                    : "bg-slate-100 text-foreground hover:bg-slate-200"
-                }`}
+              <Link
+                href="/auth/signin"
+                className="block w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all bg-slate-100 text-foreground hover:bg-slate-200 text-center"
               >
-                Get Started
-              </button>
+                Get Started Free
+              </Link>
 
               <div className="space-y-4">
                 <PricingFeature text="1 review collection link" included />
@@ -151,16 +146,12 @@ export default function PricingPage() {
                 <p className="text-foreground/60 font-medium">Everything you need to dominate</p>
               </div>
 
-              <button
-                onClick={() => setSelectedPlan("pro")}
-                className={`w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all ${
-                  selectedPlan === "pro"
-                    ? "bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30"
-                    : "bg-slate-100 text-foreground hover:bg-slate-200"
-                }`}
+              <Link
+                href="/checkout?plan=pro-monthly"
+                className="block w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl text-center"
               >
                 Start Free Trial
-              </button>
+              </Link>
 
               <div className="space-y-4">
                 <PricingFeature text="Unlimited review links" included />
