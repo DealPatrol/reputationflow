@@ -21,10 +21,22 @@ export async function POST(request: Request) {
 
     // Create tables
     await sql`
+      CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY,
+        email TEXT UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    await sql`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`
+
+    await sql`
       CREATE TABLE IF NOT EXISTS businesses (
         id SERIAL PRIMARY KEY,
         user_id TEXT NOT NULL,
         business_name TEXT NOT NULL,
+        owner_email TEXT,
         google_link TEXT,
         facebook_link TEXT,
         yelp_link TEXT,
