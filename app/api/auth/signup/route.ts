@@ -1,6 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
+import bcrypt from "bcryptjs"
 import { createSession } from "@/lib/auth"
-import { createBusiness, getBusinessByUserId } from "@/lib/db"
+import { createBusiness, getBusinessByUserId, createUser, updateBusinessOwnerEmail } from "@/lib/db"
+import { sendWelcomeEmail } from "@/lib/email"
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,24 +20,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 })
     }
 
-    // Create user ID from email
     const userId = email.toLowerCase().replace(/[^a-z0-9]/g, "-")
+
+    // Hash password before storing
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    // Store user credentials
+    await createUser(userId, email.toLowerCase(), passwordHash)
 
     let business = await getBusinessByUserId(userId)
 
     if (!business || business.id === 1) {
-      // Create new business (or get mock data in demo mode)
       business = await createBusiness(userId, businessName || "My Business")
     }
 
-    // Create session
+    // Persist owner email for notifications
+    await updateBusinessOwnerEmail(userId, email.toLowerCase())
+
     const user = {
       id: userId,
-      email,
+      email: email.toLowerCase(),
       businessId: business.id,
     }
 
     await createSession(user)
+
+    // Send welcome email (non-blocking)
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"
+    const reviewLink = `${appUrl}/review/${business.id}`
+    sendWelcomeEmail(email.toLowerCase(), businessName || "My Business", reviewLink).catch(() => {})
 
     return NextResponse.json({ success: true, user })
   } catch (error) {
