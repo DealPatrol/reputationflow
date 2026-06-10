@@ -1,4 +1,5 @@
 import { CheckCircle, XCircle, AlertCircle, Database, Cpu, HardDrive, Zap } from "lucide-react"
+import { MigrateButton } from "./migrate-button"
 
 async function checkIntegrations() {
   const integrations = {
@@ -7,6 +8,8 @@ async function checkIntegrations() {
     groq: !!process.env.GROQ_API_KEY,
     blob: !!process.env.BLOB_READ_WRITE_TOKEN,
     stripe: !!process.env.STRIPE_SECRET_KEY,
+    stripe_webhook: !!process.env.STRIPE_WEBHOOK_SECRET,
+    resend: !!process.env.RESEND_API_KEY,
   }
 
   return integrations
@@ -108,6 +111,28 @@ export default async function StatusPage() {
                 </div>
                 <StatusBadge status={integrations.stripe} />
               </div>
+
+              <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <Zap size={20} className="text-slate-600" />
+                  <div>
+                    <div className="font-medium text-slate-900">Stripe Webhook</div>
+                    <div className="text-xs text-slate-500">Subscription event handling</div>
+                  </div>
+                </div>
+                <StatusBadge status={integrations.stripe_webhook} />
+              </div>
+
+              <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <Cpu size={20} className="text-slate-600" />
+                  <div>
+                    <div className="font-medium text-slate-900">Resend Email</div>
+                    <div className="text-xs text-slate-500">Negative feedback alerts &amp; review requests</div>
+                  </div>
+                </div>
+                <StatusBadge status={integrations.resend} />
+              </div>
             </div>
           </div>
 
@@ -176,6 +201,25 @@ export default async function StatusPage() {
                 )}
               </div>
             )}
+          </div>
+
+          {/* Migration */}
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-violet-100 p-2 rounded-lg">
+                <Database className="text-violet-600" size={24} />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-slate-900">Database Migration</h2>
+                <p className="text-sm text-slate-500">Run once on existing databases after deploying the monetization update</p>
+              </div>
+            </div>
+            <p className="text-sm text-slate-600 mb-4">
+              Adds the <code className="bg-slate-100 px-1 rounded text-xs">users</code> table (password hashes) and{" "}
+              <code className="bg-slate-100 px-1 rounded text-xs">owner_email</code> column to businesses. Safe to run
+              multiple times — uses <code className="bg-slate-100 px-1 rounded text-xs">IF NOT EXISTS</code>.
+            </p>
+            <MigrateButton />
           </div>
 
           {/* Quick Actions */}
