@@ -7,12 +7,24 @@ DROP TABLE IF EXISTS campaigns CASCADE;
 DROP TABLE IF EXISTS follow_up_settings CASCADE;
 DROP TABLE IF EXISTS subscriptions CASCADE;
 DROP TABLE IF EXISTS businesses CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
+-- Create users table (stores hashed passwords)
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_users_email ON users(email);
 
 -- Create businesses table
 CREATE TABLE businesses (
   id SERIAL PRIMARY KEY,
   user_id TEXT NOT NULL,
   business_name TEXT NOT NULL,
+  owner_email TEXT,
   google_link TEXT,
   facebook_link TEXT,
   yelp_link TEXT,

@@ -5,7 +5,7 @@ let stripe: Stripe | null = null
 try {
   if (process.env.STRIPE_SECRET_KEY) {
     stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2024-12-18.acacia",
+      apiVersion: "2025-11-17.clover" as any,
       typescript: true,
     })
   } else {
@@ -32,7 +32,7 @@ export const PLANS = {
   pro: {
     name: "Professional",
     price: 2000, // $20 in cents
-    priceId: process.env.STRIPE_PRICE_ID_PRO || "price_pro",
+    priceId: process.env.STRIPE_PRICE_ID_PRO || "price_1TgaEWLtoPzYBT7ApjKr2V5T",
     features: [
       "Unlimited review links",
       "Unlimited feedback history",

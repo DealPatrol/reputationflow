@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server"
 import { sql } from "@/lib/db"
 import { validators, sanitize } from "@/lib/validators"
+import { getBusinessOwnerEmail } from "@/lib/db"
+import { sendNegativeFeedbackAlert } from "@/lib/email"
 
 export async function POST(request: Request) {
   try {
-    const { businessId, rating, feedback_text, type } = await request.json()
+    const { businessId, rating, feedback_text, type, customer_email } = await request.json()
 
     if (!businessId || !rating) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
@@ -23,31 +25,49 @@ export async function POST(request: Request) {
     }
 
     try {
-      const businesses = await sql`
+      const businesses = await (sql as any)`
         SELECT id FROM businesses WHERE id = ${businessId} LIMIT 1
-      `
+      ` as any[]
 
       if (businesses.length === 0) {
         return NextResponse.json({ error: "Business not found" }, { status: 404 })
       }
 
       const sanitizedText = feedback_text ? sanitize.html(feedback_text) : null
-      const result = await sql`
+      const feedbackType = type || (Number(rating) >= 4 ? "positive" : Number(rating) <= 3 ? "negative" : "neutral")
+
+      const result = await (sql as any)`
         INSERT INTO feedback (
           business_id,
           rating,
           feedback_text,
           type,
+          customer_email,
           created_at
         ) VALUES (
           ${businessId},
           ${rating},
           ${sanitizedText},
-          ${type || "neutral"},
+          ${feedbackType},
+          ${customer_email || null},
           NOW()
         )
         RETURNING *
-      `
+      ` as any[]
+
+      // Send alert to business owner for negative feedback (non-blocking)
+      if (Number(rating) <= 3) {
+        getBusinessOwnerEmail(businessId).then((biz) => {
+          if (biz?.owner_email) {
+            sendNegativeFeedbackAlert(
+              biz.owner_email,
+              biz.business_name,
+              Number(rating),
+              feedback_text || null,
+            ).catch(() => {})
+          }
+        }).catch(() => {})
+      }
 
       return NextResponse.json({
         success: true,
