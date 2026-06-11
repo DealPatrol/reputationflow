@@ -75,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-slate-50">
+    <html lang="en" className="bg-background">
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />
