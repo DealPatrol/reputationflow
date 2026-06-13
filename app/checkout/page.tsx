@@ -34,7 +34,7 @@ function CheckoutContent() {
             <div className="bg-gradient-to-br from-purple-600 to-red-500 p-2 rounded-lg">
               <Star className="text-white h-6 w-6" fill="currentColor" />
             </div>
-            <span className="font-bold text-xl">ReputationFlow</span>
+            <span className="font-bold text-xl">Feedbackr</span>
           </div>
           <Link
             href="/pricing"

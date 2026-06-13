@@ -34,7 +34,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Acceptance of Terms</h2>
               <p className="text-slate-600 leading-relaxed">
-                By accessing and using ReputationFlow, you accept and agree to be bound by the terms and provision of
+                By accessing and using Feedbackr, you accept and agree to be bound by the terms and provision of
                 this agreement. If you do not agree to these terms, please do not use our service.
               </p>
             </section>
@@ -42,7 +42,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Description of Service</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                ReputationFlow provides a reputation management platform that helps businesses:
+                Feedbackr provides a reputation management platform that helps businesses:
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Collect and manage customer feedback</li>
@@ -57,7 +57,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">3. User Accounts</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                To use ReputationFlow, you must create an account. You agree to:
+                To use Feedbackr, you must create an account. You agree to:
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Provide accurate and complete registration information</li>
@@ -85,7 +85,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">5. Payment and Subscriptions</h2>
               <p className="text-slate-600 leading-relaxed mb-4">
-                ReputationFlow offers both free and paid subscription plans:
+                Feedbackr offers both free and paid subscription plans:
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Subscription fees are billed in advance on a monthly basis</li>
@@ -99,7 +99,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">6. Intellectual Property</h2>
               <p className="text-slate-600 leading-relaxed">
-                All content, features, and functionality of ReputationFlow are owned by us and protected by
+                All content, features, and functionality of Feedbackr are owned by us and protected by
                 international copyright, trademark, and other intellectual property laws. You retain ownership of any
                 content you submit through the service.
               </p>
@@ -108,7 +108,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">7. Data and Privacy</h2>
               <p className="text-slate-600 leading-relaxed">
-                Your use of ReputationFlow is also governed by our Privacy Policy. We collect, use, and protect your
+                Your use of Feedbackr is also governed by our Privacy Policy. We collect, use, and protect your
                 data as described in that policy. You are responsible for ensuring you have proper consent to collect
                 and process customer feedback through our platform.
               </p>
@@ -126,7 +126,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">9. Limitation of Liability</h2>
               <p className="text-slate-600 leading-relaxed">
-                ReputationFlow is provided "as is" without warranties of any kind. We shall not be liable for any
+                Feedbackr is provided "as is" without warranties of any kind. We shall not be liable for any
                 indirect, incidental, special, consequential, or punitive damages resulting from your use or inability
                 to use the service.
               </p>
@@ -156,7 +156,7 @@ export default function TermsPage() {
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 mt-16">
         <div className="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-slate-500">
-          <p>&copy; 2025 ReputationFlow. All rights reserved.</p>
+          <p>&copy; 2025 Feedbackr. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -21,7 +21,7 @@ export default function SuccessPage() {
             </div>
           </div>
 
-          <h1 className="text-4xl font-black mb-4">Welcome to ReputationFlow!</h1>
+          <h1 className="text-4xl font-black mb-4">Welcome to Feedbackr!</h1>
           <p className="text-xl text-foreground/70 mb-12 font-medium">
             Your account is all set up and ready to start collecting amazing reviews.
           </p>
@@ -96,7 +96,7 @@ export default function SuccessPage() {
         {/* Footer */}
         <p className="text-center text-foreground/50 mt-8 font-medium">
           Need help?{" "}
-          <a href="mailto:support@reputationflow.app" className="text-purple-600 hover:text-purple-700 font-bold">
+          <a href="mailto:support@feedbackr.app" className="text-purple-600 hover:text-purple-700 font-bold">
             Contact support
           </a>
         </p>

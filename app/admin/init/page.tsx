@@ -111,7 +111,7 @@ export default function DatabaseInitPage() {
                 <div className="mb-8">
                   <h2 className="text-lg font-bold text-slate-800 mb-4">Initialize Database</h2>
                   <p className="text-slate-600 mb-4">
-                    This will create all required tables for ReputationFlow. Make sure you have the correct database
+                    This will create all required tables for Feedbackr. Make sure you have the correct database
                     connection configured.
                   </p>
                   <button

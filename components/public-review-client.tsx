@@ -64,7 +64,7 @@ export function PublicReviewClient({ business }: PublicReviewClientProps) {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-indigo-500 to-violet-500 rounded-2xl shadow-lg shadow-indigo-500/30 mb-4">
               <Star size={28} className="text-white" fill="currentColor" />
             </div>
-            <p className="text-slate-600 text-sm font-medium">Powered by ReputationFlow</p>
+            <p className="text-slate-600 text-sm font-medium">Powered by Feedbackr</p>
           </div>
 
           {/* Feedback form */}

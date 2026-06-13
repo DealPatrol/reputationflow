@@ -21,7 +21,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
 
   const steps = [
     {
-      title: "Welcome to ReputationFlow!",
+      title: "Welcome to Feedbackr!",
       description:
         "Let's take a quick tour of your new reputation management dashboard. This will only take 30 seconds.",
       highlight: "dashboard",

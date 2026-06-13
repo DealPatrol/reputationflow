@@ -13,7 +13,7 @@ export interface Product {
 export const PRODUCTS: Product[] = [
   {
     id: "pro-monthly",
-    name: "ReputationFlow Professional",
+    name: "Feedbackr Professional",
     description: "Unlimited review links, email automation, advanced analytics, SMS notifications, QR codes, and priority support.",
     priceInCents: 2000, // $20.00
     mode: "subscription",
@@ -21,7 +21,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "pro-yearly",
-    name: "ReputationFlow Professional (Annual)",
+    name: "Feedbackr Professional (Annual)",
     description: "Save 20% with annual billing. All professional features included.",
     priceInCents: 19200, // $192.00/year ($16/mo equivalent)
     mode: "subscription",

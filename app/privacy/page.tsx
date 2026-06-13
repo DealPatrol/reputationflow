@@ -34,7 +34,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Introduction</h2>
               <p className="text-slate-600 leading-relaxed">
-                ReputationFlow ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
+                Feedbackr ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
                 explains how we collect, use, disclose, and safeguard your information when you use our reputation
                 management platform.
               </p>
@@ -163,7 +163,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">9. Children's Privacy</h2>
               <p className="text-slate-600 leading-relaxed">
-                ReputationFlow is not intended for use by children under 13 years of age. We do not knowingly collect
+                Feedbackr is not intended for use by children under 13 years of age. We do not knowingly collect
                 information from children. If you believe we have collected information from a child, please contact us
                 immediately.
               </p>
@@ -205,7 +205,7 @@ export default function PrivacyPage() {
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 mt-16">
         <div className="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-slate-500">
-          <p>&copy; 2025 ReputationFlow. All rights reserved.</p>
+          <p>&copy; 2025 Feedbackr. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -113,7 +113,7 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
           </head>
           <body>
             <div class="container">
-              <h1>${businessName || "ReputationFlow"}</h1>
+              <h1>${businessName || "Feedbackr"}</h1>
               <p>Scan to leave a review</p>
               <img src="${qrCodeUrl}" alt="QR Code" />
               <div class="url">${url}</div>

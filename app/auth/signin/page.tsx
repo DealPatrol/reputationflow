@@ -60,7 +60,7 @@ export default function SignInPage() {
                 <Star className="text-white h-6 w-6" fill="currentColor" />
               </div>
               <span className="font-bold text-2xl">
-                Reputation<span className="text-indigo-600">Flow</span>
+                Feedbackr
               </span>
             </div>
           </div>

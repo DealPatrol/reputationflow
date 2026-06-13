@@ -47,7 +47,7 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
           <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-1.5 rounded-lg shadow-sm">
             <Star size={16} fill="currentColor" />
           </div>
-          <span className="font-bold text-base">ReputationFlow</span>
+          <span className="font-bold text-base">Feedbackr</span>
         </div>
         <div className="flex items-center space-x-2">
           {!isPremium && (

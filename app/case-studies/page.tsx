@@ -97,7 +97,7 @@ export default function SocialProofPage() {
             Businesses That are Already <span className="text-gradient bg-gradient-to-r from-purple-600 to-red-500">Crushing It</span>
           </h1>
           <p className="text-xl text-foreground/70 font-medium">
-            See real results from businesses like yours that switched to ReputationFlow.
+            See real results from businesses like yours that switched to Feedbackr.
           </p>
         </div>
 

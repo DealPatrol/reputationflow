@@ -195,7 +195,7 @@ export default function PricingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Testimonial
-              quote="ReputationFlow generated $3,400 in new revenue in just 30 days. Best $20 I've spent."
+              quote="Feedbackr generated $3,400 in new revenue in just 30 days. Best $20 I've spent."
               author="Sarah M."
               role="Pizza Restaurant Owner"
               stars={5}

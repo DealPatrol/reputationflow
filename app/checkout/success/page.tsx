@@ -15,7 +15,7 @@ export default function CheckoutSuccessPage() {
           <h1 className="text-3xl font-black text-foreground mb-4">Welcome to Pro!</h1>
 
           <p className="text-foreground/60 font-medium mb-8">
-            Your subscription is now active. You have full access to all ReputationFlow features.
+            Your subscription is now active. You have full access to all Feedbackr features.
           </p>
 
           <div className="bg-gradient-to-br from-purple-50 to-red-50 rounded-2xl p-6 mb-8 border border-purple-100">
@@ -50,8 +50,8 @@ export default function CheckoutSuccessPage() {
 
           <p className="mt-6 text-sm text-foreground/50">
             Questions? Contact{" "}
-            <a href="mailto:support@reputationflow.app" className="text-purple-600 hover:underline">
-              support@reputationflow.app
+            <a href="mailto:support@feedbackr.app" className="text-purple-600 hover:underline">
+              support@feedbackr.app
             </a>
           </p>
         </div>
