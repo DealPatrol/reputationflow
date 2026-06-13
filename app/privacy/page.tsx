@@ -2,8 +2,8 @@ import Link from "next/link"
 import { Star } from "lucide-react"
 
 export const metadata = {
-  title: "Privacy Policy - ReputationFlow",
-  description: "Privacy Policy for ReputationFlow reputation management platform",
+  title: "Privacy Policy - Feedbackr",
+  description: "Privacy Policy for Feedbackr review routing platform",
 }
 
 export default function PrivacyPage() {
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
             <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-2 rounded-lg">
               <Star size={20} className="text-white" fill="currentColor" />
             </div>
-            <span className="font-bold text-lg">ReputationFlow</span>
+            <span className="font-bold text-lg">Feedbackr</span>
           </Link>
           <Link href="/dashboard" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
             Go to Dashboard

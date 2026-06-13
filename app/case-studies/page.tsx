@@ -13,7 +13,7 @@ const caseStudies = [
     result: "+1.5 stars in 3 months",
     revenue: "$18,500 in new orders traced to reviews",
     quote:
-      "ReputationFlow is a game-changer. We went from hiding our Google profile to being proud of our reputation.",
+      "Feedbackr is a game-changer. We went from hiding our Google profile to being proud of our reputation.",
     stats: [
       { label: "Reviews/Month", value: "127" },
       { label: "Avg Rating", value: "4.7★" },

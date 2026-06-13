@@ -8,32 +8,32 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "ReputationFlow - Enterprise Review Management",
+  title: "Feedbackr - Smart Review Management for Local Businesses",
   description:
-    "Intelligent review gatekeeper that routes positive reviews to public platforms and captures negative feedback privately. Boost your online reputation effortlessly.",
+    "Intelligent review router that directs happy customers to Google, Facebook, and Yelp—while capturing unhappy feedback privately before it becomes a public problem.",
   generator: "v0.app",
   keywords: [
     "review management",
     "reputation management",
     "customer feedback",
-    "review gatekeeper",
+    "review routing",
     "online reviews",
     "Google reviews",
     "business reviews",
   ],
-  authors: [{ name: "ReputationFlow" }],
-  creator: "ReputationFlow",
+  authors: [{ name: "Feedbackr" }],
+  creator: "Feedbackr",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "ReputationFlow - Enterprise Review Management",
-    description: "Intelligent review management platform for businesses",
-    siteName: "ReputationFlow",
+    title: "Feedbackr - Smart Review Management",
+    description: "Intelligent review routing platform for local businesses",
+    siteName: "Feedbackr",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReputationFlow - Enterprise Review Management",
-    description: "Intelligent review management platform for businesses",
+    title: "Feedbackr - Smart Review Management",
+    description: "Intelligent review routing platform for local businesses",
   },
   icons: {
     icon: [

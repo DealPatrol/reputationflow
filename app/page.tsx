@@ -14,7 +14,7 @@ export default function Home() {
             <div className="bg-foreground p-1.5 rounded-lg">
               <Star className="text-background h-5 w-5" fill="currentColor" />
             </div>
-            <span className="font-bold text-lg tracking-tight">ReputationFlow</span>
+            <span className="font-bold text-lg tracking-tight">Feedbackr</span>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <Link href="/pricing" className="text-foreground/70 hover:text-foreground transition-colors">
@@ -55,7 +55,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg sm:text-xl text-foreground/60 max-w-2xl mx-auto text-pretty mb-10 leading-relaxed">
-          ReputationFlow routes happy customers to Google, Facebook, and Yelp—while quietly capturing unhappy feedback before it goes public.
+          Feedbackr routes happy customers to Google, Facebook, and Yelp—while quietly capturing unhappy feedback before it goes public.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
@@ -190,15 +190,15 @@ export default function Home() {
             <div className="bg-foreground p-1.5 rounded-lg">
               <Star className="text-background h-4 w-4" fill="currentColor" />
             </div>
-            <span className="font-bold">ReputationFlow</span>
+            <span className="font-bold">Feedbackr</span>
           </div>
           <div className="flex gap-6 text-sm text-foreground/60 font-medium">
             <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
             <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
-            <a href="mailto:support@reputationflow.app" className="hover:text-foreground transition-colors">Contact</a>
+            <a href="mailto:support@feedbackr.app" className="hover:text-foreground transition-colors">Contact</a>
           </div>
-          <p className="text-sm text-foreground/40">© 2025 ReputationFlow.</p>
+          <p className="text-sm text-foreground/40">© 2025 Feedbackr.</p>
         </div>
       </footer>
     </div>

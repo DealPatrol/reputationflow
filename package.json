@@ -1,11 +1,11 @@
 {
-  "name": "reputationflow",
+  "name": "feedbackr",
   "version": "1.0.0",
   "private": true,
-  "description": "Enterprise reputation management platform - Transform customer feedback into 5-star reviews",
+  "description": "Smart review routing platform - Direct happy customers to Google, Facebook, and Yelp. Capture unhappy feedback privately.",
   "keywords": [
-    "reputation-management",
-    "review-gatekeeper",
+    "review-management",
+    "review-routing",
     "customer-feedback",
     "saas",
     "nextjs",
@@ -13,10 +13,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/reputationflow"
+    "url": "https://github.com/yourusername/feedbackr"
   },
   "license": "MIT",
-  "author": "ReputationFlow",
+  "author": "Feedbackr",
   "scripts": {
     "build": "next build",
     "dev": "next dev",

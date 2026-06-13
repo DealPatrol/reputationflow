@@ -26,7 +26,7 @@ export default function PricingPage() {
             <div className="bg-gradient-to-br from-purple-600 to-red-500 p-2 rounded-lg">
               <TrendingUp className="text-white h-6 w-6" />
             </div>
-            <span className="font-bold text-xl">ReputationFlow</span>
+            <span className="font-bold text-xl">Feedbackr</span>
           </div>
           <div className="flex items-center space-x-3">
             <Link href="/" className="text-foreground/60 hover:text-foreground font-semibold text-sm">

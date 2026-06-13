@@ -2,8 +2,8 @@ import Link from "next/link"
 import { Star } from "lucide-react"
 
 export const metadata = {
-  title: "Terms of Service - ReputationFlow",
-  description: "Terms of Service for ReputationFlow reputation management platform",
+  title: "Terms of Service - Feedbackr",
+  description: "Terms of Service for Feedbackr review routing platform",
 }
 
 export default function TermsPage() {
@@ -16,7 +16,7 @@ export default function TermsPage() {
             <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-2 rounded-lg">
               <Star size={20} className="text-white" fill="currentColor" />
             </div>
-            <span className="font-bold text-lg">ReputationFlow</span>
+            <span className="font-bold text-lg">Feedbackr</span>
           </Link>
           <Link href="/dashboard" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
             Go to Dashboard
