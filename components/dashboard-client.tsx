@@ -180,6 +180,7 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
                 feedbacks={feedbacks}
                 isPremium={settings.isPremium}
                 businessName={settings.businessName}
+                businessId={initialBusiness.id}
                 links={{ google: settings.googleLink }}
                 setActiveTab={setActiveTab}
               />

@@ -1,51 +1,44 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getFeedbackByBusinessId } from "@/lib/db"
+import { getFeedbackByBusinessId, createFeedback } from "@/lib/db"
+import { getCurrentUser } from "@/lib/auth"
+import { validators, sanitize } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser(request)
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const body = await request.json()
-    const { userId, rating, feedback, type, platform } = body
+    const { rating, feedback_text, type, customer_email } = body
 
-    console.log("[v0] Received feedback:", { userId, rating, type, platform })
-
-    // Validation
-    if (!userId || !rating) {
-      return NextResponse.json({ success: false, error: "User ID and rating required" }, { status: 400 })
+    if (!rating) {
+      return NextResponse.json({ success: false, error: "Rating is required" }, { status: 400 })
     }
 
-    if (rating < 1 || rating > 5) {
-      return NextResponse.json({ success: false, error: "Rating must be between 1 and 5" }, { status: 400 })
+    const ratingValidation = validators.rating(rating)
+    if (!ratingValidation.valid) {
+      return NextResponse.json({ success: false, error: ratingValidation.error }, { status: 400 })
     }
 
-    // In production, save to database
-    // Example with Supabase:
-    // const { data, error } = await supabase
-    //   .from('feedbacks')
-    //   .insert([{ user_id: userId, rating, feedback, type, platform, created_at: new Date() }])
+    const feedbackType: "positive" | "negative" =
+      type === "positive" || type === "negative"
+        ? type
+        : Number(rating) >= 4
+          ? "positive"
+          : "negative"
 
-    // For now, just log and return success
-    const feedbackData = {
-      id: Date.now().toString(),
-      userId,
-      rating,
-      feedback: feedback || "",
-      type: type || "neutral",
-      platform: platform || "unknown",
-      timestamp: new Date().toISOString(),
-    }
+    const sanitizedText = feedback_text ? sanitize.html(feedback_text) : undefined
 
-    console.log("[v0] Feedback stored:", feedbackData)
-
-    // Optional: Send notification to business owner for negative feedback
-    if (type === "negative" && rating <= 3) {
-      console.log("[v0] Negative feedback alert:", { userId, rating, feedback })
-      // TODO: Send email/SMS notification to business owner
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: feedbackData,
+    const feedback = await createFeedback(user.businessId!, {
+      rating: Number(rating),
+      feedback_text: sanitizedText,
+      type: feedbackType,
+      customer_email: customer_email || undefined,
     })
+
+    return NextResponse.json({ success: true, data: feedback })
   } catch (error) {
     console.error("[v0] Error saving feedback:", error)
     return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 })
@@ -63,8 +56,7 @@ export async function GET(request: NextRequest) {
 
     const feedbacks = await getFeedbackByBusinessId(businessId)
 
-    // Transform to match frontend format
-    const transformedFeedbacks = feedbacks.map((f: any) => ({
+    const transformedFeedbacks = (feedbacks as any[]).map((f: any) => ({
       id: f.id,
       rating: f.rating,
       feedback: f.feedback_text,

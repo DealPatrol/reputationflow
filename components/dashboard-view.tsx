@@ -1,13 +1,27 @@
 "use client"
 
 import { useState } from "react"
-import { MessageSquare, TrendingUp, ShieldAlert, Star, Lock, Send, AlertTriangle, Users, Sparkles } from "lucide-react"
+import { MessageSquare, TrendingUp, ShieldAlert, Star, Lock, Send, AlertTriangle, Users, Sparkles, Link2, Copy, CheckCircle2 } from "lucide-react"
 import { EmptyState } from "./ui/empty-state"
 import { AIResponseModal } from "./ai-response-modal"
 
-export const DashboardView = ({ feedbacks, isPremium, businessName, links, setActiveTab }: any) => {
+export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, links, setActiveTab }: any) => {
   const [selectedFeedback, setSelectedFeedback] = useState<any>(null)
   const [showAIModal, setShowAIModal] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const reviewLink = businessId
+    ? `${typeof window !== "undefined" ? window.location.origin : ""}/review/${businessId}`
+    : ""
+
+  const handleCopyLink = () => {
+    if (reviewLink) {
+      navigator.clipboard.writeText(reviewLink).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      })
+    }
+  }
 
   const total = feedbacks.length
   const positive = feedbacks.filter((f: any) => f.type === "positive").length
@@ -34,21 +48,48 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, links, setAc
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
             <div className="flex items-start sm:items-center space-x-3 text-amber-800">
               <AlertTriangle size={20} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-              <span className="font-medium text-sm sm:text-base">Setup incomplete: Please add your review links.</span>
+              <span className="font-medium text-sm sm:text-base">Setup incomplete: Add your Google/Yelp review links so positive reviews get routed correctly.</span>
             </div>
             <button
               onClick={() => setActiveTab("settings")}
               className="text-sm font-bold text-amber-700 underline hover:text-amber-800 transition-colors whitespace-nowrap"
             >
-              Go to Settings
+              Go to Settings →
             </button>
           </div>
         )}
 
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Command Center</h1>
-          <p className="text-slate-500">Real-time reputation monitoring.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Command Center</h1>
+            <p className="text-slate-500">Real-time reputation monitoring.</p>
+          </div>
         </div>
+
+        {reviewLink && (
+          <div className="bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="bg-indigo-100 p-2 rounded-lg flex-shrink-0">
+                <Link2 size={18} className="text-indigo-600" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-0.5">Your Review Link</p>
+                <p className="text-sm text-slate-700 font-mono truncate">{reviewLink}</p>
+              </div>
+            </div>
+            <button
+              onClick={handleCopyLink}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all flex-shrink-0 ${
+                copied
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-indigo-600 text-white hover:bg-indigo-700"
+              }`}
+            >
+              {copied ? <CheckCircle2 size={14} /> : <Copy size={14} />}
+              {copied ? "Copied!" : "Copy Link"}
+            </button>
+          </div>
+        )}
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard label="Total Feedback" value={total} icon={<MessageSquare size={18} />} color="indigo" />

@@ -14,8 +14,7 @@ export async function POST(request: Request) {
     // Dynamically import Stripe only when needed
     const Stripe = (await import("stripe")).default
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2024-12-18.acacia",
-      typescript: true,
+      apiVersion: "2025-11-17.clover" as any,
     })
 
     const { planType, userId, businessId } = await request.json()
@@ -25,9 +24,9 @@ export async function POST(request: Request) {
     }
 
     // Get business
-    const businesses = await sql`
+    const businesses = await (sql as any)`
       SELECT * FROM businesses WHERE id = ${businessId} LIMIT 1
-    `
+    ` as any[]
 
     if (businesses.length === 0) {
       return NextResponse.json({ error: "Business not found" }, { status: 404 })
@@ -37,6 +36,8 @@ export async function POST(request: Request) {
 
     // Create or retrieve Stripe customer
     let customerId = business.stripe_customer_id
+
+    const priceId = process.env.STRIPE_PRICE_ID_PRO || "price_1TgaEWLtoPzYBT7ApjKr2V5T"
 
     if (!customerId) {
       const customer = await stripe.customers.create({
@@ -48,14 +49,12 @@ export async function POST(request: Request) {
       })
       customerId = customer.id
 
-      await sql`
-        UPDATE businesses 
+      await (sql as any)`
+        UPDATE businesses
         SET stripe_customer_id = ${customerId}
         WHERE id = ${business.id}
       `
     }
-
-    const priceId = process.env.STRIPE_PRICE_ID_PRO || ""
 
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
