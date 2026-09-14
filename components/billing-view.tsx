@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Check, Zap, Loader2 } from "lucide-react"
-import { PLANS } from "@/lib/stripe"
+import { PLANS } from "@/lib/plans"
 
 interface BillingViewProps {
   isPremium: boolean

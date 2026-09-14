@@ -7,10 +7,17 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://feedbackr.app"
+
 export const metadata: Metadata = {
-  title: "Feedbackr - Smart Review Management for Local Businesses",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Feedbackr | Honest review management for local businesses",
+    template: "%s | Feedbackr",
+  },
   description:
-    "Intelligent review router that directs happy customers to Google, Facebook, and Yelp—while capturing unhappy feedback privately before it becomes a public problem.",
+    "Feedbackr helps local businesses invite honest reviews, learn from customer feedback, and build a consistent reputation workflow.",
+  alternates: { canonical: "/" },
   generator: "v0.app",
   keywords: [
     "review management",
@@ -26,8 +33,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Feedbackr - Smart Review Management",
-    description: "Intelligent review routing platform for local businesses",
+    url: "/",
+    title: "Feedbackr | Honest review management for local businesses",
+    description: "Invite honest reviews, learn from customer feedback, and build a consistent reputation workflow.",
     siteName: "Feedbackr",
   },
   twitter: {
