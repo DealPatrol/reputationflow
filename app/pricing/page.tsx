@@ -50,8 +50,8 @@ export default function PricingPage() {
             You Only Pay for{" "}
             <span className="text-gradient bg-gradient-to-r from-purple-600 to-red-500">Real Results</span>
           </h1>
-          <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-4 font-medium">
-            No setup fees. No commitment. Cancel anytime. Most businesses see their $20/month investment pay for itself in the first week.
+            <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-4 font-medium">
+            Try Feedbackr free for 3 days. Add your payment method today, then pay $20/month after the trial. Cancel anytime before your first charge.
           </p>
         </div>
 
@@ -143,14 +143,14 @@ export default function PricingPage() {
                 <div className="text-5xl font-black text-foreground mb-2">
                   $20<span className="text-2xl font-bold text-foreground/60">/mo</span>
                 </div>
-                <p className="text-foreground/60 font-medium">Everything you need to dominate</p>
+                <p className="text-foreground/60 font-medium">3 days free, then $20/month</p>
               </div>
 
               <Link
                 href="/checkout?plan=pro-monthly"
                 className="block w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl text-center"
               >
-                Start Free Trial
+Start 3-Day Free Trial
               </Link>
 
               <div className="space-y-4">

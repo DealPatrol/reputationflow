@@ -30,6 +30,11 @@ export async function startCheckoutSession(productId: string) {
       },
     ],
     mode: product.mode,
+    payment_method_collection: product.mode === "subscription" ? "always" : undefined,
+    subscription_data:
+      product.mode === "subscription" && product.trialPeriodDays
+        ? { trial_period_days: product.trialPeriodDays }
+        : undefined,
   })
 
   return session.client_secret

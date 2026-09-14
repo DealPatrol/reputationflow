@@ -5,6 +5,7 @@ export interface Product {
   priceInCents: number
   mode: "payment" | "subscription"
   interval?: "month" | "year"
+  trialPeriodDays?: number
 }
 
 // This is the source of truth for all products.
@@ -18,6 +19,7 @@ export const PRODUCTS: Product[] = [
     priceInCents: 2000, // $20.00
     mode: "subscription",
     interval: "month",
+    trialPeriodDays: 3,
   },
   {
     id: "pro-yearly",

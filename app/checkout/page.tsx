@@ -48,11 +48,18 @@ function CheckoutContent() {
 
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-black text-foreground mb-2">Complete Your Purchase</h1>
+          <h1 className="text-3xl font-black text-foreground mb-2">
+            {product.trialPeriodDays ? `${product.trialPeriodDays}-Day Free Trial` : "Complete Your Purchase"}
+          </h1>
           <p className="text-foreground/60 font-medium">
             {product.name} - ${(product.priceInCents / 100).toFixed(2)}
             {product.mode === "subscription" ? `/${product.interval}` : ""}
           </p>
+          {product.trialPeriodDays ? (
+            <p className="mt-2 text-sm font-semibold text-foreground/70">
+              You won&apos;t be charged today. Your saved payment method will be charged $20/month after the trial.
+            </p>
+          ) : null}
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-border">
@@ -60,7 +67,7 @@ function CheckoutContent() {
         </div>
 
         <div className="mt-8 text-center text-sm text-foreground/50">
-          <p>Secure payment powered by Stripe. Cancel anytime.</p>
+          <p>Secure payment powered by Stripe. 3 days free, then $20/month. Cancel anytime.</p>
         </div>
       </div>
     </div>
