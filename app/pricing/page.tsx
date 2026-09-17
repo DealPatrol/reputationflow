@@ -51,7 +51,10 @@ export default function PricingPage() {
             <span className="text-gradient bg-gradient-to-r from-purple-600 to-red-500">Real Results</span>
           </h1>
             <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-4 font-medium">
-            Try Feedbackr free for 3 days. Add your payment method today, then pay $20/month after the trial. Cancel anytime before your first charge.
+            See what Feedbackr can do for your business with a full 3-day free trial. No charge today.
+          </p>
+          <p className="text-sm text-foreground/55 max-w-xl mx-auto">
+            Payment details are collected securely at signup. Billing begins at $20/month after the trial unless you cancel.
           </p>
         </div>
 
@@ -143,15 +146,19 @@ export default function PricingPage() {
                 <div className="text-5xl font-black text-foreground mb-2">
                   $20<span className="text-2xl font-bold text-foreground/60">/mo</span>
                 </div>
-                <p className="text-foreground/60 font-medium">3 days free, then $20/month</p>
+                <p className="text-foreground/60 font-medium">Full access free for 3 days</p>
+                <p className="text-xs text-foreground/50 mt-2">Then $20/month. Cancel before billing.</p>
               </div>
 
               <Link
                 href="/checkout?plan=pro-monthly"
-                className="block w-full py-3 rounded-xl font-bold text-lg mb-8 transition-all bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl text-center"
+                className="block w-full py-3 rounded-xl font-bold text-lg mb-3 transition-all bg-gradient-to-r from-purple-600 to-red-500 text-white shadow-lg shadow-purple-500/30 hover:shadow-xl text-center"
               >
-Start 3-Day Free Trial
+                Start 3-Day Free Trial
               </Link>
+              <p className="text-center text-xs text-foreground/50 mb-8">
+                No charge today. $20/month begins after the trial unless canceled.
+              </p>
 
               <div className="space-y-4">
                 <PricingFeature text="Unlimited review links" included />
@@ -219,7 +226,7 @@ Start 3-Day Free Trial
         <div className="bg-gradient-to-br from-purple-600 to-red-500 rounded-3xl p-12 text-center shadow-2xl shadow-purple-600/30">
           <h2 className="text-4xl font-black text-white mb-4">Ready to Stop Losing Reviews?</h2>
           <p className="text-white/90 text-lg mb-8 font-medium">
-            Join 500+ businesses getting more 5-star reviews. Free 14-day trial, no credit card required.
+            Join businesses building a stronger review workflow with a full 3-day trial. Payment details are collected securely; billing starts after the trial unless canceled.
           </p>
           <Link
             href="/auth/signin"

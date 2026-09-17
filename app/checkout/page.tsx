@@ -57,7 +57,7 @@ function CheckoutContent() {
           </p>
           {product.trialPeriodDays ? (
             <p className="mt-2 text-sm font-semibold text-foreground/70">
-              You won&apos;t be charged today. Your saved payment method will be charged $20/month after the trial.
+              No charge today. Billing starts at $20/month after the trial unless you cancel.
             </p>
           ) : null}
         </div>
@@ -67,7 +67,7 @@ function CheckoutContent() {
         </div>
 
         <div className="mt-8 text-center text-sm text-foreground/50">
-          <p>Secure payment powered by Stripe. 3 days free, then $20/month. Cancel anytime.</p>
+          <p>Secure payment powered by Stripe. No charge today; billing starts after the 3-day trial unless canceled.</p>
         </div>
       </div>
     </div>
