@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Feedbackr - Smart Review Management",
-    description: "Intelligent review routing platform for local businesses",
+    title: "Feedbackr | Review management software for local businesses",
+    description: "Review management software for local businesses to invite honest feedback, respond to customers, and build trust online.",
   },
   icons: {
     icon: [

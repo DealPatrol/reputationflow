@@ -5,8 +5,24 @@ import Link from "next/link"
 import { Star, ArrowRight, ArrowUpRight, ShieldCheck, Share2, BarChart3, Check } from "lucide-react"
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Feedbackr",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: "Review management software that helps local businesses invite honest feedback, respond to customers, and grow their online reputation.",
+    offers: {
+      "@type": "Offer",
+      price: "20",
+      priceCurrency: "USD",
+      description: "3-day free trial, then $20 per month",
+    },
+  }
+
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
@@ -45,17 +61,17 @@ export default function Home() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 text-center">
         <div className="inline-flex items-center gap-2 bg-secondary text-foreground/80 px-3 py-1.5 rounded-full text-sm font-medium mb-8">
           <span className="flex h-2 w-2 rounded-full bg-accent" />
-          <span>Trusted by 500+ local businesses</span>
+          <span>Built for local businesses that value honest feedback</span>
         </div>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-balance leading-[0.95] mb-8">
-          More 5-star reviews.
+          Build trust with
           <br />
-          <span className="text-accent">Fewer public complaints.</span>
+          <span className="text-accent">better customer feedback.</span>
         </h1>
 
         <p className="text-lg sm:text-xl text-foreground/60 max-w-2xl mx-auto text-pretty mb-10 leading-relaxed">
-          Feedbackr routes happy customers to Google, Facebook, and Yelp—while quietly capturing unhappy feedback before it goes public.
+          Feedbackr helps local businesses invite honest reviews, collect private feedback, and respond quickly when a customer needs help.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
@@ -73,17 +89,17 @@ export default function Home() {
             Try the demo
           </Link>
         </div>
-        <p className="text-sm text-foreground/40 mt-6">No credit card required to explore.</p>
+        <p className="text-sm text-foreground/40 mt-6">Try it free for 3 days. Billing starts afterward unless canceled.</p>
       </section>
 
       {/* Hero visual / stat band */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="bg-foreground rounded-3xl p-8 sm:p-12 text-background">
           <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-background/15">
-            <StatBlock value="50K+" label="Reviews collected" company="Across all customers" />
-            <StatBlock value="+1.4★" label="Avg. rating lift" company="In first 90 days" />
-            <StatBlock value="12K" label="Complaints intercepted" company="Kept off public sites" />
-            <StatBlock value="8–12x" label="Typical first-year ROI" company="On a $20/mo plan" />
+            <StatBlock value="1 link" label="For every customer" company="Simple to share anywhere" />
+            <StatBlock value="3 days" label="Free to try" company="Full access included" />
+            <StatBlock value="1 inbox" label="For customer feedback" company="Keep your team aligned" />
+            <StatBlock value="$20/mo" label="After the trial" company="Cancel anytime" />
           </div>
         </div>
       </section>
@@ -97,8 +113,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <FeatureCard
             icon={<ShieldCheck size={22} />}
-            title="Smart review router"
-            description="Five-star customers go straight to Google, Facebook, and Yelp. Unhappy ones land on a private feedback form you control."
+            title="One honest feedback flow"
+            description="Invite every eligible customer to share feedback, offer a public review link, and give your team a private way to follow up."
           />
           <FeatureCard
             icon={<Share2 size={22} />}
@@ -163,7 +179,7 @@ export default function Home() {
         <div className="bg-foreground rounded-3xl p-10 sm:p-16 text-center text-background">
           <h2 className="text-4xl sm:text-5xl font-black tracking-tight mb-5 text-balance">Ready for better reviews?</h2>
           <p className="text-background/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-            Join 500+ businesses collecting more 5-star reviews. Set up in minutes, cancel anytime.
+            Start a better feedback habit in minutes. Try Feedbackr free for 3 days, then continue for $20/month if it fits your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
