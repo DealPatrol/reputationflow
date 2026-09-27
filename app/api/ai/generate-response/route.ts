@@ -1,20 +1,33 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { getCurrentUser } from "@/lib/auth"
 import { generateAIResponse } from "@/lib/groq-ai"
+import { validators } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser(request)
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+
     const { feedback, rating, businessName } = await request.json()
 
     if (!feedback || !rating) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    const context = businessName ? `Business: ${businessName}, Rating: ${rating}/5` : `Rating: ${rating}/5`
+    const numericRating = Number(rating)
+    const ratingValidation = validators.rating(numericRating)
+    if (!ratingValidation.valid) {
+      return NextResponse.json({ error: ratingValidation.error }, { status: 400 })
+    }
+
+    const context = businessName
+      ? `Business: ${businessName}, Rating: ${numericRating}/5`
+      : `Rating: ${numericRating}/5`
     const aiResponse = await generateAIResponse(feedback, context)
 
     return NextResponse.json({
       response: aiResponse.text,
-      sentiment: rating >= 4 ? "positive" : "negative",
+      sentiment: numericRating >= 4 ? "positive" : "negative",
       source: aiResponse.source,
     })
   } catch (error) {

@@ -1,4 +1,5 @@
 import { Resend } from "resend"
+import { sanitize } from "@/lib/validators"
 
 let resend: Resend | null = null
 
@@ -6,7 +7,7 @@ if (process.env.RESEND_API_KEY) {
   resend = new Resend(process.env.RESEND_API_KEY)
 }
 
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "ReputationFlow <notifications@reputationflow.com>"
+const FROM_EMAIL = process.env.EMAIL_FROM || "ReputationFlow <notifications@reputationflow.com>"
 
 export async function sendNegativeFeedbackAlert(
   ownerEmail: string,
@@ -16,12 +17,14 @@ export async function sendNegativeFeedbackAlert(
 ) {
   if (!resend) return
   const stars = "★".repeat(rating) + "☆".repeat(5 - rating)
-  const reviewText = feedbackText ? `<p style="background:#fff3f3;border-left:4px solid #e53e3e;padding:12px 16px;border-radius:4px;font-style:italic;">"${feedbackText}"</p>` : "<p style='color:#718096;'>No written feedback provided.</p>"
+  const reviewText = feedbackText
+    ? `<p style="background:#fff3f3;border-left:4px solid #e53e3e;padding:12px 16px;border-radius:4px;font-style:italic;">"${sanitize.html(feedbackText)}"</p>`
+    : "<p style='color:#718096;'>No written feedback provided.</p>"
 
   await resend.emails.send({
     from: FROM_EMAIL,
     to: ownerEmail,
-    subject: `⚠️ New ${rating}-star review for ${businessName} — respond before it goes public`,
+    subject: `New ${rating}-star customer feedback for ${businessName}`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -79,7 +82,7 @@ export async function sendWelcomeEmail(
             <ol style="color:#4a5568;line-height:2;">
               <li><strong>Share your link</strong> — add it to receipts, emails, and text messages</li>
               <li><strong>Connect your review platforms</strong> — link your Google, Facebook, or Yelp page in <a href="${process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"}/dashboard" style="color:#667eea;">Settings</a></li>
-              <li><strong>Watch your ratings climb</strong> — positive reviews route to Google, negatives stay private</li>
+              <li><strong>Learn from every customer</strong> — public review links and optional private feedback are offered equally</li>
             </ol>
             <div style="margin:32px 0;text-align:center;">
               <a href="${process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"}/dashboard" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;">Go to Dashboard →</a>
