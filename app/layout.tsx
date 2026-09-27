@@ -10,13 +10,13 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "ReputationFlow - Enterprise Review Management",
   description:
-    "Intelligent review gatekeeper that routes positive reviews to public platforms and captures negative feedback privately. Boost your online reputation effortlessly.",
+    "Request honest public reviews and collect optional private feedback in one transparent customer flow.",
   generator: "v0.app",
   keywords: [
     "review management",
     "reputation management",
     "customer feedback",
-    "review gatekeeper",
+    "review requests",
     "online reviews",
     "Google reviews",
     "business reviews",

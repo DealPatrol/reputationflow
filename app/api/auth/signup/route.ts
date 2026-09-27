@@ -1,8 +1,11 @@
+import { randomUUID } from "node:crypto"
 import { type NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import { createSession } from "@/lib/auth"
-import { createBusiness, getBusinessByUserId, createUser, updateBusinessOwnerEmail } from "@/lib/db"
+import { createBusiness, createUser, updateBusinessOwnerEmail } from "@/lib/db"
+import { isDemoMode } from "@/lib/demo"
 import { sendWelcomeEmail } from "@/lib/email"
+import { validators } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +15,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email and password required" }, { status: 400 })
     }
 
-    if (!email.includes("@")) {
+    const normalizedEmail = String(email).trim().toLowerCase()
+    if (!validators.email(normalizedEmail).valid) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
@@ -20,26 +24,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 })
     }
 
-    const userId = email.toLowerCase().replace(/[^a-z0-9]/g, "-")
-
-    // Hash password before storing
-    const passwordHash = await bcrypt.hash(password, 10)
-
-    // Store user credentials
-    await createUser(userId, email.toLowerCase(), passwordHash)
-
-    let business = await getBusinessByUserId(userId)
-
-    if (!business || business.id === 1) {
-      business = await createBusiness(userId, businessName || "My Business")
+    if (isDemoMode()) {
+      return NextResponse.json(
+        { error: "Account creation requires DATABASE_URL. Use the demo account in keyless mode." },
+        { status: 503 },
+      )
     }
 
-    // Persist owner email for notifications
-    await updateBusinessOwnerEmail(userId, email.toLowerCase())
+    const userId = randomUUID()
+    const passwordHash = await bcrypt.hash(password, 10)
+    const createdUser = await createUser(userId, normalizedEmail, passwordHash)
+    if (!createdUser) {
+      return NextResponse.json({ error: "An account with this email already exists" }, { status: 409 })
+    }
+
+    const business = await createBusiness(userId, businessName || "My Business")
+    await updateBusinessOwnerEmail(userId, normalizedEmail)
 
     const user = {
       id: userId,
-      email: email.toLowerCase(),
+      email: normalizedEmail,
       businessId: business.id,
     }
 
@@ -48,7 +52,7 @@ export async function POST(request: NextRequest) {
     // Send welcome email (non-blocking)
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"
     const reviewLink = `${appUrl}/review/${business.id}`
-    sendWelcomeEmail(email.toLowerCase(), businessName || "My Business", reviewLink).catch(() => {})
+    sendWelcomeEmail(normalizedEmail, businessName || "My Business", reviewLink).catch(() => {})
 
     return NextResponse.json({ success: true, user })
   } catch (error) {

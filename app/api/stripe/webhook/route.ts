@@ -1,59 +1,69 @@
-import { stripe } from "@/lib/stripe"
-import { updateSubscription } from "@/lib/db"
-import { headers } from "next/headers"
+import type Stripe from "stripe"
 import { NextResponse } from "next/server"
+import {
+  claimWebhookEvent,
+  releaseWebhookEvent,
+  updateSubscription,
+  updateSubscriptionByStripeId,
+} from "@/lib/db"
+import { getStripeClient } from "@/lib/stripe"
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || ""
+function subscriptionStatus(status: Stripe.Subscription.Status) {
+  if (status === "active" || status === "trialing") return "active"
+  if (status === "past_due" || status === "unpaid") return "past_due"
+  return "cancelled"
+}
 
 export async function POST(request: Request) {
+  let eventId: string | null = null
   try {
-    if (!stripe) {
-      console.log("[v0] Stripe not configured, skipping webhook")
-      return NextResponse.json({ received: true })
+    const stripe = getStripeClient()
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
+    if (!stripe || !endpointSecret) {
+      return NextResponse.json({ error: "Stripe webhook is not configured" }, { status: 503 })
     }
 
     const body = await request.text()
-    const headersList = await headers()
-    const sig = headersList.get("stripe-signature") || ""
+    const signature = request.headers.get("stripe-signature")
+    if (!signature) return NextResponse.json({ error: "Missing signature" }, { status: 400 })
 
-    let event
-
+    let event: Stripe.Event
     try {
-      event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
-    } catch (err: any) {
-      console.error(`[v0] Webhook Error: ${err.message}`)
+      event = stripe.webhooks.constructEvent(body, signature, endpointSecret)
+    } catch {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
     }
 
-    switch (event.type) {
-      case "checkout.session.completed":
-        const session = event.data.object as any
-        const businessId = session.client_reference_id
+    eventId = event.id
+    if (!(await claimWebhookEvent(event.id, event.type))) {
+      return NextResponse.json({ received: true, duplicate: true })
+    }
 
-        if (businessId) {
-          await updateSubscription(businessId, {
-            plan_type: "pro",
-            status: "active",
-            stripe_subscription_id: session.subscription as string,
-          })
-          console.log(`[v0] Subscription created for business ${businessId}`)
-        }
-        break
-
-      case "customer.subscription.updated":
-        const subscription = event.data.object as any
-        console.log(`[v0] Subscription updated: ${subscription.id}`)
-        break
-
-      case "customer.subscription.deleted":
-        const deletedSub = event.data.object as any
-        console.log(`[v0] Subscription cancelled: ${deletedSub.id}`)
-        break
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object
+      const businessId = session.client_reference_id || session.metadata?.businessId
+      const subscriptionId =
+        typeof session.subscription === "string" ? session.subscription : session.subscription?.id
+      if (businessId && subscriptionId) {
+        await updateSubscription(businessId, {
+          plan_type: "pro",
+          status: "active",
+          stripe_subscription_id: subscriptionId,
+        })
+      }
+    } else if (event.type === "customer.subscription.updated") {
+      const subscription = event.data.object
+      await updateSubscriptionByStripeId(subscription.id, {
+        status: subscriptionStatus(subscription.status),
+      })
+    } else if (event.type === "customer.subscription.deleted") {
+      await updateSubscriptionByStripeId(event.data.object.id, { status: "cancelled" })
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
     console.error("[v0] Webhook processing error:", error)
+    if (eventId) await releaseWebhookEvent(eventId)
     return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 })
   }
 }

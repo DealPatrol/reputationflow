@@ -100,32 +100,22 @@ const DEMO_CAMPAIGNS = [
 // Database helper functions with error handling
 
 export async function createUser(id: string, email: string, passwordHash: string) {
-  if (!sql) return null
-  try {
-    const result = await sql!`
-      INSERT INTO users (id, email, password_hash)
-      VALUES (${id}, ${email}, ${passwordHash})
-      ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email
-      RETURNING id, email, created_at
-    ` as any[]
-    return result[0] || null
-  } catch (error) {
-    console.error("[v0] Error creating user:", error)
-    return null
-  }
+  if (!sql) return { id, email }
+  const result = await sql`
+    INSERT INTO users (id, email, password_hash)
+    VALUES (${id}, ${email}, ${passwordHash})
+    ON CONFLICT (email) DO NOTHING
+    RETURNING id, email, created_at
+  `
+  return result[0] || null
 }
 
-export async function getUserById(id: string) {
+export async function getUserByEmail(email: string) {
   if (!sql) return null
-  try {
-    const result = await sql!`
-      SELECT id, email, password_hash FROM users WHERE id = ${id} LIMIT 1
-    ` as any[]
-    return result[0] || null
-  } catch (error) {
-    console.error("[v0] Error fetching user:", error)
-    return null
-  }
+  const result = await sql`
+    SELECT id, email, password_hash FROM users WHERE email = ${email} LIMIT 1
+  `
+  return result[0] || null
 }
 
 export async function updateBusinessOwnerEmail(userId: string, email: string) {
@@ -137,6 +127,17 @@ export async function updateBusinessOwnerEmail(userId: string, email: string) {
   } catch (error) {
     console.error("[v0] Error updating owner email:", error)
   }
+}
+
+export async function updateBusinessStripeCustomer(businessId: string | number, customerId: string) {
+  if (!sql) return null
+  const result = await sql`
+    UPDATE businesses
+    SET stripe_customer_id = ${customerId}, updated_at = CURRENT_TIMESTAMP
+    WHERE id = ${businessId}
+    RETURNING *
+  `
+  return result[0] || null
 }
 
 export async function getBusinessOwnerEmail(businessId: string | number): Promise<{ owner_email: string | null; business_name: string } | null> {
@@ -201,6 +202,14 @@ export async function getBusinessByUserId(userId: string) {
     console.error("[v0] Error in getBusinessByUserId:", error)
     return null
   }
+}
+
+export async function getBusinessById(businessId: string | number) {
+  const hasDb = await checkTablesExist()
+  if (!hasDb) return String(businessId) === "1" ? getBusinessByUserId("demo-user") : null
+
+  const result = await sql!`SELECT * FROM businesses WHERE id = ${businessId} LIMIT 1`
+  return result[0] || null
 }
 
 export async function createBusiness(userId: string, businessName: string) {
@@ -348,7 +357,7 @@ export async function createFeedback(
   data: {
     rating: number
     feedback_text?: string
-    type: "positive" | "negative"
+    type: "positive" | "negative" | "neutral"
     customer_email?: string
   },
 ) {
@@ -486,6 +495,38 @@ export async function updateSubscription(
     console.error("[v0] Error updating subscription:", error)
     throw error
   }
+}
+
+export async function updateSubscriptionByStripeId(
+  stripeSubscriptionId: string,
+  data: { status: string; current_period_end?: Date },
+) {
+  if (!sql) return null
+  const result = await sql`
+    UPDATE subscriptions
+    SET status = ${data.status},
+        current_period_end = COALESCE(${data.current_period_end?.toISOString() || null}, current_period_end),
+        updated_at = CURRENT_TIMESTAMP
+    WHERE stripe_subscription_id = ${stripeSubscriptionId}
+    RETURNING *
+  `
+  return result[0] || null
+}
+
+export async function claimWebhookEvent(eventId: string, eventType: string) {
+  if (!sql) return true
+  const result = await sql`
+    INSERT INTO stripe_webhook_events (event_id, event_type)
+    VALUES (${eventId}, ${eventType})
+    ON CONFLICT (event_id) DO NOTHING
+    RETURNING event_id
+  `
+  return result.length === 1
+}
+
+export async function releaseWebhookEvent(eventId: string) {
+  if (!sql) return
+  await sql`DELETE FROM stripe_webhook_events WHERE event_id = ${eventId}`
 }
 
 export async function getAnalyticsByBusinessId(businessId: string | number, days = 30) {

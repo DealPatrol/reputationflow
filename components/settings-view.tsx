@@ -147,9 +147,9 @@ export const SettingsView = ({ settings, setSettings, onSave, saved }: SettingsV
 
         <div className="space-y-4 pt-4 border-t border-slate-100">
           <div>
-            <h3 className="font-bold text-slate-800 mb-2">Positive Review Destinations</h3>
+            <h3 className="font-bold text-slate-800 mb-2">Public Review Destinations</h3>
             <p className="text-sm text-slate-500 mb-4">
-              Add review platform links. Customers with 4-5 star ratings will be shown buttons to leave reviews on all these platforms.
+              Add review platform links. Every customer will see all configured destinations regardless of rating.
             </p>
 
             <div className="space-y-4">

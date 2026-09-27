@@ -1,83 +1,60 @@
-import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
+import { type NextRequest, NextResponse } from "next/server"
+import { getCurrentUser } from "@/lib/auth"
+import { getBusinessByUserId, updateBusinessStripeCustomer } from "@/lib/db"
+import { getStripeClient, PLANS } from "@/lib/stripe"
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    // Check if Stripe is configured
-    if (!process.env.STRIPE_SECRET_KEY) {
-      return NextResponse.json(
-        { error: "Stripe is not configured. Please add STRIPE_SECRET_KEY to your environment variables." },
-        { status: 503 },
-      )
-    }
+    const user = await getCurrentUser(request)
+    if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
 
-    // Dynamically import Stripe only when needed
-    const Stripe = (await import("stripe")).default
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2025-11-17.clover" as any,
-    })
-
-    const { planType, userId, businessId } = await request.json()
-
+    const { planType } = await request.json()
     if (planType !== "pro") {
       return NextResponse.json({ error: "Invalid plan" }, { status: 400 })
     }
 
-    // Get business
-    const businesses = await (sql as any)`
-      SELECT * FROM businesses WHERE id = ${businessId} LIMIT 1
-    ` as any[]
-
-    if (businesses.length === 0) {
-      return NextResponse.json({ error: "Business not found" }, { status: 404 })
+    const stripe = getStripeClient()
+    const priceId = PLANS.pro.priceId
+    if (!stripe || !priceId) {
+      return NextResponse.json({ error: "Billing is unavailable in demo mode." }, { status: 503 })
     }
 
-    const business = businesses[0]
-
-    // Create or retrieve Stripe customer
+    const business = await getBusinessByUserId(user.id)
+    if (!business || business.id !== user.businessId) {
+      return NextResponse.json({ error: "Business not found" }, { status: 404 })
+    }
     let customerId = business.stripe_customer_id
-
-    const priceId = process.env.STRIPE_PRICE_ID_PRO || "price_1TgaEWLtoPzYBT7ApjKr2V5T"
 
     if (!customerId) {
       const customer = await stripe.customers.create({
-        email: `user-${userId}@reputationflow.app`,
+        email: user.email,
         metadata: {
-          userId: userId,
-          businessId: business.id,
+          userId: user.id,
+          businessId: String(business.id),
         },
       })
       customerId = customer.id
-
-      await (sql as any)`
-        UPDATE businesses
-        SET stripe_customer_id = ${customerId}
-        WHERE id = ${business.id}
-      `
+      await updateBusinessStripeCustomer(business.id, customerId)
     }
 
-    // Create checkout session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       mode: "subscription",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
+      line_items: [{ price: priceId, quantity: 1 }],
+      client_reference_id: String(business.id),
       success_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/dashboard?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/dashboard?canceled=true`,
       metadata: {
-        userId: userId,
-        businessId: business.id,
+        userId: user.id,
+        businessId: String(business.id),
       },
+      subscription_data: { metadata: { businessId: String(business.id) } },
+      integration_identifier: "reputationflow_qxjkmnpr",
     })
 
     return NextResponse.json({ sessionId: session.id, url: session.url })
-  } catch (error: any) {
+  } catch (error) {
     console.error("[v0] Stripe checkout error:", error)
-    return NextResponse.json({ error: error.message || "Failed to create checkout session" }, { status: 500 })
+    return NextResponse.json({ error: "Failed to create checkout session" }, { status: 500 })
   }
 }

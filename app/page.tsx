@@ -53,7 +53,7 @@ export default function Home() {
           </h1>
 
           <p className="text-xl text-foreground/70 mb-12 max-w-2xl mx-auto text-pretty animate-in fade-in duration-700 delay-200 font-medium">
-            Get more 5-star reviews while handling negative feedback privately. It's like having a reputation bouncer that actually works.
+            Invite every customer to leave an honest public review, with optional private feedback available alongside it.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in fade-in duration-700 delay-300">
@@ -81,8 +81,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <FeatureCard
             icon={<Zap size={28} />}
-            title="Review Router"
-            description="Happy customers → Google/Facebook/Yelp. Unhappy customers → private feedback form."
+            title="Fair Review Requests"
+            description="Every customer sees your public review links and an optional private feedback form."
             gradient="from-purple-600 to-pink-600"
           />
           <FeatureCard
@@ -123,7 +123,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="text-5xl font-black bg-gradient-to-r from-purple-600 to-red-500 text-gradient mb-2">12K</div>
-              <div className="text-foreground/70 font-semibold">Negative Reviews Prevented</div>
+              <div className="text-foreground/70 font-semibold">Feedback Responses</div>
             </div>
           </div>
 

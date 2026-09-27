@@ -1,21 +1,13 @@
 import Stripe from "stripe"
 
-let stripe: Stripe | null = null
+let stripeClient: Stripe | null = null
 
-try {
-  if (process.env.STRIPE_SECRET_KEY) {
-    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: "2025-11-17.clover" as any,
-      typescript: true,
-    })
-  } else {
-    console.log("[v0] Stripe not configured. Running in demo mode. Add STRIPE_SECRET_KEY to enable payments.")
-  }
-} catch (error) {
-  console.log("[v0] Failed to initialize Stripe:", error)
+export function getStripeClient() {
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) return null
+  stripeClient ??= new Stripe(key, { typescript: true })
+  return stripeClient
 }
-
-export { stripe }
 
 export const PLANS = {
   free: {
@@ -32,7 +24,7 @@ export const PLANS = {
   pro: {
     name: "Professional",
     price: 2000, // $20 in cents
-    priceId: process.env.STRIPE_PRICE_ID_PRO || "price_1TgaEWLtoPzYBT7ApjKr2V5T",
+    priceId: process.env.STRIPE_PRICE_ID_PRO || null,
     features: [
       "Unlimited review links",
       "Unlimited feedback history",

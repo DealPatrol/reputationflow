@@ -26,13 +26,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
 
   const handleRate = (score: number) => {
     setRating(score)
-    setTimeout(() => {
-      if (score >= 4) {
-        setStep("positive")
-      } else {
-        setStep("negative")
-      }
-    }, 300)
+    setTimeout(() => setStep("share"), 300)
   }
 
   const handleNegativeRedirect = () => {
@@ -43,7 +37,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     setStep("done")
   }
 
-  const submitNegative = () => {
+  const submitPrivate = () => {
     const validation = validators.feedback(feedbackText)
     if (!validation.valid) {
       setError(validation.error || "")
@@ -51,7 +45,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     }
 
     const sanitizedFeedback = sanitize.html(feedbackText)
-    onComplete({ rating, feedback: sanitizedFeedback, type: "negative" })
+    onComplete({ rating, feedback: sanitizedFeedback, type: "private" })
     setStep("done")
   }
 
@@ -66,7 +60,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
       }
     }
 
-    onComplete({ rating, feedback: `Redirected to ${platform}`, type: "positive" })
+    onComplete({ rating, feedback: `Opened ${platform}`, type: "public_review_link" })
     if (url) window.open(url, "_blank", "noopener,noreferrer")
     setStep("done")
   }
@@ -123,11 +117,13 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
           </div>
         )}
 
-        {step === "positive" && (
+        {step === "share" && (
           <div className="space-y-6 animate-in slide-in-from-right">
             <div className="text-center">
-              <h3 className="font-black text-2xl text-foreground">That's fire!</h3>
-              <p className="text-foreground/60 mt-2 font-medium">Drop a review wherever:</p>
+              <h3 className="font-black text-2xl text-foreground">Thanks for rating us</h3>
+              <p className="text-foreground/60 mt-2 font-medium">
+                Share an honest public review, leave private feedback, or do both.
+              </p>
             </div>
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {allGoogleLinks.map((url, idx) => (
@@ -173,26 +169,22 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
               ))}
 
               {allGoogleLinks.length === 0 && allFacebookLinks.length === 0 && allYelpLinks.length === 0 && (
-                <p className="text-red-500 text-center text-sm font-bold">No review links configured!</p>
+                <p className="text-foreground/60 text-center text-sm">Public review links have not been configured yet.</p>
               )}
             </div>
-          </div>
-        )}
-
-        {step === "negative" && (
-          <div className="space-y-4 animate-in slide-in-from-right">
-            <h3 className="font-black text-xl text-foreground text-center">We'd love to fix it</h3>
+            <div className="border-t border-border pt-5 space-y-4">
+              <h3 className="font-black text-lg text-foreground text-center">Optional private feedback</h3>
             <p className="text-sm text-foreground/70 text-center font-medium">
               {links.negativeLink
-                ? "Help us improve by sharing your thoughts."
-                : "Tell us what happened so we can do better."}
+                  ? "You can also send comments directly to the business."
+                  : "Tell the business what went well or what it could improve."}
             </p>
             {links.negativeLink ? (
               <button
                 onClick={handleNegativeRedirect}
                 className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-xl font-bold shadow-lg shadow-orange-500/30 hover:shadow-lg transition-all"
               >
-                Share Your Feedback
+                  Send Private Feedback
               </button>
             ) : (
               <>
@@ -202,7 +194,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
                       error ? "border-red-400" : "border-border"
                     }`}
                     rows={4}
-                    placeholder="What could we do better? (be real with us)"
+                      placeholder="Optional private feedback"
                     value={feedbackText}
                     onChange={(e) => {
                       setFeedbackText(e.target.value)
@@ -219,14 +211,24 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
                   </div>
                 </div>
                 <button
-                  onClick={submitNegative}
+                    onClick={submitPrivate}
                   disabled={!feedbackText.trim()}
                   className="w-full bg-gradient-to-r from-purple-600 to-red-500 text-white py-4 rounded-xl font-bold shadow-lg shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
-                  Send It
+                    Send Private Feedback
                 </button>
               </>
             )}
+            </div>
+            <button
+              onClick={() => {
+                onComplete({ rating, feedback: "", type: "rating" })
+                setStep("done")
+              }}
+              className="w-full text-sm font-bold text-foreground/60 hover:text-foreground py-2"
+            >
+              Done
+            </button>
           </div>
         )}
       </div>

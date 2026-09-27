@@ -31,10 +31,10 @@ All required environment variables are already configured in your Vercel project
 
 ## 3. Initialize Database
 
-Visit `/admin/init` after deployment or run:
+From a trusted environment with `DATABASE_URL` configured, run:
 
 \`\`\`bash
-npm run db:init
+npm run migrate
 \`\`\`
 
 This creates all required tables:
