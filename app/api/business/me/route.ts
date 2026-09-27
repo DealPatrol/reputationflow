@@ -1,53 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getBusinessByUserId, createBusiness } from "@/lib/db"
+import { getCurrentUser } from "@/lib/auth"
+import { getBusinessByUserId } from "@/lib/db"
 
 export async function GET(request: NextRequest) {
   try {
-    const userId = request.headers.get("x-user-id") || `user-${Date.now()}`
+    const user = await getCurrentUser(request)
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    let business = await getBusinessByUserId(userId)
-
-    if (!business || !business.id) {
-      try {
-        const newBusiness = await createBusiness(userId, "My Business")
-        business = {
-          ...newBusiness,
-          plan_type: "free",
-          subscription_status: "active",
-          is_premium: false,
-        }
-      } catch (error) {
-        // If table doesn't exist, return mock data
-        console.error("[v0] Could not create business, using mock:", error)
-        business = {
-          id: 1,
-          user_id: userId,
-          business_name: "My Business",
-          google_link: "",
-          facebook_link: "",
-          yelp_link: "",
-          plan_type: "free",
-          subscription_status: "active",
-          is_premium: false,
-        }
-      }
-    }
-
+    const business = await getBusinessByUserId(user.id)
+    if (!business) return NextResponse.json({ error: "Business not found" }, { status: 404 })
     return NextResponse.json({ business })
-  } catch (error: any) {
+  } catch (error) {
     console.error("[v0] Error in /api/business/me:", error)
-    return NextResponse.json({
-      business: {
-        id: 1,
-        user_id: "demo-user",
-        business_name: "My Business",
-        google_link: "",
-        facebook_link: "",
-        yelp_link: "",
-        plan_type: "free",
-        subscription_status: "active",
-        is_premium: false,
-      },
-    })
+    return NextResponse.json({ error: "Failed to load business" }, { status: 500 })
   }
 }

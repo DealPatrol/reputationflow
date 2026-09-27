@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 const mocks = vi.hoisted(() => ({
   createFeedback: vi.fn(),
@@ -17,6 +17,10 @@ vi.mock("@/lib/email", () => ({ sendNegativeFeedbackAlert: mocks.sendNegativeFee
 import { POST } from "@/app/api/feedback/public/route"
 
 describe("POST /api/feedback/public", () => {
+  beforeEach(() => {
+    mocks.getBusinessOwnerEmail.mockResolvedValue(null)
+  })
+
   it("validates and persists private feedback without trusting a client-supplied type", async () => {
     mocks.getBusinessById.mockResolvedValue({ id: 7, business_name: "Example Co" })
     mocks.createFeedback.mockResolvedValue({ id: 99, rating: 2, type: "negative" })

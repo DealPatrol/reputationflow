@@ -9,7 +9,9 @@ export async function POST(request: NextRequest) {
     if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
 
     const stripe = getStripeClient()
-    if (!stripe) return NextResponse.json({ error: "Billing is unavailable in demo mode." }, { status: 503 })
+    if (!stripe || !process.env.DATABASE_URL) {
+      return NextResponse.json({ error: "Billing is unavailable in demo mode." }, { status: 503 })
+    }
 
     const business = await getBusinessByUserId(user.id)
     if (!business || business.id !== user.businessId || !business.stripe_customer_id) {

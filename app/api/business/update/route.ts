@@ -1,13 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { getCurrentUser } from "@/lib/auth"
 import { updateBusiness } from "@/lib/db"
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
+    const user = await getCurrentUser(req)
+    if (!user?.businessId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    if (!body.businessId) {
-      return NextResponse.json({ error: "Business ID required" }, { status: 400 })
-    }
+    const body = await req.json()
 
     const updates: any = {}
     if (body.business_name) updates.business_name = body.business_name.trim()
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     if (body.facebook_link !== undefined) updates.facebook_link = body.facebook_link.trim()
     if (body.yelp_link !== undefined) updates.yelp_link = body.yelp_link.trim()
 
-    const updated = await updateBusiness(body.businessId, updates)
+    const updated = await updateBusiness(user.businessId, updates)
 
     if (!updated) {
       return NextResponse.json({ error: "No updates provided" }, { status: 400 })

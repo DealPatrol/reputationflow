@@ -47,14 +47,10 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    const businessId = searchParams.get("businessId")
+    const user = await getCurrentUser(request)
+    if (!user?.businessId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    if (!businessId) {
-      return NextResponse.json({ error: "Business ID required" }, { status: 400 })
-    }
-
-    const feedbacks = await getFeedbackByBusinessId(businessId)
+    const feedbacks = await getFeedbackByBusinessId(user.businessId)
 
     const transformedFeedbacks = (feedbacks as any[]).map((f: any) => ({
       id: f.id,

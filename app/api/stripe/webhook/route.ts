@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   try {
     const stripe = getStripeClient()
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
-    if (!stripe || !endpointSecret) {
+    if (!stripe || !endpointSecret || !process.env.DATABASE_URL) {
       return NextResponse.json({ error: "Stripe webhook is not configured" }, { status: 503 })
     }
 

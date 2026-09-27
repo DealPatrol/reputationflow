@@ -107,7 +107,7 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
           <div className="mb-6">
             <h3 className="text-2xl font-bold mb-2">Pro</h3>
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-4xl font-bold">$49</span>
+              <span className="text-4xl font-bold">${PLANS.pro.price / 100}</span>
               <span className="text-indigo-200">/month</span>
             </div>
             <p className="text-indigo-100">Everything you need to scale</p>

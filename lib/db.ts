@@ -1,6 +1,7 @@
 import { neon } from "@neondatabase/serverless"
+import type { NeonQueryFunction } from "@neondatabase/serverless"
 
-let sql: ReturnType<typeof neon> | null = null
+let sql: NeonQueryFunction<false, false> | null = null
 let tablesChecked = false
 let tablesExist = false
 
@@ -255,14 +256,7 @@ export async function createBusiness(userId: string, businessName: string) {
     return result[0]
   } catch (error) {
     console.error("[v0] Error creating business:", error)
-    return {
-      id: 1,
-      user_id: userId,
-      business_name: businessName,
-      plan_type: "free",
-      subscription_status: "active",
-      is_premium: false,
-    }
+    throw error
   }
 }
 
@@ -285,45 +279,23 @@ export async function updateBusiness(
   }
 
   try {
-    const setParts: string[] = []
+    const hasUpdates = Object.values(data).some((value) => value !== undefined)
+    if (!hasUpdates) return null
 
-    if (data.business_name !== undefined) {
-      setParts.push(`business_name = '${data.business_name.replace(/'/g, "''")}'`)
-    }
-    if (data.google_link !== undefined) {
-      setParts.push(`google_link = ${data.google_link ? `'${data.google_link.replace(/'/g, "''")}'` : "NULL"}`)
-    }
-    if (data.facebook_link !== undefined) {
-      setParts.push(`facebook_link = ${data.facebook_link ? `'${data.facebook_link.replace(/'/g, "''")}'` : "NULL"}`)
-    }
-    if (data.yelp_link !== undefined) {
-      setParts.push(`yelp_link = ${data.yelp_link ? `'${data.yelp_link.replace(/'/g, "''")}'` : "NULL"}`)
-    }
-    if (data.google_links_2 !== undefined) {
-      setParts.push(`google_links_2 = ARRAY[${data.google_links_2.map((l) => `'${l.replace(/'/g, "''")}'`).join(",")}]`)
-    }
-    if (data.facebook_links_2 !== undefined) {
-      setParts.push(
-        `facebook_links_2 = ARRAY[${data.facebook_links_2.map((l) => `'${l.replace(/'/g, "''")}'`).join(",")}]`
-      )
-    }
-    if (data.yelp_links_2 !== undefined) {
-      setParts.push(`yelp_links_2 = ARRAY[${data.yelp_links_2.map((l) => `'${l.replace(/'/g, "''")}'`).join(",")}]`)
-    }
-    if (data.negative_review_link !== undefined) {
-      setParts.push(
-        `negative_review_link = ${data.negative_review_link ? `'${data.negative_review_link.replace(/'/g, "''")}'` : "NULL"}`
-      )
-    }
-
-    if (setParts.length === 0) return null
-
-    const result = await sql!(`
+    const result = await sql`
       UPDATE businesses
-      SET ${setParts.join(", ")}, updated_at = CURRENT_TIMESTAMP
+      SET business_name = CASE WHEN ${data.business_name !== undefined} THEN ${data.business_name || ""} ELSE business_name END,
+          google_link = CASE WHEN ${data.google_link !== undefined} THEN ${data.google_link || null} ELSE google_link END,
+          facebook_link = CASE WHEN ${data.facebook_link !== undefined} THEN ${data.facebook_link || null} ELSE facebook_link END,
+          yelp_link = CASE WHEN ${data.yelp_link !== undefined} THEN ${data.yelp_link || null} ELSE yelp_link END,
+          google_links_2 = CASE WHEN ${data.google_links_2 !== undefined} THEN ${data.google_links_2 || []} ELSE google_links_2 END,
+          facebook_links_2 = CASE WHEN ${data.facebook_links_2 !== undefined} THEN ${data.facebook_links_2 || []} ELSE facebook_links_2 END,
+          yelp_links_2 = CASE WHEN ${data.yelp_links_2 !== undefined} THEN ${data.yelp_links_2 || []} ELSE yelp_links_2 END,
+          negative_review_link = CASE WHEN ${data.negative_review_link !== undefined} THEN ${data.negative_review_link || null} ELSE negative_review_link END,
+          updated_at = CURRENT_TIMESTAMP
       WHERE id = ${businessId}
       RETURNING *
-    `)
+    `
 
     return result[0]
   } catch (error) {
@@ -474,21 +446,16 @@ export async function updateSubscription(
   }
 
   try {
-    const setParts: string[] = []
-
-    if (data.plan_type) setParts.push(`plan_type = '${data.plan_type}'`)
-    if (data.status) setParts.push(`status = '${data.status}'`)
-    if (data.stripe_subscription_id) setParts.push(`stripe_subscription_id = '${data.stripe_subscription_id}'`)
-    if (data.current_period_end) setParts.push(`current_period_end = '${data.current_period_end.toISOString()}'`)
-
-    if (setParts.length === 0) return null
-
-    const result = await sql!(`
+    const result = await sql`
       UPDATE subscriptions
-      SET ${setParts.join(", ")}
+      SET plan_type = COALESCE(${data.plan_type || null}, plan_type),
+          status = COALESCE(${data.status || null}, status),
+          stripe_subscription_id = COALESCE(${data.stripe_subscription_id || null}, stripe_subscription_id),
+          current_period_end = COALESCE(${data.current_period_end?.toISOString() || null}, current_period_end),
+          updated_at = CURRENT_TIMESTAMP
       WHERE business_id = ${businessId}
       RETURNING *
-    `)
+    `
 
     return result[0]
   } catch (error) {
@@ -610,21 +577,15 @@ export async function updateFollowUpSettings(
   }
 
   try {
-    const setParts: string[] = []
-
-    if (data.enabled !== undefined) setParts.push(`enabled = ${data.enabled}`)
-    if (data.intervals) setParts.push(`intervals = '${data.intervals}'`)
-    if (data.max_followups !== undefined) setParts.push(`max_followups = ${data.max_followups}`)
-    if (data.stop_on_response !== undefined) setParts.push(`stop_on_response = ${data.stop_on_response}`)
-
-    if (setParts.length === 0) return null
-
-    const result = await sql!(`
+    const result = await sql`
       UPDATE follow_up_settings
-      SET ${setParts.join(", ")}
+      SET enabled = CASE WHEN ${data.enabled !== undefined} THEN ${data.enabled ?? false} ELSE enabled END,
+          intervals = COALESCE(${data.intervals || null}, intervals),
+          max_followups = CASE WHEN ${data.max_followups !== undefined} THEN ${data.max_followups ?? 0} ELSE max_followups END,
+          stop_on_response = CASE WHEN ${data.stop_on_response !== undefined} THEN ${data.stop_on_response ?? false} ELSE stop_on_response END
       WHERE business_id = ${businessId}
       RETURNING *
-    `)
+    `
 
     return result[0]
   } catch (error) {

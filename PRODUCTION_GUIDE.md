@@ -57,7 +57,7 @@ DATABASE_URL="postgresql://..."
 NEXT_PUBLIC_APP_URL="https://your-domain.com"
 
 # Stripe (Optional - for payments)
-STRIPE_SECRET_KEY="sk_live_..."
+STRIPE_SECRET_KEY="rk_live_replace_me"
 STRIPE_PUBLISHABLE_KEY="pk_live_..."
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_live_..."
 STRIPE_WEBHOOK_SECRET="whsec_..."

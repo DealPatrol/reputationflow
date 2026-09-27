@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     const stripe = getStripeClient()
     const priceId = PLANS.pro.priceId
-    if (!stripe || !priceId) {
+    if (!stripe || !priceId || !process.env.DATABASE_URL) {
       return NextResponse.json({ error: "Billing is unavailable in demo mode." }, { status: 503 })
     }
 

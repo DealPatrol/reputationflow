@@ -22,6 +22,7 @@ import { POST } from "@/app/api/stripe/webhook/route"
 
 describe("POST /api/stripe/webhook", () => {
   beforeEach(() => {
+    process.env.DATABASE_URL = "postgresql://test"
     process.env.STRIPE_WEBHOOK_SECRET = "whsec_test"
   })
 

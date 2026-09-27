@@ -19,7 +19,8 @@ interface SessionPayload extends User {
 
 function getSessionSecret() {
   const secret = process.env.AUTH_SECRET
-  if (secret) return secret
+  if (secret && secret.length >= 32) return secret
+  if (secret) throw new Error("AUTH_SECRET must be at least 32 characters")
   if (!process.env.DATABASE_URL) return DEMO_SESSION_SECRET
   throw new Error("AUTH_SECRET is required when DATABASE_URL is configured")
 }

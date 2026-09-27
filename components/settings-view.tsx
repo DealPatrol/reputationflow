@@ -20,7 +20,7 @@ export const SettingsView = ({ settings, setSettings, onSave, saved }: SettingsV
   const [additionalYelpLinks, setAdditionalYelpLinks] = useState<string[]>(settings.yelpLinks2 || [])
 
   const validateField = (field: string, value: string) => {
-    let result = { valid: true, error: "" }
+    let result: { valid: boolean; error?: string } = { valid: true }
 
     switch (field) {
       case "businessName":
