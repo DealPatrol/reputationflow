@@ -8,7 +8,7 @@ All notable changes to ReputationFlow will be documented in this file.
 
 #### Features
 
-- Smart review gatekeeper (filter negative feedback, promote positive reviews)
+- Transparent review requests with public links and optional private feedback for every customer
 - Multi-platform review routing (Google, Facebook, Yelp)
 - Email campaign management via Resend
 - SMS campaign management via Twilio

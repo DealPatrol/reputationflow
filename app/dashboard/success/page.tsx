@@ -50,8 +50,8 @@ export default function SuccessPage() {
             <h3 className="text-lg font-black mb-6 text-center">Your Next Steps</h3>
             <div className="space-y-4">
               <Step number={1} title="Share Your Review Link" description="Send to customers via email, SMS, QR code, or social media" />
-              <Step number={2} title="Watch Positive Reviews Flow In" description="Happy customers go directly to Google, Facebook, or Yelp" />
-              <Step number={3} title="Improve from Private Feedback" description="Unhappy customers share feedback privately for you to fix" />
+              <Step number={2} title="Invite Honest Public Reviews" description="Every customer can choose Google, Facebook, or Yelp" />
+              <Step number={3} title="Learn from Private Feedback" description="Customers can also share optional comments directly with you" />
               <Step number={4} title="See Your Rating Climb" description="Track everything in your dashboard and celebrate the wins" />
             </div>
           </div>

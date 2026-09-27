@@ -9,18 +9,19 @@ export default function DemoPage() {
   const [step, setStep] = useState(0)
 
   useEffect(() => {
-    const demoUser = {
-      id: "demo-" + Date.now(),
-      email: "demo@reputationflow.app",
-      name: "Demo User",
-    }
-
-    localStorage.setItem("user", JSON.stringify(demoUser))
-
-    // Animated loading sequence
     const timer1 = setTimeout(() => setStep(1), 800)
     const timer2 = setTimeout(() => setStep(2), 1600)
-    const timer3 = setTimeout(() => router.push("/dashboard"), 2400)
+    const timer3 = setTimeout(async () => {
+      const response = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: "demo@reputationflow.local",
+          password: "demo-reputationflow",
+        }),
+      })
+      router.push(response.ok ? "/dashboard" : "/auth/signin")
+    }, 2400)
 
     return () => {
       clearTimeout(timer1)

@@ -42,7 +42,7 @@ The new PostgreSQL schema provides:
 - Indexed queries for fast lookups
 - JSONB support for flexible data
 
-See `scripts/initialize-production.sql` for the full schema.
+See `scripts/migrate.sql` for the full idempotent schema.
 
 ## Environment Variables
 

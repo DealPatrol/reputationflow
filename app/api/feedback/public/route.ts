@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server"
-import { sql } from "@/lib/db"
-import { validators, sanitize } from "@/lib/validators"
+import { createFeedback, getBusinessById, getBusinessOwnerEmail } from "@/lib/db"
+import { sendNegativeFeedbackAlert } from "@/lib/email"
+import { sanitize, validators } from "@/lib/validators"
 
 export async function POST(request: Request) {
   try {
-    const { businessId, rating, feedback_text, type } = await request.json()
+    const { businessId, rating, feedback_text, customer_email } = await request.json()
 
-    if (!businessId || !rating) {
+    if (!businessId || rating === undefined) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    const ratingValidation = validators.rating(rating)
+    const numericRating = Number(rating)
+    const ratingValidation = validators.rating(numericRating)
     if (!ratingValidation.valid) {
       return NextResponse.json({ error: ratingValidation.error }, { status: 400 })
     }
@@ -22,53 +24,38 @@ export async function POST(request: Request) {
       }
     }
 
-    try {
-      const businesses = await sql`
-        SELECT id FROM businesses WHERE id = ${businessId} LIMIT 1
-      `
-
-      if (businesses.length === 0) {
-        return NextResponse.json({ error: "Business not found" }, { status: 404 })
-      }
-
-      const sanitizedText = feedback_text ? sanitize.html(feedback_text) : null
-      const result = await sql`
-        INSERT INTO feedback (
-          business_id,
-          rating,
-          feedback_text,
-          type,
-          created_at
-        ) VALUES (
-          ${businessId},
-          ${rating},
-          ${sanitizedText},
-          ${type || "neutral"},
-          NOW()
-        )
-        RETURNING *
-      `
-
-      return NextResponse.json({
-        success: true,
-        feedback: result[0],
-      })
-    } catch (dbError) {
-      console.error("[v0] Database error in public feedback:", dbError)
-      // Return success even if database fails (for demo purposes)
-      return NextResponse.json({
-        success: true,
-        feedback: {
-          id: Date.now(),
-          business_id: businessId,
-          rating,
-          feedback_text,
-          type: type || "neutral",
-          created_at: new Date().toISOString(),
-        },
-      })
+    if (customer_email && !validators.email(customer_email).valid) {
+      return NextResponse.json({ error: "Invalid customer email" }, { status: 400 })
     }
-  } catch (error: any) {
+
+    const business = await getBusinessById(businessId)
+    if (!business) return NextResponse.json({ error: "Business not found" }, { status: 404 })
+
+    const feedbackType = numericRating >= 4 ? "positive" : numericRating <= 2 ? "negative" : "neutral"
+    const feedback = await createFeedback(businessId, {
+      rating: numericRating,
+      feedback_text: feedback_text ? sanitize.text(feedback_text) : undefined,
+      type: feedbackType,
+      customer_email,
+    })
+
+    if (numericRating <= 3 && feedback_text) {
+      getBusinessOwnerEmail(businessId)
+        .then((owner) => {
+          if (owner?.owner_email) {
+            return sendNegativeFeedbackAlert(
+              owner.owner_email,
+              owner.business_name,
+              numericRating,
+              feedback_text,
+            )
+          }
+        })
+        .catch(() => {})
+    }
+
+    return NextResponse.json({ success: true, feedback })
+  } catch (error) {
     console.error("[v0] Public feedback submission error:", error)
     return NextResponse.json({ error: "Failed to submit feedback" }, { status: 500 })
   }

@@ -57,7 +57,7 @@ Click "Deploy" and wait for build to complete.
 
 ### Step 5: Initialize Database
 
-1. Visit `https://your-domain.vercel.app/admin/init`
+1. Run `npm run migrate` from a trusted environment with `DATABASE_URL` configured.
 2. Click "Initialize Database"
 3. Verify all tables created successfully
 

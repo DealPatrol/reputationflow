@@ -84,6 +84,14 @@ export const validators = {
     }
     return { valid: true }
   },
+
+  rating: (value: unknown): { valid: boolean; error?: string } => {
+    const n = Number(value)
+    if (!Number.isInteger(n) || n < 1 || n > 5) {
+      return { valid: false, error: "Rating must be a whole number between 1 and 5" }
+    }
+    return { valid: true }
+  },
 }
 
 // Sanitization utilities

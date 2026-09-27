@@ -3,7 +3,12 @@
 // Inspired by react-hot-toast library
 import * as React from "react"
 
-import type { ToastType as ToasterToast } from "@/lib/use-toast"
+import type { Toast as BaseToast } from "@/lib/use-toast"
+
+type ToasterToast = BaseToast & {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
@@ -112,6 +117,10 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
       }
+    default: {
+      const exhaustive: never = action
+      return exhaustive
+    }
   }
 }
 

@@ -19,8 +19,8 @@ const steps = [
   },
   {
     number: 3,
-    title: "We Handle the Routing",
-    description: "Happy customers go to reviews. Unhappy ones give private feedback",
+    title: "Offer Both Options",
+    description: "Every customer sees public review links and optional private feedback",
     icon: <Zap size={32} />,
   },
   {
@@ -77,7 +77,7 @@ export default function OnboardingPage() {
             </div>
           </div>
           <h1 className="text-5xl font-black mb-4">Let's Get You Set Up</h1>
-          <p className="text-xl text-foreground/70 font-medium">In just 4 steps, you'll be collecting 5-star reviews</p>
+            <p className="text-xl text-foreground/70 font-medium">In just 4 steps, you'll be collecting honest reviews</p>
         </div>
 
         {/* Progress Bar */}
@@ -172,12 +172,12 @@ export default function OnboardingPage() {
             {currentStep === 3 && (
               <div className="space-y-4">
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
-                  <h4 className="font-bold text-green-700 mb-2">Customers Rate 4-5 Stars</h4>
-                  <p className="text-sm text-green-600">We show them buttons to leave reviews on your linked platforms</p>
+                  <h4 className="font-bold text-green-700 mb-2">Public Review Links for Everyone</h4>
+                  <p className="text-sm text-green-600">All customers can open every review platform you configure</p>
                 </div>
                 <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200">
-                  <h4 className="font-bold text-orange-700 mb-2">Customers Rate 1-3 Stars</h4>
-                  <p className="text-sm text-orange-600">We privately capture their feedback. No bad reviews on Google</p>
+                  <h4 className="font-bold text-orange-700 mb-2">Optional Private Feedback</h4>
+                  <p className="text-sm text-orange-600">Customers may also send direct comments without losing access to public links</p>
                 </div>
               </div>
             )}

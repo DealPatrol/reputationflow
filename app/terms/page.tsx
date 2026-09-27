@@ -47,7 +47,7 @@ export default function TermsPage() {
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Collect and manage customer feedback</li>
                 <li>Route positive reviews to public platforms</li>
-                <li>Capture negative feedback privately</li>
+                <li>Offer optional private feedback alongside public review links</li>
                 <li>Send automated review requests via email and SMS</li>
                 <li>Monitor online reviews across multiple platforms</li>
                 <li>Generate AI-powered responses to customer feedback</li>

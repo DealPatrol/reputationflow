@@ -28,12 +28,12 @@ Run the SQL script to create all required tables:
 
 ```bash
 # Navigate to Neon dashboard
-# Execute: scripts/initialize-production.sql
+# Execute: npm run migrate
 ```
 
 Or use the admin UI:
 ```
-https://your-app.vercel.app/admin/init
+Run `npm run migrate` from a trusted environment with `DATABASE_URL` configured.
 ```
 
 ### 2. Database Schema
@@ -57,7 +57,7 @@ DATABASE_URL="postgresql://..."
 NEXT_PUBLIC_APP_URL="https://your-domain.com"
 
 # Stripe (Optional - for payments)
-STRIPE_SECRET_KEY="sk_live_..."
+STRIPE_SECRET_KEY="rk_live_replace_me"
 STRIPE_PUBLISHABLE_KEY="pk_live_..."
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_live_..."
 STRIPE_WEBHOOK_SECRET="whsec_..."
@@ -138,7 +138,7 @@ Update \`lib/integrations/resend.ts\` to use your preferred email service.
 - ✅ User authentication (email/password with secure cookies)
 - ✅ Business profile management
 - ✅ Review collection links
-- ✅ Feedback gatekeeper (positive → platforms, negative → private)
+- ✅ Compliant feedback flow (public review links plus optional private feedback for every customer)
 - ✅ Analytics dashboard
 - ✅ Data export (CSV)
 
