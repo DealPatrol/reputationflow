@@ -8,12 +8,21 @@ const bannedPhrases = [
   "8-12x",
   "12K",
   "$300+",
+  "$3,400",
   "500+",
   "Proven ROI",
   "Reviews Collected",
   "Extra Revenue",
   "Active Businesses",
   "The Math Is Simple",
+  "sends happy customers",
+  "happy customers to Google",
+  "frustrated customers",
+  "private form instead",
+  "No more negative reviews",
+  "kept private while positive",
+  "smart routing",
+  "1-3 star",
 ]
 
 function collectSourceFiles(directory: string): string[] {
@@ -31,8 +40,9 @@ describe("marketing copy", () => {
   it("does not publish unverifiable stats, testimonials, or customer counts", () => {
     const files = [
       ...collectSourceFiles(join(process.cwd(), "app")),
-      ...collectSourceFiles(join(process.cwd(), "components/marketing")),
+      ...collectSourceFiles(join(process.cwd(), "components")),
       join(process.cwd(), "lib/marketing-content.ts"),
+      join(process.cwd(), "lib/email.ts"),
     ]
     const hits = files.flatMap((file) => {
       const source = readFileSync(file, "utf8")

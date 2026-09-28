@@ -1,15 +1,49 @@
 "use client"
 
 import { useEffect, useState, type FormEvent } from "react"
-import Link from "next/link"
 import { CheckCircle } from "lucide-react"
+import type { PublicBusiness } from "@/lib/public-business"
 
 interface NegativeFeedbackClientProps {
   businessId: string
 }
 
+function publicReviewLinks(business: PublicBusiness | null) {
+  if (!business) return []
+  return [
+    ["Google", business.google_link],
+    ...business.google_links_2.map((url, index) => [`Google (${index + 2})`, url] as const),
+    ["Facebook", business.facebook_link],
+    ...business.facebook_links_2.map((url, index) => [`Facebook (${index + 2})`, url] as const),
+    ["Yelp", business.yelp_link],
+    ...business.yelp_links_2.map((url, index) => [`Yelp (${index + 2})`, url] as const),
+  ].filter((entry): entry is [string, string] => entry[1].trim().length > 0)
+}
+
+function PublicReviewLinks({ business }: { business: PublicBusiness | null }) {
+  const links = publicReviewLinks(business)
+  if (links.length === 0) return null
+  return (
+    <div className="mt-4 space-y-2">
+      <p className="text-sm font-medium text-slate-950">Public review links</p>
+      {links.map(([label, url]) => (
+        <a
+          key={`${label}-${url}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-800"
+        >
+          <span>Leave a {label} review</span>
+          <span className="text-slate-400">Open</span>
+        </a>
+      ))}
+    </div>
+  )
+}
+
 export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientProps) {
-  const [businessName, setBusinessName] = useState("")
+  const [business, setBusiness] = useState<PublicBusiness | null>(null)
   const [rating, setRating] = useState(0)
   const [feedbackText, setFeedbackText] = useState("")
   const [email, setEmail] = useState("")
@@ -27,7 +61,7 @@ export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientPro
           return
         }
         const data = await response.json()
-        setBusinessName(data.business.business_name || "")
+        setBusiness(data.business)
       })
       .catch(() => setMissing(true))
       .finally(() => setLoading(false))
@@ -85,17 +119,16 @@ export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientPro
           <div className="text-center">
             <CheckCircle className="mx-auto h-10 w-10 text-emerald-600" />
             <h1 className="mt-4 text-2xl font-semibold text-slate-950">Note sent</h1>
-            <p className="mt-2 text-sm text-slate-600">You can still leave a public review. The same links are shown for every rating.</p>
-            <Link href={`/review/${businessId}`} className="mt-4 inline-flex text-sm font-semibold text-indigo-700">
-              Open the public review page
-            </Link>
+            <p className="mt-2 text-sm text-slate-600">The public review links stay on this page for every rating.</p>
+            <PublicReviewLinks business={business} />
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <h1 className="text-2xl font-semibold text-slate-950">Private note for {businessName}</h1>
+            <h1 className="text-2xl font-semibold text-slate-950">Private note for {business?.business_name}</h1>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              This goes to the business. It does not replace a public review.
+              This note goes to the business. The public review links below are on this page as well.
             </p>
+            <PublicReviewLinks business={business} />
             <fieldset className="mt-4">
               <legend className="text-sm font-medium">Rating</legend>
               <div className="mt-2 flex gap-2">
@@ -136,9 +169,6 @@ export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientPro
             <button type="submit" disabled={submitting} className="mt-4 w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
               {submitting ? "Sending..." : "Send private note"}
             </button>
-            <Link href={`/review/${businessId}`} className="mt-3 block text-center text-sm font-semibold text-indigo-700">
-              Leave a public review instead
-            </Link>
           </form>
         )}
       </div>

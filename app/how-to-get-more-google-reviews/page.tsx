@@ -36,7 +36,7 @@ const steps = [
   },
   {
     title: "Ask every customer the same way",
-    body: "Do not send happy customers to Google and unhappy customers to a private form. Google prohibits review gating. Offer the public links to everyone, and let private feedback be optional.",
+    body: "Show every customer the same Google, Facebook, and Yelp links. A private note can sit on that page as an extra option. The public buttons stay on the page for a 1-star tap and a 5-star tap.",
   },
   {
     title: "Do not pay, gift, or pre-write the review",

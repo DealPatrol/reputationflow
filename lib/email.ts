@@ -38,11 +38,11 @@ export async function sendNegativeFeedbackAlert(
       <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7fafc;margin:0;padding:0;">
         <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
           <div style="background:linear-gradient(135deg,#e53e3e,#c53030);padding:32px;text-align:center;">
-            <h1 style="color:white;margin:0;font-size:24px;">⚠️ Negative Review Alert</h1>
-            <p style="color:rgba(255,255,255,0.85);margin:8px 0 0;">Act now to protect your reputation</p>
+            <h1 style="color:white;margin:0;font-size:24px;">New private feedback</h1>
+            <p style="color:rgba(255,255,255,0.85);margin:8px 0 0;">A customer also saw your public review links</p>
           </div>
           <div style="padding:32px;">
-            <p style="color:#2d3748;font-size:16px;">A customer left a <strong>${rating}/5 star review</strong> for <strong>${businessName}</strong>:</p>
+            <p style="color:#2d3748;font-size:16px;">A customer left a private note and a <strong>${rating}/5</strong> rating for <strong>${businessName}</strong>:</p>
             <p style="font-size:28px;margin:8px 0;">${stars}</p>
             ${reviewText}
             <p style="color:#4a5568;margin-top:24px;">This is private feedback submitted through your ReputationFlow page. The customer was also shown your public review links. Follow up directly if you want to resolve the issue.</p>

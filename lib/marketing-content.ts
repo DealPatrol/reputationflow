@@ -5,9 +5,9 @@ export interface FaqItem {
 
 export const faqs: FaqItem[] = [
   {
-    question: "Does ReputationFlow hide negative reviews from Google?",
+    question: "Does every customer see the public review links?",
     answer:
-      "No. Every customer sees the same Google, Facebook, and Yelp links, regardless of the rating they select. Private feedback is optional and sits beside those links. ReputationFlow does not filter, delay, or discourage public reviews.",
+      "Yes. Google, Facebook, and Yelp stay on the page for every rating. Private feedback is an additional box on that page. It does not replace those links, and ReputationFlow does not filter or delay public reviews.",
   },
   {
     question: "Will this post reviews for me?",
@@ -54,7 +54,7 @@ export const industries: IndustryPage[] = [
     keyword: "review management for dentists",
     title: "Review requests for dental practices",
     description:
-      "Ask patients for Google reviews after a visit without screening out unhappy patients. A compliant review link and QR code for dental offices.",
+      "Ask every patient for a Google review after a visit. The same public link and QR code are used for the whole practice.",
     intro:
       "Patients decide on a dentist from the Google listing before they ever call. A short, consistent ask after treatment is more useful than a stack of software the front desk will not open.",
     moments: [
@@ -65,7 +65,7 @@ export const industries: IndustryPage[] = [
     tips: [
       {
         title: "Ask every patient the same way",
-        body: "Do not sort patients into “happy” and “unhappy” paths. Google’s policies and the FTC’s review guidance both expect people to be able to publish an honest public review.",
+        body: "Every patient sees the same Google, Facebook, and Yelp buttons. A private note is an extra field on that page, available at every rating.",
       },
       {
         title: "Keep clinical details out of the ask",
@@ -224,7 +224,7 @@ export const comparisons: ComparisonPage[] = [
     weAre: [
       "A review request page and QR code you can share the same day.",
       "Starter is free. Professional is $20 per month and can be canceled in Stripe.",
-      "The same public review links for every customer. No review gating.",
+      "The same public review links for every customer, with private feedback as an extra option on that page.",
     ],
     chooseThem: "Choose Birdeye if you are comparing enterprise listing management, surveys, and a larger team workflow.",
     chooseUs:

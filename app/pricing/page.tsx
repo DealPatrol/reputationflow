@@ -66,7 +66,14 @@ export default function PricingPage() {
           })}
         </div>
 
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-semibold text-slate-950">Every customer sees the public review links</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            The review page lists Google, Facebook, and Yelp for every star rating. A private note is an extra box on that same page. It is offered in addition to those links, and the page does not change when the rating is low.
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-lg font-semibold text-slate-950">What $20 does not include</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If you need a full inbox and payments product, look at the Podium comparison before you buy.

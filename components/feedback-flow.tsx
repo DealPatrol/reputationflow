@@ -61,18 +61,6 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     void finish({ rating, feedback: `Opened ${platform}`, type: "public" }, url)
   }
 
-  if (step === "done") {
-    return (
-      <div className="text-center p-12 animate-in zoom-in">
-        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-500/30">
-          <CheckCircle size={40} />
-        </div>
-        <h2 className="text-3xl font-black text-foreground">Thank you</h2>
-        <p className="text-foreground/60 mt-2 font-medium">Your response was recorded.</p>
-      </div>
-    )
-  }
-
   const allGoogleLinks = [
     links.google,
     ...(links.googleAdditional || []),
@@ -87,6 +75,38 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     links.yelp,
     ...(links.yelpAdditional || []),
   ].filter(Boolean)
+
+  const publicLinks = [
+    ...allGoogleLinks.map((url, index) => ({ key: `google-${index}`, label: index > 0 ? `Google (${index + 1})` : "Google", url: url as string })),
+    ...allFacebookLinks.map((url, index) => ({ key: `facebook-${index}`, label: index > 0 ? `Facebook (${index + 1})` : "Facebook", url: url as string })),
+    ...allYelpLinks.map((url, index) => ({ key: `yelp-${index}`, label: index > 0 ? `Yelp (${index + 1})` : "Yelp", url: url as string })),
+  ]
+
+  if (step === "done") {
+    return (
+      <div className="text-center p-12 animate-in zoom-in">
+        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-500/30">
+          <CheckCircle size={40} />
+        </div>
+        <h2 className="text-3xl font-black text-foreground">Thank you</h2>
+        <p className="text-foreground/60 mt-2 font-medium">Your response was recorded. The public review links stay available.</p>
+        <div className="mt-6 space-y-3 text-left">
+          {publicLinks.map((link) => (
+            <a
+              key={link.key}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-between rounded-xl border-2 border-border px-4 py-3 text-sm font-bold"
+            >
+              <span>Leave a {link.label} review</span>
+              <ArrowRight size={16} />
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="max-w-md mx-auto w-full bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-border">
