@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Star } from "lucide-react"
@@ -14,6 +14,11 @@ export default function SignInPage() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get("signup") === "1") setIsSignUp(true)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,7 +42,7 @@ export default function SignInPage() {
       }
 
       // Redirect to dashboard on success
-      router.push("/dashboard")
+      router.push(isSignUp ? "/onboarding" : "/dashboard")
       router.refresh()
     } catch (err: any) {
       console.error("[v0] Auth error:", err)

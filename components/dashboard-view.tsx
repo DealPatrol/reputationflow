@@ -24,8 +24,10 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
   }
 
   const total = feedbacks.length
-  const positive = feedbacks.filter((f: any) => f.type === "positive").length
-  const prevented = feedbacks.filter((f: any) => f.type === "negative").length
+  const lowRatings = feedbacks.filter((f: any) => Number(f.rating) <= 3).length
+  const average = total > 0
+    ? (feedbacks.reduce((sum: number, item: any) => sum + Number(item.rating || 0), 0) / total).toFixed(1)
+    : "—"
 
   const handleGenerateAIResponse = (feedback: any) => {
     if (!isPremium) {
@@ -36,9 +38,16 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
     setShowAIModal(true)
   }
 
-  const handleSaveResponse = (response: string) => {
-    console.log("[v0] Saved AI response:", response)
-    // In production, save to database
+  const handleSaveResponse = async (response: string) => {
+    const res = await fetch("/api/feedback/response", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ feedbackId: selectedFeedback?.id, response }),
+    })
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      throw new Error(data.error || "Could not save the draft")
+    }
   }
 
   return (
@@ -48,7 +57,7 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
             <div className="flex items-start sm:items-center space-x-3 text-amber-800">
               <AlertTriangle size={20} className="flex-shrink-0 mt-0.5 sm:mt-0" />
-              <span className="font-medium text-sm sm:text-base">Setup incomplete: Add your Google/Yelp review links so positive reviews get routed correctly.</span>
+              <span className="font-medium text-sm sm:text-base">Add at least one public review link so customers can open Google, Facebook, or Yelp.</span>
             </div>
             <button
               onClick={() => setActiveTab("settings")}
@@ -61,8 +70,8 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Command Center</h1>
-            <p className="text-slate-500">Real-time reputation monitoring.</p>
+            <h1 className="text-2xl font-bold text-slate-900">Overview</h1>
+            <p className="text-slate-500">Feedback submitted through your review page.</p>
           </div>
         </div>
 
@@ -92,15 +101,14 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
         )}
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard label="Total Feedback" value={total} icon={<MessageSquare size={18} />} color="indigo" />
+          <StatCard label="Feedback" value={total} icon={<MessageSquare size={18} />} color="indigo" />
           <StatCard
-            label="NPS Score"
-            value={total > 0 ? Math.round((positive / total) * 100) : 0}
+            label="Average rating"
+            value={average}
             icon={<TrendingUp size={18} />}
             color="emerald"
-            suffix="%"
           />
-          <StatCard label="Intercepted" value={prevented} icon={<ShieldAlert size={18} />} color="rose" />
+          <StatCard label="Ratings of 3 or less" value={lowRatings} icon={<ShieldAlert size={18} />} color="rose" />
           <div className="col-span-2 lg:col-span-1 bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-xl text-white shadow-lg">
             <div className="text-indigo-200 text-xs font-bold uppercase tracking-wider mb-2">Quick Action</div>
             <button

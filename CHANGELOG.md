@@ -11,13 +11,11 @@ All notable changes to ReputationFlow will be documented in this file.
 - Transparent review requests with public links and optional private feedback for every customer
 - Multi-platform review routing (Google, Facebook, Yelp)
 - Email campaign management via Resend
-- SMS campaign management via Twilio
-- AI-powered response generator using Vercel AI SDK
-- Real-time analytics dashboard with NPS scoring
+- AI-assisted response drafts
+- Analytics from feedback customers submit in ReputationFlow
 - QR code generation for physical touchpoints
-- Embeddable website widget builder
-- Review monitoring and aggregation
-- Automated follow-up sequences
+- Embeddable review-link page
+- Dashboard view of submitted feedback
 - Public review collection pages
 - Mobile-responsive design
 - Onboarding tour for new users

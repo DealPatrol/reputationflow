@@ -26,7 +26,7 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
 
   const navItems = [
     { id: "dashboard", label: "Overview", icon: <LayoutDashboard size={20} /> },
-    { id: "campaigns", label: "Campaigns", icon: <Users size={20} /> },
+    { id: "campaigns", label: "Requests", icon: <Users size={20} /> },
     { id: "analytics", label: "Analytics", icon: <BarChart3 size={20} /> },
     { id: "monitoring", label: "Monitoring", icon: <Eye size={20} /> },
     { id: "widgets", label: "Widget", icon: <Code size={20} /> },

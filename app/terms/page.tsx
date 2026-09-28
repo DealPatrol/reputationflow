@@ -45,12 +45,11 @@ export default function TermsPage() {
                 ReputationFlow provides a reputation management platform that helps businesses:
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
-                <li>Collect and manage customer feedback</li>
-                <li>Route positive reviews to public platforms</li>
-                <li>Offer optional private feedback alongside public review links</li>
-                <li>Send automated review requests via email and SMS</li>
-                <li>Monitor online reviews across multiple platforms</li>
-                <li>Generate AI-powered responses to customer feedback</li>
+                <li>Collect optional private customer feedback</li>
+                <li>Show the same Google, Facebook, and Yelp review links to every customer</li>
+                <li>Send review request emails you write and send yourself</li>
+                <li>Show the feedback customers send you in the dashboard</li>
+                <li>Draft responses you can edit before publishing</li>
               </ul>
             </section>
 

@@ -8,7 +8,7 @@ interface AIResponseModalProps {
   onClose: () => void
   feedback: any
   businessName: string
-  onSave?: (response: string) => void
+  onSave?: (response: string) => void | Promise<void>
 }
 
 export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSave }: AIResponseModalProps) {
@@ -51,9 +51,14 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleSave = () => {
-    if (onSave) onSave(response)
-    onClose()
+  const handleSave = async () => {
+    try {
+      if (onSave) await onSave(response)
+      onClose()
+    } catch (saveError) {
+      console.error("[v0] Failed to save response:", saveError)
+      alert(saveError instanceof Error ? saveError.message : "Could not save the draft.")
+    }
   }
 
   return (

@@ -86,10 +86,9 @@ export default function PrivacyPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Payment processing (Stripe)</li>
-                <li>Email delivery (Resend)</li>
-                <li>SMS delivery (Twilio)</li>
+                <li>Email delivery (Resend), when you send a review request</li>
                 <li>Cloud hosting (Vercel, Neon)</li>
-                <li>AI services (OpenAI)</li>
+                <li>AI drafts (Groq), when you ask for a response draft</li>
               </ul>
 
               <h3 className="text-xl font-bold text-slate-800 mb-3 mt-6">Legal Requirements</h3>

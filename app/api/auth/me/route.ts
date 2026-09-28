@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
 import { getBusinessByUserId } from "@/lib/db"
+import { isDemoMode } from "@/lib/demo"
 
 export async function GET() {
   try {
@@ -18,6 +19,7 @@ export async function GET() {
         ...user,
         business,
       },
+      demoMode: isDemoMode(),
     })
   } catch (error) {
     console.error("[v0] Get user error:", error)

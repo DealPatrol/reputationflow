@@ -9,6 +9,7 @@ export default function DashboardPage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
   const [business, setBusiness] = useState<any>(null)
+  const [demoMode, setDemoMode] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function DashboardPage() {
         }
         setUser(data.user)
         setBusiness(data.user.business)
+        setDemoMode(Boolean(data.demoMode))
         setLoading(false)
       })
       .catch(() => {
@@ -43,5 +45,5 @@ export default function DashboardPage() {
     return null
   }
 
-  return <DashboardClient business={business} user={user} />
+  return <DashboardClient business={business} user={user} demoMode={demoMode} />
 }

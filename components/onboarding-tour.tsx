@@ -34,7 +34,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
     {
       title: "Monitor Your Reviews",
       description:
-        "Track all your feedback in one place. Negative reviews are kept private while positive ones go public.",
+        "See the notes customers send you. Every customer is shown the same public review links, and a private note is an extra option.",
       highlight: "feedback",
     },
     {

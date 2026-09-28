@@ -15,7 +15,7 @@ interface FeedbackFlowProps {
     yelpAdditional?: string[]
     negativeLink?: string
   }
-  onComplete: (data: any) => void
+  onComplete: (data: any) => void | Promise<void>
 }
 
 export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowProps) => {
@@ -29,12 +29,16 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     setTimeout(() => setStep("share"), 300)
   }
 
-  const handleNegativeRedirect = () => {
-    if (links.negativeLink) {
-      window.open(links.negativeLink, "_blank", "noopener,noreferrer")
+  const finish = async (data: { rating: number; feedback: string; type: string }, openUrl?: string) => {
+    setError("")
+    try {
+      await onComplete(data)
+      if (openUrl) window.open(openUrl, "_blank", "noopener,noreferrer")
+      setStep("done")
+    } catch (submitError) {
+      console.error("[v0] Feedback submit failed:", submitError)
+      setError("Could not save that response. Please try again.")
     }
-    onComplete({ rating, feedback: "Redirected to negative feedback form", type: "negative" })
-    setStep("done")
   }
 
   const submitPrivate = () => {
@@ -45,36 +49,16 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     }
 
     const sanitizedFeedback = sanitize.html(feedbackText)
-    onComplete({ rating, feedback: sanitizedFeedback, type: "private" })
-    setStep("done")
+    void finish({ rating, feedback: sanitizedFeedback, type: "private" })
   }
 
   const handleRedirect = (platform: string, url?: string) => {
-    if (url) {
-      const validation = validators.url(url)
-      if (!validation.valid) {
-        console.error("[v0] Invalid URL:", url)
-        onComplete({ rating, feedback: `Attempted redirect to ${platform} (invalid URL)`, type: "positive" })
-        setStep("done")
-        return
-      }
+    if (url && !validators.url(url).valid) {
+      setError("That review link is not a valid URL. Ask the business to update it.")
+      return
     }
 
-    onComplete({ rating, feedback: `Opened ${platform}`, type: "public_review_link" })
-    if (url) window.open(url, "_blank", "noopener,noreferrer")
-    setStep("done")
-  }
-
-  if (step === "done") {
-    return (
-      <div className="text-center p-12 animate-in zoom-in">
-        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-500/30">
-          <CheckCircle size={40} />
-        </div>
-        <h2 className="text-3xl font-black text-foreground">Yo, thanks!</h2>
-        <p className="text-foreground/60 mt-2 font-medium">Your feedback means everything to us.</p>
-      </div>
-    )
+    void finish({ rating, feedback: `Opened ${platform}`, type: "public" }, url)
   }
 
   const allGoogleLinks = [
@@ -92,6 +76,38 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
     ...(links.yelpAdditional || []),
   ].filter(Boolean)
 
+  const publicLinks = [
+    ...allGoogleLinks.map((url, index) => ({ key: `google-${index}`, label: index > 0 ? `Google (${index + 1})` : "Google", url: url as string })),
+    ...allFacebookLinks.map((url, index) => ({ key: `facebook-${index}`, label: index > 0 ? `Facebook (${index + 1})` : "Facebook", url: url as string })),
+    ...allYelpLinks.map((url, index) => ({ key: `yelp-${index}`, label: index > 0 ? `Yelp (${index + 1})` : "Yelp", url: url as string })),
+  ]
+
+  if (step === "done") {
+    return (
+      <div className="text-center p-12 animate-in zoom-in">
+        <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-500/30">
+          <CheckCircle size={40} />
+        </div>
+        <h2 className="text-3xl font-black text-foreground">Thank you</h2>
+        <p className="text-foreground/60 mt-2 font-medium">Your response was recorded. The public review links stay available.</p>
+        <div className="mt-6 space-y-3 text-left">
+          {publicLinks.map((link) => (
+            <a
+              key={link.key}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-between rounded-xl border-2 border-border px-4 py-3 text-sm font-bold"
+            >
+              <span>Leave a {link.label} review</span>
+              <ArrowRight size={16} />
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="max-w-md mx-auto w-full bg-white rounded-3xl shadow-2xl overflow-hidden ring-1 ring-border">
       <div className="bg-gradient-to-br from-purple-600 to-red-500 p-10 text-center relative overflow-hidden">
@@ -105,7 +121,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
           <div className="flex flex-col items-center space-y-8">
             <div className="flex justify-center gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
-                <button key={star} onClick={() => handleRate(star)} className="hover:scale-125 transition-transform duration-300">
+                <button key={star} type="button" onClick={() => handleRate(star)} aria-label={`${star} ${star === 1 ? "star" : "stars"}`} className="hover:scale-125 transition-transform duration-300">
                   <Star
                     size={44}
                     className={`${star <= rating ? "fill-yellow-400 text-yellow-400" : "text-border"}`}
@@ -175,18 +191,9 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
             <div className="border-t border-border pt-5 space-y-4">
               <h3 className="font-black text-lg text-foreground text-center">Optional private feedback</h3>
             <p className="text-sm text-foreground/70 text-center font-medium">
-              {links.negativeLink
-                  ? "You can also send comments directly to the business."
-                  : "Tell the business what went well or what it could improve."}
+              Tell the business what went well or what it could improve. This does not replace the public review buttons above.
             </p>
-            {links.negativeLink ? (
-              <button
-                onClick={handleNegativeRedirect}
-                className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-xl font-bold shadow-lg shadow-orange-500/30 hover:shadow-lg transition-all"
-              >
-                  Send Private Feedback
-              </button>
-            ) : (
+            {error && <p className="text-xs text-red-600 font-bold text-center" role="alert">{error}</p>}
               <>
                 <div>
                   <textarea
@@ -218,12 +225,10 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
                     Send Private Feedback
                 </button>
               </>
-            )}
             </div>
             <button
               onClick={() => {
-                onComplete({ rating, feedback: "", type: "rating" })
-                setStep("done")
+                void finish({ rating, feedback: "Rated only", type: "rating" })
               }}
               className="w-full text-sm font-bold text-foreground/60 hover:text-foreground py-2"
             >

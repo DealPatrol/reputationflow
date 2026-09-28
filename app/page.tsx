@@ -1,219 +1,234 @@
-"use client"
-
-import type React from "react"
 import Link from "next/link"
-import { Star, Zap, TrendingUp, ArrowRight, Sparkles, DollarSign } from "lucide-react"
+import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
+import { CtaBand } from "@/components/marketing/cta-band"
+import { FaqList } from "@/components/marketing/faq-list"
+import { JsonLd } from "@/components/marketing/json-ld"
+import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { faqs, industries } from "@/lib/marketing-content"
+import { formatPlanPrice, PLANS } from "@/lib/plans"
+import { faqJsonLd, organizationJsonLd, softwareJsonLd } from "@/lib/seo"
 
-export default function Home() {
+const steps = [
+  {
+    title: "Add your public review links",
+    body: "Paste the Google review link from your Business Profile. Add Facebook or Yelp if you use them.",
+  },
+  {
+    title: "Share one link or QR code",
+    body: "Put it on the receipt, the check presenter, a text, or an email. Every customer gets the same page.",
+  },
+  {
+    title: "Read what comes back",
+    body: "See private notes in the dashboard and draft a reply. Public reviews still live on Google, Facebook, and Yelp.",
+  },
+]
+
+const outcomes = [
+  {
+    title: "The same ask for every customer",
+    body: "Google, Facebook, and Yelp stay on the page for every star rating. A low rating does not remove those buttons.",
+  },
+  {
+    title: "A link you can hand over the same day",
+    body: "Put the URL or QR code on a receipt, check presenter, invoice, or email signature. Customers open the review form from there.",
+  },
+  {
+    title: "Private notes in the dashboard",
+    body: "If a customer writes a note for you, you see the note and the rating they picked. Public reviews stay on the site where they were published.",
+  },
+  {
+    title: "A reply draft you can edit",
+    body: "On Professional, generate a draft, change the wording, and paste it onto Google, Facebook, or Yelp yourself.",
+  },
+]
+
+const features = [
+  {
+    icon: QrCode,
+    title: "Link and QR code",
+    body: "One URL for your counter, invoices, and email signature. Download or print the QR code from the dashboard.",
+  },
+  {
+    icon: Mail,
+    title: "Email requests",
+    body: "On the Professional plan, send a review request to a customer by email. The message links to the same public page.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Private feedback, in addition",
+    body: "Customers can leave a note for you. That note does not replace or block the public review buttons.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No review gating",
+    body: "The page does not change based on the star rating. A 1-star tap and a 5-star tap show the same public links.",
+  },
+]
+
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white overflow-hidden">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border/50 bg-white/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="bg-gradient-to-br from-purple-600 to-red-500 p-2 rounded-lg">
-              <Star className="text-white h-6 w-6" fill="currentColor" />
+    <MarketingShell>
+      <JsonLd data={[organizationJsonLd(), softwareJsonLd(), faqJsonLd(faqs)]} />
+
+      <section className="border-b border-slate-200 bg-slate-50">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+          <div>
+            <p className="text-sm font-semibold text-indigo-700">Review requests for local businesses</p>
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+              Ask every customer for an honest Google review.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
+              ReputationFlow gives you one link and one QR code. Every customer sees your Google, Facebook, and Yelp pages, plus an optional private note.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/auth/signin?signup=1"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
+              >
+                Start free
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/how-to-get-more-google-reviews"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+              >
+                How to get more Google reviews
+              </Link>
             </div>
-            <span className="font-bold text-xl tracking-tight">
-              <span className="text-gradient bg-gradient-to-r from-purple-600 to-red-500">ReputationFlow</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <Link href="/pricing" className="text-foreground hover:text-primary font-semibold text-sm">
-              Pricing
-            </Link>
-            <Link href="/demo" className="text-foreground hover:text-primary font-semibold text-sm">
-              Try Demo
-            </Link>
-            <Link
-              href="/auth/signin"
-              className="bg-gradient-to-r from-purple-600 to-red-500 hover:shadow-lg hover:shadow-purple-500/30 text-white px-5 py-2 rounded-lg font-bold text-sm transition-all"
-            >
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-red-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-40 w-96 h-96 bg-gradient-to-br from-cyan-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
-        
-        <div className="relative z-10 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-8 animate-in fade-in duration-500">
-            <Sparkles size={16} fill="currentColor" />
-            <span>Turn Reviews Into Your Superpower</span>
+            <p className="mt-4 text-sm text-slate-500">Starter is free. Professional is {formatPlanPrice(PLANS.pro.price)} per month.</p>
           </div>
 
-          <h1 className="text-6xl md:text-7xl font-black mb-6 text-balance animate-in slide-in-from-bottom duration-700 leading-tight">
-            Rad Reviews.
-            <br />
-            <span className="text-gradient bg-gradient-to-r from-purple-600 via-pink-600 to-red-500">Real Results.</span>
-          </h1>
-
-          <p className="text-xl text-foreground/70 mb-12 max-w-2xl mx-auto text-pretty animate-in fade-in duration-700 delay-200 font-medium">
-            Invite every customer to leave an honest public review, with optional private feedback available alongside it.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in fade-in duration-700 delay-300">
-            <Link
-              href="/demo"
-              className="bg-gradient-to-r from-purple-600 to-red-500 hover:shadow-2xl hover:shadow-purple-500/40 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center space-x-2 w-full sm:w-auto justify-center"
-            >
-              <span>Try Demo Free</span>
-              <ArrowRight size={20} />
-            </Link>
-            <Link
-              href="/auth/signin"
-              className="bg-white hover:bg-slate-50 text-foreground px-8 py-4 rounded-xl font-bold text-lg border-2 border-border transition-all w-full sm:w-auto justify-center flex items-center"
-            >
-              Sign In
-            </Link>
-          </div>
-
-          <p className="text-sm text-foreground/50 mt-8 font-medium">No card needed. Full access to everything.</p>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FeatureCard
-            icon={<Zap size={28} />}
-            title="Fair Review Requests"
-            description="Every customer sees your public review links and an optional private feedback form."
-            gradient="from-purple-600 to-pink-600"
-          />
-          <FeatureCard
-            icon={<Star size={28} />}
-            title="Shareable Links"
-            description="Get unique review links and QR codes. Share on receipts, emails, social—anywhere."
-            gradient="from-pink-600 to-red-500"
-          />
-          <FeatureCard
-            icon={<TrendingUp size={28} />}
-            title="Real Analytics"
-            description="Track your NPS, see trends, read actual feedback. No BS metrics."
-            gradient="from-red-500 to-orange-500"
-          />
-        </div>
-      </section>
-
-      {/* ROI Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-br from-purple-600/5 to-red-500/5 rounded-3xl p-12 border border-border">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-              <DollarSign size={16} />
-              <span>Proven ROI</span>
-            </div>
-            <h2 className="text-4xl font-black mb-4">The Math Is Simple</h2>
-            <p className="text-foreground/60 font-medium">Average business sees 8-12x ROI in first year</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div className="text-center">
-              <div className="text-5xl font-black bg-gradient-to-r from-purple-600 to-red-500 text-gradient mb-2">50K+</div>
-              <div className="text-foreground/70 font-semibold">Reviews Collected</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-black bg-gradient-to-r from-purple-600 to-red-500 text-gradient mb-2">$2.1M</div>
-              <div className="text-foreground/70 font-semibold">Extra Revenue Generated</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-black bg-gradient-to-r from-purple-600 to-red-500 text-gradient mb-2">12K</div>
-              <div className="text-foreground/70 font-semibold">Feedback Responses</div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-8 border-2 border-purple-200/50 text-center">
-            <p className="text-foreground/60 font-semibold mb-3">Your typical savings:</p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <div>
-                <p className="text-2xl font-black text-foreground">$20</p>
-                <p className="text-sm text-foreground/50">/month investment</p>
-              </div>
-              <div className="text-3xl font-black text-purple-600">→</div>
-              <div>
-                <p className="text-2xl font-black text-green-600">$300+</p>
-                <p className="text-sm text-foreground/50">/month in new revenue</p>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">What the customer sees</p>
+            <div className="mt-4 rounded-xl bg-slate-950 px-5 py-6 text-white">
+              <p className="text-sm text-slate-300">How was your visit?</p>
+              <p className="mt-1 text-lg font-semibold">Your business</p>
+              <div className="mt-4 flex gap-1 text-amber-300" aria-hidden="true">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <span key={index}>★</span>
+                ))}
               </div>
             </div>
+            <div className="mt-4 space-y-2">
+              {["Google", "Facebook", "Yelp"].map((platform) => (
+                <div key={platform} className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-medium">
+                  <span>Leave a {platform} review</span>
+                  <span className="text-slate-400">Open</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-sm leading-6 text-slate-600">
+              The same buttons appear for every rating. A private comment is optional and does not hide these links.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-br from-purple-600 to-red-500 rounded-3xl p-12 shadow-2xl shadow-purple-600/30">
-          <h2 className="text-4xl font-black text-white mb-6 text-center">Ready for Better Reviews?</h2>
-          <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto text-center font-medium">
-            Join 500+ businesses collecting more 5-star reviews. Try our interactive demo. No credit card required.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/demo"
-              className="inline-flex items-center justify-center space-x-2 bg-white hover:bg-slate-50 text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-xl transition-all"
-            >
-              <span>Launch Demo Now</span>
-              <ArrowRight size={20} />
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all border-2 border-white/30"
-            >
-              <span>See Pricing</span>
-            </Link>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">How it works</h2>
+        <ol className="mt-8 grid gap-6 md:grid-cols-3">
+          {steps.map((step, index) => (
+            <li key={step.title} className="rounded-2xl border border-slate-200 p-6">
+              <p className="text-sm font-semibold text-indigo-700">Step {index + 1}</p>
+              <h3 className="mt-2 text-lg font-semibold text-slate-950">{step.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What you can do with it</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {features.map((feature) => (
+              <article key={feature.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <feature.icon className="h-5 w-5 text-indigo-600" aria-hidden="true" />
+                <h3 className="mt-4 text-lg font-semibold text-slate-950">{feature.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{feature.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/50 mt-20 py-12 bg-foreground/[0.02]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-2">
-              <div className="bg-gradient-to-br from-purple-600 to-red-500 p-2 rounded-lg">
-                <Star className="text-white h-5 w-5" fill="currentColor" />
-              </div>
-              <span className="font-bold text-lg">ReputationFlow</span>
-            </div>
-            <div className="flex space-x-8 text-sm text-foreground/60 font-medium">
-              <Link href="/pricing" className="hover:text-foreground transition-colors">
-                Pricing
-              </Link>
-              <Link href="/terms" className="hover:text-foreground transition-colors">
-                Terms
-              </Link>
-              <Link href="/privacy" className="hover:text-foreground transition-colors">
-                Privacy
-              </Link>
-              <a href="mailto:support@reputationflow.app" className="hover:text-foreground transition-colors">
-                Contact
-              </a>
-            </div>
-            <p className="text-sm text-foreground/40">© 2025 ReputationFlow.</p>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What changes when you use it</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+          You get a review page, a QR code, and a dashboard for notes customers send you. The price is listed below.
+          ReputationFlow does not publish review totals, revenue, ROI, customer counts, or testimonials.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {outcomes.map((outcome) => (
+            <article key={outcome.title} className="rounded-2xl border border-slate-200 p-6">
+              <h3 className="text-lg font-semibold text-slate-950">{outcome.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{outcome.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Built for the businesses that live on Google reviews</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify.
+            </p>
           </div>
         </div>
-      </footer>
-    </div>
-  )
-}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {industries.map((industry) => (
+            <Link
+              key={industry.slug}
+              href={`/industries/${industry.slug}`}
+              className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300"
+            >
+              <h3 className="font-semibold text-slate-950">{industry.name}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{industry.intro}</p>
+            </Link>
+          ))}
+          <Link href="/compare/birdeye" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+            <h3 className="font-semibold text-slate-950">Comparing larger suites?</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Read the Birdeye and Podium comparisons if you are deciding between a full platform and a focused review link.
+            </p>
+          </Link>
+        </div>
+      </section>
 
-function FeatureCard({
-  icon,
-  title,
-  description,
-  gradient,
-}: { icon: React.ReactNode; title: string; description: string; gradient: string }) {
-  return (
-    <div className="group bg-white border border-border rounded-2xl p-8 hover:shadow-lg transition-all hover:border-primary/50">
-      <div className={`bg-gradient-to-br ${gradient} p-3 w-fit rounded-xl mb-6 text-white`}>
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{title}</h3>
-      <p className="text-foreground/60 font-medium">{description}</p>
-    </div>
+      <section className="border-y border-slate-200 bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Pricing</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {(["free", "pro"] as const).map((key) => {
+              const plan = PLANS[key]
+              return (
+                <article key={key} className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <h3 className="text-lg font-semibold">{plan.name}</h3>
+                  <p className="mt-2 text-3xl font-semibold tracking-tight">
+                    {formatPlanPrice(plan.price)}
+                    {plan.price > 0 && <span className="text-base font-medium text-slate-500">/month</span>}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-600">{plan.description}</p>
+                  <Link href="/pricing" className="mt-4 inline-flex text-sm font-semibold text-indigo-700">
+                    Compare plans
+                  </Link>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Questions</h2>
+        <div className="mt-8">
+          <FaqList items={faqs} />
+        </div>
+      </section>
+
+      <CtaBand />
+    </MarketingShell>
   )
 }

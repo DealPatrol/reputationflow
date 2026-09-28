@@ -18,7 +18,7 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
         <span className="font-bold text-lg tracking-tight leading-none">
           Reputation<span className="text-indigo-400">Flow</span>
         </span>
-        <span className="text-[10px] text-slate-400 font-medium tracking-wider mt-1">ENTERPRISE</span>
+        <span className="text-[10px] text-slate-400 font-medium tracking-wider mt-1">LOCAL REVIEWS</span>
       </div>
     </div>
 
@@ -32,7 +32,7 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
       />
       <SidebarItem
         icon={<Users size={18} />}
-        label="Share Link"
+        label="Review requests"
         active={activeTab === "campaigns"}
         onClick={() => setActiveTab("campaigns")}
       />

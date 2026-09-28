@@ -1,15 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { getCurrentUser } from "@/lib/auth"
 import { getAnalyticsByBusinessId } from "@/lib/db"
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    const businessId = searchParams.get("businessId")
-    const days = Number.parseInt(searchParams.get("days") || "30", 10)
+    const user = await getCurrentUser(request)
+    if (!user?.businessId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    if (!businessId) {
-      return NextResponse.json({ error: "Business ID required" }, { status: 400 })
-    }
+    const searchParams = request.nextUrl.searchParams
+    const days = Number.parseInt(searchParams.get("days") || "30", 10)
+    const businessId = user.businessId
 
     try {
       const analytics = await getAnalyticsByBusinessId(businessId, days)
