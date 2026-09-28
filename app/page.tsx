@@ -23,6 +23,25 @@ const steps = [
   },
 ]
 
+const outcomes = [
+  {
+    title: "The same ask for every customer",
+    body: "Google, Facebook, and Yelp stay on the page for every star rating. A low rating does not remove those buttons.",
+  },
+  {
+    title: "A link you can hand over the same day",
+    body: "Put the URL or QR code on a receipt, check presenter, invoice, or email signature. Customers open the review form from there.",
+  },
+  {
+    title: "Private notes in the dashboard",
+    body: "If a customer writes a note for you, you see the note and the rating they picked. Public reviews stay on the site where they were published.",
+  },
+  {
+    title: "A reply draft you can edit",
+    body: "On Professional, generate a draft, change the wording, and paste it onto Google, Facebook, or Yelp yourself.",
+  },
+]
+
 const features = [
   {
     icon: QrCode,
@@ -83,7 +102,7 @@ export default function HomePage() {
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">What the customer sees</p>
             <div className="mt-4 rounded-xl bg-slate-950 px-5 py-6 text-white">
               <p className="text-sm text-slate-300">How was your visit?</p>
-              <p className="mt-1 text-lg font-semibold">Northside Dental</p>
+              <p className="mt-1 text-lg font-semibold">Your business</p>
               <div className="mt-4 flex gap-1 text-amber-300" aria-hidden="true">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <span key={index}>★</span>
@@ -130,6 +149,22 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What changes when you use it</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+          You get a review page, a QR code, and a dashboard for notes customers send you. The price is listed below.
+          ReputationFlow does not publish review totals, revenue, ROI, customer counts, or testimonials.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {outcomes.map((outcome) => (
+            <article key={outcome.title} className="rounded-2xl border border-slate-200 p-6">
+              <h3 className="text-lg font-semibold text-slate-950">{outcome.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{outcome.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
