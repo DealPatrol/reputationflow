@@ -18,13 +18,17 @@ import { AnalyticsView } from "@/components/analytics-view"
 import { QRCodeGenerator } from "@/components/qr-code-generator"
 import { ReviewMonitoringView } from "@/components/review-monitoring-view"
 import { OnboardingTour } from "@/components/onboarding-tour"
+import { reviewPageUrl } from "@/lib/site"
 
 interface DashboardClientProps {
   business: any
   user: any
+  demoMode?: boolean
 }
 
-export default function DashboardClient({ business: initialBusiness, user }: DashboardClientProps) {
+const DASHBOARD_TABS = ["dashboard", "analytics", "monitoring", "settings", "campaigns", "widgets", "links", "billing", "preview"]
+
+export default function DashboardClient({ business: initialBusiness, demoMode = false }: DashboardClientProps) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [feedbacks, setFeedbacks] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -38,11 +42,23 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
     googleLink: initialBusiness.google_link || "",
     facebookLink: initialBusiness.facebook_link || "",
     yelpLink: initialBusiness.yelp_link || "",
+    googleLinks2: initialBusiness.google_links_2 || [],
+    facebookLinks2: initialBusiness.facebook_links_2 || [],
+    yelpLinks2: initialBusiness.yelp_links_2 || [],
     isPremium: initialBusiness.plan_type === "pro" && initialBusiness.subscription_status === "active",
   })
 
   useEffect(() => {
-    // Check if this is a new user
+    const params = new URLSearchParams(window.location.search)
+    const tab = params.get("tab")
+    if (tab && DASHBOARD_TABS.includes(tab)) setActiveTab(tab)
+    if (params.get("success") === "true") {
+      showToast("Checkout finished. Your plan can take a moment to update.", "success")
+    }
+    if (params.get("canceled") === "true") {
+      showToast("Checkout was canceled. You are still on the current plan.", "info")
+    }
+
     const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding")
     if (!hasSeenOnboarding) {
       setTimeout(() => setShowOnboarding(true), 1000)
@@ -59,19 +75,22 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
         showToast("Failed to load feedback", "error")
         setLoading(false)
       })
-  }, [initialBusiness.id])
+  }, [initialBusiness.id, showToast])
 
-  const handleSaveSettings = async () => {
+  const handleSaveSettings = async (nextSettings = settings) => {
+    setSettings(nextSettings)
     try {
       const res = await fetch("/api/business/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          businessId: initialBusiness.id,
-          business_name: settings.businessName,
-          google_link: settings.googleLink,
-          facebook_link: settings.facebookLink,
-          yelp_link: settings.yelpLink,
+          business_name: nextSettings.businessName,
+          google_link: nextSettings.googleLink,
+          facebook_link: nextSettings.facebookLink,
+          yelp_link: nextSettings.yelpLink,
+          google_links_2: nextSettings.googleLinks2 || [],
+          facebook_links_2: nextSettings.facebookLinks2 || [],
+          yelp_links_2: nextSettings.yelpLinks2 || [],
         }),
       })
 
@@ -154,6 +173,9 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
                     google: settings.googleLink,
                     facebook: settings.facebookLink,
                     yelp: settings.yelpLink,
+                    googleAdditional: settings.googleLinks2,
+                    facebookAdditional: settings.facebookLinks2,
+                    yelpAdditional: settings.yelpLinks2,
                   }}
                   onComplete={handleSimulatedSubmit}
                 />
@@ -175,6 +197,11 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
           <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
           <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+            {demoMode && (
+              <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                This is sample data for the keyless demo. Connect a database before you share the review page with customers.
+              </div>
+            )}
             {activeTab === "dashboard" && (
               <DashboardView
                 feedbacks={feedbacks}
@@ -186,11 +213,16 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
               />
             )}
             {activeTab === "analytics" && (
-              <AnalyticsView feedbacks={feedbacks} isPremium={settings.isPremium} businessId={initialBusiness.id} />
+              <AnalyticsView
+                feedbacks={feedbacks}
+                isPremium={settings.isPremium}
+                businessId={initialBusiness.id}
+                onUpgrade={() => setActiveTab("billing")}
+              />
             )}
             {activeTab === "monitoring" && (
               <ReviewMonitoringView
-                isPremium={settings.isPremium}
+                feedbacks={feedbacks}
                 googleLink={settings.googleLink}
                 facebookLink={settings.facebookLink}
                 yelpLink={settings.yelpLink}
@@ -205,10 +237,11 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
                 businessId={initialBusiness.id}
                 showToast={showToast}
                 businessName={settings.businessName}
+                setActiveTab={setActiveTab}
               />
             )}
             {activeTab === "widgets" && (
-              <WidgetBuilderView businessName={settings.businessName} isPremium={settings.isPremium} />
+              <WidgetBuilderView businessId={initialBusiness.id} businessName={settings.businessName} />
             )}
             {activeTab === "links" && (
               <div className="max-w-2xl animate-in fade-in duration-500">
@@ -218,7 +251,7 @@ export default function DashboardClient({ business: initialBusiness, user }: Das
                 </div>
 
                 <QRCodeGenerator
-                  url={`${process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.app"}/review/${initialBusiness.id}`}
+                  url={reviewPageUrl(initialBusiness.id)}
                   businessName={settings.businessName}
                 />
 

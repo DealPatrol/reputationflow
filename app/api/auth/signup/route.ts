@@ -5,6 +5,7 @@ import { createSession } from "@/lib/auth"
 import { createBusiness, createUser, updateBusinessOwnerEmail } from "@/lib/db"
 import { isDemoMode } from "@/lib/demo"
 import { sendWelcomeEmail } from "@/lib/email"
+import { reviewPageUrl } from "@/lib/site"
 import { validators } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
@@ -50,8 +51,7 @@ export async function POST(request: NextRequest) {
     await createSession(user)
 
     // Send welcome email (non-blocking)
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"
-    const reviewLink = `${appUrl}/review/${business.id}`
+    const reviewLink = reviewPageUrl(business.id)
     sendWelcomeEmail(normalizedEmail, businessName || "My Business", reviewLink).catch(() => {})
 
     return NextResponse.json({ success: true, user })

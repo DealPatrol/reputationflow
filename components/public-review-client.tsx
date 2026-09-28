@@ -7,11 +7,14 @@ import Link from "next/link"
 
 interface PublicReviewClientProps {
   business: {
-    id: string
+    id: string | number
     business_name: string
     google_link?: string
     facebook_link?: string
     yelp_link?: string
+    google_links_2?: string[]
+    facebook_links_2?: string[]
+    yelp_links_2?: string[]
   }
 }
 
@@ -38,10 +41,6 @@ export function PublicReviewClient({ business }: PublicReviewClientProps) {
       if (!res.ok) {
         throw new Error("Failed to submit feedback")
       }
-
-      console.log("[v0] Feedback submitted successfully")
-    } catch (error) {
-      console.error("[v0] Feedback submission error:", error)
     } finally {
       setSubmitting(false)
     }
@@ -75,6 +74,9 @@ export function PublicReviewClient({ business }: PublicReviewClientProps) {
                 google: business.google_link,
                 facebook: business.facebook_link,
                 yelp: business.yelp_link,
+                googleAdditional: business.google_links_2,
+                facebookAdditional: business.facebook_links_2,
+                yelpAdditional: business.yelp_links_2,
               }}
               onComplete={handleFeedbackSubmit}
             />

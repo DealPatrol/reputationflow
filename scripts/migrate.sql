@@ -88,3 +88,16 @@ CREATE INDEX IF NOT EXISTS idx_feedback_business_id ON feedback(business_id);
 CREATE INDEX IF NOT EXISTS idx_feedback_created_at ON feedback(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_campaigns_business_id ON campaigns(business_id);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_id ON subscriptions(stripe_subscription_id);
+
+ALTER TABLE feedback ADD COLUMN IF NOT EXISTS response_text TEXT;
+
+CREATE TABLE IF NOT EXISTS leads (
+  id SERIAL PRIMARY KEY,
+  email TEXT NOT NULL,
+  source TEXT NOT NULL,
+  business_name TEXT,
+  details TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads(created_at DESC);

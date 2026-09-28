@@ -7,7 +7,7 @@ Complete guide to deploying ReputationFlow to production.
 - [ ] All environment variables configured
 - [ ] Database schema initialized
 - [ ] Email service tested (Resend)
-- [ ] SMS service tested (Twilio) - optional
+- [ ] Confirm review request emails only send when Resend is configured
 - [ ] Stripe configured (test mode)
 - [ ] Review platform links tested
 - [ ] Legal pages reviewed (Terms, Privacy)
@@ -44,9 +44,6 @@ Add all variables from `.env.local`:
 - `NEXT_PUBLIC_APP_URL` (set to your vercel URL)
 
 **Optional:**
-- `TWILIO_ACCOUNT_SID`
-- `TWILIO_AUTH_TOKEN`
-- `TWILIO_PHONE_NUMBER`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_PUBLISHABLE_KEY`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
@@ -58,16 +55,14 @@ Click "Deploy" and wait for build to complete.
 ### Step 5: Initialize Database
 
 1. Run `npm run migrate` from a trusted environment with `DATABASE_URL` configured.
-2. Click "Initialize Database"
-3. Verify all tables created successfully
+2. Confirm `businesses`, `feedback`, `campaigns`, `subscriptions`, and `leads` exist.
 
 ### Step 6: Test Core Functions
 
-1. Create demo account at `/demo`
-2. Test review collection flow
-3. Send test campaign (email)
-4. Verify feedback submission
-5. Check analytics dashboard
+1. Create an account and finish onboarding
+2. Open the public review link and confirm Google, Facebook, and Yelp stay visible for every rating
+3. Send a review request email only after Resend is configured
+4. Submit private feedback and confirm it appears in the dashboard
 
 ## Custom Domain Setup
 

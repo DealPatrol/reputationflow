@@ -1,21 +1,12 @@
 import { notFound } from "next/navigation"
 import { PublicReviewClient } from "@/components/public-review-client"
+import { getBusinessById } from "@/lib/db"
+import { toPublicBusiness } from "@/lib/public-business"
+import { pageMetadata } from "@/lib/seo"
 
-async function getBusinessData(businessId: string) {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/business/public?id=${businessId}`,
-      { cache: "no-store" },
-    )
-
-    if (!res.ok) return null
-
-    const data = await res.json()
-    return data.business
-  } catch (error) {
-    console.error("[v0] Failed to fetch business:", error)
-    return null
-  }
+async function loadBusiness(businessId: string) {
+  const business = await getBusinessById(businessId)
+  return toPublicBusiness(business as Record<string, unknown> | null)
 }
 
 export default async function PublicReviewPage({
@@ -24,12 +15,8 @@ export default async function PublicReviewPage({
   params: Promise<{ businessId: string }>
 }) {
   const { businessId } = await params
-  const business = await getBusinessData(businessId)
-
-  if (!business) {
-    notFound()
-  }
-
+  const business = await loadBusiness(businessId)
+  if (!business) notFound()
   return <PublicReviewClient business={business} />
 }
 
@@ -39,16 +26,17 @@ export async function generateMetadata({
   params: Promise<{ businessId: string }>
 }) {
   const { businessId } = await params
-  const business = await getBusinessData(businessId)
-
+  const business = await loadBusiness(businessId)
   if (!business) {
-    return {
-      title: "Business Not Found",
-    }
+    return { title: "Business not found", robots: { index: false, follow: false } }
   }
 
   return {
-    title: `Leave a Review - ${business.business_name}`,
-    description: `Share your experience with ${business.business_name}`,
+    ...pageMetadata({
+      title: `Leave a review for ${business.business_name}`,
+      description: `Leave a public review for ${business.business_name}. Every rating sees the same review links.`,
+      path: `/review/${businessId}`,
+    }),
+    robots: { index: false, follow: false },
   }
 }

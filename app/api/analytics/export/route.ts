@@ -1,15 +1,21 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getFeedbackByBusinessId, getCampaignsByBusinessId } from "@/lib/db"
+import { getCurrentUser } from "@/lib/auth"
+import { csvRow } from "@/lib/csv"
+import { getBusinessByUserId, getFeedbackByBusinessId, getCampaignsByBusinessId } from "@/lib/db"
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    const businessId = searchParams.get("businessId")
-    const type = searchParams.get("type") || "feedback"
+    const user = await getCurrentUser(request)
+    if (!user?.businessId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    if (!businessId) {
-      return NextResponse.json({ error: "Business ID required" }, { status: 400 })
+    const business = await getBusinessByUserId(user.id)
+    if (!business?.is_premium) {
+      return NextResponse.json({ error: "CSV export is included with Professional." }, { status: 403 })
     }
+
+    const searchParams = request.nextUrl.searchParams
+    const businessId = user.businessId
+    const type = searchParams.get("type") || "feedback"
 
     let csvContent = ""
 
@@ -17,24 +23,21 @@ export async function GET(request: NextRequest) {
       const feedback = await getFeedbackByBusinessId(businessId)
 
       // CSV header
-      csvContent = "ID,Date,Rating,Type,Feedback,Customer Email\n"
+      csvContent = `${csvRow(["ID", "Date", "Rating", "Type", "Feedback", "Customer Email"])}\n`
 
-      // CSV rows
       feedback.forEach((f: any) => {
-        const date = new Date(f.created_at).toLocaleDateString()
-        const text = (f.feedback_text || "").replace(/"/g, '""')
-        csvContent += `${f.id},${date},${f.rating},${f.type},"${text}",${f.customer_email || ""}\n`
+        const date = f.created_at ? new Date(f.created_at).toISOString() : ""
+        csvContent += `${csvRow([f.id, date, f.rating, f.type, f.feedback_text || "", f.customer_email || ""])}\n`
       })
     } else if (type === "campaigns") {
       const campaigns = await getCampaignsByBusinessId(businessId)
 
       // CSV header
-      csvContent = "ID,Date,Customer Name,Contact,Status,Follow-ups\n"
+      csvContent = `${csvRow(["ID", "Date", "Customer Name", "Contact", "Status", "Follow-ups"])}\n`
 
-      // CSV rows
       campaigns.forEach((c: any) => {
-        const date = new Date(c.created_at).toLocaleDateString()
-        csvContent += `${c.id},${date},${c.customer_name},${c.contact},${c.status},${c.follow_up_count || 0}\n`
+        const date = c.created_at ? new Date(c.created_at).toISOString() : ""
+        csvContent += `${csvRow([c.id, date, c.customer_name, c.contact, c.status, c.follow_up_count || 0])}\n`
       })
     }
 

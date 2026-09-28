@@ -40,6 +40,7 @@ Copy `.env.example`. Production requires:
 - `DATABASE_URL`
 - `AUTH_SECRET` (at least 32 random characters)
 - `NEXT_PUBLIC_APP_URL`
+- `NEXT_PUBLIC_SITE_URL` (canonical origin for SEO, sitemap, and shared review links; use the custom domain once it is attached)
 
 Pro billing additionally requires:
 
@@ -48,7 +49,7 @@ Pro billing additionally requires:
 - `STRIPE_WEBHOOK_SECRET`
 - Stripe webhook endpoint: `/api/stripe/webhook`
 
-AI, email, SMS, KV, and Blob credentials are optional and documented in `.env.example`.
+AI, email, KV, and Blob credentials are optional and documented in `.env.example`. ReputationFlow does not send SMS.
 
 Never commit real credentials. Keep separate test and live Stripe keys. Configure tax registrations before enabling Stripe Tax; this integration does not enable automatic tax.
 
@@ -73,4 +74,4 @@ Webhook signatures are verified before processing. Event IDs are persisted in `s
 
 ## Stack
 
-Next.js 16, React 19, Neon Postgres, Groq, Resend, Twilio, Stripe, and Vercel.
+Next.js 16, React 19, Neon Postgres, Groq, Resend, Stripe, and Vercel.

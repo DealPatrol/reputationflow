@@ -8,7 +8,7 @@ import { validators, sanitize } from "@/lib/validators"
 interface SettingsViewProps {
   settings: any
   setSettings: (settings: any) => void
-  onSave: () => void
+  onSave: (nextSettings: any) => void
   saved: boolean
 }
 
@@ -116,13 +116,14 @@ export const SettingsView = ({ settings, setSettings, onSave, saved }: SettingsV
     })
 
     if (isValid) {
-      setSettings({
+      const nextSettings = {
         ...settings,
         googleLinks2: additionalGoogleLinks.filter((l) => l.trim()),
         facebookLinks2: additionalFacebookLinks.filter((l) => l.trim()),
         yelpLinks2: additionalYelpLinks.filter((l) => l.trim()),
-      })
-      onSave()
+      }
+      setSettings(nextSettings)
+      onSave(nextSettings)
     }
   }
 

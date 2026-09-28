@@ -2,55 +2,40 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { getSiteUrl } from "@/lib/site"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "ReputationFlow - Enterprise Review Management",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: "ReputationFlow — review requests for local businesses",
+    template: "%s · ReputationFlow",
+  },
   description:
-    "Request honest public reviews and collect optional private feedback in one transparent customer flow.",
-  generator: "v0.app",
+    "Ask every customer for an honest public review. One link, a QR code, and optional private feedback. No review gating.",
   keywords: [
-    "review management",
+    "review management software for small business",
+    "how to get more google reviews",
+    "google review link",
     "reputation management",
-    "customer feedback",
     "review requests",
-    "online reviews",
-    "Google reviews",
-    "business reviews",
   ],
   authors: [{ name: "ReputationFlow" }],
   creator: "ReputationFlow",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "ReputationFlow - Enterprise Review Management",
-    description: "Intelligent review management platform for businesses",
     siteName: "ReputationFlow",
+    title: "ReputationFlow — review requests for local businesses",
+    description: "One review link for every customer. The same public review buttons, whatever rating they pick.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReputationFlow - Enterprise Review Management",
-    description: "Intelligent review management platform for businesses",
-  },
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+    title: "ReputationFlow — review requests for local businesses",
+    description: "One review link for every customer. The same public review buttons, whatever rating they pick.",
   },
   robots: {
     index: true,
@@ -61,12 +46,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0F172A" },
-  ],
+  themeColor: "#4f46e5",
 }
 
 export default function RootLayout({
@@ -75,8 +55,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-slate-50">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-slate-50`}>
+      <body className="font-sans antialiased">
         {children}
         <Analytics />
       </body>

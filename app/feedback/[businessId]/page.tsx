@@ -1,6 +1,12 @@
 import { Suspense } from "react"
+import type { Metadata } from "next"
 import { NegativeFeedbackClient } from "@/components/negative-feedback-client"
 import { Skeleton } from "@/components/ui/skeleton"
+
+export const metadata: Metadata = {
+  title: "Private feedback",
+  robots: { index: false, follow: false },
+}
 
 interface FeedbackPageProps {
   params: Promise<{ businessId: string }>

@@ -41,7 +41,15 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { enabled, send_timing, template } = body
+    const { enabled, send_timing } = body
+    if (enabled) {
+      return NextResponse.json(
+        {
+          error: "Automatic follow-ups are not connected to a booking or point-of-sale system. Send a request to one customer at a time.",
+        },
+        { status: 400 },
+      )
+    }
 
     // Ensure follow_up_settings row exists
     if (sql) {

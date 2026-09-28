@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
 import { getBusinessByUserId, createCampaign } from "@/lib/db"
 import { sendReviewRequest } from "@/lib/email"
+import { reviewPageUrl } from "@/lib/site"
 import { validators } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
@@ -38,14 +39,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: emailValidation.error }, { status: 400 })
     }
 
-    const name = customerName?.trim() || "Valued Customer"
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://reputationflow.com"
-    const reviewLink = `${appUrl}/review/${business.id}`
+    const name = customerName?.trim() || "there"
+    const reviewLink = reviewPageUrl(business.id)
+    const emailResult = await sendReviewRequest(customerEmail, name, business.business_name, reviewLink)
+    if (!emailResult.sent) {
+      return NextResponse.json({ error: emailResult.reason }, { status: 503 })
+    }
 
-    // Send the email (non-blocking on error)
-    await sendReviewRequest(customerEmail, name, business.business_name, reviewLink)
-
-    // Record in campaigns table
     const campaign = await createCampaign(business.id, {
       customer_name: name,
       contact: customerEmail,

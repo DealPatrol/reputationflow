@@ -125,12 +125,7 @@ In Vercel Dashboard:
 #### Option B: Other Providers
 Update \`lib/integrations/resend.ts\` to use your preferred email service.
 
-### 5. Configure SMS (Optional)
-
-1. Sign up for Twilio account
-2. Get phone number
-3. Add credentials to environment variables
-4. Update \`lib/integrations/twilio.ts\` if needed
+ReputationFlow does not send SMS. Review requests go out by email when Resend is configured, or by a link and QR code you share yourself.
 
 ## Features Checklist
 

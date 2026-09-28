@@ -166,10 +166,15 @@ export async function getCampaignCountByBusinessId(businessId: string | number):
   }
 }
 
-export async function getBusinessByUserId(userId: string) {
-  const hasDb = await checkTablesExist()
+function isKeylessDemo() {
+  return !process.env.DATABASE_URL
+}
 
-  if (!hasDb) {
+export async function getBusinessByUserId(userId: string) {
+  if (!isKeylessDemo()) {
+    const hasDb = await checkTablesExist()
+    if (!hasDb) return null
+  } else {
     return {
       id: 1,
       user_id: userId,
@@ -206,17 +211,21 @@ export async function getBusinessByUserId(userId: string) {
 }
 
 export async function getBusinessById(businessId: string | number) {
+  if (isKeylessDemo()) return String(businessId) === "1" ? getBusinessByUserId("demo-user") : null
   const hasDb = await checkTablesExist()
-  if (!hasDb) return String(businessId) === "1" ? getBusinessByUserId("demo-user") : null
+  if (!hasDb) return null
 
   const result = await sql!`SELECT * FROM businesses WHERE id = ${businessId} LIMIT 1`
   return result[0] || null
 }
 
 export async function createBusiness(userId: string, businessName: string) {
-  const hasDb = await checkTablesExist()
-
-  if (!hasDb) {
+  if (!isKeylessDemo()) {
+    const hasDb = await checkTablesExist()
+    if (!hasDb) {
+      throw new Error("Database tables are missing. Run npm run migrate.")
+    }
+  } else {
     return {
       id: 1,
       user_id: userId,
@@ -305,12 +314,9 @@ export async function updateBusiness(
 }
 
 export async function getFeedbackByBusinessId(businessId: string | number) {
+  if (isKeylessDemo()) return DEMO_FEEDBACK
   const hasDb = await checkTablesExist()
-
-  if (!hasDb) {
-    console.log("[v0] Using demo feedback data")
-    return DEMO_FEEDBACK
-  }
+  if (!hasDb) return []
 
   try {
     return await sql!`
@@ -320,7 +326,7 @@ export async function getFeedbackByBusinessId(businessId: string | number) {
     `
   } catch (error) {
     console.error("[v0] Error fetching feedback:", error)
-    return DEMO_FEEDBACK
+    return []
   }
 }
 
@@ -360,12 +366,9 @@ export async function createFeedback(
 }
 
 export async function getCampaignsByBusinessId(businessId: string | number) {
+  if (isKeylessDemo()) return DEMO_CAMPAIGNS
   const hasDb = await checkTablesExist()
-
-  if (!hasDb) {
-    console.log("[v0] Using demo campaigns data")
-    return DEMO_CAMPAIGNS
-  }
+  if (!hasDb) return []
 
   try {
     return await sql!`
@@ -375,7 +378,7 @@ export async function getCampaignsByBusinessId(businessId: string | number) {
     `
   } catch (error) {
     console.error("[v0] Error fetching campaigns:", error)
-    return DEMO_CAMPAIGNS
+    return []
   }
 }
 
@@ -497,9 +500,10 @@ export async function releaseWebhookEvent(eventId: string) {
 }
 
 export async function getAnalyticsByBusinessId(businessId: string | number, days = 30) {
-  const hasDb = await checkTablesExist()
-
-  if (!hasDb) {
+  if (!isKeylessDemo()) {
+    const hasDb = await checkTablesExist()
+    if (!hasDb) return { feedback: [], campaigns: [] }
+  } else {
     return {
       feedback: [{ date: new Date().toISOString().split("T")[0], total: 4, positive: 3, negative: 1, avg_rating: 4.0 }],
       campaigns: [{ date: new Date().toISOString().split("T")[0], total: 3, converted: 1 }],
@@ -592,4 +596,37 @@ export async function updateFollowUpSettings(
     console.error("[v0] Error updating follow-up settings:", error)
     throw error
   }
+}
+
+export async function saveFeedbackResponse(
+  businessId: string | number,
+  feedbackId: string | number,
+  responseText: string,
+) {
+  if (!sql) {
+    return {
+      id: feedbackId,
+      business_id: businessId,
+      response_text: responseText,
+      responded: true,
+    }
+  }
+
+  const result = await sql!`
+    UPDATE feedback
+    SET response_text = ${responseText}, responded = TRUE
+    WHERE id = ${feedbackId} AND business_id = ${businessId}
+    RETURNING *
+  `
+  return result[0] || null
+}
+
+export async function createLead(data: { email: string; source: string; businessName?: string; details?: string }) {
+  if (!sql) return null
+  const result = await sql!`
+    INSERT INTO leads (email, source, business_name, details)
+    VALUES (${data.email}, ${data.source}, ${data.businessName || null}, ${data.details || null})
+    RETURNING id, email, source, created_at
+  `
+  return result[0]
 }

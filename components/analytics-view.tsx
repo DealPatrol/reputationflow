@@ -8,9 +8,10 @@ interface AnalyticsViewProps {
   feedbacks: any[]
   isPremium: boolean
   businessId?: string | number
+  onUpgrade?: () => void
 }
 
-export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsViewProps) => {
+export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: AnalyticsViewProps) => {
   const [period, setPeriod] = useState("30d")
   const [exporting, setExporting] = useState(false)
   const [analyticsData, setAnalyticsData] = useState<any>(null)
@@ -42,7 +43,6 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
   const negative = analyticsData?.negativeCount || feedbacks.filter((f) => f.type === "negative").length
   const avgRating =
     analyticsData?.averageRating || (total > 0 ? feedbacks.reduce((acc, f) => acc + f.rating, 0) / total : 0)
-  const npsScore = analyticsData?.npsScore || (total > 0 ? Math.round((positive / total) * 100) : 0)
   const thisWeek = analyticsData?.trend?.thisWeek || 0
   const lastWeek = analyticsData?.trend?.lastWeek || 0
   const weekChange = analyticsData?.trend?.change || 0
@@ -52,6 +52,7 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
     setExporting(true)
     try {
       const response = await fetch(`/api/analytics/export?businessId=${businessId}&type=feedback`)
+      if (!response.ok) return
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
@@ -105,12 +106,12 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
             ))}
           </div>
           <button
-            onClick={handleExport}
-            disabled={exporting || total === 0}
+            onClick={isPremium ? handleExport : onUpgrade}
+            disabled={isPremium && (exporting || total === 0)}
             className="bg-slate-900 hover:bg-black disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-bold py-2.5 px-6 rounded-lg flex items-center gap-2 transition-colors"
           >
             <Download size={16} />
-            <span>{exporting ? "Exporting..." : "Export CSV"}</span>
+            <span>{exporting ? "Exporting..." : isPremium ? "Export CSV" : "Export on Pro"}</span>
           </button>
         </div>
       </div>
@@ -122,12 +123,16 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
               <BarChart3 size={24} />
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-slate-900 mb-1">Unlock Advanced Analytics</h3>
+              <h3 className="font-bold text-slate-900 mb-1">Professional adds the rest of the history</h3>
               <p className="text-slate-600 text-sm mb-4">
-                Get detailed trends, platform breakdown, response rate tracking, and automated reports with Pro.
+                Starter shows your latest response. Professional includes the full feedback history, CSV export, email requests, and AI drafts you edit before publishing.
               </p>
-              <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors">
-                Upgrade to Pro
+              <button
+                type="button"
+                onClick={onUpgrade}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
+              >
+                See Professional
               </button>
             </div>
           </div>
@@ -136,7 +141,7 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <MetricCard label="Total Reviews" value={total} icon={<MessageSquare size={18} />} color="indigo" />
+        <MetricCard label="Feedback" value={total} icon={<MessageSquare size={18} />} color="indigo" />
         <MetricCard
           label="Average Rating"
           value={avgRating.toFixed(1)}
@@ -144,7 +149,13 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
           color="amber"
           suffix="/5"
         />
-        <MetricCard label="NPS Score" value={npsScore} icon={<TrendingUp size={18} />} color="emerald" suffix="%" />
+        <MetricCard
+          label="4–5 star"
+          value={total > 0 ? Math.round((positive / total) * 100) : 0}
+          icon={<TrendingUp size={18} />}
+          color="emerald"
+          suffix="%"
+        />
         <TrendCard label="This Week" value={thisWeek} change={weekChange} />
       </div>
 
@@ -204,12 +215,12 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
                   <ShieldAlert size={20} className="text-rose-600" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-rose-600 uppercase tracking-wider">Intercepted</div>
+                  <div className="text-xs font-bold text-rose-600 uppercase tracking-wider">Low ratings</div>
                   <div className="text-2xl font-bold text-slate-900">{negative}</div>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-xs text-slate-500">prevented</div>
+                <div className="text-xs text-slate-500">of total</div>
                 <div className="text-lg font-bold text-rose-600">
                   {total > 0 ? Math.round((negative / total) * 100) : 0}%
                 </div>
@@ -217,13 +228,9 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId }: AnalyticsVie
             </div>
 
             <div className="pt-4 border-t border-slate-100">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Impact</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">What this counts</div>
               <p className="text-sm text-slate-600 leading-relaxed">
-                You've intercepted{" "}
-                <span className="font-bold text-slate-900">
-                  {negative} negative review{negative !== 1 ? "s" : ""}
-                </span>
-                , preventing potential damage to your online reputation.
+                These are ratings customers left on your ReputationFlow page. They are not removed from Google, Facebook, or Yelp.
               </p>
             </div>
           </div>
