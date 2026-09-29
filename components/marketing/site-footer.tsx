@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { comparisons, industries } from "@/lib/marketing-content"
+import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 export function SiteFooter() {
   return (
@@ -43,7 +44,7 @@ export function SiteFooter() {
             ))}
             <li><Link className="hover:text-white" href="/privacy">Privacy</Link></li>
             <li><Link className="hover:text-white" href="/terms">Terms</Link></li>
-            <li><a className="hover:text-white" href="mailto:support@reputationflow.app">Contact</a></li>
+            <li><a className="hover:text-white" href={`mailto:${PUBLIC_CONTACT_EMAIL}`}>Contact</a></li>
           </ul>
         </div>
       </div>

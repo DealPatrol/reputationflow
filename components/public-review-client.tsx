@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
-import { FeedbackFlow } from "@/components/feedback-flow"
-import { Star } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
+import { Star } from "lucide-react"
+import { FeedbackFlow } from "@/components/feedback-flow"
+import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 interface PublicReviewClientProps {
   business: {
@@ -99,7 +100,7 @@ export function PublicReviewClient({ business }: PublicReviewClientProps) {
             Privacy
           </Link>
           <span>•</span>
-          <a href="mailto:support@reputationflow.app" className="hover:text-slate-700 transition-colors">
+          <a href={`mailto:${PUBLIC_CONTACT_EMAIL}`} className="hover:text-slate-700 transition-colors">
             Support
           </a>
         </div>

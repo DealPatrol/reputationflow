@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
@@ -7,6 +8,23 @@ import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { faqs, industries } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { faqJsonLd, organizationJsonLd, softwareJsonLd } from "@/lib/seo"
+import { absoluteUrl } from "@/lib/site"
+
+const homeTitle = "ReputationFlow — review requests for local businesses"
+const homeDescription = "One review link for every customer. The same public review buttons, whatever rating they pick."
+
+export const metadata: Metadata = {
+  alternates: { canonical: absoluteUrl("/") },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "ReputationFlow",
+    title: homeTitle,
+    description: homeDescription,
+    url: absoluteUrl("/"),
+    images: [absoluteUrl("/opengraph-image")],
+  },
+}
 
 const steps = [
   {

@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { Star } from "lucide-react"
+import { pageMetadata } from "@/lib/seo"
+import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
-export const metadata = {
-  title: "Privacy Policy - ReputationFlow",
-  description: "Privacy Policy for ReputationFlow reputation management platform",
-}
+export const metadata = pageMetadata({
+  title: "Privacy policy",
+  description: "Privacy policy for the ReputationFlow review request platform.",
+  path: "/privacy",
+})
 
 export default function PrivacyPage() {
   return (
@@ -137,10 +140,10 @@ export default function PrivacyPage() {
               <p className="text-slate-600 leading-relaxed mt-4">
                 To exercise these rights, contact us at{" "}
                 <a
-                  href="mailto:privacy@reputationflow.app"
+                  href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
                   className="text-indigo-600 hover:text-indigo-700 font-medium"
                 >
-                  privacy@reputationflow.app
+                  {PUBLIC_CONTACT_EMAIL}
                 </a>
               </p>
             </section>
@@ -190,10 +193,10 @@ export default function PrivacyPage() {
               <p className="text-slate-600 leading-relaxed">
                 If you have questions about this Privacy Policy or our data practices, please contact us at:{" "}
                 <a
-                  href="mailto:privacy@reputationflow.app"
+                  href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
                   className="text-indigo-600 hover:text-indigo-700 font-medium"
                 >
-                  privacy@reputationflow.app
+                  {PUBLIC_CONTACT_EMAIL}
                 </a>
               </p>
             </section>

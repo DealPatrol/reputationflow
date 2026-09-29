@@ -304,7 +304,7 @@ npm run build
 
 ---
 
-**Questions?** Open an issue on GitHub or email support@reputationflow.app
+**Questions?** Open an issue on GitHub or email colecollins763@gmail.com
 \`\`\`
 
 \`\`\`json file="" isHidden
