@@ -10,7 +10,12 @@ if (process.env.RESEND_API_KEY) {
   resend = new Resend(process.env.RESEND_API_KEY)
 }
 
-const FROM_EMAIL = process.env.EMAIL_FROM || "ReputationFlow <notifications@reputationflow.com>"
+// TODO: Set EMAIL_FROM to a verified sender on a domain Cole owns
+// once outbound mail is configured in Resend. Do not fall back to a hardcoded sender.
+function notificationFrom(): string | null {
+  const from = process.env.EMAIL_FROM?.trim()
+  return from || null
+}
 
 function appUrl() {
   return getSiteUrl()
@@ -22,14 +27,15 @@ export async function sendNegativeFeedbackAlert(
   rating: number,
   feedbackText: string | null,
 ) {
-  if (!resend) return
+  const from = notificationFrom()
+  if (!resend || !from) return
   const stars = "★".repeat(rating) + "☆".repeat(5 - rating)
   const reviewText = feedbackText
     ? `<p style="background:#fff3f3;border-left:4px solid #e53e3e;padding:12px 16px;border-radius:4px;font-style:italic;">"${sanitize.html(feedbackText)}"</p>`
     : "<p style='color:#718096;'>No written feedback provided.</p>"
 
   await resend.emails.send({
-    from: FROM_EMAIL,
+    from,
     to: ownerEmail,
     subject: `New ${rating}-star customer feedback for ${businessName}`,
     html: `
@@ -64,10 +70,11 @@ export async function sendWelcomeEmail(
   businessName: string,
   reviewLink: string,
 ) {
-  if (!resend) return
+  const from = notificationFrom()
+  if (!resend || !from) return
 
   await resend.emails.send({
-    from: FROM_EMAIL,
+    from,
     to: ownerEmail,
     subject: `Welcome to ReputationFlow — your review link is ready 🎉`,
     html: `
@@ -110,7 +117,8 @@ export async function sendReviewRequest(
   businessName: string,
   reviewLink: string,
 ): Promise<EmailSendResult> {
-  if (!resend) {
+  const from = notificationFrom()
+  if (!resend || !from) {
     return { sent: false, reason: "Email is not configured. Add RESEND_API_KEY and EMAIL_FROM." }
   }
 
@@ -118,7 +126,7 @@ export async function sendReviewRequest(
   const safeBusiness = sanitize.html(businessName)
   const safeLink = sanitize.html(reviewLink)
   const { error } = await resend.emails.send({
-    from: FROM_EMAIL,
+    from,
     to: customerEmail,
     subject: `How was your experience at ${businessName}?`,
     html: `

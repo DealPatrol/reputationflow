@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { Star } from "lucide-react"
+import { pageMetadata } from "@/lib/seo"
+import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
-export const metadata = {
-  title: "Terms of Service - ReputationFlow",
-  description: "Terms of Service for ReputationFlow reputation management platform",
-}
+export const metadata = pageMetadata({
+  title: "Terms of service",
+  description: "Terms of service for the ReputationFlow review request platform.",
+  path: "/terms",
+})
 
 export default function TermsPage() {
   return (
@@ -143,8 +146,8 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold text-slate-900 mb-4">11. Contact Information</h2>
               <p className="text-slate-600 leading-relaxed">
                 If you have questions about these Terms of Service, please contact us at:{" "}
-                <a href="mailto:legal@reputationflow.app" className="text-indigo-600 hover:text-indigo-700 font-medium">
-                  legal@reputationflow.app
+                <a href={`mailto:${PUBLIC_CONTACT_EMAIL}`} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                  {PUBLIC_CONTACT_EMAIL}
                 </a>
               </p>
             </section>

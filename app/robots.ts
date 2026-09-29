@@ -9,6 +9,5 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ["/api/", "/dashboard", "/auth/", "/onboarding", "/demo", "/settings", "/review/", "/feedback/", "/embed/"],
     },
     sitemap: absoluteUrl("/sitemap.xml"),
-    host: absoluteUrl("/"),
   }
 }

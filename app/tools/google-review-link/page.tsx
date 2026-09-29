@@ -1,12 +1,16 @@
 import { CtaBand } from "@/components/marketing/cta-band"
+import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { GoogleReviewLinkTool } from "@/components/tools/google-review-link-tool"
-import { pageMetadata } from "@/lib/seo"
+import { breadcrumbJsonLd, freeToolJsonLd, pageMetadata } from "@/lib/seo"
+
+const toolName = "Google review link generator"
+const toolDescription =
+  "Free Google review link generator. Paste a Place ID and get the official write-a-review URL you can put on a QR code, receipt, or email."
 
 export const metadata = pageMetadata({
-  title: "Google review link generator",
-  description:
-    "Free Google review link generator. Paste a Place ID and get the official write-a-review URL you can put on a QR code, receipt, or email.",
+  title: toolName,
+  description: toolDescription,
   path: "/tools/google-review-link",
   keywords: ["google review link generator", "google review link", "place id review link", "write a review url"],
 })
@@ -14,6 +18,19 @@ export const metadata = pageMetadata({
 export default function GoogleReviewLinkPage() {
   return (
     <MarketingShell>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: toolName, path: "/tools/google-review-link" },
+          ]),
+          freeToolJsonLd({
+            name: toolName,
+            description: toolDescription,
+            path: "/tools/google-review-link",
+          }),
+        ]}
+      />
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <p className="text-sm font-semibold text-indigo-700">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Google review link generator</h1>

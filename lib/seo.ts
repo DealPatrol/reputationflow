@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { absoluteUrl } from "@/lib/site"
+import { absoluteUrl, PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 interface PageMetaInput {
   title: string
@@ -22,11 +22,13 @@ export function pageMetadata({ title, description, path, keywords }: PageMetaInp
       siteName: "ReputationFlow",
       type: "website",
       locale: "en_US",
+      images: [absoluteUrl("/opengraph-image")],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [absoluteUrl("/opengraph-image")],
     },
   }
 }
@@ -37,9 +39,31 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: "ReputationFlow",
     url: absoluteUrl("/"),
+    logo: absoluteUrl("/apple-icon"),
     description:
       "Review request software for local businesses. Every customer sees the same public review links.",
-    email: "support@reputationflow.app",
+    email: PUBLIC_CONTACT_EMAIL,
+    founder: {
+      "@type": "Person",
+      name: "Cole Collins",
+    },
+  }
+}
+
+export function freeToolJsonLd(input: { name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": ["SoftwareApplication", "WebApplication"],
+    name: input.name,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: absoluteUrl(input.path),
+    description: input.description,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
   }
 }
 

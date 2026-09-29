@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { getSiteUrl } from "@/lib/site"
+import { absoluteUrl, getSiteUrl } from "@/lib/site"
 import "./globals.css"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
@@ -31,11 +31,14 @@ export const metadata: Metadata = {
     siteName: "ReputationFlow",
     title: "ReputationFlow — review requests for local businesses",
     description: "One review link for every customer. The same public review buttons, whatever rating they pick.",
+    url: absoluteUrl("/"),
+    images: [absoluteUrl("/opengraph-image")],
   },
   twitter: {
     card: "summary_large_image",
     title: "ReputationFlow — review requests for local businesses",
     description: "One review link for every customer. The same public review buttons, whatever rating they pick.",
+    images: [absoluteUrl("/opengraph-image")],
   },
   robots: {
     index: true,

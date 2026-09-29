@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 export function Footer() {
   return (
@@ -14,7 +15,7 @@ export function Footer() {
               Privacy Policy
             </Link>
             <a
-              href="mailto:support@reputationflow.app"
+              href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
               className="text-slate-600 hover:text-slate-900 transition-colors"
             >
               Contact

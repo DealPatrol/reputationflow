@@ -1,8 +1,9 @@
 import Link from "next/link"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
-import { pageMetadata } from "@/lib/seo"
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo"
 
 export const metadata = pageMetadata({
   title: "Review management software for small business",
@@ -35,6 +36,12 @@ const needs = [
 export default function ReviewSoftwarePage() {
   return (
     <MarketingShell>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Review management software", path: "/review-management-software" },
+        ])}
+      />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <p className="text-sm font-semibold text-indigo-700">Product</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">

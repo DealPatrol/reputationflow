@@ -152,12 +152,16 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
               <Loader2 className="animate-spin text-indigo-600" size={32} />
             </div>
           )}
-          <img
-            src={qrCodeUrl || "/placeholder.svg"}
-            alt="QR Code"
-            className="w-full h-auto"
-            style={{ maxWidth: `${size}px` }}
-          />
+          {qrCodeUrl ? (
+            <img
+              src={qrCodeUrl}
+              alt="QR Code"
+              className="w-full h-auto"
+              style={{ maxWidth: `${size}px` }}
+            />
+          ) : (
+            <div className="bg-slate-100" style={{ width: size, height: size }} />
+          )}
           {cached && (
             <div className="absolute top-2 right-2 bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded">
               Cached
