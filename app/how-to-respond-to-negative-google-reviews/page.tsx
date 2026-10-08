@@ -1,9 +1,11 @@
 import Link from "next/link"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { GuideResources } from "@/components/marketing/guide-resources"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -110,7 +112,13 @@ export default function NegativeReviewRepliesPage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Templates</p>
+        <Breadcrumbs
+          items={[
+            { name: "Home", path: "/" },
+            { name: "How to respond to negative Google reviews", path: "/how-to-respond-to-negative-google-reviews" },
+          ]}
+        />
+        <p className="mt-3 text-sm font-semibold text-indigo-700">Templates</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
           How to respond to negative Google reviews
         </h1>
@@ -163,6 +171,16 @@ export default function NegativeReviewRepliesPage() {
           </Link>{" "}
           before you turn on reply drafts.
         </p>
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">Replies for a specific trade</h2>
+        <ul className="mt-3 space-y-2 text-sm leading-7">
+          {Object.values(tradeReplyGuides).map((guide) => (
+            <li key={guide.path}>
+              <Link className="font-semibold text-indigo-700" href={guide.path}>
+                {guide.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
         <GuideResources signupLocation="negative_reviews_body" />
       </article>
       <CtaBand

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { GuideResources } from "@/components/marketing/guide-resources"
@@ -87,7 +88,13 @@ export default function GoogleReviewsGuidePage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Guide</p>
+        <Breadcrumbs
+          items={[
+            { name: "Home", path: "/" },
+            { name: "How to get more Google reviews", path: "/how-to-get-more-google-reviews" },
+          ]}
+        />
+        <p className="mt-3 text-sm font-semibold text-indigo-700">Guide</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">How to get more Google reviews</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           More reviews come from asking more customers at the right moment, with a link that opens the review form. This is the workflow local businesses can actually run.

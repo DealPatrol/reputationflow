@@ -44,6 +44,8 @@ describe("marketing copy", () => {
       join(process.cwd(), "lib/marketing-content.ts"),
       join(process.cwd(), "lib/industries.ts"),
       join(process.cwd(), "lib/guides.ts"),
+      join(process.cwd(), "lib/longtail-guides.ts"),
+      join(process.cwd(), "lib/ad-landings.ts"),
       join(process.cwd(), "lib/review-request-templates.ts"),
       join(process.cwd(), "lib/email.ts"),
     ]

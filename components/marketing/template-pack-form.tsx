@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
+import { trackLead } from "@/lib/ads-events"
+import { readStoredAttribution } from "@/lib/attribution"
 import { templatePackText } from "@/lib/review-request-templates"
 
 function downloadTemplatePack() {
@@ -36,6 +38,7 @@ export function TemplatePackForm() {
           source: "review-templates",
           details: "google-review-request-templates",
           companyWebsite,
+          attribution: readStoredAttribution(),
         }),
       })
       const data = await response.json()
@@ -50,6 +53,7 @@ export function TemplatePackForm() {
         return
       }
       setStatus("saved")
+      trackLead("review-templates")
       setMessage(
         data.emailed
           ? "Saved. The pack is on its way to your inbox. You can download the same file below."

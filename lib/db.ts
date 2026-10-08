@@ -1,5 +1,6 @@
 import { neon } from "@neondatabase/serverless"
 import type { NeonQueryFunction } from "@neondatabase/serverless"
+import type { Attribution } from "@/lib/attribution"
 
 let sql: NeonQueryFunction<false, false> | null = null
 let tablesChecked = false
@@ -621,12 +622,82 @@ export async function saveFeedbackResponse(
   return result[0] || null
 }
 
-export async function createLead(data: { email: string; source: string; businessName?: string; details?: string }) {
+export async function createLead(data: {
+  email: string
+  source: string
+  businessName?: string
+  details?: string
+  attribution?: Attribution
+}) {
   if (!sql) return null
+  const attribution = data.attribution || {}
   const result = await sql!`
-    INSERT INTO leads (email, source, business_name, details)
-    VALUES (${data.email}, ${data.source}, ${data.businessName || null}, ${data.details || null})
+    INSERT INTO leads (
+      email, source, business_name, details,
+      utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+      gclid, fbclid, landing_path
+    )
+    VALUES (
+      ${data.email}, ${data.source}, ${data.businessName || null}, ${data.details || null},
+      ${attribution.utm_source || null}, ${attribution.utm_medium || null}, ${attribution.utm_campaign || null},
+      ${attribution.utm_term || null}, ${attribution.utm_content || null},
+      ${attribution.gclid || null}, ${attribution.fbclid || null}, ${attribution.landing_path || null}
+    )
     RETURNING id, email, source, created_at
   `
   return result[0]
+}
+
+export async function saveUserAttribution(userId: string, attribution: Attribution) {
+  if (!sql) return null
+  await sql`
+    UPDATE users
+    SET utm_source = ${attribution.utm_source || null},
+        utm_medium = ${attribution.utm_medium || null},
+        utm_campaign = ${attribution.utm_campaign || null},
+        utm_term = ${attribution.utm_term || null},
+        utm_content = ${attribution.utm_content || null},
+        gclid = ${attribution.gclid || null},
+        fbclid = ${attribution.fbclid || null},
+        landing_path = ${attribution.landing_path || null}
+    WHERE id = ${userId}
+  `
+  return true
+}
+
+export type PurchaseClaim =
+  | { state: "pending" }
+  | { state: "already" }
+  | { state: "ready"; transactionId: string }
+
+export async function claimAdsPurchase(businessId: string | number): Promise<PurchaseClaim> {
+  if (!sql) return { state: "pending" }
+  const rows = await sql`
+    SELECT b.ads_purchase_reported_at, s.plan_type, s.status, s.stripe_subscription_id
+    FROM businesses b
+    LEFT JOIN subscriptions s ON s.business_id = b.id
+    WHERE b.id = ${businessId}
+    LIMIT 1
+  `
+  const row = rows[0] as
+    | {
+        ads_purchase_reported_at: string | null
+        plan_type: string | null
+        status: string | null
+        stripe_subscription_id: string | null
+      }
+    | undefined
+  if (!row) return { state: "pending" }
+  if (row.ads_purchase_reported_at) return { state: "already" }
+  if (row.plan_type !== "pro" || row.status !== "active" || !row.stripe_subscription_id) {
+    return { state: "pending" }
+  }
+  const claimed = await sql`
+    UPDATE businesses
+    SET ads_purchase_reported_at = CURRENT_TIMESTAMP
+    WHERE id = ${businessId} AND ads_purchase_reported_at IS NULL
+    RETURNING id
+  `
+  if (!claimed[0]) return { state: "already" }
+  return { state: "ready", transactionId: String(row.stripe_subscription_id) }
 }

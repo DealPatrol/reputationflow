@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Suspense } from "react"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
@@ -79,6 +80,7 @@ export default function QrCodePage() {
         data={[
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
+            { name: "Free tools", path: "/tools" },
             { name: "QR code generator", path: "/tools/qr-code" },
           ]),
           freeToolJsonLd({
@@ -96,7 +98,8 @@ export default function QrCodePage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Free tool</p>
+        <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free tools", path: "/tools" }, { name: "QR code generator", path: "/tools/qr-code" }]} />
+        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">QR code generator for Google reviews</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Paste a review link and download a QR code, a review card, or a table tent. The image is created in your browser. Nothing is uploaded to generate it, and you do not need an account.

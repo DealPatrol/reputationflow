@@ -13,6 +13,7 @@ export interface IndustryPage {
   tips: { title: string; body: string }[]
   faqs: { question: string; answer: string }[]
   seeAlso?: { slug: string; label: string; lead: string }
+  spokes?: { slug: string; label: string }[]
 }
 
 export const industries: IndustryPage[] = [
@@ -302,6 +303,13 @@ export const industries: IndustryPage[] = [
         answer:
           "Use the company profile the homeowner can find. A second profile is for a second real location, not a separate page for every superintendent.",
       },
+    ],
+    spokes: [
+      { slug: "plumber", label: "Plumbers" },
+      { slug: "electrician", label: "Electricians" },
+      { slug: "hvac", label: "HVAC" },
+      { slug: "roofer", label: "Roofers" },
+      { slug: "painter", label: "Painters" },
     ],
   },
   {

@@ -10,7 +10,8 @@ const links = [
   { href: "/industries", label: "Industries" },
   { href: "/pricing", label: "Pricing" },
   { href: "/guides", label: "Guides" },
-  { href: "/tools/google-review-link", label: "Free tools" },
+  { href: "/tools", label: "Free tools" },
+  { href: "/resources", label: "Resources" },
 ]
 
 export function SiteHeader() {

@@ -87,6 +87,34 @@ describe("POST /api/leads", () => {
     expect(mocks.sendTemplatePack).toHaveBeenCalledWith("owner@example.com")
   })
 
+  it("stores click ids and utm fields with a template-pack lead", async () => {
+    mocks.sendTemplatePack.mockResolvedValue({ sent: false, reason: "Email is not configured. Add RESEND_API_KEY and EMAIL_FROM." })
+    const response = await createLeadRoute(new Request("http://localhost/api/leads", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "owner@example.com",
+        source: "review-templates",
+        attribution: {
+          utm_source: "google",
+          utm_medium: "cpc",
+          gclid: "Cj0KCQexample",
+          fbclid: "bad id",
+          landing_path: "/ads/contractors",
+        },
+      }),
+    }))
+    expect(response.status).toBe(200)
+    expect(mocks.createLead).toHaveBeenCalledWith(expect.objectContaining({
+      source: "review-templates",
+      attribution: {
+        utm_source: "google",
+        utm_medium: "cpc",
+        gclid: "Cj0KCQexample",
+        landing_path: "/ads/contractors",
+      },
+    }))
+  })
+
   it("keeps a template-pack signup when email is not configured", async () => {
     mocks.sendTemplatePack.mockResolvedValue({ sent: false, reason: "Email is not configured. Add RESEND_API_KEY and EMAIL_FROM." })
     const response = await createLeadRoute(new Request("http://localhost/api/leads", {

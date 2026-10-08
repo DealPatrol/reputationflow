@@ -15,6 +15,8 @@ export function SiteFooter() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Product</p>
           <ul className="mt-3 space-y-2 text-sm">
+            <li><Link className="hover:text-white" href="/resources">Resources</Link></li>
+            <li><Link className="hover:text-white" href="/tools">Free tools</Link></li>
             <li><Link className="hover:text-white" href="/how-it-works">How it works</Link></li>
             <li><Link className="hover:text-white" href="/pricing">Pricing</Link></li>
             <li><Link className="hover:text-white" href="/faq">FAQ</Link></li>

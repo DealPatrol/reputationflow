@@ -194,8 +194,10 @@ export default function HomePage() {
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Built for the businesses that live on Google reviews</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
               These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify. The{" "}
+              <Link className="font-semibold text-indigo-700" href="/resources">resource hub</Link>
+              , the{" "}
               <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
-              {" "}and the{" "}
+              , and the{" "}
               <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
               {" "}cover the scripts, the FTC rules, and QR code placement.
             </p>

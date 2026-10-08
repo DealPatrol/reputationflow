@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
@@ -78,6 +79,7 @@ export default function GoogleReviewLinkPage() {
         data={[
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
+            { name: "Free tools", path: "/tools" },
             { name: toolName, path: "/tools/google-review-link" },
           ]),
           freeToolJsonLd({
@@ -95,7 +97,8 @@ export default function GoogleReviewLinkPage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Free tool</p>
+        <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free tools", path: "/tools" }, { name: toolName, path: "/tools/google-review-link" }]} />
+        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Google review link generator</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Paste a Google Place ID, or a review link that already contains one. You get the official write-a-review URL. The tool does not look your business up, and it does not require an account.

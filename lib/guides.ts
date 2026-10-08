@@ -1,3 +1,7 @@
+import { longtailGuides } from "@/lib/longtail-guides"
+
+export type GuideClusterId = "ask" | "reply" | "policy" | "distribution"
+
 export interface GuideSection {
   title: string
   paragraphs: string[]
@@ -10,6 +14,7 @@ export interface GuideFaq {
 
 export interface GuidePage {
   slug: string
+  cluster: GuideClusterId
   title: string
   description: string
   intro: string
@@ -21,11 +26,36 @@ export interface GuideListing {
   path: string
   title: string
   description: string
+  cluster: GuideClusterId
 }
+
+export const guideGroups: { id: GuideClusterId; title: string; description: string }[] = [
+  {
+    id: "ask",
+    title: "How to ask",
+    description: "Scripts, timing, texts, and emails. The trade pages say when each job should use them.",
+  },
+  {
+    id: "reply",
+    title: "How to reply",
+    description: "Public replies, including templates for restaurants, contractors, dentists, and salons.",
+  },
+  {
+    id: "policy",
+    title: "Rules",
+    description: "What Google and the FTC prohibit, fake-review reports, and why a review quota is not published.",
+  },
+  {
+    id: "distribution",
+    title: "Links and QR codes",
+    description: "Where the code goes, including invoices and businesses with more than one location.",
+  },
+]
 
 export const guides: GuidePage[] = [
   {
     slug: "how-to-ask-customers-for-reviews",
+    cluster: "ask",
     title: "How to ask customers for reviews",
     description:
       "Scripts for asking a customer for a Google review in person, by text, and by email, without a star target or a discount.",
@@ -74,6 +104,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "incentivizing-reviews-ftc-rules",
+    cluster: "policy",
     title: "Is it legal to incentivize Google reviews?",
     description:
       "What the FTC review rule and Google’s policies mean if you want to offer a discount, gift, or free service for a review. Not legal advice.",
@@ -122,6 +153,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "how-to-remove-a-fake-google-review",
+    cluster: "policy",
     title: "How to remove a fake Google review",
     description:
       "How to report a Google review that violates policy, what Google will not remove, and how to reply while you wait. No removal promises.",
@@ -170,11 +202,12 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "google-review-response-examples",
+    cluster: "reply",
     title: "Google review response examples",
     description:
       "Short Google review replies for a thank-you, a mixed review, and a bad visit. Edit them, then post the reply on Google yourself.",
     intro:
-      "A public reply is a few sentences. Thank them or acknowledge the problem, sign your name, and move anything private to a phone call. Paste the reply into Google yourself. These are examples, not a script the customer should see in advance.",
+      "A public reply is a few sentences. Thank them or acknowledge the problem, sign your name, and move anything private to a phone call. Paste the reply into Google yourself. These are examples, not a script the customer should see in advance. Trade-specific replies for a bad restaurant, contracting, dental, or salon review are separate guides.",
     sections: [
       {
         title: "A straightforward thank-you",
@@ -218,6 +251,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "how-many-google-reviews-to-rank",
+    cluster: "policy",
     title: "How many Google reviews do I need to rank?",
     description:
       "Google does not publish a minimum review count for local ranking. What to work on instead of chasing a number nobody has published.",
@@ -266,6 +300,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "review-qr-code-ideas",
+    cluster: "distribution",
     title: "Review QR code ideas",
     description:
       "Practical places to put a Google review QR code: the check, the invoice, a table tent, a service sticker, and a card at the desk.",
@@ -314,6 +349,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "when-to-ask-for-a-google-review",
+    cluster: "ask",
     title: "When to ask for a Google review",
     description:
       "Ask after the customer has seen the finished work, once, and not in the middle of a complaint or a sale.",
@@ -362,6 +398,7 @@ export const guides: GuidePage[] = [
   },
   {
     slug: "google-review-policy-mistakes",
+    cluster: "policy",
     title: "Google review policy mistakes to stop making",
     description:
       "Common ways local businesses get review requests wrong: gating, selective asks, pre-written reviews, and reviewing themselves.",
@@ -408,6 +445,7 @@ export const guides: GuidePage[] = [
       },
     ],
   },
+  ...longtailGuides,
 ]
 
 const cornerstoneGuides: GuideListing[] = [
@@ -415,11 +453,13 @@ const cornerstoneGuides: GuideListing[] = [
     path: "/how-to-get-more-google-reviews",
     title: "How to get more Google reviews",
     description: "The basic workflow: a finished profile, a direct link, one ask, and a public reply.",
+    cluster: "ask",
   },
   {
     path: "/how-to-respond-to-negative-google-reviews",
     title: "How to respond to negative Google reviews",
     description: "Templates for a bad visit, a billing dispute, and a review that may be the wrong business.",
+    cluster: "reply",
   },
 ]
 
@@ -429,6 +469,7 @@ export const guideCluster: GuideListing[] = [
     path: `/guides/${guide.slug}`,
     title: guide.title,
     description: guide.description,
+    cluster: guide.cluster,
   })),
 ]
 
@@ -437,7 +478,9 @@ export function guideBySlug(slug: string) {
 }
 
 export function relatedGuides(slug: string, count = 3) {
-  const index = guides.findIndex((guide) => guide.slug === slug)
-  if (index < 0) return guides.slice(0, count)
-  return Array.from({ length: count }, (_, offset) => guides[(index + offset + 1) % guides.length])
+  const current = guideBySlug(slug)
+  if (!current) return guides.slice(0, count)
+  const sameCluster = guides.filter((guide) => guide.slug !== slug && guide.cluster === current.cluster)
+  const otherClusters = guides.filter((guide) => guide.slug !== slug && guide.cluster !== current.cluster)
+  return [...sameCluster, ...otherClusters].slice(0, count)
 }

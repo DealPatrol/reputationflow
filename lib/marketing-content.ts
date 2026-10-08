@@ -180,6 +180,8 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/how-to-get-more-google-reviews", priority: 0.9, changeFrequency: "monthly" },
     { path: "/how-to-respond-to-negative-google-reviews", priority: 0.8, changeFrequency: "monthly" },
     { path: "/review-management-software", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/resources", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/tools", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/google-review-link", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/qr-code", priority: 0.8, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },

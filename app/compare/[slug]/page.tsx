@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
@@ -42,12 +43,13 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm text-slate-500">
-          <Link href="/review-management-software" className="font-semibold text-indigo-700">
-            Review software
-          </Link>
-          <span> / {comparison.name}</span>
-        </p>
+        <Breadcrumbs
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Review software", path: "/review-management-software" },
+            { name: comparison.name, path: `/compare/${comparison.slug}` },
+          ]}
+        />
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{comparison.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{comparison.summary}</p>
 

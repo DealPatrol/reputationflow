@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { sanitizeAttribution } from "@/lib/attribution"
 import { createLead } from "@/lib/db"
 import { isDemoMode } from "@/lib/demo"
 import { sendTemplatePack } from "@/lib/email"
@@ -33,7 +34,8 @@ export async function POST(request: Request) {
 
     const businessName = body.businessName ? sanitize.text(String(body.businessName)).slice(0, 100) : undefined
     const details = body.details ? sanitize.text(String(body.details)).slice(0, 500) : undefined
-    const lead = await createLead({ email, source, businessName, details })
+    const attribution = sanitizeAttribution(body.attribution)
+    const lead = await createLead({ email, source, businessName, details, attribution })
     if (!lead) {
       return NextResponse.json({ error: "Could not save that email." }, { status: 503 })
     }
