@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { AdsScripts } from "@/components/ads/ads-scripts"
+import { AttributionCapture } from "@/components/ads/attribution-capture"
 import { absoluteUrl, getSiteUrl } from "@/lib/site"
 import "./globals.css"
 
@@ -62,6 +64,8 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-slate-50`}>
       <body className="font-sans antialiased">
         {children}
+        <AttributionCapture />
+        <AdsScripts />
         <Analytics />
         <SpeedInsights />
       </body>

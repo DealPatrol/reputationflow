@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
+import { trackLead } from "@/lib/ads-events"
+import { readStoredAttribution } from "@/lib/attribution"
 
 export function LeadCaptureForm({ source, details }: { source: string; details: string }) {
   const [email, setEmail] = useState("")
@@ -23,6 +25,7 @@ export function LeadCaptureForm({ source, details }: { source: string; details: 
           source,
           details,
           companyWebsite,
+          attribution: readStoredAttribution(),
         }),
       })
       const data = await response.json()
@@ -32,6 +35,7 @@ export function LeadCaptureForm({ source, details }: { source: string; details: 
         return
       }
       setStatus("saved")
+      trackLead(source)
       setMessage("Saved. We will use this only to follow up about ReputationFlow.")
       setEmail("")
     } catch {

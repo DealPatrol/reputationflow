@@ -51,6 +51,18 @@ Pro billing additionally requires:
 
 AI, email, KV, and Blob credentials are optional and documented in `.env.example`. ReputationFlow does not send SMS.
 
+## Ads tags
+
+Meta Pixel, GA4, and Google Ads load only when the matching `NEXT_PUBLIC_` variable is set. See `.env.example`. Change those variables and redeploy; they are inlined at build time.
+
+- Lead fires after a template-pack or free-tool email is stored.
+- Signup fires after account creation succeeds.
+- Purchase fires only after the Stripe webhook has marked the subscription Professional and active. The browser tag runs when that customer loads the dashboard with `?success=true`. Closing the tab before then means the browser tag does not fire. There is no server-side Measurement Protocol call.
+
+`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, and `fbclid` are stored on `leads` and `users` from the first page that carried them. Run `npm run migrate` so those columns exist.
+
+`/ads/contractors`, `/ads/restaurants`, and `/ads/home-services` are noindex landing pages with one signup button. Their canonicals point at the matching organic page. They are not in the sitemap.
+
 ## Template pack leads
 
 `/google-review-request-templates` offers a plain-text pack of in-person, text, and email scripts. The download does not require an email or an account.

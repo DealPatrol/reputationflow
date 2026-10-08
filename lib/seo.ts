@@ -6,15 +6,18 @@ interface PageMetaInput {
   description: string
   path: string
   keywords?: string[]
+  canonicalPath?: string
+  index?: boolean
 }
 
-export function pageMetadata({ title, description, path, keywords }: PageMetaInput): Metadata {
-  const url = absoluteUrl(path)
+export function pageMetadata({ title, description, path, keywords, canonicalPath, index = true }: PageMetaInput): Metadata {
+  const url = absoluteUrl(canonicalPath || path)
   return {
     title,
     description,
     keywords,
     alternates: { canonical: url },
+    robots: index ? { index: true, follow: true } : { index: false, follow: false },
     openGraph: {
       title,
       description,
@@ -106,7 +109,11 @@ export function articleJsonLd(input: { title: string; description: string; path:
     description: input.description,
     datePublished: CONTENT_DATE,
     dateModified: CONTENT_DATE,
-    mainEntityOfPage: url,
+    image: absoluteUrl("/opengraph-image"),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
     author: {
       "@type": "Organization",
       name: "ReputationFlow",

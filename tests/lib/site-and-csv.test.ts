@@ -82,6 +82,10 @@ describe("indexable paths", () => {
       "/guides/how-to-remove-a-fake-google-review",
       "/guides/review-qr-code-ideas",
       "/google-review-request-templates",
+      "/resources",
+      "/tools",
+      "/guides/review-request-text-message-templates",
+      "/guides/negative-google-review-responses-restaurants",
     ]))
     expect(paths.some((path) => path.startsWith("/dashboard") || path.startsWith("/review/"))).toBe(false)
   })

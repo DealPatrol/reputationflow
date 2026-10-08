@@ -5,7 +5,9 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Star } from "lucide-react"
+import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
+import { readStoredAttribution } from "@/lib/attribution"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -29,7 +31,9 @@ export default function SignInPage() {
 
     try {
       const endpoint = isSignUp ? "/api/auth/signup" : "/api/auth/signin"
-      const body = isSignUp ? { email, password, businessName } : { email, password }
+      const body = isSignUp
+        ? { email, password, businessName, attribution: readStoredAttribution() }
+        : { email, password }
 
       const res = await fetch(endpoint, {
         method: "POST",
@@ -43,7 +47,7 @@ export default function SignInPage() {
         throw new Error(data.error || "Authentication failed")
       }
 
-      // Redirect to dashboard on success
+      if (isSignUp) trackSignup()
       router.push(isSignUp ? "/onboarding" : "/dashboard")
       router.refresh()
     } catch (err: any) {

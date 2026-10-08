@@ -1,8 +1,9 @@
 import { randomUUID } from "node:crypto"
 import { type NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
+import { sanitizeAttribution } from "@/lib/attribution"
 import { createSession } from "@/lib/auth"
-import { createBusiness, createUser, updateBusinessOwnerEmail } from "@/lib/db"
+import { createBusiness, createUser, saveUserAttribution, updateBusinessOwnerEmail } from "@/lib/db"
 import { isDemoMode } from "@/lib/demo"
 import { sendWelcomeEmail } from "@/lib/email"
 import { reviewPageUrl } from "@/lib/site"
@@ -10,7 +11,8 @@ import { validators } from "@/lib/validators"
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, businessName } = await request.json()
+    const body = await request.json()
+    const { email, password, businessName } = body
 
     if (!email || !password) {
       return NextResponse.json({ error: "Email and password required" }, { status: 400 })
@@ -41,6 +43,11 @@ export async function POST(request: NextRequest) {
 
     const business = await createBusiness(userId, businessName || "My Business")
     await updateBusinessOwnerEmail(userId, normalizedEmail)
+    try {
+      await saveUserAttribution(userId, sanitizeAttribution(body.attribution))
+    } catch (attributionError) {
+      console.error("[v0] Signup attribution error:", attributionError)
+    }
 
     const user = {
       id: userId,

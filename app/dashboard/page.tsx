@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { PurchaseConversion } from "@/components/ads/purchase-conversion"
 import DashboardClient from "@/components/dashboard-client"
 import { DashboardSkeleton } from "@/components/ui/skeleton"
 import type { User } from "@/lib/auth"
@@ -33,17 +34,16 @@ export default function DashboardPage() {
       })
   }, [router])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-50 p-8">
-        <DashboardSkeleton />
-      </div>
-    )
-  }
-
-  if (!user || !business) {
-    return null
-  }
-
-  return <DashboardClient business={business} user={user} demoMode={demoMode} />
+  return (
+    <>
+      <PurchaseConversion />
+      {loading || !user || !business ? (
+        <div className="min-h-screen bg-slate-50 p-8">
+          <DashboardSkeleton />
+        </div>
+      ) : (
+        <DashboardClient business={business} user={user} demoMode={demoMode} />
+      )}
+    </>
+  )
 }

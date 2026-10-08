@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { GuideResources } from "@/components/marketing/guide-resources"
@@ -45,12 +46,13 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm text-slate-500">
-          <Link href="/guides" className="font-semibold text-indigo-700">
-            Guides
-          </Link>
-          <span> / {guide.title}</span>
-        </p>
+        <Breadcrumbs
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Guides", path: "/guides" },
+            { name: guide.title, path },
+          ]}
+        />
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{guide.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{guide.intro}</p>
         <div className="mt-10 space-y-8">

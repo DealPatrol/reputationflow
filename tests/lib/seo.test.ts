@@ -102,7 +102,10 @@ describe("seo metadata", () => {
       headline: "How to ask",
       datePublished: "2026-10-08",
       dateModified: "2026-10-08",
-      mainEntityOfPage: "https://reviews.example.com/guides/how-to-ask-customers-for-reviews",
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": "https://reviews.example.com/guides/how-to-ask-customers-for-reviews",
+      },
       author: { "@type": "Organization", name: "ReputationFlow" },
       publisher: { "@type": "Organization", name: "ReputationFlow" },
     })

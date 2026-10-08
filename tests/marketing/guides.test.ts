@@ -4,9 +4,9 @@ import { indexablePaths } from "@/lib/marketing-content"
 import { reviewRequestTemplates, templatePackText } from "@/lib/review-request-templates"
 
 describe("guide cluster", () => {
-  it("publishes ten guides and the template pack in the sitemap", () => {
-    expect(guideCluster).toHaveLength(10)
-    expect(new Set(guideCluster.map((guide) => guide.path)).size).toBe(10)
+  it("publishes the guide cluster and the template pack in the sitemap", () => {
+    expect(guideCluster.length).toBeGreaterThanOrEqual(18)
+    expect(new Set(guideCluster.map((guide) => guide.path)).size).toBe(guideCluster.length)
     const paths = indexablePaths().map((entry) => entry.path)
     for (const guide of guideCluster) {
       expect(paths).toContain(guide.path)
@@ -17,7 +17,7 @@ describe("guide cluster", () => {
   })
 
   it("gives each new guide unique copy, sections, and an FAQ", () => {
-    expect(guides).toHaveLength(8)
+    expect(guides.length).toBeGreaterThanOrEqual(16)
     expect(new Set(guides.map((guide) => guide.title)).size).toBe(guides.length)
     expect(new Set(guides.map((guide) => guide.description)).size).toBe(guides.length)
     for (const guide of guides) {

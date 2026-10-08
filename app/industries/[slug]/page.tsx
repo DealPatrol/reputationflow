@@ -1,10 +1,12 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
@@ -44,12 +46,13 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm text-slate-500">
-          <Link href="/industries" className="font-semibold text-indigo-700">
-            Industries
-          </Link>
-          <span> / {industry.name}</span>
-        </p>
+        <Breadcrumbs
+          items={[
+            { name: "Home", path: "/" },
+            { name: "Industries", path: "/industries" },
+            { name: industry.name, path: `/industries/${industry.slug}` },
+          ]}
+        />
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{industry.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{industry.intro}</p>
 
@@ -85,6 +88,34 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         <p className="mt-2 text-sm leading-7 text-slate-600">
           Do not offer a discount, a free visit, or a gift for a review. Google’s policies prohibit incentives, and ReputationFlow does not include coupon-for-review templates. Do not hand someone a star target or a review you wrote. Every customer sees the same Google, Facebook, and Yelp buttons, including after a bad visit. A private note is an extra box on that page. It does not replace those links.
         </p>
+
+        {industry.spokes && industry.spokes.length > 0 ? (
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold text-slate-950">Specialty trades</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              This page is for a general contractor at the final walkthrough. A single trade asks at a different moment, so use that page for the QR code and the sample message.
+            </p>
+            <ul className="mt-3 space-y-2 text-sm leading-7">
+              {industry.spokes.map((spoke) => (
+                <li key={spoke.slug}>
+                  <Link className="font-semibold text-indigo-700" href={`/industries/${spoke.slug}`}>
+                    {spoke.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {tradeReplyGuides[industry.slug] ? (
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            When a review is already public, use the{" "}
+            <Link className="font-semibold text-indigo-700" href={tradeReplyGuides[industry.slug].path}>
+              {tradeReplyGuides[industry.slug].label.toLowerCase()}
+            </Link>
+            . Those are reply templates, not the ask.
+          </p>
+        ) : null}
 
         {industry.seeAlso ? (
           <p className="mt-4 text-sm leading-7 text-slate-600">
