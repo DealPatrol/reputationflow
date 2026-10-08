@@ -3,7 +3,7 @@ import { join } from "node:path"
 import { afterEach, describe, expect, it } from "vitest"
 import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
-import { freeToolJsonLd, organizationJsonLd, pageMetadata } from "@/lib/seo"
+import { articleJsonLd, freeToolJsonLd, howToJsonLd, organizationJsonLd, pageMetadata } from "@/lib/seo"
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 const textExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".md", ".json", ".css", ".txt", ".example"])
@@ -66,6 +66,45 @@ describe("seo metadata", () => {
       logo: "https://reviews.example.com/apple-icon",
       email: "colecollins763@gmail.com",
       founder: { "@type": "Person", name: "Cole Collins" },
+    })
+  })
+
+  it("describes a how-to with one step url per instruction", () => {
+    process.env.NEXT_PUBLIC_SITE_URL = "https://reviews.example.com"
+    const data = howToJsonLd({
+      name: "Make a review link",
+      description: "Paste a Place ID",
+      path: "/tools/google-review-link",
+      steps: [
+        { name: "Copy the ID", text: "Open the Business Profile." },
+        { name: "Paste it", text: "Use the box on the page." },
+      ],
+    })
+    expect(data).toMatchObject({
+      "@type": "HowTo",
+      url: "https://reviews.example.com/tools/google-review-link",
+    })
+    expect(data.step).toHaveLength(2)
+    expect(data.step[1]).toMatchObject({
+      position: 2,
+      url: "https://reviews.example.com/tools/google-review-link#step-2",
+    })
+  })
+
+  it("describes an article with a publisher and a stable date", () => {
+    process.env.NEXT_PUBLIC_SITE_URL = "https://reviews.example.com"
+    expect(articleJsonLd({
+      title: "How to ask",
+      description: "Scripts",
+      path: "/guides/how-to-ask-customers-for-reviews",
+    })).toMatchObject({
+      "@type": "Article",
+      headline: "How to ask",
+      datePublished: "2026-10-08",
+      dateModified: "2026-10-08",
+      mainEntityOfPage: "https://reviews.example.com/guides/how-to-ask-customers-for-reviews",
+      author: { "@type": "Organization", name: "ReputationFlow" },
+      publisher: { "@type": "Organization", name: "ReputationFlow" },
     })
   })
 

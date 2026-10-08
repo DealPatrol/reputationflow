@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SignupLink } from "@/components/marketing/signup-link"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -99,13 +100,14 @@ export default function HomePage() {
               ReputationFlow gives you one link and one QR code. Every customer sees your Google, Facebook, and Yelp pages, plus an optional private note.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
+              <SignupLink
                 href="/auth/signin?signup=1"
+                location="homepage"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
               >
                 Start free
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </SignupLink>
               <Link
                 href="/how-to-get-more-google-reviews"
                 className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
@@ -191,8 +193,15 @@ export default function HomePage() {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Built for the businesses that live on Google reviews</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-              These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify.
+              These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify. The{" "}
+              <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
+              {" "}and the{" "}
+              <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
+              {" "}cover the scripts, the FTC rules, and QR code placement.
             </p>
+            <Link href="/industries" className="mt-3 inline-flex text-sm font-semibold text-indigo-700">
+              All trades
+            </Link>
           </div>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -206,10 +215,10 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-6 text-slate-600">{industry.intro}</p>
             </Link>
           ))}
-          <Link href="/compare/birdeye" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
-            <h3 className="font-semibold text-slate-950">Comparing larger suites?</h3>
+          <Link href="/review-management-software" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+            <h3 className="font-semibold text-slate-950">Comparing review software?</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Read the Birdeye and Podium comparisons if you are deciding between a full platform and a focused review link.
+              See when a review link is enough, and when Birdeye, Podium, or NiceJob is the clearer fit.
             </p>
           </Link>
         </div>

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
 import { getBusinessByUserId, updateBusinessStripeCustomer } from "@/lib/db"
 import { getStripeClient, PLANS } from "@/lib/stripe"
+import { absoluteUrl } from "@/lib/site"
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,8 +43,8 @@ export async function POST(request: NextRequest) {
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
       client_reference_id: String(business.id),
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/dashboard?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/dashboard?canceled=true`,
+      success_url: absoluteUrl("/dashboard?success=true&tab=billing"),
+      cancel_url: absoluteUrl("/dashboard?canceled=true&tab=billing"),
       metadata: {
         userId: user.id,
         businessId: String(business.id),

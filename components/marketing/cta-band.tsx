@@ -1,11 +1,14 @@
 import Link from "next/link"
+import { SignupLink } from "@/components/marketing/signup-link"
 
 export function CtaBand({
   title = "Set up your review link today",
   body = "Create a free account, add your Google review link, and share one page with every customer.",
+  signupLocation = "cta",
 }: {
   title?: string
   body?: string
+  signupLocation?: string
 }) {
   return (
     <section className="bg-indigo-700">
@@ -15,9 +18,9 @@ export function CtaBand({
           <p className="mt-2 max-w-xl text-sm leading-6 text-indigo-100">{body}</p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Link href="/auth/signin?signup=1" className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
+          <SignupLink href="/auth/signin?signup=1" location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
             Start free
-          </Link>
+          </SignupLink>
           <Link href="/pricing" className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
             View pricing
           </Link>

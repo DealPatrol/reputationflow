@@ -51,6 +51,12 @@ Pro billing additionally requires:
 
 AI, email, KV, and Blob credentials are optional and documented in `.env.example`. ReputationFlow does not send SMS.
 
+## Template pack leads
+
+`/google-review-request-templates` offers a plain-text pack of in-person, text, and email scripts. The download does not require an email or an account.
+
+If someone submits an email, the app stores a row in the existing `leads` table with source `review-templates`. There is no separate mailing list or email vendor beyond Resend. When `RESEND_API_KEY` and `EMAIL_FROM` are set, that same request emails the pack. If email is not configured, the signup is still stored and the page tells the person to download the file. Demo mode (no `DATABASE_URL`) cannot store leads. The download still works.
+
 Never commit real credentials. Keep separate test and live Stripe keys. Configure tax registrations before enabling Stripe Tax; this integration does not enable automatic tax.
 
 ## Commands

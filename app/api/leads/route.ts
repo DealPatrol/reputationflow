@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server"
 import { createLead } from "@/lib/db"
 import { isDemoMode } from "@/lib/demo"
+import { sendTemplatePack } from "@/lib/email"
 import { validators, sanitize } from "@/lib/validators"
 
-const SOURCES = new Set(["google-review-link", "qr-code"])
+const SOURCES = new Set(["google-review-link", "qr-code", "review-templates"])
 
 export async function POST(request: Request) {
   try {
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
 
     if (isDemoMode()) {
       return NextResponse.json(
-        { error: "Lead storage requires DATABASE_URL. The tool result above is still yours to copy." },
+        { error: "Lead storage requires DATABASE_URL. Download or copy the result on the page. It does not require an account." },
         { status: 503 },
       )
     }
@@ -37,7 +38,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Could not save that email." }, { status: 503 })
     }
 
-    return NextResponse.json({ success: true })
+    if (source !== "review-templates") {
+      return NextResponse.json({ success: true, emailed: false })
+    }
+
+    try {
+      const delivery = await sendTemplatePack(email)
+      return NextResponse.json({ success: true, emailed: delivery.sent })
+    } catch (deliveryError) {
+      console.error("[v0] Template pack email error:", deliveryError)
+      return NextResponse.json({ success: true, emailed: false })
+    }
   } catch (error) {
     console.error("[v0] Lead capture error:", error)
     return NextResponse.json({ error: "Could not save that email." }, { status: 500 })

@@ -1,8 +1,10 @@
 import Link from "next/link"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { FaqList } from "@/components/marketing/faq-list"
+import { GuideResources } from "@/components/marketing/guide-resources"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo"
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 
 export const metadata = pageMetadata({
   title: "How to get more Google reviews",
@@ -16,6 +18,24 @@ export const metadata = pageMetadata({
     "google business profile reviews",
   ],
 })
+
+const faqs = [
+  {
+    question: "How many Google reviews do I need before I ask?",
+    answer:
+      "Google does not publish a minimum. Ask after a finished visit, the same way, every time. A quota is the wrong target. The guide on how many reviews it takes to rank explains what Google does publish.",
+  },
+  {
+    question: "Can I offer a discount for the review?",
+    answer:
+      "No. Google’s policies prohibit incentives for reviews. Do not add a gift or a coupon to the ask. The guide on incentivizing reviews covers the FTC rule and Google’s rule together, and it is not legal advice.",
+  },
+  {
+    question: "Does ReputationFlow send the text for me?",
+    answer:
+      "No. You send texts from your own phone. On the Professional plan you can email the review link when you choose the customer. Starter is free and does not send email.",
+  },
+]
 
 const steps = [
   {
@@ -52,10 +72,19 @@ export default function GoogleReviewsGuidePage() {
   return (
     <MarketingShell>
       <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: "How to get more Google reviews", path: "/how-to-get-more-google-reviews" },
-        ])}
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "How to get more Google reviews", path: "/how-to-get-more-google-reviews" },
+          ]),
+          articleJsonLd({
+            title: "How to get more Google reviews",
+            description:
+              "A practical guide to getting more Google reviews: claim your profile, use a direct review link, ask every customer the same way, and reply in public.",
+            path: "/how-to-get-more-google-reviews",
+          }),
+          faqJsonLd(faqs),
+        ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <p className="text-sm font-semibold text-indigo-700">Guide</p>
@@ -71,11 +100,22 @@ export default function GoogleReviewsGuidePage() {
             </li>
           ))}
         </ol>
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">FAQ</h2>
+        <div className="mt-4">
+          <FaqList items={faqs} />
+        </div>
         <p className="mt-10 text-sm leading-7 text-slate-600">
-          When you have the Place ID, use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">Google review link generator</Link>.
-          Then put that URL into ReputationFlow so the QR code and the email point at the same page.
+          For a bad review that is already public, use the{" "}
+          <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">response templates</Link>
+          . Scripts by trade are in the{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-to-ask-customers-for-reviews">ask scripts</Link>
+          . Read{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-many-google-reviews-to-rank">how many Google reviews it takes to rank</Link>
+          {" "}and{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/incentivizing-reviews-ftc-rules">whether incentives are allowed</Link>
+          {" "}before you change the ask.
         </p>
+        <GuideResources signupLocation="more_reviews" />
       </article>
       <CtaBand title="Turn the guide into a link you can share" body="Create a free account and paste your Google review link. The QR code is ready as soon as you save it." />
     </MarketingShell>

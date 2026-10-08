@@ -1,8 +1,9 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { buildGoogleReviewLink } from "@/lib/google-review-link"
+import Link from "next/link"
 import { LeadCaptureForm } from "@/components/tools/lead-capture-form"
+import { buildGoogleReviewLink } from "@/lib/google-review-link"
 
 export function GoogleReviewLinkTool() {
   const [input, setInput] = useState("")
@@ -44,6 +45,12 @@ export function GoogleReviewLinkTool() {
             <a href={result.url} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-300 px-3 py-2 text-center text-sm font-semibold text-slate-800">
               Open link
             </a>
+            <Link
+              href={`/tools/qr-code?url=${encodeURIComponent(result.url)}`}
+              className="rounded-lg border border-slate-300 px-3 py-2 text-center text-sm font-semibold text-slate-800"
+            >
+              Make a printable card
+            </Link>
           </div>
           <LeadCaptureForm source="google-review-link" details={result.url} />
         </div>

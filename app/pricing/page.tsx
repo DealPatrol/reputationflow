@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SignupLink } from "@/components/marketing/signup-link"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -53,20 +54,36 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={featured ? "/auth/signin?signup=1" : "/auth/signin?signup=1"}
+                <SignupLink
+                  href="/auth/signin?signup=1"
+                  location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
                     featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
                   }`}
                 >
-                  {featured ? "Create account, then upgrade" : "Create a free account"}
-                </Link>
+                  {featured ? "Create a free account, then checkout" : "Create a free account"}
+                </SignupLink>
               </article>
             )
           })}
         </div>
 
         <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-semibold text-slate-950">What happens at checkout</h2>
+          <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-600">
+            <li>Create a Starter account. That plan is free and does not ask for a card.</li>
+            <li>Open Billing and choose Professional when you want email requests, full history, export, and reply drafts.</li>
+            <li>Stripe charges {formatPlanPrice(PLANS.pro.price)} per month. There is no trial on top of Starter and no setup fee.</li>
+            <li>Cancel in the Stripe customer portal whenever you want. Access lasts through the period you already paid.</li>
+          </ol>
+          <p className="mt-4 text-sm leading-6 text-slate-600">
+            Fees are non-refundable except where the law requires a refund. That is the same rule as the{" "}
+            <Link href="/terms" className="font-semibold text-indigo-700">terms</Link>.
+            There is no guarantee period and no extra free trial in the product. Starter remains free if you never upgrade.
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="text-lg font-semibold text-slate-950">Every customer sees the public review links</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             The review page lists Google, Facebook, and Yelp for every star rating. A private note is an extra box on that same page. It is offered in addition to those links, and the page does not change when the rating is low.
@@ -76,7 +93,10 @@ export default function PricingPage() {
         <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-lg font-semibold text-slate-950">What $20 does not include</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If you need a full inbox and payments product, look at the Podium comparison before you buy.
+            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If you need a full inbox and payments product, read the{" "}
+            <Link href="/compare/podium" className="font-semibold text-indigo-700">Podium comparison</Link>
+            {" "}before you buy. For review-request marketing, read the{" "}
+            <Link href="/compare/nicejob" className="font-semibold text-indigo-700">NiceJob comparison</Link>.
           </p>
         </div>
 

@@ -3,11 +3,13 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Menu, Star, X } from "lucide-react"
+import { trackSignupClick } from "@/lib/analytics-events"
 
 const links = [
   { href: "/how-it-works", label: "How it works" },
+  { href: "/industries", label: "Industries" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/how-to-get-more-google-reviews", label: "Guide" },
+  { href: "/guides", label: "Guides" },
   { href: "/tools/google-review-link", label: "Free tools" },
 ]
 
@@ -24,7 +26,7 @@ export function SiteHeader() {
           <span className="text-base font-semibold tracking-tight text-slate-950">ReputationFlow</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-4 text-sm font-medium text-slate-600 md:flex lg:gap-6" aria-label="Primary">
           {links.map((link) => (
             <Link key={link.href} href={link.href} className="hover:text-slate-950">
               {link.label}
@@ -39,6 +41,7 @@ export function SiteHeader() {
           <Link
             href="/auth/signin?signup=1"
             className="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+            onClick={() => trackSignupClick("header")}
           >
             Start free
           </Link>
@@ -75,7 +78,10 @@ export function SiteHeader() {
             <Link
               href="/auth/signin?signup=1"
               className="mt-1 rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                trackSignupClick("header_mobile")
+                setOpen(false)
+              }}
             >
               Start free
             </Link>

@@ -68,9 +68,20 @@ describe("indexable paths", () => {
       "/review-management-software",
       "/tools/google-review-link",
       "/tools/qr-code",
+      "/how-to-respond-to-negative-google-reviews",
+      "/compare/nicejob",
+      "/industries",
       "/industries/dentists",
+      "/industries/plumber",
+      "/industries/tattoo-shop",
       "/compare/birdeye",
       "/compare/podium",
+      "/guides",
+      "/guides/how-to-ask-customers-for-reviews",
+      "/guides/incentivizing-reviews-ftc-rules",
+      "/guides/how-to-remove-a-fake-google-review",
+      "/guides/review-qr-code-ideas",
+      "/google-review-request-templates",
     ]))
     expect(paths.some((path) => path.startsWith("/dashboard") || path.startsWith("/review/"))).toBe(false)
   })

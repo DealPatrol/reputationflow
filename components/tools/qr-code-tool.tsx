@@ -1,11 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { validators } from "@/lib/validators"
+import { useSearchParams } from "next/navigation"
+import { toDataURL } from "qrcode"
+import { ReviewCardDownloads } from "@/components/tools/review-card-download"
 import { LeadCaptureForm } from "@/components/tools/lead-capture-form"
+import { validators } from "@/lib/validators"
 
 export function QrCodeTool() {
-  const [url, setUrl] = useState("")
+  const params = useSearchParams()
+  const preset = params.get("url") ?? ""
+  const [url, setUrl] = useState(preset)
   const [dataUrl, setDataUrl] = useState("")
   const [error, setError] = useState("")
 
@@ -25,8 +30,7 @@ export function QrCodeTool() {
 
     let cancelled = false
     setError("")
-    import("qrcode")
-      .then((QRCode) => QRCode.toDataURL(value, { width: 640, margin: 2 }))
+    toDataURL(value, { width: 640, margin: 2 })
       .then((next) => {
         if (!cancelled) setDataUrl(next)
       })
@@ -38,6 +42,10 @@ export function QrCodeTool() {
       cancelled = true
     }
   }, [url])
+
+  useEffect(() => {
+    if (preset) setUrl(preset)
+  }, [preset])
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
@@ -56,7 +64,13 @@ export function QrCodeTool() {
       {dataUrl && (
         <div className="mt-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={dataUrl} alt="QR code for the review link" className="h-56 w-56 rounded-lg border border-slate-200" />
+          <img
+            src={dataUrl}
+            alt="QR code for the review link"
+            width={224}
+            height={224}
+            className="h-56 w-56 rounded-lg border border-slate-200"
+          />
           <a
             href={dataUrl}
             download="review-qr-code.png"
@@ -64,6 +78,7 @@ export function QrCodeTool() {
           >
             Download PNG
           </a>
+          <ReviewCardDownloads qrDataUrl={dataUrl} />
           <LeadCaptureForm source="qr-code" details={url.trim()} />
         </div>
       )}

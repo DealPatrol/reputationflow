@@ -95,6 +95,57 @@ export function softwareJsonLd() {
   }
 }
 
+export const CONTENT_DATE = "2026-10-08"
+
+export function articleJsonLd(input: { title: string; description: string; path: string }) {
+  const url = absoluteUrl(input.path)
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    datePublished: CONTENT_DATE,
+    dateModified: CONTENT_DATE,
+    mainEntityOfPage: url,
+    author: {
+      "@type": "Organization",
+      name: "ReputationFlow",
+      url: absoluteUrl("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ReputationFlow",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/apple-icon"),
+      },
+    },
+  }
+}
+
+export function howToJsonLd(input: {
+  name: string
+  description: string
+  path: string
+  steps: { name: string; text: string }[]
+}) {
+  const pageUrl = absoluteUrl(input.path)
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    url: pageUrl,
+    step: input.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: `${pageUrl}#step-${index + 1}`,
+    })),
+  }
+}
+
 export function faqJsonLd(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
