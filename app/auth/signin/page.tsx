@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Star } from "lucide-react"
+import { trackSignupClick } from "@/lib/analytics-events"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -24,6 +25,7 @@ export default function SignInPage() {
     e.preventDefault()
     setError("")
     setLoading(true)
+    if (isSignUp) trackSignupClick("auth_form")
 
     try {
       const endpoint = isSignUp ? "/api/auth/signup" : "/api/auth/signin"
@@ -134,6 +136,7 @@ export default function SignInPage() {
           <div className="mt-6 text-center">
             <button
               onClick={() => {
+                if (!isSignUp) trackSignupClick("auth_switch")
                 setIsSignUp(!isSignUp)
                 setError("")
               }}

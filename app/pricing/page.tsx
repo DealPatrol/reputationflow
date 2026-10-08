@@ -1,6 +1,6 @@
-import Link from "next/link"
 import { Check } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SignupLink } from "@/components/marketing/signup-link"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -53,14 +53,15 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={featured ? "/auth/signin?signup=1" : "/auth/signin?signup=1"}
+                <SignupLink
+                  href="/auth/signin?signup=1"
+                  location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
                     featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
                   }`}
                 >
                   {featured ? "Create account, then upgrade" : "Create a free account"}
-                </Link>
+                </SignupLink>
               </article>
             )
           })}

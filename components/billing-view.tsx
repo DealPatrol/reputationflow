@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Check, Zap, Loader2 } from "lucide-react"
+import { trackCheckoutStart } from "@/lib/analytics-events"
 import { PLANS } from "@/lib/plans"
 
 interface BillingViewProps {
@@ -30,6 +31,7 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
 
       // Redirect to Stripe Checkout
       if (data.url) {
+        trackCheckoutStart("professional")
         window.location.href = data.url
       }
     } catch (error: any) {

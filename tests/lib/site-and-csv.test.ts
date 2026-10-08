@@ -68,7 +68,10 @@ describe("indexable paths", () => {
       "/review-management-software",
       "/tools/google-review-link",
       "/tools/qr-code",
+      "/industries",
       "/industries/dentists",
+      "/industries/plumber",
+      "/industries/tattoo-shop",
       "/compare/birdeye",
       "/compare/podium",
     ]))

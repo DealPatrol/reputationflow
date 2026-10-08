@@ -22,7 +22,9 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Industries</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <Link className="hover:text-white" href="/industries">Industries</Link>
+          </p>
           <ul className="mt-3 space-y-2 text-sm">
             {industries.map((industry) => (
               <li key={industry.slug}>

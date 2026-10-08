@@ -1,9 +1,13 @@
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { industries, industryBySlug } from "@/lib/marketing-content"
-import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo"
+import { SignupLink } from "@/components/marketing/signup-link"
+import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
+import { formatPlanPrice, PLANS } from "@/lib/plans"
+import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 
 export function generateStaticParams() {
   return industries.map((industry) => ({ slug: industry.slug }))
@@ -17,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: industry.title,
     description: industry.description,
     path: `/industries/${industry.slug}`,
-    keywords: [industry.keyword, "google reviews", "review requests"],
+    keywords: [industry.keyword, industry.guideHeading.toLowerCase(), "google reviews", "review requests"],
   })
 }
 
@@ -25,26 +29,48 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const { slug } = await params
   const industry = industryBySlug(slug)
   if (!industry) notFound()
+  const related = relatedIndustries(industry.slug)
 
   return (
     <MarketingShell>
       <JsonLd
-        data={breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: industry.name, path: `/industries/${industry.slug}` },
-        ])}
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Industries", path: "/industries" },
+            { name: industry.name, path: `/industries/${industry.slug}` },
+          ]),
+          faqJsonLd(industry.faqs),
+        ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">{industry.name}</p>
+        <p className="text-sm text-slate-500">
+          <Link href="/industries" className="font-semibold text-indigo-700">
+            Industries
+          </Link>
+          <span> / {industry.name}</span>
+        </p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{industry.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{industry.intro}</p>
 
-        <h2 className="mt-10 text-xl font-semibold text-slate-950">When to ask</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">{industry.guideHeading}</h2>
+        <h3 className="mt-6 text-base font-semibold text-slate-950">Best moment to ask</h3>
+        <p className="mt-2 text-sm leading-7 text-slate-600">{industry.bestMoment}</p>
+
+        <h3 className="mt-8 text-base font-semibold text-slate-950">Where to put the link</h3>
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
           {industry.moments.map((moment) => (
             <li key={moment}>{moment}</li>
           ))}
         </ul>
+
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">Sample review request</h2>
+        <p className="mt-2 text-sm leading-7 text-slate-600">
+          Copy this into a text or an email and replace the brackets. Send it yourself. ReputationFlow does not text customers. On the Professional plan ({formatPlanPrice(PLANS.pro.price)} per month) you can email the same link when you choose the customer. Starter is free and includes the link and QR code.
+        </p>
+        <blockquote className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm leading-7 text-slate-800">
+          {industry.sampleMessage}
+        </blockquote>
 
         <div className="mt-10 space-y-8">
           {industry.tips.map((tip) => (
@@ -54,9 +80,62 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             </section>
           ))}
         </div>
+
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">What not to do</h2>
+        <p className="mt-2 text-sm leading-7 text-slate-600">
+          Do not offer a discount, a free visit, or a gift for a review. Google’s policies prohibit incentives, and ReputationFlow does not include coupon-for-review templates. Do not hand someone a star target or a review you wrote. Every customer sees the same Google, Facebook, and Yelp buttons, including after a bad visit. A private note is an extra box on that page. It does not replace those links.
+        </p>
+
+        {industry.seeAlso ? (
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            {industry.seeAlso.lead}{" "}
+            <Link className="font-semibold text-indigo-700" href={`/industries/${industry.seeAlso.slug}`}>
+              {industry.seeAlso.label}
+            </Link>
+            .
+          </p>
+        ) : null}
+
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">FAQ</h2>
+        <div className="mt-4">
+          <FaqList items={industry.faqs} />
+        </div>
+
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">Build the link, then the QR code</h2>
+        <p className="mt-2 text-sm leading-7 text-slate-600">
+          Turn a Place ID into a review URL with the{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            free Google review link generator
+          </Link>
+          . Print or download the code with the{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            free QR code generator
+          </Link>
+          .{" "}
+          <SignupLink className="font-semibold text-indigo-700" href="/auth/signin?signup=1" location="industry_body">
+            Create a free account
+          </SignupLink>{" "}
+          to keep that link, the QR code, and the customer page together. Browse the{" "}
+          <Link className="font-semibold text-indigo-700" href="/industries">
+            rest of the trades
+          </Link>{" "}
+          if you run more than one kind of work.
+        </p>
+
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">Nearby guides</h2>
+        <ul className="mt-3 space-y-2 text-sm leading-7">
+          {related.map((item) => (
+            <li key={item.slug}>
+              <Link className="font-semibold text-indigo-700" href={`/industries/${item.slug}`}>
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </article>
       <CtaBand
-        title={`Set up review requests for your ${industry.name.toLowerCase()} business`}
+        signupLocation="industry_cta"
+        title={`Set up review requests for your ${industry.businessLabel}`}
         body="Add the Google review link, print the QR code, and use the same page for every customer."
       />
     </MarketingShell>

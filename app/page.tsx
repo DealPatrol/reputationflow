@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SignupLink } from "@/components/marketing/signup-link"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -99,13 +100,14 @@ export default function HomePage() {
               ReputationFlow gives you one link and one QR code. Every customer sees your Google, Facebook, and Yelp pages, plus an optional private note.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
+              <SignupLink
                 href="/auth/signin?signup=1"
+                location="homepage"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
               >
                 Start free
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              </SignupLink>
               <Link
                 href="/how-to-get-more-google-reviews"
                 className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
@@ -193,6 +195,9 @@ export default function HomePage() {
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
               These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify.
             </p>
+            <Link href="/industries" className="mt-3 inline-flex text-sm font-semibold text-indigo-700">
+              All trades
+            </Link>
           </div>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

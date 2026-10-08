@@ -42,6 +42,7 @@ describe("marketing copy", () => {
       ...collectSourceFiles(join(process.cwd(), "app")),
       ...collectSourceFiles(join(process.cwd(), "components")),
       join(process.cwd(), "lib/marketing-content.ts"),
+      join(process.cwd(), "lib/industries.ts"),
       join(process.cwd(), "lib/email.ts"),
     ]
     const hits = files.flatMap((file) => {
