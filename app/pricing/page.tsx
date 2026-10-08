@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -55,7 +56,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <SignupLink
-                  href="/auth/signin?signup=1"
+                  href={SIGNUP_PATH}
                   location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
                     featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
