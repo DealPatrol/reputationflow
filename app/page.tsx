@@ -211,10 +211,10 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-6 text-slate-600">{industry.intro}</p>
             </Link>
           ))}
-          <Link href="/compare/birdeye" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
-            <h3 className="font-semibold text-slate-950">Comparing larger suites?</h3>
+          <Link href="/review-management-software" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+            <h3 className="font-semibold text-slate-950">Comparing review software?</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Read the Birdeye and Podium comparisons if you are deciding between a full platform and a focused review link.
+              See when a review link is enough, and when Birdeye, Podium, or NiceJob is the clearer fit.
             </p>
           </Link>
         </div>

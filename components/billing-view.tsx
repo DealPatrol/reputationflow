@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Check, Zap, Loader2 } from "lucide-react"
 import { trackCheckoutStart } from "@/lib/analytics-events"
-import { PLANS } from "@/lib/plans"
+import { formatPlanPrice, PLANS } from "@/lib/plans"
 
 interface BillingViewProps {
   isPremium: boolean
@@ -75,12 +75,12 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
         {/* Free Plan */}
         <div className="bg-white rounded-2xl border-2 border-slate-200 p-8 shadow-sm">
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">Free</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">{PLANS.free.name}</h3>
             <div className="flex items-baseline gap-2 mb-4">
               <span className="text-4xl font-bold text-slate-900">$0</span>
               <span className="text-slate-500">/month</span>
             </div>
-            <p className="text-slate-600">Perfect for getting started</p>
+            <p className="text-slate-600">{PLANS.free.description}</p>
           </div>
 
           <ul className="space-y-3 mb-8">
@@ -102,17 +102,17 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
           <div className="absolute top-4 right-4">
             <span className="bg-emerald-400 text-emerald-900 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
               <Zap size={12} fill="currentColor" />
-              POPULAR
+              EMAIL REQUESTS
             </span>
           </div>
 
           <div className="mb-6">
-            <h3 className="text-2xl font-bold mb-2">Pro</h3>
+            <h3 className="text-2xl font-bold mb-2">{PLANS.pro.name}</h3>
             <div className="flex items-baseline gap-2 mb-4">
               <span className="text-4xl font-bold">${PLANS.pro.price / 100}</span>
               <span className="text-indigo-200">/month</span>
             </div>
-            <p className="text-indigo-100">Everything you need to scale</p>
+            <p className="text-indigo-100">{PLANS.pro.description}</p>
           </div>
 
           <ul className="space-y-3 mb-8">
@@ -145,8 +145,13 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
               className="w-full bg-white hover:bg-slate-50 text-indigo-600 py-4 rounded-xl font-bold shadow-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading && <Loader2 size={16} className="animate-spin" />}
-              {loading ? "Processing..." : "Upgrade to Pro"}
+              {loading ? "Opening Stripe..." : `Continue to Stripe · ${formatPlanPrice(PLANS.pro.price)}/month`}
             </button>
+          )}
+          {!isPremium && (
+            <p className="mt-3 text-sm leading-5 text-indigo-100">
+              Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.
+            </p>
           )}
         </div>
       </div>

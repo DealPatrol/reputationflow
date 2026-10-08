@@ -73,8 +73,11 @@ export default function GoogleReviewsGuidePage() {
         </ol>
         <p className="mt-10 text-sm leading-7 text-slate-600">
           When you have the Place ID, use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">Google review link generator</Link>.
-          Then put that URL into ReputationFlow so the QR code and the email point at the same page.
+          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">Google review link generator</Link>
+          {" "}and the{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">QR code generator</Link>
+          , including a printable table tent. Then put that URL into ReputationFlow so the QR code and the email point at the same page. For a bad review that is already public, use the{" "}
+          <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">response templates</Link>.
         </p>
       </article>
       <CtaBand title="Turn the guide into a link you can share" body="Create a free account and paste your Google review link. The QR code is ready as soon as you save it." />

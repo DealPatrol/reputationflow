@@ -95,6 +95,29 @@ export function softwareJsonLd() {
   }
 }
 
+export function howToJsonLd(input: {
+  name: string
+  description: string
+  path: string
+  steps: { name: string; text: string }[]
+}) {
+  const pageUrl = absoluteUrl(input.path)
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: input.name,
+    description: input.description,
+    url: pageUrl,
+    step: input.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: `${pageUrl}#step-${index + 1}`,
+    })),
+  }
+}
+
 export function faqJsonLd(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",

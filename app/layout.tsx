@@ -6,8 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { absoluteUrl, getSiteUrl } from "@/lib/site"
 import "./globals.css"
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),

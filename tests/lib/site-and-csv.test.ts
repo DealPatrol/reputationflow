@@ -68,6 +68,8 @@ describe("indexable paths", () => {
       "/review-management-software",
       "/tools/google-review-link",
       "/tools/qr-code",
+      "/how-to-respond-to-negative-google-reviews",
+      "/compare/nicejob",
       "/industries",
       "/industries/dentists",
       "/industries/plumber",

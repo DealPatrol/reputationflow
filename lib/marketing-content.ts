@@ -51,6 +51,7 @@ export interface ComparisonPage {
   weAre: string[]
   chooseThem: string
   chooseUs: string
+  faqs: FaqItem[]
 }
 
 export const comparisons: ComparisonPage[] = [
@@ -75,6 +76,18 @@ export const comparisons: ComparisonPage[] = [
     chooseThem: "Choose Birdeye if you are comparing enterprise listing management, surveys, and a larger team workflow.",
     chooseUs:
       "Choose ReputationFlow if you run one or a few locations and you mainly need customers to find your Google review page.",
+    faqs: [
+      {
+        question: "Does this page quote Birdeye’s price?",
+        answer:
+          "No. Birdeye is sold as a broader platform and the price depends on the conversation you have with them. ReputationFlow publishes its own price: Starter is free, and Professional is $20 per month.",
+      },
+      {
+        question: "Does ReputationFlow manage map listings the way a listings suite does?",
+        answer:
+          "No. It does not edit your Google Business Profile, post photos, or sync hours. You keep doing that in Google. ReputationFlow handles the review link, the QR code, and optional private notes.",
+      },
+    ],
   },
   {
     slug: "podium",
@@ -96,6 +109,58 @@ export const comparisons: ComparisonPage[] = [
     ],
     chooseThem: "Choose Podium if you need business texting, webchat, or payments together with reviews.",
     chooseUs: "Choose ReputationFlow if you already have a phone and a register, and you need a clean way to ask for reviews.",
+    faqs: [
+      {
+        question: "Does ReputationFlow replace a business texting inbox?",
+        answer:
+          "No. Podium is the product people buy when texts, webchat, and payments sit in the same login as reviews. ReputationFlow does not text customers and does not take payments.",
+      },
+      {
+        question: "Do you publish Podium’s current price?",
+        answer:
+          "No. Check Podium for the plan they sell today. ReputationFlow’s Professional plan is $20 per month through Stripe, and the Starter plan is free with no card.",
+      },
+    ],
+  },
+  {
+    slug: "nicejob",
+    name: "NiceJob",
+    title: "NiceJob alternative for small businesses",
+    description:
+      "A NiceJob alternative for a small business that wants a Google review link and QR code without a review-marketing suite.",
+    summary:
+      "NiceJob is review-request software marketed to local service businesses. It is built around asking customers for reviews and using those reviews in marketing. ReputationFlow is narrower: one review link, a QR code, and optional private feedback. Professional is $20 a month. This page does not quote NiceJob’s price or customer counts.",
+    theyAre: [
+      "Review-request software aimed at local and home-service businesses.",
+      "A product people shortlist when the main job is running review requests and showing reviews in marketing.",
+      "Sold as its own review product, separate from your register or your scheduling login.",
+    ],
+    weAre: [
+      "A free Starter link and QR code you can print the same day.",
+      "Email requests only on the Professional plan, sent when you choose the customer. SMS is not included.",
+      "The same Google, Facebook, and Yelp buttons for every customer. Private feedback is an extra box, not a replacement.",
+    ],
+    chooseThem:
+      "Choose NiceJob if you want review-marketing software whose job is requesting reviews and republishing them.",
+    chooseUs:
+      "Choose ReputationFlow if you want a published price and a single page that sends every customer to the public review links.",
+    faqs: [
+      {
+        question: "Do you publish NiceJob’s current price?",
+        answer:
+          "No. Check NiceJob for the number they charge today. ReputationFlow’s Starter plan is free. Professional is $20 per month and can be canceled in the Stripe customer portal.",
+      },
+      {
+        question: "Does ReputationFlow text customers?",
+        answer:
+          "No. Many review-request products send texts. ReputationFlow does not. On Professional you can email the review link when you pick the customer. You can also text the link yourself from your own phone.",
+      },
+      {
+        question: "Will ReputationFlow import the reviews NiceJob or Google already show?",
+        answer:
+          "No. The dashboard shows notes customers submit through your ReputationFlow link. Reviews published on Google stay on Google.",
+      },
+    ],
   },
 ]
 
@@ -112,6 +177,7 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/how-it-works", priority: 0.8, changeFrequency: "monthly" },
     { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
     { path: "/how-to-get-more-google-reviews", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/how-to-respond-to-negative-google-reviews", priority: 0.8, changeFrequency: "monthly" },
     { path: "/review-management-software", priority: 0.9, changeFrequency: "monthly" },
     { path: "/tools/google-review-link", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/qr-code", priority: 0.8, changeFrequency: "monthly" },

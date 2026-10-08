@@ -39,6 +39,8 @@ export function SiteFooter() {
             <li><Link className="hover:text-white" href="/tools/google-review-link">Google review link generator</Link></li>
             <li><Link className="hover:text-white" href="/tools/qr-code">QR code generator</Link></li>
             <li><Link className="hover:text-white" href="/how-to-get-more-google-reviews">How to get more Google reviews</Link></li>
+            <li><Link className="hover:text-white" href="/how-to-respond-to-negative-google-reviews">Reply to a negative review</Link></li>
+            <li><Link className="hover:text-white" href="/review-management-software">Review software compared</Link></li>
             {comparisons.map((comparison) => (
               <li key={comparison.slug}>
                 <Link className="hover:text-white" href={`/compare/${comparison.slug}`}>{comparison.name} alternative</Link>
