@@ -95,6 +95,34 @@ export function softwareJsonLd() {
   }
 }
 
+export const CONTENT_DATE = "2026-10-08"
+
+export function articleJsonLd(input: { title: string; description: string; path: string }) {
+  const url = absoluteUrl(input.path)
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    datePublished: CONTENT_DATE,
+    dateModified: CONTENT_DATE,
+    mainEntityOfPage: url,
+    author: {
+      "@type": "Organization",
+      name: "ReputationFlow",
+      url: absoluteUrl("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ReputationFlow",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/apple-icon"),
+      },
+    },
+  }
+}
+
 export function howToJsonLd(input: {
   name: string
   description: string

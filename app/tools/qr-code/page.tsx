@@ -142,6 +142,16 @@ export default function QrCodePage() {
             </Link>
           </li>
           <li>
+            <Link className="font-semibold text-indigo-700" href="/guides/review-qr-code-ideas">
+              Review QR code ideas
+            </Link>
+          </li>
+          <li>
+            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+              Review request templates
+            </Link>
+          </li>
+          <li>
             <Link className="font-semibold text-indigo-700" href="/industries">
               Where to put the card, by trade
             </Link>

@@ -1,10 +1,11 @@
 import Link from "next/link"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
+import { GuideResources } from "@/components/marketing/guide-resources"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
-import { breadcrumbJsonLd, faqJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
 
 const steps = [
   {
@@ -92,6 +93,12 @@ export default function NegativeReviewRepliesPage() {
             { name: "Home", path: "/" },
             { name: "How to respond to negative Google reviews", path: "/how-to-respond-to-negative-google-reviews" },
           ]),
+          articleJsonLd({
+            title: "How to respond to negative Google reviews",
+            description:
+              "How to respond to a negative Google review, with templates you can edit. Reply in public, move the details offline, and do not offer a reward for changing the review.",
+            path: "/how-to-respond-to-negative-google-reviews",
+          }),
           howToJsonLd({
             name: "How to respond to a negative Google review",
             description:
@@ -142,13 +149,13 @@ export default function NegativeReviewRepliesPage() {
         </div>
 
         <p className="mt-10 text-sm leading-7 text-slate-600">
-          Asking for the next review is a separate job. Use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
-            Google review link generator
+          Asking for the next review is a separate job. More wording is in{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/google-review-response-examples">
+            Google review response examples
           </Link>{" "}
-          and the{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews">
-            guide to getting more Google reviews
+          and{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-to-remove-a-fake-google-review">
+            how to remove a fake Google review
           </Link>
           . Read{" "}
           <Link className="font-semibold text-indigo-700" href="/pricing">
@@ -156,6 +163,7 @@ export default function NegativeReviewRepliesPage() {
           </Link>{" "}
           before you turn on reply drafts.
         </p>
+        <GuideResources signupLocation="negative_reviews_body" />
       </article>
       <CtaBand
         signupLocation="negative_reviews"

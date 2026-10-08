@@ -1,3 +1,4 @@
+import { guides } from "@/lib/guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/industries"
 
 export type { IndustryPage } from "@/lib/industries"
@@ -182,6 +183,8 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/tools/google-review-link", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/qr-code", priority: 0.8, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/guides", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/google-review-request-templates", priority: 0.8, changeFrequency: "monthly" },
     { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
     { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
   ]
@@ -195,6 +198,11 @@ export function indexablePaths(): SitemapEntry[] {
     })),
     ...comparisons.map((comparison) => ({
       path: `/compare/${comparison.slug}`,
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
+    })),
+    ...guides.map((guide) => ({
+      path: `/guides/${guide.slug}`,
       priority: 0.7,
       changeFrequency: "monthly" as const,
     })),

@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => ({
   getBusinessByUserId: vi.fn(),
   createCampaign: vi.fn(),
   sendReviewRequest: vi.fn(),
+  sendTemplatePack: vi.fn(),
   saveFeedbackResponse: vi.fn(),
 }))
 
@@ -19,7 +20,10 @@ vi.mock("@/lib/db", () => ({
 }))
 vi.mock("@/lib/demo", () => ({ isDemoMode: mocks.isDemoMode }))
 vi.mock("@/lib/auth", () => ({ getCurrentUser: mocks.getCurrentUser }))
-vi.mock("@/lib/email", () => ({ sendReviewRequest: mocks.sendReviewRequest }))
+vi.mock("@/lib/email", () => ({
+  sendReviewRequest: mocks.sendReviewRequest,
+  sendTemplatePack: mocks.sendTemplatePack,
+}))
 
 import type { NextRequest } from "next/server"
 import { POST as createLeadRoute } from "@/app/api/leads/route"
@@ -33,7 +37,9 @@ function asNextRequest(request: Request) {
 describe("POST /api/leads", () => {
   beforeEach(() => {
     mocks.isDemoMode.mockReturnValue(false)
+    mocks.createLead.mockReset()
     mocks.createLead.mockResolvedValue({ id: 1 })
+    mocks.sendTemplatePack.mockReset()
   })
 
   it("rejects an invalid email", async () => {
@@ -60,6 +66,46 @@ describe("POST /api/leads", () => {
       email: "owner@example.com",
       source: "google-review-link",
     }))
+  })
+
+  it("stores a template-pack signup and reports whether the email was sent", async () => {
+    mocks.sendTemplatePack.mockResolvedValue({ sent: true })
+    const response = await createLeadRoute(new Request("http://localhost/api/leads", {
+      method: "POST",
+      body: JSON.stringify({
+        email: "owner@example.com",
+        source: "review-templates",
+        businessName: "Northside",
+      }),
+    }))
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ success: true, emailed: true })
+    expect(mocks.createLead).toHaveBeenCalledWith(expect.objectContaining({
+      email: "owner@example.com",
+      source: "review-templates",
+    }))
+    expect(mocks.sendTemplatePack).toHaveBeenCalledWith("owner@example.com")
+  })
+
+  it("keeps a template-pack signup when email is not configured", async () => {
+    mocks.sendTemplatePack.mockResolvedValue({ sent: false, reason: "Email is not configured. Add RESEND_API_KEY and EMAIL_FROM." })
+    const response = await createLeadRoute(new Request("http://localhost/api/leads", {
+      method: "POST",
+      body: JSON.stringify({ email: "owner@example.com", source: "review-templates" }),
+    }))
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ success: true, emailed: false })
+    expect(mocks.createLead).toHaveBeenCalled()
+  })
+
+  it("does not email the pack for a tool lead", async () => {
+    const response = await createLeadRoute(new Request("http://localhost/api/leads", {
+      method: "POST",
+      body: JSON.stringify({ email: "owner@example.com", source: "qr-code" }),
+    }))
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ success: true, emailed: false })
+    expect(mocks.sendTemplatePack).not.toHaveBeenCalled()
   })
 
   it("ignores the honeypot without storing a lead", async () => {

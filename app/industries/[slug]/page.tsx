@@ -115,7 +115,15 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <SignupLink className="font-semibold text-indigo-700" href="/auth/signin?signup=1" location="industry_body">
             Create a free account
           </SignupLink>{" "}
-          to keep that link, the QR code, and the customer page together. Browse the{" "}
+          to keep that link, the QR code, and the customer page together. Copy more wording from the{" "}
+          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+            review request templates
+          </Link>{" "}
+          or the{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides">
+            review guides
+          </Link>
+          . Browse the{" "}
           <Link className="font-semibold text-indigo-700" href="/industries">
             rest of the trades
           </Link>{" "}

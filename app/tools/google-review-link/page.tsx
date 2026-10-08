@@ -140,6 +140,18 @@ export default function GoogleReviewLinkPage() {
             <span className="text-slate-600">, including when to ask.</span>
           </li>
           <li>
+            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+              Google review request templates
+            </Link>
+            <span className="text-slate-600"> for in-person, text, and email scripts.</span>
+          </li>
+          <li>
+            <Link className="font-semibold text-indigo-700" href="/guides">
+              Review guides
+            </Link>
+            <span className="text-slate-600"> on asking, incentives, fake reviews, and QR codes.</span>
+          </li>
+          <li>
             <Link className="font-semibold text-indigo-700" href="/industries">
               Trade guides
             </Link>

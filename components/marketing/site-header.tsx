@@ -9,7 +9,7 @@ const links = [
   { href: "/how-it-works", label: "How it works" },
   { href: "/industries", label: "Industries" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/how-to-get-more-google-reviews", label: "Guide" },
+  { href: "/guides", label: "Guides" },
   { href: "/tools/google-review-link", label: "Free tools" },
 ]
 

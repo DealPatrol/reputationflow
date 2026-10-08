@@ -1,4 +1,5 @@
 import { Resend } from "resend"
+import { templatePackText } from "@/lib/review-request-templates"
 import { getSiteUrl } from "@/lib/site"
 import { sanitize } from "@/lib/validators"
 
@@ -109,6 +110,25 @@ export async function sendWelcomeEmail(
       </html>
     `,
   })
+}
+
+export async function sendTemplatePack(to: string): Promise<EmailSendResult> {
+  const from = notificationFrom()
+  if (!resend || !from) {
+    return { sent: false, reason: "Email is not configured. Add RESEND_API_KEY and EMAIL_FROM." }
+  }
+
+  const text = templatePackText()
+  const { error } = await resend.emails.send({
+    from,
+    to,
+    subject: "Your Google review request templates",
+    text,
+    html: `<pre style="font-family:ui-sans-serif,sans-serif;white-space:pre-wrap;font-size:14px;line-height:1.5;">${sanitize.html(text)}</pre>`,
+  })
+
+  if (error) return { sent: false, reason: error.message }
+  return { sent: true }
 }
 
 export async function sendReviewRequest(
