@@ -187,6 +187,8 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
     { path: "/guides", priority: 0.8, changeFrequency: "monthly" },
     { path: "/google-review-request-templates", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/about", priority: 0.5, changeFrequency: "yearly" },
+    { path: "/contact", priority: 0.5, changeFrequency: "yearly" },
     { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
     { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
   ]

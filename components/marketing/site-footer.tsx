@@ -5,7 +5,7 @@ import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 export function SiteFooter() {
   return (
     <footer className="border-t border-slate-200 bg-slate-950 text-slate-300">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:grid-cols-5">
         <div>
           <p className="text-sm font-semibold text-white">ReputationFlow</p>
           <p className="mt-3 text-sm leading-6 text-slate-400">
@@ -50,9 +50,16 @@ export function SiteFooter() {
                 <Link className="hover:text-white" href={`/compare/${comparison.slug}`}>{comparison.name} alternative</Link>
               </li>
             ))}
-            <li><Link className="hover:text-white" href="/privacy">Privacy</Link></li>
-            <li><Link className="hover:text-white" href="/terms">Terms</Link></li>
-            <li><a className="hover:text-white" href={`mailto:${PUBLIC_CONTACT_EMAIL}`}>Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Company</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li><Link className="hover:text-white" href="/about">About</Link></li>
+            <li><Link className="hover:text-white" href="/contact">Contact</Link></li>
+            <li><Link className="hover:text-white" href="/privacy">Privacy policy</Link></li>
+            <li><Link className="hover:text-white" href="/terms">Terms of service</Link></li>
+            <li><a className="break-all hover:text-white" href={`mailto:${PUBLIC_CONTACT_EMAIL}`}>{PUBLIC_CONTACT_EMAIL}</a></li>
           </ul>
         </div>
       </div>
