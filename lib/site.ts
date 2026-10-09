@@ -1,7 +1,7 @@
 const LOCAL_FALLBACK = "http://localhost:3000"
 
 /** Public contact address until mail is set up on the public site domain. */
-export const PUBLIC_CONTACT_EMAIL = "colecollins763@gmail.com"
+export const PUBLIC_CONTACT_EMAIL = "support@tryreputationflow.com"
 
 function trimTrailingSlash(value: string) {
   return value.trim().replace(/\/$/, "")
