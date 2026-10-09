@@ -23,15 +23,15 @@ function collectTextFiles(directory: string): string[] {
 
 describe("public contact and owned domains", () => {
   it("publishes the gmail contact address", () => {
-    expect(PUBLIC_CONTACT_EMAIL).toBe("colecollins763@gmail.com")
+    expect(PUBLIC_CONTACT_EMAIL).toBe("support@tryreputationflow.com")
   })
 
   it("does not mention unowned reputationflow domains", () => {
-    const banned = [`reputationflow.${"app"}`, `reputationflow.${"com"}`]
+    const banned = [new RegExp(`(?<![a-z0-9-])reputationflow\\.${"app"}`), new RegExp(`(?<![a-z0-9-])reputationflow\\.${"com"}`)]
     const files = collectTextFiles(process.cwd())
     const hits = files.flatMap((file) => {
       const source = readFileSync(file, "utf8")
-      return banned.filter((phrase) => source.includes(phrase)).map((phrase) => `${file}: ${phrase}`)
+      return banned.filter((phrase) => phrase.test(source)).map((phrase) => `${file}: ${phrase.source}`)
     })
     expect(hits).toEqual([])
   })
@@ -64,7 +64,7 @@ describe("seo metadata", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://reviews.example.com"
     expect(organizationJsonLd()).toMatchObject({
       logo: "https://reviews.example.com/apple-icon",
-      email: "colecollins763@gmail.com",
+      email: "support@tryreputationflow.com",
       founder: { "@type": "Person", name: "Cole Collins" },
     })
   })
