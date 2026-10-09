@@ -68,6 +68,11 @@ export default function PricingPage() {
             )
           })}
         </div>
+        <ul aria-label="Plan facts" className="mt-6 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
+          <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Starter is free. No card needed to sign up.</li>
+          <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Professional is $20 a month. No setup fee.</li>
+          <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Cancel Professional anytime in the Stripe customer portal.</li>
+        </ul>
 
         <div className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="text-lg font-semibold text-slate-950">What happens at checkout</h2>

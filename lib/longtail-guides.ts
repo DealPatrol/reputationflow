@@ -17,6 +17,14 @@ export const tradeReplyGuides: Record<string, { path: string; label: string }> =
     path: "/guides/negative-google-review-responses-salons",
     label: "Salon reply templates",
   },
+  "auto-repair": {
+    path: "/guides/negative-google-review-responses-auto-repair",
+    label: "Auto repair reply templates",
+  },
+  hvac: {
+    path: "/guides/negative-google-review-responses-hvac",
+    label: "HVAC reply templates",
+  },
 }
 
 export const longtailGuides: GuidePage[] = [
@@ -409,6 +417,149 @@ export const longtailGuides: GuidePage[] = [
         question: "Where do I make the second link?",
         answer:
           "Use the free Google review link generator once per Place ID. Save the first on your ReputationFlow page. Additional location links are a Professional feature.",
+      },
+    ],
+  },
+  {
+    slug: "negative-google-review-responses-auto-repair",
+    cluster: "reply",
+    title: "Auto repair shop Google review reply templates",
+    description:
+      "Public reply templates for an auto repair shop: a price surprise, a repeat repair, a car that was not ready, and a review from someone you cannot find.",
+    intro:
+      "These replies are for an auto repair review that is already public. They are templates for you to edit, not quotes from real customers. Post the reply on Google yourself.",
+    sections: [
+      {
+        title: "A bill higher than the estimate",
+        paragraphs: [
+          "“Hi [name], I’m [your name] at [shop]. I’m sorry the final bill was a surprise. Please call me at [phone] and I will walk through the work order with you line by line.”",
+          "Do not post the invoice, the parts list, or the customer’s vehicle details in public. Explain the line items on the phone, where you can answer follow-up questions.",
+        ],
+      },
+      {
+        title: "The same problem came back",
+        paragraphs: [
+          "“Hi [name], I’m sorry the [problem] came back after the repair. Bring it in or call [phone] and I will have [tech or owner] look at it first.”",
+          "Do not argue warranty terms in the reply. If the repair has a warranty, explain it in person. Do not make a free fix depend on the review being changed.",
+        ],
+      },
+      {
+        title: "The car was not ready, or you cannot find the visit",
+        paragraphs: [
+          "“Hi [name], I’m sorry the car was not ready when we said it would be. That is on us to communicate. Please call [phone] so I can look at what happened.”",
+          "If you cannot find a work order, say so politely and invite a call. A review that is not about your shop can be reported through Google’s own flag. ReputationFlow does not file that report.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I reply to every one-star review?",
+        answer:
+          "Reply to the ones that describe a real visit. Keep it short, sign your name, and move the details to a phone call.",
+      },
+      {
+        question: "Can I offer a discount if they change the review?",
+        answer: "No. Fix the car if the work was wrong. A discount in exchange for a better rating is an incentive.",
+      },
+      {
+        question: "Can ReputationFlow post the reply for me?",
+        answer:
+          "No. You paste it into your Google Business Profile yourself. Professional can draft a reply from private feedback for you to edit.",
+      },
+    ],
+  },
+  {
+    slug: "negative-google-review-responses-hvac",
+    cluster: "reply",
+    title: "HVAC Google review reply templates",
+    description:
+      "Public reply templates for an HVAC company: a missed appointment window, a system still not cooling, a price complaint, and a tech complaint.",
+    intro:
+      "These replies are for an HVAC review that is already public. Edit them before you post. They are templates, not real customer quotes.",
+    sections: [
+      {
+        title: "A missed window or a no-show",
+        paragraphs: [
+          "“Hi [name], I’m [your name] at [company]. I’m sorry we missed the window you were given. Please call me at [phone] and I will get you on the schedule.”",
+          "Do not blame the dispatcher or the weather in public. One sentence of apology and a phone number is enough.",
+        ],
+      },
+      {
+        title: "Still not cooling or heating",
+        paragraphs: [
+          "“Hi [name], I’m sorry the system is still not working the way it should. Call [phone] and I will send someone back to look at it.”",
+          "Keep model numbers, refrigerant details, and the customer’s address off the page. Those belong in the service call.",
+        ],
+      },
+      {
+        title: "A complaint about a technician or the price",
+        paragraphs: [
+          "“Hi [name], thank you for telling us. I want to hear what happened. Please call me at [phone].”",
+          "Do not name the technician in the reply, and do not post the quote. Talk to your tech before you call the customer back.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How fast should I reply?",
+        answer: "Within a day or two is a good habit. A late reply is still better than none.",
+      },
+      {
+        question: "Should I mention the tech by name?",
+        answer: "No. Sign the reply with your own name and keep staff names off the public page.",
+      },
+      {
+        question: "Does ReputationFlow catch unhappy customers first?",
+        answer:
+          "It can collect optional private feedback on your review page. Every customer can still choose to leave a public Google review.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-respond-to-a-google-review-with-no-text",
+    cluster: "reply",
+    title: "How to respond to a Google review with no text",
+    description:
+      "What to write when a customer leaves only a star rating: short replies for five stars, one star, and ratings you cannot match to a customer.",
+    intro:
+      "Many Google reviews are a star rating with no words. You can still reply. Keep it short, because there is nothing specific to answer.",
+    sections: [
+      {
+        title: "Four or five stars, no text",
+        paragraphs: [
+          "“Thank you, [name]. We appreciate you taking the time to rate [business].”",
+          "Do not invent details about the visit. If you know who it was, a specific thank-you is fine. If not, keep it general.",
+        ],
+      },
+      {
+        title: "One or two stars, no text",
+        paragraphs: [
+          "“Hi [name], I’m sorry your visit was not what you hoped. I’d like to hear what happened. Please call me at [phone].”",
+          "Do not ask them to explain in public, and do not guess what went wrong. A calm reply also shows the next reader how you handle problems.",
+        ],
+      },
+      {
+        title: "A rating you cannot match to a customer",
+        paragraphs: [
+          "Reply the same way and invite a call. Do not accuse the reviewer of being fake in public.",
+          "If you believe the rating breaks Google’s rules, you can report it through Google’s own flag. ReputationFlow does not file that report.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is it worth replying to a star-only review?",
+        answer: "Yes. A short reply shows people reading your profile that someone is paying attention.",
+      },
+      {
+        question: "Can I ask them to add text to the review?",
+        answer:
+          "Do not pressure them. You can invite a call if the rating was low. Asking them to change their rating is not allowed.",
+      },
+      {
+        question: "Can ReputationFlow draft these replies?",
+        answer:
+          "Professional can draft a reply from private feedback for you to edit. You post every reply on Google yourself.",
       },
     ],
   },
