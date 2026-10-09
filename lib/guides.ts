@@ -1,3 +1,4 @@
+import { buyerGuides } from "@/lib/buyer-guides"
 import { longtailGuides } from "@/lib/longtail-guides"
 
 export type GuideClusterId = "ask" | "reply" | "policy" | "distribution"
@@ -446,6 +447,7 @@ export const guides: GuidePage[] = [
     ],
   },
   ...longtailGuides,
+  ...buyerGuides,
 ]
 
 const cornerstoneGuides: GuideListing[] = [
