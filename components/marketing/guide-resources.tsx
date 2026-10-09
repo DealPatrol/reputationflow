@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 
 export function GuideResources({
   signupLocation,
@@ -28,7 +29,7 @@ export function GuideResources({
           .
         </>
       ) : null}{" "}
-      <SignupLink className="font-semibold text-indigo-700" href="/auth/signin?signup=1" location={signupLocation}>
+      <SignupLink className="font-semibold text-indigo-700" href={SIGNUP_PATH} location={signupLocation}>
         Create a free account
       </SignupLink>{" "}
       to keep the link and the QR code on one page. More writing is in the{" "}

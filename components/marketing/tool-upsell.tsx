@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 
 export function ToolUpsell({ location, body }: { location: string; body: string }) {
@@ -12,7 +13,7 @@ export function ToolUpsell({ location, body }: { location: string; body: string 
       </p>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
         <SignupLink
-          href="/auth/signin?signup=1"
+          href={SIGNUP_PATH}
           location={location}
           className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
         >

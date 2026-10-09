@@ -6,6 +6,7 @@ import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
@@ -143,7 +144,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             free QR code generator
           </Link>
           .{" "}
-          <SignupLink className="font-semibold text-indigo-700" href="/auth/signin?signup=1" location="industry_body">
+          <SignupLink className="font-semibold text-indigo-700" href={SIGNUP_PATH} location="industry_body">
             Create a free account
           </SignupLink>{" "}
           to keep that link, the QR code, and the customer page together. Copy more wording from the{" "}

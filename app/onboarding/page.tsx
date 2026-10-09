@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toDataURL } from "qrcode"
 import { buildGoogleReviewLink } from "@/lib/google-review-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { reviewPageUrl } from "@/lib/site"
 
 type OnboardingStep = "link" | "qr"
@@ -27,7 +28,7 @@ export default function OnboardingPage() {
       .then((response) => response.json())
       .then((data) => {
         if (!data.user) {
-          router.replace("/auth/signin?signup=1")
+          router.replace(SIGNUP_PATH)
           return
         }
         const business = data.user.business

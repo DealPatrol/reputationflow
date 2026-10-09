@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, Star, X } from "lucide-react"
 import { trackSignupClick } from "@/lib/analytics-events"
+import { SIGNUP_PATH } from "@/lib/signup"
 
 const links = [
   { href: "/how-it-works", label: "How it works" },
@@ -40,7 +41,7 @@ export function SiteHeader() {
             Sign in
           </Link>
           <Link
-            href="/auth/signin?signup=1"
+            href={SIGNUP_PATH}
             className="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
             onClick={() => trackSignupClick("header")}
           >
@@ -77,7 +78,7 @@ export function SiteHeader() {
               Sign in
             </Link>
             <Link
-              href="/auth/signin?signup=1"
+              href={SIGNUP_PATH}
               className="mt-1 rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
               onClick={() => {
                 trackSignupClick("header_mobile")

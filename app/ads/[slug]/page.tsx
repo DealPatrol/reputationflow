@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { adLandingBySlug, adLandings } from "@/lib/ad-landings"
 import { pageMetadata } from "@/lib/seo"
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
@@ -48,7 +49,7 @@ export default async function AdLandingPage({ params }: { params: Promise<{ slug
           ))}
         </ul>
         <SignupLink
-          href="/auth/signin?signup=1"
+          href={SIGNUP_PATH}
           location={`ad_${landing.slug}`}
           className="mt-8 inline-flex rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white"
         >

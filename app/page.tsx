@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -101,7 +102,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <SignupLink
-                href="/auth/signin?signup=1"
+                href={SIGNUP_PATH}
                 location="homepage"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
               >

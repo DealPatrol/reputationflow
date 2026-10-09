@@ -85,6 +85,7 @@ describe("technical seo", () => {
       ...paths,
       ...adLandings.map((landing) => `/ads/${landing.slug}`),
       "/auth/signin",
+      "/signup",
       "/dashboard",
       "/dashboard/billing",
       "/dashboard/analytics",
