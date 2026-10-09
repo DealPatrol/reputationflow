@@ -120,7 +120,10 @@ export default function GoogleReviewsGuidePage() {
           <Link className="font-semibold text-indigo-700" href="/guides/how-many-google-reviews-to-rank">how many Google reviews it takes to rank</Link>
           {" "}and{" "}
           <Link className="font-semibold text-indigo-700" href="/guides/incentivizing-reviews-ftc-rules">whether incentives are allowed</Link>
-          {" "}before you change the ask.
+          {" "}before you change the ask. Starting from zero? Follow the{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-to-get-google-reviews-for-a-new-business">first reviews plan for a new business</Link>
+          , and reply to praise with the{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-to-respond-to-positive-google-reviews">positive review reply examples</Link>.
         </p>
         <GuideResources signupLocation="more_reviews" />
       </article>

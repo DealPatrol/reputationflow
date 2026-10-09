@@ -142,6 +142,11 @@ export default function ReviewSoftwarePage() {
         <div className="mt-4">
           <FaqList items={faqs} />
         </div>
+        <p className="mt-10 text-sm leading-7 text-slate-600">
+          Comparing vendors? Use the{" "}
+          <Link className="font-semibold text-indigo-700" href="/guides/how-to-choose-review-management-software">review software buyer checklist</Link>
+          {" "}before you book a demo.
+        </p>
       </article>
       <CtaBand
         signupLocation="review_software"

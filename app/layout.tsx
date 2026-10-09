@@ -6,13 +6,17 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AdsScripts } from "@/components/ads/ads-scripts"
 import { AttributionCapture } from "@/components/ads/attribution-capture"
 import { absoluteUrl, getSiteUrl } from "@/lib/site"
+import { googleSiteVerificationToken } from "@/lib/site-verification"
 import "./globals.css"
+
+const googleSiteVerification = googleSiteVerificationToken()
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" })
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  ...(googleSiteVerification ? { verification: { google: googleSiteVerification } } : {}),
   title: {
     default: "ReputationFlow — review requests for local businesses",
     template: "%s · ReputationFlow",
