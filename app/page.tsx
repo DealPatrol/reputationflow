@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare } from "lucide-react"
+import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare, Lock, CreditCard, Scale } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
@@ -12,8 +12,8 @@ import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { faqJsonLd, organizationJsonLd, softwareJsonLd } from "@/lib/seo"
 import { absoluteUrl } from "@/lib/site"
 
-const homeTitle = "ReputationFlow — review requests for local businesses"
-const homeDescription = "One review link for every customer. The same public review buttons, whatever rating they pick."
+const homeTitle = "ReputationFlow: more Google reviews for local businesses"
+const homeDescription = "Turn every visit into a review request. One link and QR code send customers to Google, Facebook, and Yelp, with the same buttons at every rating."
 
 export const metadata: Metadata = {
   alternates: { canonical: absoluteUrl("/") },
@@ -95,10 +95,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-semibold text-indigo-700">Review requests for local businesses</p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Ask every customer for an honest Google review.
+              Turn every customer visit into a Google review request.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-              ReputationFlow gives you one link and one QR code. Every customer sees your Google, Facebook, and Yelp pages, plus an optional private note.
+              Set up one review link and QR code in minutes. Every customer goes straight to your Google, Facebook, and Yelp pages, and you read their private notes in one dashboard.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <SignupLink
@@ -106,17 +106,21 @@ export default function HomePage() {
                 location="homepage"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
               >
-                Start free
+                Start free, no card
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </SignupLink>
               <Link
-                href="/how-to-get-more-google-reviews"
+                href="/how-it-works"
                 className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
               >
-                How to get more Google reviews
+                See how it works
               </Link>
             </div>
-            <p className="mt-4 text-sm text-slate-500">Starter is free. Professional is {formatPlanPrice(PLANS.pro.price)} per month.</p>
+            <ul className="mt-6 grid gap-2 text-sm text-slate-600 sm:grid-cols-3">
+              <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-indigo-600" aria-hidden="true" />No review gating</li>
+              <li className="flex items-center gap-2"><CreditCard className="h-4 w-4 text-indigo-600" aria-hidden="true" />Starter is free</li>
+              <li className="flex items-center gap-2"><Scale className="h-4 w-4 text-indigo-600" aria-hidden="true" />Pro {formatPlanPrice(PLANS.pro.price)}/month, cancel anytime</li>
+            </ul>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -176,8 +180,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What changes when you use it</h2>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-          You get a review page, a QR code, and a dashboard for notes customers send you. The price is listed below.
-          ReputationFlow does not publish review totals, revenue, ROI, customer counts, or testimonials.
+          A review page, a QR code, and one dashboard for the notes customers send you. Everything below is what the product does today, with nothing hidden behind a sales call.
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {outcomes.map((outcome) => (
@@ -194,7 +197,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Built for the businesses that live on Google reviews</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
-              These pages describe how to ask in each trade. They are guides, not customer stories. ReputationFlow does not publish testimonials or usage numbers it cannot verify. The{" "}
+              These pages describe how to ask in each trade. Each one covers when to ask, what to say, and where to put the QR code. The{" "}
               <Link className="font-semibold text-indigo-700" href="/resources">resource hub</Link>
               , the{" "}
               <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
@@ -224,6 +227,35 @@ export default function HomePage() {
               See when a review link is enough, and when Birdeye, Podium, or NiceJob is the clearer fit.
             </p>
           </Link>
+        </div>
+      </section>
+
+      <section className="bg-slate-950 text-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="text-2xl font-semibold tracking-tight">Security, privacy, and review rules</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+            Your customers and your Google profile are on the line, so ReputationFlow is built to keep both safe.
+          </p>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <article className="rounded-2xl border border-slate-800 p-6">
+              <Scale className="h-5 w-5 text-indigo-300" aria-hidden="true" />
+              <h3 className="mt-4 font-semibold">Follows platform review rules</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">No review gating. The public buttons stay the same at every star rating, in line with Google policy and FTC guidance on reviews.</p>
+            </article>
+            <article className="rounded-2xl border border-slate-800 p-6">
+              <CreditCard className="h-5 w-5 text-indigo-300" aria-hidden="true" />
+              <h3 className="mt-4 font-semibold">Payments handled by Stripe</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">Card details go to Stripe checkout. ReputationFlow never sees or stores your card number.</p>
+            </article>
+            <article className="rounded-2xl border border-slate-800 p-6">
+              <Lock className="h-5 w-5 text-indigo-300" aria-hidden="true" />
+              <h3 className="mt-4 font-semibold">Customer data stays yours</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                Feedback is visible only in your account and is shared only with the service providers named in the{" "}
+                <Link className="font-semibold text-indigo-300 underline" href="/privacy">privacy policy</Link>, such as Stripe and our hosting providers.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
