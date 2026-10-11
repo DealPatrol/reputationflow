@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, Star, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { SIGNUP_PATH } from "@/lib/signup"
 
@@ -22,10 +22,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white">
-            <Star className="h-4 w-4" fill="currentColor" aria-hidden="true" />
-          </span>
-          <span className="text-base font-semibold tracking-tight text-slate-950">ReputationFlow</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand-header.png" alt="Reputation Flow" width={208} height={36} className="block h-9 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-4 text-sm font-medium text-slate-600 md:flex lg:gap-6" aria-label="Primary">

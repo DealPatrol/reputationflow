@@ -42,7 +42,7 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: "ReputationFlow",
     url: absoluteUrl("/"),
-    logo: absoluteUrl("/apple-icon"),
+    logo: absoluteUrl("/brand-logo.png"),
     description:
       "Review request software for local businesses. Every customer sees the same public review links.",
     email: PUBLIC_CONTACT_EMAIL,
@@ -124,7 +124,7 @@ export function articleJsonLd(input: { title: string; description: string; path:
       name: "ReputationFlow",
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/apple-icon"),
+        url: absoluteUrl("/brand-logo.png"),
       },
     },
   }

@@ -63,7 +63,7 @@ describe("seo metadata", () => {
   it("describes the organization with a logo, founder, and contact email", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://reviews.example.com"
     expect(organizationJsonLd()).toMatchObject({
-      logo: "https://reviews.example.com/apple-icon",
+      logo: "https://reviews.example.com/brand-logo.png",
       email: "support@tryreputationflow.com",
       founder: { "@type": "Person", name: "Cole Collins" },
     })
