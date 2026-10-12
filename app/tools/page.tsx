@@ -15,19 +15,19 @@ export const metadata = pageMetadata({
   description:
     "Free tools for a Google review link and a QR code, plus a printable card. No account. The template pack and the guides sit next to them.",
   path: "/tools",
-  keywords: ["google review link generator", "google review qr code", "free review tools"],
+  keywords: ["google review qr code generator", "google review link generator", "free review tools"],
 })
 
 const tools = [
   {
-    href: "/tools/google-review-link",
-    title: "Google review link generator",
-    body: "Paste a Place ID and get the official write-a-review URL. A short maps link cannot be expanded here.",
+    href: "/tools/qr-code",
+    title: "Google review QR code generator",
+    body: "Paste a Place ID or a long Maps URL. Download the review link and a scannable QR code. No API key.",
   },
   {
-    href: "/tools/qr-code",
-    title: "QR code generator",
-    body: "Turn that URL into a PNG, a table tent, or a review card. The file is built in the browser.",
+    href: "/tools/google-review-link",
+    title: "Google review link generator",
+    body: "The same link and QR code, with the steps written for a text, an email, or a receipt.",
   },
   {
     href: "/google-review-request-templates",
@@ -44,7 +44,7 @@ export default function ToolsIndexPage() {
         <Breadcrumbs items={crumbs} />
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950">Free Google review tools</h1>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-          Make the link, then the code. These pages work without an account. A free ReputationFlow account is what saves them on one customer page.
+          Paste a Place ID and download the review link and the QR code on one page. These tools work without an account. A free ReputationFlow account is what saves them on one customer page.
         </p>
         <ul className="mt-10 grid gap-4 sm:grid-cols-3">
           {tools.map((tool) => (

@@ -32,7 +32,7 @@ const faqs = [
   {
     question: "What replaces the [link] bracket?",
     answer:
-      "Paste the write-a-review URL from your Google Business Profile, or build it with the free Google review link generator. A normal Maps search URL is not a review link.",
+      "Paste the write-a-review URL from your Google Business Profile, or build it with the free Google review QR code generator. A Maps search that does not include a Place ID is not a review link. A long listing URL that contains !1sChIJ can be pasted into the generator.",
   },
 ]
 

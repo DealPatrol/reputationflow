@@ -75,6 +75,6 @@ export function templatePackText() {
     lines.push("")
   }
 
-  lines.push("Make the link with the free Google review link generator, then put it on a QR code if you are handing someone a card.")
+  lines.push("Make the link and the QR code with the free Google review QR code generator on this site. Paste a Place ID or the long Maps URL. A short g.page link will not work.")
   return lines.join("\n")
 }

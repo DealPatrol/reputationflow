@@ -14,7 +14,7 @@ const crumbs = [
 const staticLinks = [
   { href: "/tools", title: "Free tools" },
   { href: "/tools/google-review-link", title: "Google review link generator" },
-  { href: "/tools/qr-code", title: "QR code generator" },
+  { href: "/tools/qr-code", title: "Google review QR code generator" },
   { href: "/google-review-request-templates", title: "Review request templates" },
   { href: "/how-to-get-more-google-reviews", title: "How to get more Google reviews" },
   { href: "/how-to-respond-to-negative-google-reviews", title: "How to respond to negative Google reviews" },

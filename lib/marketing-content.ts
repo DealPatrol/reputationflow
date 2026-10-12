@@ -183,7 +183,7 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/resources", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/google-review-link", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/tools/qr-code", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/tools/qr-code", priority: 0.9, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
     { path: "/guides", priority: 0.8, changeFrequency: "monthly" },
     { path: "/google-review-request-templates", priority: 0.8, changeFrequency: "monthly" },
