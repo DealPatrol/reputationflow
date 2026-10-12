@@ -12,6 +12,7 @@ const links = [
   { href: "/pricing", label: "Pricing" },
   { href: "/guides", label: "Guides" },
   { href: "/tools", label: "Free tools" },
+  { href: "/tools/qr-code", label: "QR code" },
   { href: "/resources", label: "Resources" },
 ]
 

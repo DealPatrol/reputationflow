@@ -17,3 +17,7 @@ export function trackSignupClick(location: string) {
 export function trackCheckoutStart(plan: "professional") {
   trackEvent("Checkout Started", { plan })
 }
+
+export function trackToolUsage(source: string, action: string) {
+  trackEvent("Tool Used", { source, action })
+}

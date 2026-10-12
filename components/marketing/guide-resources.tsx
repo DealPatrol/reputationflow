@@ -11,13 +11,13 @@ export function GuideResources({
 }) {
   return (
     <p className="mt-10 text-sm leading-7 text-slate-600">
-      Build the URL with the{" "}
+      Make the link and the QR code together with the{" "}
+      <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+        Google review QR code generator
+      </Link>
+      , or start from the{" "}
       <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
         Google review link generator
-      </Link>{" "}
-      and put it on a card with the{" "}
-      <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
-        QR code generator
       </Link>
       .{includePack ? (
         <>

@@ -40,8 +40,8 @@ export function SiteFooter() {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link className="hover:text-white" href="/guides">Review guides</Link></li>
             <li><Link className="hover:text-white" href="/google-review-request-templates">Review request templates</Link></li>
+            <li><Link className="hover:text-white" href="/tools/qr-code">Google review QR code generator</Link></li>
             <li><Link className="hover:text-white" href="/tools/google-review-link">Google review link generator</Link></li>
-            <li><Link className="hover:text-white" href="/tools/qr-code">QR code generator</Link></li>
             <li><Link className="hover:text-white" href="/how-to-get-more-google-reviews">How to get more Google reviews</Link></li>
             <li><Link className="hover:text-white" href="/how-to-respond-to-negative-google-reviews">Reply to a negative review</Link></li>
             <li><Link className="hover:text-white" href="/review-management-software">Review software compared</Link></li>

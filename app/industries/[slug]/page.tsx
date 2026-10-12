@@ -133,17 +133,17 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <FaqList items={industry.faqs} />
         </div>
 
-        <h2 className="mt-10 text-xl font-semibold text-slate-950">Build the link, then the QR code</h2>
+        <h2 className="mt-10 text-xl font-semibold text-slate-950">Make the link and the QR code</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
-          Turn a Place ID into a review URL with the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
-            free Google review link generator
-          </Link>
-          . Print or download the code with the{" "}
+          Paste a Place ID or the long Google Maps URL into the{" "}
           <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
-            free QR code generator
+            free Google review QR code generator
           </Link>
-          .{" "}
+          . It builds the write-a-review link and a PNG you can download, in the browser, with no API key. The{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            Google review link generator
+          </Link>{" "}
+          is the same tool, with the steps written for a text or an email.{" "}
           <SignupLink className="font-semibold text-indigo-700" href={SIGNUP_PATH} location="industry_body">
             Create a free account
           </SignupLink>{" "}

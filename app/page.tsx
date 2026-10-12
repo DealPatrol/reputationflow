@@ -203,7 +203,8 @@ export default function HomePage() {
               <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
               , and the{" "}
               <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
-              {" "}cover the scripts, the FTC rules, and QR code placement.
+              {" "}cover the scripts, the FTC rules, and QR code placement. Make the code with the{" "}
+              <Link className="font-semibold text-indigo-700" href="/tools/qr-code">Google review QR code generator</Link>.
             </p>
             <Link href="/industries" className="mt-3 inline-flex text-sm font-semibold text-indigo-700">
               All trades

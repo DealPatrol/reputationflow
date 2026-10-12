@@ -136,7 +136,13 @@ function downloadDataUrl(dataUrl: string, filename: string) {
   link.click()
 }
 
-export function ReviewCardDownloads({ qrDataUrl }: { qrDataUrl: string }) {
+export function ReviewCardDownloads({
+  qrDataUrl,
+  onDownload,
+}: {
+  qrDataUrl: string
+  onDownload?: (kind: CardKind) => void
+}) {
   const [businessName, setBusinessName] = useState("")
   const [error, setError] = useState("")
   const [preview, setPreview] = useState("")
@@ -149,6 +155,7 @@ export function ReviewCardDownloads({ qrDataUrl }: { qrDataUrl: string }) {
       const dataUrl = await renderCard(kind, businessName, qrDataUrl)
       setPreview(dataUrl)
       downloadDataUrl(dataUrl, kind === "tent" ? "google-review-table-tent.png" : "google-review-card.png")
+      onDownload?.(kind)
     } catch (downloadError) {
       setError(downloadError instanceof Error ? downloadError.message : "Could not create the file.")
     } finally {
