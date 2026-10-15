@@ -18,6 +18,8 @@ export function trackCheckoutStart(plan: "professional") {
   trackEvent("Checkout Started", { plan })
 }
 
-export function trackToolUsage(source: string, action: string) {
-  trackEvent("Tool Used", { source, action })
+export function trackToolUsage(source: string, action: string, page?: string) {
+  const properties: Record<string, string> = { source, action }
+  if (page) properties.page = page
+  trackEvent("Tool Used", properties)
 }

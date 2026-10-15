@@ -378,7 +378,7 @@ export const longtailGuides: GuidePage[] = [
     description:
       "How to ask for Google reviews when a business has more than one location: one profile and one link per real place, and what ReputationFlow stores on a plan.",
     intro:
-      "Each real location has its own Google Business Profile and its own review link. A QR code for the downtown shop should not open the review form for the shop across town. This page does not publish city pages or a quota of reviews per location.",
+      "Each real location has its own Google Business Profile and its own review link. A QR code for the downtown shop should not open the review form for the shop across town. This page does not publish a quota of reviews per location. A city QR guide, where one exists, is a placement note. It is not a second Google profile.",
     sections: [
       {
         title: "One profile, one link",
@@ -411,7 +411,7 @@ export const longtailGuides: GuidePage[] = [
       {
         question: "Should a service area with no storefront use a separate link per town?",
         answer:
-          "Use the Google profile that matches how you are listed. A service-area business with one profile gets one review link. Do not create a profile per town to collect reviews. This site does not publish town pages.",
+          "Use the Google profile that matches how you are listed. A service-area business with one profile gets one review link. Do not create a profile per town to collect reviews. A city QR guide is a placement note for a job, not a new listing and not a page for every town you drive to.",
       },
       {
         question: "Where do I make the second link?",

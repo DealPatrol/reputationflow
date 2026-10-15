@@ -37,10 +37,12 @@ export function GoogleReviewQrTool({
   source,
   allowPlainUrl = false,
   ctaLocation,
+  usagePage,
 }: {
   source: "google-review-link" | "qr-code"
   allowPlainUrl?: boolean
   ctaLocation: string
+  usagePage?: string
 }) {
   const params = useSearchParams()
   const preset = params.get("url") ?? params.get("placeid") ?? ""
@@ -77,7 +79,7 @@ export function GoogleReviewQrTool({
           setQrError("")
           if (trackedUrl.current !== targetUrl) {
             trackedUrl.current = targetUrl
-            trackToolUsage(source, action)
+            trackToolUsage(source, action, usagePage)
           }
         })
         .catch(() => {
@@ -92,7 +94,7 @@ export function GoogleReviewQrTool({
       cancelled = true
       window.clearTimeout(timer)
     }
-  }, [action, source, targetUrl])
+  }, [action, source, targetUrl, usagePage])
 
   const copy = async () => {
     if (!targetUrl) return
@@ -173,7 +175,7 @@ export function GoogleReviewQrTool({
               <a
                 href={dataUrl}
                 download="google-review-qr-code.png"
-                onClick={() => trackToolUsage(source, "qr_download")}
+                onClick={() => trackToolUsage(source, "qr_download", usagePage)}
                 className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-center text-sm font-semibold text-slate-800"
               >
                 Download PNG
@@ -220,7 +222,7 @@ export function GoogleReviewQrTool({
           {dataUrl && (
             <ReviewCardDownloads
               qrDataUrl={dataUrl}
-              onDownload={(kind) => trackToolUsage(source, kind === "tent" ? "tent_download" : "card_download")}
+              onDownload={(kind) => trackToolUsage(source, kind === "tent" ? "tent_download" : "card_download", usagePage)}
             />
           )}
           <LeadCaptureForm source={source} details={targetUrl} />

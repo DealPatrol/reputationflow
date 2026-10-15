@@ -285,7 +285,7 @@ export const guides: GuidePage[] = [
       {
         question: "Will you tell me a target number if I say my city and category?",
         answer:
-          "No. The number is not published, and a city or category does not create one. We do not make city pages or category quotas.",
+          "No. The number is not published, and a city or category does not create one. A city QR guide on this site is a placement note for that job. It is not a review quota.",
       },
       {
         question: "Do star ratings change the rank by themselves?",

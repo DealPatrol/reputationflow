@@ -39,6 +39,10 @@ export function GuideResources({
       and the{" "}
       <Link className="font-semibold text-indigo-700" href="/industries">
         trade pages
+      </Link>{" "}
+      and the{" "}
+      <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+        city QR guides
       </Link>
       .
     </p>
