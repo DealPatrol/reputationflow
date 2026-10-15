@@ -60,10 +60,14 @@ export default function ToolsIndexPage() {
           Placement and wording are in the{" "}
           <Link className="font-semibold text-indigo-700" href="/guides">
             guides
-          </Link>{" "}
-          and the{" "}
+          </Link>
+          , the{" "}
           <Link className="font-semibold text-indigo-700" href="/industries">
             trade pages
+          </Link>
+          , and the{" "}
+          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+            city QR guides
           </Link>
           . The{" "}
           <Link className="font-semibold text-indigo-700" href="/resources">

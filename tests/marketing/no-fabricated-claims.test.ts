@@ -43,6 +43,7 @@ describe("marketing copy", () => {
       ...collectSourceFiles(join(process.cwd(), "components")),
       join(process.cwd(), "lib/marketing-content.ts"),
       join(process.cwd(), "lib/industries.ts"),
+      join(process.cwd(), "lib/qr-city-pages.ts"),
       join(process.cwd(), "lib/guides.ts"),
       join(process.cwd(), "lib/longtail-guides.ts"),
       join(process.cwd(), "lib/ad-landings.ts"),

@@ -9,6 +9,7 @@ import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
+import { qrCityPagesForTrade, qrCityPath } from "@/lib/qr-city-pages"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -33,6 +34,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const industry = industryBySlug(slug)
   if (!industry) notFound()
   const related = relatedIndustries(industry.slug)
+  const cityPages = qrCityPagesForTrade(industry.slug)
 
   return (
     <MarketingShell>
@@ -84,6 +86,24 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             </section>
           ))}
         </div>
+
+        {cityPages.length > 0 ? (
+          <section className="mt-10">
+            <h2 className="text-xl font-semibold text-slate-950">In a specific city</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              The steps above are the national version of a Google review QR code for this trade. These cities change where the card goes or when you send the text, because the job itself is different there. If your city is not listed, use this page. A new town name is not a separate guide.
+            </p>
+            <ul className="mt-3 space-y-2 text-sm leading-7">
+              {cityPages.map((page) => (
+                <li key={page.citySlug}>
+                  <Link className="font-semibold text-indigo-700" href={qrCityPath(page)}>
+                    {page.heading}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">What not to do</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">

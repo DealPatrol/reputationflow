@@ -32,7 +32,9 @@ export default function IndustriesIndexPage() {
           <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
           {" "}and the{" "}
           <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
-          {" "}are the longer versions.
+          {" "}are the longer versions. A few trades also have{" "}
+          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city pages</Link>
+          {" "}for the jobs where the city changes the QR placement. Other cities stay on the trade page.
         </p>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry) => (

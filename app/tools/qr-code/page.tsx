@@ -8,6 +8,8 @@ import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { ToolUpsell } from "@/components/marketing/tool-upsell"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
+import { industryBySlug } from "@/lib/industries"
+import { qrCityHub, qrCityPagesForTrade, qrCityPath, qrCityTradeOrder } from "@/lib/qr-city-pages"
 import { breadcrumbJsonLd, faqJsonLd, freeToolJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
 
 const path = "/tools/qr-code"
@@ -129,6 +131,43 @@ export default function QrCodePage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">FAQ</h2>
         <div className="mt-4">
           <FaqList items={faqs} />
+        </div>
+
+        <h2 className="mt-12 text-xl font-semibold text-slate-950">Where to put it, by trade and city</h2>
+        <p className="mt-2 text-sm leading-7 text-slate-600">
+          The generator is the same in every city. The card and the timing are not. These guides cover the jobs where a Houston slab leak, a Chicago freeze, a Phoenix attic, or a Dallas hail roof changes the ask. Other cities use the{" "}
+          <Link className="font-semibold text-indigo-700" href="/industries">
+            trade page
+          </Link>
+          . The full list is the{" "}
+          <Link className="font-semibold text-indigo-700" href={qrCityHub.path}>
+            {qrCityHub.title.toLowerCase()}
+          </Link>{" "}
+          hub.
+        </p>
+        <div className="mt-4 space-y-4">
+          {qrCityTradeOrder().map((tradeSlug) => {
+            const trade = industryBySlug(tradeSlug)
+            if (!trade) return null
+            return (
+              <section key={tradeSlug}>
+                <h3 className="text-base font-semibold text-slate-950">
+                  <Link className="text-indigo-700" href={`/industries/${trade.slug}`}>
+                    {trade.name}
+                  </Link>
+                </h3>
+                <ul className="mt-2 space-y-1 text-sm leading-7">
+                  {qrCityPagesForTrade(tradeSlug).map((page) => (
+                    <li key={page.citySlug}>
+                      <Link className="font-semibold text-indigo-700" href={qrCityPath(page)}>
+                        {page.heading}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )
+          })}
         </div>
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Related</h2>

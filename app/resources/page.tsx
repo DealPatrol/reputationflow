@@ -15,6 +15,7 @@ const staticLinks = [
   { href: "/tools", title: "Free tools" },
   { href: "/tools/google-review-link", title: "Google review link generator" },
   { href: "/tools/qr-code", title: "Google review QR code generator" },
+  { href: "/google-review-qr-by-city", title: "Google review QR codes by city" },
   { href: "/google-review-request-templates", title: "Review request templates" },
   { href: "/how-to-get-more-google-reviews", title: "How to get more Google reviews" },
   { href: "/how-to-respond-to-negative-google-reviews", title: "How to respond to negative Google reviews" },
@@ -27,7 +28,7 @@ const staticLinks = [
 export const metadata = pageMetadata({
   title: "Google review resources",
   description:
-    "Every public ReputationFlow guide, trade page, free tool, and comparison in one list. No city pages and no invented review counts.",
+    "Every public ReputationFlow guide, trade page, city QR guide, free tool, and comparison. No invented review counts.",
   path: "/resources",
   keywords: ["google review resources", "review request guides", "google review tools"],
 })
