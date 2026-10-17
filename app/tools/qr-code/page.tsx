@@ -135,7 +135,7 @@ export default function QrCodePage() {
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Where to put it, by trade and city</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
-          The generator is the same in every city. The card and the timing are not. These guides cover the jobs where a Houston slab leak, a Chicago freeze, a Phoenix attic, or a Dallas hail roof changes the ask. Other cities use the{" "}
+          The generator is the same in every city. The card and the timing are not. These guides cover the jobs where a Houston slab leak, an Austin limestone line, a Chicago freeze, a Phoenix attic, a Dallas hail roof, or a cold-morning garage door changes the ask. Other cities use the{" "}
           <Link className="font-semibold text-indigo-700" href="/industries">
             trade page
           </Link>
