@@ -34,7 +34,7 @@ export default function QrCityHubPage() {
         <Breadcrumbs items={crumbs} />
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950">{qrCityHub.title}</h1>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-          The trade pages already cover a Google review QR code for plumbers, HVAC companies, roofers, and electricians. These city pages are the visits where the city changes the card and the timing. A missing city should use the national trade page. Renaming a page is not a new guide.
+          These city pages are the visits where the city changes the card and the timing. A Houston slab leak, an Austin limestone line, a Chicago freeze, a Phoenix attic, a Dallas hail roof, a desert yard, a turnover clean, a night lockout, and a cold-morning garage door are different jobs. A missing city should use the national trade page. Renaming a page is not a new guide.
         </p>
         <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
           Make the code with the{" "}
@@ -45,7 +45,7 @@ export default function QrCityHubPage() {
           <Link className="font-semibold text-indigo-700" href="/industries">
             full trade list
           </Link>{" "}
-          includes jobs that do not have a city page, such as cleaning, dental, and salons, because the counter or the invoice does not change enough from one city to another.
+          includes jobs that do not have a city page, such as dental and salons, because the counter does not change enough from one city to another. Cleaning, landscaping, locksmith, and garage door guides exist only for the cities listed below.
         </p>
 
         <div className="mt-12 space-y-12">

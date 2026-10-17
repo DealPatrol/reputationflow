@@ -1052,6 +1052,102 @@ export const industries: IndustryPage[] = [
       },
     ],
   },
+  {
+    slug: "locksmith",
+    name: "Locksmiths",
+    businessLabel: "locksmith",
+    keyword: "google review qr code for locksmiths",
+    title: "Google review QR code for locksmiths",
+    description:
+      "How to get more Google reviews as a locksmith. Ask after the key works from outside, put a QR code on the invoice, and skip the ask during a lockout.",
+    guideHeading: "How to get more Google reviews as a locksmith",
+    intro:
+      "A locksmith is hired in a hurry, often from the Google listing while someone is standing outside. The review has to wait until they are in and the key works.",
+    bestMoment:
+      "Ask after you have watched their key or code work from the outside and they are inside with a working lock. If the call was a middle-of-the-night lockout, do not ask on the sidewalk. Text the next morning, once, to the person who paid.",
+    sampleMessage:
+      "Hi [first name], this is [your name] at [company]. Your key works from the outside and the lock is set. If the visit was clear, a Google review helps the next person who is locked out: [link].",
+    moments: [
+      "Put the QR code on the invoice you hand them after the key works, not on the door while they are still outside.",
+      "Text the same link once if they were too rushed to scan it.",
+      "On a rekey for a property manager, send the request to the manager, not to every tenant who received a key.",
+    ],
+    tips: [
+      {
+        title: "One customer per invoice",
+        body: "If a landlord hired you and the tenant let you in, the review request goes to the landlord. Do not text both of them about the same lock.",
+      },
+      {
+        title: "Leave the hardware story off the text",
+        body: "“The key works” is enough. Do not recap a broken lock, a lost key, or a code they should keep private.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Should a locksmith ask during a lockout?",
+        answer:
+          "Not while they are still outside. Get them in, show that the key or code works, and hand the invoice. If the call was overnight and they are upset, send one text the next morning.",
+      },
+      {
+        question: "Who gets the link when a property manager ordered the rekey?",
+        answer:
+          "The property manager, because that is the customer on the invoice. Tenants can review you if they look you up. You do not send each of them a request for the same job.",
+      },
+      {
+        question: "Can I discount an after-hours lockout for a review?",
+        answer:
+          "No. The after-hours price stays on the invoice. A waived fee or a free spare key in exchange for stars is an incentive.",
+      },
+    ],
+  },
+  {
+    slug: "garage-door",
+    name: "Garage door",
+    businessLabel: "garage door company",
+    keyword: "google review qr code for garage door companies",
+    title: "Google review QR code for garage doors",
+    description:
+      "How to get more Google reviews as a garage door company. Ask after they watch a full cycle, put a QR code on the invoice, and text once the same day.",
+    guideHeading: "How to get more Google reviews as a garage door company",
+    intro:
+      "Homeowners pick a garage door company from the Google listing when a spring breaks or a door will not close. Ask after they have watched the door cycle, not while it is still off the tracks.",
+    bestMoment:
+      "Ask after the door has gone up and down once with them watching, the photo eyes work, and they have the clicker or keypad. On a full door replacement, that is the walkthrough. On a spring or opener repair, it is before you leave the driveway.",
+    sampleMessage:
+      "Hi [first name], this is [your name] at [company]. The garage door cycled and the clicker works. If the visit was what you needed, a Google review helps a neighbor with a door that will not close: [link].",
+    moments: [
+      "Put the QR code on the invoice, and a second card with the clicker if you handed them a new remote.",
+      "Text the same day if they were not home and you closed the door from the outside.",
+      "Do not ask while you are still quoting a replacement. Ask after the door you installed or repaired is working.",
+    ],
+    tips: [
+      {
+        title: "Separate the estimate from the ask",
+        body: "A door quote is a sales conversation. The review ask comes after the door cycles, not while they are comparing prices in the driveway.",
+      },
+      {
+        title: "One link for the company",
+        body: "Spring repairs and full replacements use the same Google profile when they are the same company. Name the visit in the text so the review is about that door.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Should I ask for a review if the door still needs a part?",
+        answer:
+          "No. Order the part, come back, and ask after the door cycles. A review request in the middle of an unfinished repair asks them to praise a job you have not finished.",
+      },
+      {
+        question: "What if the customer was not home for a garage door repair?",
+        answer:
+          "Send one text the same day to the person who scheduled the job. Say the door cycled. Do not send a second text because they did not answer.",
+      },
+      {
+        question: "Can I waive a service call if they review the garage door?",
+        answer:
+          "No. Leave the service call on the invoice. A waived fee, a free remote, or a discount for stars is an incentive.",
+      },
+    ],
+  },
 ]
 
 export function industryBySlug(slug: string) {

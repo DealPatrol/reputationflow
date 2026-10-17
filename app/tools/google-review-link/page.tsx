@@ -159,6 +159,12 @@ export default function GoogleReviewLinkPage() {
             <span className="text-slate-600"> with a sample message for plumbers, dentists, salons, and other local businesses.</span>
           </li>
           <li>
+            <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+              Google review QR codes by city
+            </Link>
+            <span className="text-slate-600"> for plumbers, HVAC, roofers, electricians, landscapers, cleaners, locksmiths, and garage door companies in major metros.</span>
+          </li>
+          <li>
             <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
               Reply templates for a negative Google review
             </Link>

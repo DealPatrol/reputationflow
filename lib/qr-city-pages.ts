@@ -1,7 +1,8 @@
 /**
  * City pages only where the job changes the ask: climate, housing, or who the customer is.
- * "Google review QR code for [trade]" stays on the national industry page.
- * Do not fill in the missing trade/city pairs by renaming one of these.
+ * The national industry page still owns "Google review QR code for [trade]".
+ * Add a city only when the visit is different from the pages already written.
+ * Do not fill a missing pair by renaming one of these.
  */
 
 export interface QrCityPage {
@@ -29,7 +30,7 @@ export const qrCityHub = {
     {
       question: "Why is my city missing?",
       answer:
-        "These pages are only for jobs where the city changes the ask. A Houston slab leak, a Chicago freeze, a Phoenix attic, and a Dallas hail roof are different visits. A city that would repeat one of those pages is not listed. Use the national trade page for the QR code, the script, and the timing.",
+        "These pages are only for jobs where the city changes the ask. A Houston slab leak, an Austin limestone line, a Chicago freeze, a Phoenix attic, and a Dallas hail roof are different visits. A city that would repeat one of those pages is not listed. Use the national trade page for the QR code, the script, and the timing.",
     },
     {
       question: "Should I open a Google profile for every city I serve?",
@@ -666,6 +667,474 @@ export const qrCityPages: QrCityPage[] = [
         question: "Can I credit a Miami surge device if they review the call?",
         answer:
           "No. The device is something they buy or they do not. It is not a reward for stars. The QR code can sit on the same invoice with no condition printed on it.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "plumber",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Plumber Google review QR code in Austin",
+    heading: "Plumber Google review QR code in Austin",
+    description:
+      "Austin plumbers: ask after the water holds, on limestone or a new slab. Put the QR code on the invoice, not on a wet floor, and send one text the same day.",
+    query: "Google review QR code for plumbers in Austin",
+    summary: "Limestone lines, new-slab houses, and garage water heaters.",
+    intro:
+      "Austin plumbing reviews follow a line that breaks in limestone, a leak in a newer slab neighborhood, or a water heater sitting in a garage that gets as hot as the driveway. Older central houses are a different repair from a subdivision built on rock. The person searching Google is usually dealing with water they can see, so the QR code waits until the repair is holding and goes out before you are on the next loop of the city. A review QR helps here because the next homeowner is choosing a plumber from the listing while the water is still a problem, and they will not remember a text that arrives after the yard has dried.",
+    placements: [
+      "Hand the QR code on the invoice in the kitchen or the garage after you have run the water together. A magnet on the fridge is easy to lose under takeout menus.",
+      "On a garage water heater, leave a second card on the heater once the floor around it is dry. That is where they will be standing the next time it acts up.",
+      "On a limestone or slab leak, do not set a card on a wet floor or on the rock you opened. Keep it with the invoice until that spot can hold paper.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The line is holding and the water is back on. If you are glad we opened only what the repair needed, a Google review helps a neighbor in the same kind of house: [link].",
+    timing:
+      "If they were home for a straightforward repair, ask before the truck leaves and send one text the same day. If the call was a night leak and they are still moving things off the floor, leave without the ask and text the next morning after they say it stayed dry. One text. The person who hired you gets it, including when a property manager called and a tenant let you in.",
+    faqs: [
+      {
+        question: "Should an Austin plumber ask after a limestone leak that is still drying?",
+        answer:
+          "Ask after the water is off the floor and they have used the fixture. A card on wet limestone gets thrown out with the towels. If the night was stressful, the next morning is the right text, and it should be about the repair holding.",
+      },
+      {
+        question: "A builder in an Austin suburb paid, and the homeowner was the one home. Who gets the link?",
+        answer:
+          "The builder, if the builder is the customer on the invoice. The homeowner can review you if they find the listing. Do not send both of them a request for the same warranty call.",
+      },
+      {
+        question: "Can I waive an Austin trip charge if they review the leak?",
+        answer:
+          "No. The trip charge stays on the invoice next to the QR code. A waived fee or a free hose bib in exchange for stars is an incentive.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "hvac",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "HVAC Google review QR code in Austin",
+    heading: "HVAC Google review QR code in Austin",
+    description:
+      "Austin HVAC: ask after they feel the air, not from the attic. Put the QR code on the invoice and the handler sticker, then send one text.",
+    query: "Google review QR code for HVAC companies in Austin",
+    summary: "Attic air handlers, humid summers, and the rare hard freeze.",
+    intro:
+      "Austin HVAC calls are an attic air handler that quit in the heat, a system that cannot keep up with the humidity, or a heat pump that failed on one of the nights it actually freezes. The customer often did not climb into the attic with you. They will judge the visit at the thermostat. A review QR code belongs in their hand after they have felt the air change, because the next no-cool search happens before anyone answers the phone, and an attic sticker they will never see is not the ask.",
+    placements: [
+      "Put the QR code on the invoice after you have stood at the thermostat with them. Do not leave the only copy on an attic handler they will not open.",
+      "A sticker on the air handler is still worth doing for the next tech. Point at it only if they came up with you. Otherwise the invoice is the card they can scan.",
+      "On a changeout, hand the code at the walkthrough after the old equipment is out of the driveway. Do not ask while the quote is still on the kitchen table.",
+    ],
+    script:
+      "Hi [first name], [tech name] with [company]. The system is running and you felt the air at the thermostat. If that was the visit you needed, a Google review helps the next house that loses cooling in the afternoon: [link].",
+    timing:
+      "Ask the same day, after they have felt the air, and before you are across town. If they were at work, one text when you close the ticket, naming the visit as no-cool, no-heat, or a tune-up. After a hard freeze, do not ask while the house is still cold. Confirm the temperature held, then send the one text. Do not add a second message the following week.",
+    faqs: [
+      {
+        question: "The Austin attic was too hot for the customer to come up. Where does the QR code go?",
+        answer:
+          "On the invoice, after you come down and they have felt the air at the thermostat. An attic panel is a bad place for the only card. They will not climb up there to scan it later.",
+      },
+      {
+        question: "Should an Austin HVAC company wait until the next freeze to prove a heat pump?",
+        answer:
+          "No. Ask when this visit is finished and they have felt the system run. If a later freeze shows a problem, you come back. Waiting for weather they may not get this year loses the ask.",
+      },
+      {
+        question: "Can I leave a free Austin filter for a review?",
+        answer:
+          "No. A filter, a diagnostic, or a maintenance discount in exchange for stars is an incentive. The filter price stays on the invoice. The QR code sits beside it with no bargain.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "electrician",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Electrician Google review QR code in Austin",
+    heading: "Electrician Google review QR code in Austin",
+    description:
+      "Austin electricians: ask when the device works. Old central panels wait for inspection. Put the QR code on the invoice and send one text.",
+    query: "Google review QR code for electricians in Austin",
+    summary: "Older central panels, suburban EV chargers, and inspections.",
+    intro:
+      "Austin electrical work splits between older central houses with a tired panel and newer suburbs where the ask is an EV charger, a generator inlet, or a lighting walkthrough. Those are different visits, and permitted work is not finished when the truck leaves. People still pick the company from a handful of recent Google reviews, so the QR code goes out when the device works, and on a permitted job after inspection, not while they are still deciding on a quote.",
+    placements: [
+      "Put the QR code on the invoice after you have shown them the device working. A card on the panel is useful in a garage they can stand in.",
+      "On an EV charger or a lighting install, hand the code at the walkthrough when they have switched it on themselves.",
+      "Keep the review card off the permit and the inspection sticker. Those pages are not a place to ask for stars.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The electrical work at your place is finished and tested. If we showed you what changed and left the site clean, a Google review helps the next homeowner: [link].",
+    timing:
+      "For a repair with no permit, ask when you pack up and send one text the same day if they were not there for the close. For a panel, a charger, or anything that needs a green tag, wait until the inspection passes, then send one text that day. Do not ask during the estimate. If a property manager hired you, the text goes to the manager, not to the tenant who unlocked the door.",
+    faqs: [
+      {
+        question: "An Austin panel is replaced, but inspection is tomorrow. Can I leave the QR code today?",
+        answer:
+          "Leave the invoice if they need it for the job, and leave the review ask until the inspection passes. A text that says the work is finished before the inspector signs off is early.",
+      },
+      {
+        question: "Should an Austin electrician mention the old panel in the review text?",
+        answer:
+          "No. “The work is finished and tested” is enough. A message that recaps a burnt breaker or a panel you replaced is not something they want to forward.",
+      },
+      {
+        question: "Can I credit an Austin EV charger install if they review us this week?",
+        answer:
+          "No. The charger price stays on the invoice. A credit, a free outlet, or a lower trip fee for stars is an incentive.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "roofer",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Roofer Google review QR code in Austin",
+    heading: "Roofer Google review QR code in Austin",
+    description:
+      "Austin roofers: ask on the ground after oak debris and nails are gone. Put the QR code in the warranty packet, not on a storm estimate.",
+    query: "Google review QR code for roofers in Austin",
+    summary: "Oak debris, steep pitches, and spring storm replacements.",
+    intro:
+      "Austin roofs collect live-oak debris, and a spring storm can still mean a replacement on a steep pitch the homeowner will never walk. The review is not about the next hail season. It is about whether the crew cleaned the yard and whether the roof you finished matches the one you described on the ground. Ask after the nails and the branches are out of the grass, because that is the moment they can see the job, and a QR code on a storm estimate asks them to review a sale.",
+    placements: [
+      "Put the QR code in the warranty packet you hand them at the ground walkthrough. A packet left on a hot dashboard is not the one they will open.",
+      "A second code on the final invoice is enough. Do not also stake a review sign in the yard and leave it up.",
+      "Do not print the code on a storm estimate, a tarp receipt, or any insurance paperwork.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The roof is on, the crew is gone, and we walked the cleanup from the ground. If the work and the yard were what you wanted, a Google review helps another homeowner pick a roofer: [link].",
+    timing:
+      "Ask at the ground walkthrough the day the crew finishes, including on a steep roof you did not walk with them. Text once when you send the final invoice if they did not scan the code in the driveway. Do not ask on a tarp-only day, and do not ask when you drop off an estimate. One person gets the text: the person who signed and walked the cleanup.",
+    faqs: [
+      {
+        question: "Austin oaks will drop more debris on the new roof. Should I wait to ask?",
+        answer:
+          "No. Ask about the install and the cleanup you just finished. Leaves next month are a maintenance conversation. Waiting for a bare roof loses the day they watched the crew leave.",
+      },
+      {
+        question: "The Austin pitch was too steep to walk with the homeowner. When is the QR code handed over?",
+        answer:
+          "On the ground, after you have shown them the photos you took and the yard is clear of nails. Do not ask them to climb. The packet in their hand is the card.",
+      },
+      {
+        question: "Can an Austin roofer tie a ridge vent upgrade to a review?",
+        answer:
+          "No. An upgrade is something they buy or they do not. Leave it off the review ask. The QR code goes in the warranty packet with no condition on it.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "landscaper",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Landscaper Google review QR code in Austin",
+    heading: "Landscaper Google review QR code in Austin",
+    description:
+      "Austin landscapers: ask at the yard walkthrough after irrigation runs. Staple the QR code to the plant list and text the person who approved it.",
+    query: "Google review QR code for landscapers in Austin",
+    summary: "Limestone yards, irrigation zones, and drought plantings.",
+    intro:
+      "An Austin landscape install is judged in the yard, on limestone, after the irrigation actually runs. Plants fail here when a zone is wrong, not because the photo from the sales visit looked good. The Google review should be asked at that walkthrough, while they can see the beds and the water, because a text after the first hot week is about survival, not about whether the crew built the plan they approved. A QR code on the plant list is what they still have in the house when a neighbor asks who did the yard.",
+    placements: [
+      "Staple the QR code to the plant list or the watering sheet you leave on the counter after the zones have run.",
+      "Do not leave the only card in the bed, on a stake, or under a rock. Paper in an Austin yard does not survive the next irrigation cycle.",
+      "Text the person who approved the plan, not every adult who walked out to look at the gravel.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. We finished the planting at your place and ran the irrigation with you. If the plan matches what you approved, a Google review helps another homeowner find a landscaper: [link].",
+    timing:
+      "Ask at the walkthrough, the day the crew demobilizes, after they have seen the water hit the plants. Do not ask on the sales visit or the day the excavator shows up. For a multi-week hardscape job, ask once at the end. One text that day if they did not scan the card. Do not follow up after every week of establishment.",
+    faqs: [
+      {
+        question: "Should an Austin landscaper wait to see if the plants survive the heat?",
+        answer:
+          "Ask at the walkthrough about the install, the cleanup, and whether the irrigation ran the way you showed them. Invite them to add a later note if they want to talk about the garden in a season. Do not withhold the request until fall.",
+      },
+      {
+        question: "An Austin HOA is involved, but the homeowner signed. Who gets the QR code?",
+        answer:
+          "The homeowner who approved the plan and is on the invoice. Do not ask the HOA contact to review a yard they do not own, and do not send both of them a request for one job.",
+      },
+      {
+        question: "Can I discount the next Austin planting phase for a review of this one?",
+        answer:
+          "No. Ask about each phase when that phase is done. Do not price the next bed off the stars on this one.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "landscaper",
+    citySlug: "phoenix",
+    cityName: "Phoenix",
+    title: "Landscaper Google review QR code in Phoenix",
+    heading: "Landscaper Google review QR code in Phoenix",
+    description:
+      "Phoenix landscapers: ask after drip is running and gravel is down. Put the QR code on the plant list, not in a hot truck, and text once.",
+    query: "Google review QR code for landscapers in Phoenix",
+    summary: "Drip zones, gravel, and monsoon washouts.",
+    intro:
+      "Phoenix landscape work is drip, gravel, and plants that have to live in the heat. A monsoon can wash a new bed out before the homeowner has decided whether they like it. The review ask belongs after they have watched the drip run and seen which valve feeds which plant, not the morning the granite is dumped and not from a truck that has been sitting in the sun with the only card on the dash. Neighbors hire from the Google listing and from the yard they can see over the wall.",
+    placements: [
+      "Put the QR code on the plant list you hand them in the shade, after the drip has run. Do not leave the packet on the dash.",
+      "A card staked in the gravel disappears or fades. The list they take inside is the one they can scan.",
+      "On a washout repair, put the code on the invoice for the repair you just finished. Do not ask them to review the original install in the same text.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The gravel is down and we ran the drip together. If the yard matches the plan, a Google review helps someone else who needs a landscaper in the heat: [link].",
+    timing:
+      "Ask at the walkthrough the day you finish, once they have seen the drip. If the job was a monsoon washout, ask only after the repair is in and the water has somewhere to go. One text that day to the person who approved the plan. Do not send a second text when the first hot week arrives.",
+    faqs: [
+      {
+        question: "Should a Phoenix landscaper wait through monsoon season before asking?",
+        answer:
+          "No. Ask when the install or the repair is finished and they have seen the water run. If a later storm moves gravel, that is a callback, not a reason to skip the ask on the day the work was done.",
+      },
+      {
+        question: "The Phoenix customer was inside because of the heat. Is a text enough?",
+        answer:
+          "Walk the drip with them if they will come to the patio. If they will not, send one text the same day that names the visit, and leave the plant list where they asked you to put it. Do not add a second text.",
+      },
+      {
+        question: "Can I offer a Phoenix plant replacement if they review the install?",
+        answer:
+          "No. A replacement is part of what you already promised or it is a new sale. Do not connect it to stars. The QR code is on the plant list with no offer printed under it.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "cleaning-service",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Cleaner Google review QR code in Austin",
+    heading: "Cleaner Google review QR code in Austin",
+    description:
+      "Austin cleaners: ask the person who paid, the day of a turnover or first clean. Leave one QR card on the counter and send one text.",
+    query: "Google review QR code for cleaning services in Austin",
+    summary: "Construction dust, move-outs, and same-day turnovers.",
+    intro:
+      "Austin cleaning reviews are often a first clean in a new house still shedding construction dust, or a same-day turnover where the person who pays is not the person walking the rooms. There is no next Tuesday to ask. The QR code has to be on the counter that day, and the text has to go to the customer on the invoice, because the next guest or the next buyer will not be the one leaving the Google review. A weekly home still follows the national page: ask after the first month, not after every visit.",
+    placements: [
+      "Leave one QR card on the kitchen counter with a short note of what you cleaned. Pick it up next time if the home is recurring and the card is still there.",
+      "On a construction or move-out clean, the card goes to the person who paid, with the invoice. Do not leave a stack for the next occupant.",
+      "Do not photograph the inside of the house for the ask, and do not text those photos unless they asked you to.",
+    ],
+    script:
+      "Hi [first name], [company] finished today’s clean in Austin. If the house matches what you asked for, a Google review helps someone else find a cleaning service: [link]. Reply here if a room needs another pass.",
+    timing:
+      "Send one text the day of the clean to the person who paid. On a turnover, that is the same day, because you will not be the one handing them the keys next week. On a new recurring home, ask after the first clean they have walked, or after the first month if they have not been home to see it. Do not attach a review request to every invoice.",
+    faqs: [
+      {
+        question: "An Austin host pays, but a co-host walks the turnover. Who gets the QR code?",
+        answer:
+          "The person on the invoice. If they share one inbox, one message to that inbox is enough. Do not text the host and the co-host separately about the same clean.",
+      },
+      {
+        question: "Should an Austin cleaner ask after a construction clean before the builder’s punch?",
+        answer:
+          "Ask the customer who paid you, about the clean you finished. Do not wait for the builder’s punch list, and do not ask the builder unless the builder is the customer.",
+      },
+      {
+        question: "Can I offer a free Austin deep clean for a review?",
+        answer:
+          "No. A free deep clean or a discounted first month for stars is an incentive. If a room needs another pass, fix it, then ask after the redo.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "cleaning-service",
+    citySlug: "chicago",
+    cityName: "Chicago",
+    title: "Cleaner Google review QR code in Chicago",
+    heading: "Cleaner Google review QR code in Chicago",
+    description:
+      "Chicago cleaners: ask after salt and ice melt are off the floors. Leave one QR card for the unit that hired you, and send one text.",
+    query: "Google review QR code for cleaning services in Chicago",
+    summary: "Salt, ice melt, and two-flat entry floors.",
+    intro:
+      "Chicago winter cleans are salt, ice melt, and entry floors that look dirty again the next time someone comes in from the sidewalk. A two-flat makes it worse: the hallway is shared, and the customer is only one of the units. The review QR code has to name the unit that hired you and go to that person, after the floors they asked about are actually done. A card in a shared vestibule asks the wrong neighbor to review a clean they did not buy.",
+    placements: [
+      "Leave one QR card inside the unit that hired you, on the counter, after the entry floor is dry enough for paper.",
+      "Do not leave a card in a shared hallway, on the vestibule radiator, or in the other unit’s door.",
+      "On a move-out, put the card with the invoice for the person who paid. A vacant unit will not scan a card left on the sill.",
+    ],
+    script:
+      "Hi [first name], [company] finished today’s clean, including the entry floor. If that matches what you asked for, a Google review helps a neighbor find a cleaning service: [link]. Reply if a room needs another pass.",
+    timing:
+      "If they are home, ask when they have walked the floors. If they are at work, one text the same day. In a two-flat, the text goes only to the unit on the invoice. For a recurring winter route, ask after the first clean they can see, then leave them alone until you would ask again on the national schedule. Do not text after every salty week.",
+    faqs: [
+      {
+        question: "Chicago salt will track in again tomorrow. Should the cleaner wait for a dry week?",
+        answer:
+          "No. Ask about the clean you just finished. Salt tomorrow is the next visit, not a reason to skip the ask on the day the floors were done.",
+      },
+      {
+        question: "Both units of a Chicago two-flat use the same entry. Who gets the review link?",
+        answer:
+          "Only the unit that hired you and paid for this clean. If each unit pays you on its own invoice, each one can get a request for its own visit. Do not text both about one shared hallway unless both are on the bill.",
+      },
+      {
+        question: "Can I discount a Chicago move-out clean for a five-star review?",
+        answer:
+          "No. The price stays on the invoice. A discount or a free oven for stars is an incentive. Ask the person who paid, the same day, because they will not be in that unit next week.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "locksmith",
+    citySlug: "austin",
+    cityName: "Austin",
+    title: "Locksmith Google review QR code in Austin",
+    heading: "Locksmith Google review QR code in Austin",
+    description:
+      "Austin locksmiths: ask after their key works from outside. Put the QR code on the invoice. Do not ask while they are still locked out.",
+    query: "Google review QR code for locksmiths in Austin",
+    summary: "New-construction lockouts, smart locks, and leasing offices.",
+    intro:
+      "Austin locksmith calls are a new house whose keys do not work yet, a smart lock that failed, or a leasing office that needs a unit rekeyed before the next resident. The Google search happens while someone is standing outside. That is the wrong moment to ask. A review QR code helps the next lockout only if you hand it after their key or code works from the outside, on the invoice, to the person who paid. The leasing desk is not a place to leave a stack of cards.",
+    placements: [
+      "Put the QR code on the invoice after you have watched their key or code work from the outside. Do not stick it to the door while they are still locked out.",
+      "On a smart lock, hand the card once they have locked and unlocked it themselves. The box the lock came in is going in the trash.",
+      "If a leasing office hired you, the invoice and the code go to that office. Do not leave cards in the unit for the next resident.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. Your key works from the outside and the lock is set. If the visit was clear, a Google review helps the next person choosing a locksmith: [link].",
+    timing:
+      "Ask after they are in and the key works, before you leave, and send one text the same day if they were too rushed to scan it. If the call was overnight and they are still upset, skip the sidewalk ask and text the next morning. One message. A property manager or a leasing office that paid is the only recipient, not each resident who got a key.",
+    faqs: [
+      {
+        question: "Should an Austin locksmith ask a customer who is still standing outside?",
+        answer:
+          "Not yet. Get the door open, show that the key or code works from the outside, and then hand the invoice. A review request in the middle of a lockout feels like a pitch.",
+      },
+      {
+        question: "An Austin leasing office ordered rekeys for three units. How many QR codes go out?",
+        answer:
+          "One request to the office that paid, unless each unit was a separate customer with its own invoice. Do not text the incoming residents about locks they did not hire.",
+      },
+      {
+        question: "Can I waive an Austin after-hours lockout fee for a review?",
+        answer:
+          "No. The after-hours line stays on the invoice. A waived fee or a free spare key for stars is an incentive.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "locksmith",
+    citySlug: "chicago",
+    cityName: "Chicago",
+    title: "Locksmith Google review QR code in Chicago",
+    heading: "Locksmith Google review QR code in Chicago",
+    description:
+      "Chicago locksmiths: ask after they are inside and the new key works. Put the QR code on the invoice. A late-night call can wait until morning.",
+    query: "Google review QR code for locksmiths in Chicago",
+    summary: "Night lockouts, swollen doors, and two-flat vestibules.",
+    intro:
+      "Chicago lock work in the cold is a night lockout, a door that swelled shut, or a vestibule lock on a two-flat where the hallway is not the customer. People find a locksmith from the Google listing while they are outside. The review should describe whether you got them in and whether the new key works, which means the QR code waits until they are inside. A card left in a shared vestibule asks the upstairs neighbor to review a lock they did not pay for.",
+    placements: [
+      "Put the QR code on the invoice once they are inside and you have tried the new key from the outside. Do not leave it on the vestibule glass.",
+      "In a two-flat, the card stays with the unit that hired you. The other mailbox does not get a copy.",
+      "On a door that was swollen or iced, do not leave a card where melt will wreck it. The invoice in their hand is enough.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. You are inside and the new key works from the outside. If that was the visit you needed, a Google review helps the next person locked out in the cold: [link].",
+    timing:
+      "If the call was during the day and they are calm once the door works, ask before you leave and send one text the same day. If it was the middle of the night, do not ask on the sidewalk. Text the next morning, once. The person who paid gets the text. In a two-flat, that is the unit on the invoice, not both tenants because they share a vestibule.",
+    faqs: [
+      {
+        question: "Should a Chicago locksmith text at 2 a.m. after a lockout?",
+        answer:
+          "No. Get them in, make sure the key works, and leave. Send one text the next morning to the person who paid. A review request in the middle of the night is easy to resent.",
+      },
+      {
+        question: "A Chicago two-flat shares a vestibule door. Who gets the review link?",
+        answer:
+          "The person who hired you. If the landlord paid for the vestibule and the tenant only let you in, ask the landlord. Do not text both about one lock.",
+      },
+      {
+        question: "Can I discount a Chicago emergency rekey for a five-star review?",
+        answer:
+          "No. Ask the same way you ask on a daytime rekey. Do not trade the after-hours price for stars.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "garage-door",
+    citySlug: "dallas",
+    cityName: "Dallas",
+    title: "Garage door Google review QR code in Dallas",
+    heading: "Garage door Google review QR code in Dallas",
+    description:
+      "Dallas garage door companies: ask after they watch a full cycle. Put the QR code on the invoice, not on the hail estimate, and text once.",
+    query: "Google review QR code for garage door companies in Dallas",
+    summary: "Hail-dented doors, spring repairs, and full cycles.",
+    intro:
+      "Dallas garage door calls after a storm are a dented door, a bent track, or a spring that let go, and the homeowner has often already talked to someone about a claim. The review is not part of that conversation. It is about whether the door goes up and down and whether you explained what you replaced. Ask after they have watched a full cycle, with the QR code on the invoice, because a code on the hail estimate asks them to review a quote.",
+    placements: [
+      "Put the QR code on the invoice after they have watched the door open and close and the photo eyes work.",
+      "If you handed them a new clicker, a second card can sit with that remote. Do not tape a card to a door you just told them not to touch.",
+      "Keep the code off the hail estimate and any insurance paperwork. Those pages should not mention a review.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The garage door cycled and the clicker works. If the visit was what you needed, a Google review helps a neighbor whose door will not close: [link].",
+    timing:
+      "Ask in the driveway after the cycle, the day you finish. Text once the same day if they were not home and you confirmed the door from the outside. Do not ask while you are still pricing a replacement, and do not wait for an insurance check. One person gets the text: the person who hired you and watched the door, or the person on the invoice if they were out.",
+    faqs: [
+      {
+        question: "Should a Dallas garage door company ask before the hail check arrives?",
+        answer:
+          "Yes, if the door is repaired or replaced and they have watched it cycle. The review is about that visit. The check is a separate conversation and does not belong in the text.",
+      },
+      {
+        question: "They hired us for a Dallas spring repair and someone else is replacing the door. Do I still ask?",
+        answer:
+          "Ask only about the spring repair you finished, and say that in the text. Do not write it as if you replaced the door.",
+      },
+      {
+        question: "Can a Dallas garage door review be exchanged for covering a deductible?",
+        answer:
+          "No. Leave deductibles and upgrade prices out of the ask. The QR code goes on the invoice with no bargain printed on it.",
+      },
+    ],
+  },
+  {
+    tradeSlug: "garage-door",
+    citySlug: "denver",
+    cityName: "Denver",
+    title: "Garage door Google review QR code in Denver",
+    heading: "Garage door Google review QR code in Denver",
+    description:
+      "Denver garage door companies: ask after a cold-morning cycle holds. Put the QR code on the invoice and the clicker card, then send one text.",
+    query: "Google review QR code for garage door companies in Denver",
+    summary: "Cold-morning springs, frozen seals, and opener repairs.",
+    intro:
+      "Denver garage doors fail on the first hard cold morning: a spring, a bottom seal frozen to the slab, or an opener that strains and quits. The customer is trying to get a car out. They are not ready to review anyone until the door has cycled and stayed off the ground. The QR code goes on the invoice and with the clicker after that cycle, because a card on a frozen seal is trash by noon, and the next cold morning is when a neighbor will search Google for the same company.",
+    placements: [
+      "Put the QR code on the invoice after the door has cycled in the cold and they have the clicker or keypad.",
+      "A card with the new remote is useful. Do not stick a card to the bottom seal or the track where melt and road grit will destroy it.",
+      "If the opener is in an unheated garage, do not leave the only card on the opener housing. They will not climb up to scan it.",
+    ],
+    script:
+      "Hi [first name], this is [your name] at [company]. The garage door cycled this morning and the clicker works. If that was the visit you needed, a Google review helps the next person whose door sticks in the cold: [link].",
+    timing:
+      "Ask after they have watched a full cycle, not while the door is still off the tracks. If you freed a frozen seal and it needs the day to warm before you trust it, text once later that day after they confirm it held. Do not wait for the next cold front. One text to the person who hired you. Do not send a second one because the first storm of the season was stressful.",
+    faqs: [
+      {
+        question: "The Denver door was frozen down. Should I ask before it has cycled on its own?",
+        answer:
+          "No. Free it, have them watch a full cycle, and ask then. If you need the day to see whether the seal lets go again, one text that afternoon is enough after they say it held.",
+      },
+      {
+        question: "A Denver spring and an opener were two visits. Do I send two QR codes?",
+        answer:
+          "Send one request per finished visit, to the person who paid for that visit. If both were the same day and the same invoice, one code on that invoice is the whole ask.",
+      },
+      {
+        question: "Can I waive a Denver service call if they review the cold-morning repair?",
+        answer:
+          "No. The service call stays on the invoice. A waived fee or a free remote for stars is an incentive.",
       },
     ],
   },

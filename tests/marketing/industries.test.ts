@@ -23,6 +23,8 @@ const tradeSlugs = [
   "vet",
   "gym",
   "tattoo-shop",
+  "locksmith",
+  "garage-door",
 ]
 
 describe("trade landing pages", () => {
@@ -33,7 +35,7 @@ describe("trade landing pages", () => {
   })
 
   it("publishes a unique page for each requested trade", () => {
-    expect(pages).toHaveLength(20)
+    expect(pages).toHaveLength(22)
     const paths = indexablePaths().map((entry) => entry.path)
     for (const page of pages) {
       expect(paths).toContain(`/industries/${page.slug}`)
