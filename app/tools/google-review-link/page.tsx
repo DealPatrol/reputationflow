@@ -5,7 +5,7 @@ import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { ToolUpsell } from "@/components/marketing/tool-upsell"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
 import { breadcrumbJsonLd, faqJsonLd, freeToolJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
@@ -104,10 +104,6 @@ export default function GoogleReviewLinkPage() {
             <GoogleReviewQrTool source="google-review-link" ctaLocation="tool_review_link_result" />
           </Suspense>
         </div>
-        <ToolUpsell
-          location="tool_review_link"
-          body="This page keeps working if you close the tab. A free ReputationFlow account stores the link on a page that also lists Facebook and Yelp, plus an optional private note. The public buttons stay on that page for every rating."
-        />
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">How to make a Google review link</h2>
         <ol className="mt-4 space-y-6">
@@ -169,6 +165,12 @@ export default function GoogleReviewLinkPage() {
               Reply templates for a negative Google review
             </Link>
             <span className="text-slate-600"> after the reviews start coming in.</span>
+          </li>
+          <li>
+            <PricingLink location="tool_review_link_related" className="font-semibold text-indigo-700">
+              Starter and Professional pricing
+            </PricingLink>
+            <span className="text-slate-600"> if you want the link saved on a page, or sent by email.</span>
           </li>
         </ul>
       </article>

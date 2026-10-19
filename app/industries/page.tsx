@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -34,8 +35,13 @@ export default function IndustriesIndexPage() {
           <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
           {" "}are the longer versions. A few trades also have{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city pages</Link>
-          {" "}for the jobs where the city changes the QR placement. Other cities stay on the trade page.
+          {" "}for the jobs where the city changes the QR placement. Other cities stay on the trade page. Make the code with the{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            free Google review QR code generator
+          </Link>
+          .
         </p>
+        <ConversionPaths current="/industries" />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry) => (
             <Link

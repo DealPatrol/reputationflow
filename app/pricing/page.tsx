@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Check } from "lucide-react"
+import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
@@ -105,6 +106,8 @@ export default function PricingPage() {
             <Link href="/compare/nicejob" className="font-semibold text-indigo-700">NiceJob comparison</Link>.
           </p>
         </div>
+
+        <ConversionPaths current="/pricing" />
 
         <h2 className="mt-16 text-2xl font-semibold tracking-tight">Pricing questions</h2>
         <div className="mt-6">

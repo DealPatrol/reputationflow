@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { comparisons, industries } from "@/lib/marketing-content"
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
@@ -18,7 +19,7 @@ export function SiteFooter() {
             <li><Link className="hover:text-white" href="/resources">Resources</Link></li>
             <li><Link className="hover:text-white" href="/tools">Free tools</Link></li>
             <li><Link className="hover:text-white" href="/how-it-works">How it works</Link></li>
-            <li><Link className="hover:text-white" href="/pricing">Pricing</Link></li>
+            <li><PricingLink location="footer" className="hover:text-white">Pricing</PricingLink></li>
             <li><Link className="hover:text-white" href="/faq">FAQ</Link></li>
             <li><Link className="hover:text-white" href="/review-management-software">Review management software</Link></li>
           </ul>

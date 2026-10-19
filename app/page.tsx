@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, QrCode, ShieldCheck, Mail, MessageSquare, Lock, CreditCard, Scale } from "lucide-react"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
@@ -204,7 +205,9 @@ export default function HomePage() {
               , and the{" "}
               <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
               {" "}cover the scripts, the FTC rules, and QR code placement. Make the code with the{" "}
-              <Link className="font-semibold text-indigo-700" href="/tools/qr-code">Google review QR code generator</Link>.
+              <Link className="font-semibold text-indigo-700" href="/tools/qr-code">Google review QR code generator</Link>
+              . City jobs are on the{" "}
+              <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city QR guides</Link>.
             </p>
             <Link href="/industries" className="mt-3 inline-flex text-sm font-semibold text-indigo-700">
               All trades
@@ -274,9 +277,9 @@ export default function HomePage() {
                     {plan.price > 0 && <span className="text-base font-medium text-slate-500">/month</span>}
                   </p>
                   <p className="mt-2 text-sm text-slate-600">{plan.description}</p>
-                  <Link href="/pricing" className="mt-4 inline-flex text-sm font-semibold text-indigo-700">
+                  <PricingLink location={key === "pro" ? "home_professional" : "home_starter"} className="mt-4 inline-flex text-sm font-semibold text-indigo-700">
                     Compare plans
-                  </Link>
+                  </PricingLink>
                 </article>
               )
             })}

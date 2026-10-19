@@ -6,6 +6,7 @@ import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { industryBySlug } from "@/lib/industries"
@@ -72,12 +73,12 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           >
             Start free
           </SignupLink>
-          <Link
-            href="/pricing"
+          <PricingLink
+            location={`qr_city_${page.tradeSlug}_${page.citySlug}`}
             className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
           >
             View pricing
-          </Link>
+          </PricingLink>
         </div>
         <p className="mt-3 text-sm leading-6 text-slate-600">
           Starter is free and includes the review link and the QR code. Professional is {formatPlanPrice(PLANS.pro.price)} per month when you want to email the request from ReputationFlow. There is no trial on top of Starter. You can cancel Professional in the Stripe customer portal.
@@ -110,6 +111,10 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
             Google review QR code generator
           </Link>
+          . The same link, written for a text or an email, is the{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            Google review link generator
+          </Link>
           . The national version, including the best moment to ask, is{" "}
           <Link className="font-semibold text-indigo-700" href={`/industries/${trade.slug}`}>
             {trade.title}
@@ -122,7 +127,6 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
               source="qr-code"
               allowPlainUrl
               ctaLocation={`qr_city_tool_${page.tradeSlug}_${page.citySlug}`}
-              usagePage={path}
             />
           </Suspense>
         </div>
@@ -163,6 +167,10 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           <Link className="font-semibold text-indigo-700" href={qrCityHub.path}>
             {qrCityHub.title}
           </Link>
+          . Plan details are on{" "}
+          <PricingLink location={`qr_city_footer_${page.tradeSlug}_${page.citySlug}`} className="font-semibold text-indigo-700">
+            pricing
+          </PricingLink>
           . More wording is in the{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
             review request templates
