@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { trackSignupClick } from "@/lib/analytics-events"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 
 const links = [
@@ -27,11 +28,17 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-4 text-sm font-medium text-slate-600 md:flex lg:gap-6" aria-label="Primary">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-slate-950">
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.href === "/pricing" ? (
+              <PricingLink key={link.href} location="header" className="hover:text-slate-950">
+                {link.label}
+              </PricingLink>
+            ) : (
+              <Link key={link.href} href={link.href} className="hover:text-slate-950">
+                {link.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -62,16 +69,27 @@ export function SiteHeader() {
       {open && (
         <div id="mobile-nav" className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-lg px-2 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) =>
+              link.href === "/pricing" ? (
+                <PricingLink
+                  key={link.href}
+                  location="header_mobile"
+                  className="rounded-lg px-2 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </PricingLink>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-lg px-2 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
             <Link href="/auth/signin" className="rounded-lg px-2 py-2.5 text-sm font-medium text-slate-700" onClick={() => setOpen(false)}>
               Sign in
             </Link>

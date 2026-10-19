@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 
@@ -22,9 +22,9 @@ export function CtaBand({
           <SignupLink href={SIGNUP_PATH} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
             Start free
           </SignupLink>
-          <Link href="/pricing" className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
+          <PricingLink location={`${signupLocation}_pricing`} className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
             View pricing
-          </Link>
+          </PricingLink>
         </div>
       </div>
     </section>

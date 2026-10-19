@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
@@ -45,8 +46,13 @@ export default function QrCityHubPage() {
           <Link className="font-semibold text-indigo-700" href="/industries">
             full trade list
           </Link>{" "}
-          includes jobs that do not have a city page, such as dental and salons, because the counter does not change enough from one city to another. Cleaning, landscaping, locksmith, and garage door guides exist only for the cities listed below.
+          includes jobs that do not have a city page, such as dental and salons, because the counter does not change enough from one city to another. Cleaning, landscaping, locksmith, and garage door guides exist only for the cities listed below. The{" "}
+          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            Google review link generator
+          </Link>{" "}
+          is the same code, with the steps written for a text or an email.
         </p>
+        <ConversionPaths current={qrCityHub.path} />
 
         <div className="mt-12 space-y-12">
           {trades.map(({ trade, pages }) => (

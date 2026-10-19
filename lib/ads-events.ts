@@ -2,6 +2,8 @@
 
 import { track } from "@vercel/analytics"
 import { adsConfig, googleAdsSendTo } from "@/lib/ads-config"
+import { capProperties } from "@/lib/funnel"
+import { readFunnelOrigin } from "@/lib/funnel-client"
 
 type Gtag = (...args: unknown[]) => void
 type Fbq = (...args: unknown[]) => void
@@ -17,8 +19,13 @@ function fbq(): Fbq | undefined {
 }
 
 function trackVercel(name: string, properties: Record<string, string>) {
+  const origin = readFunnelOrigin()
+  const payload = capProperties(origin ? { ...properties, origin } : properties)
+  if (process.env.NODE_ENV === "development") {
+    console.info("[reputationflow analytics]", name, payload)
+  }
   try {
-    track(name, properties)
+    track(name, payload)
   } catch {
     // Analytics must not block the action that just succeeded.
   }

@@ -3,12 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { toDataURL } from "qrcode"
-import { SignupLink } from "@/components/marketing/signup-link"
+import { PlanOffer } from "@/components/marketing/plan-offer"
 import { LeadCaptureForm } from "@/components/tools/lead-capture-form"
 import { ReviewCardDownloads } from "@/components/tools/review-card-download"
-import { trackToolUsage } from "@/lib/analytics-events"
+import { trackGeneratorUsed, trackQrDownloaded } from "@/lib/analytics-events"
 import { reviewToolOutcome, type ReviewToolOutcome } from "@/lib/google-review-link"
-import { SIGNUP_PATH } from "@/lib/signup"
 
 const QR_OPTIONS = {
   errorCorrectionLevel: "M" as const,
@@ -17,12 +16,12 @@ const QR_OPTIONS = {
   color: { dark: "#000000", light: "#ffffff" },
 }
 
-function usageAction(outcome: ReviewToolOutcome): "link_ready" | "plain_qr_ready" | "" {
+function trackedKind(outcome: ReviewToolOutcome): "review" | "plain" | "" {
   switch (outcome.status) {
     case "review":
-      return "link_ready"
+      return "review"
     case "plain":
-      return "plain_qr_ready"
+      return "plain"
     case "empty":
     case "error":
       return ""
@@ -37,12 +36,10 @@ export function GoogleReviewQrTool({
   source,
   allowPlainUrl = false,
   ctaLocation,
-  usagePage,
 }: {
   source: "google-review-link" | "qr-code"
   allowPlainUrl?: boolean
   ctaLocation: string
-  usagePage?: string
 }) {
   const params = useSearchParams()
   const preset = params.get("url") ?? params.get("placeid") ?? ""
@@ -58,12 +55,12 @@ export function GoogleReviewQrTool({
   }, [preset])
 
   const outcome = useMemo(() => reviewToolOutcome(input, allowPlainUrl), [input, allowPlainUrl])
-  const action = usageAction(outcome)
+  const kind = trackedKind(outcome)
   const targetUrl = outcome.status === "review" || outcome.status === "plain" ? outcome.url : ""
   const dataUrl = qr?.url === targetUrl ? qr.dataUrl : ""
 
   useEffect(() => {
-    if (!targetUrl || !action) {
+    if (!targetUrl || !kind) {
       setQr(null)
       setQrError("")
       trackedUrl.current = ""
@@ -79,7 +76,7 @@ export function GoogleReviewQrTool({
           setQrError("")
           if (trackedUrl.current !== targetUrl) {
             trackedUrl.current = targetUrl
-            trackToolUsage(source, action, usagePage)
+            trackGeneratorUsed(kind)
           }
         })
         .catch(() => {
@@ -94,7 +91,7 @@ export function GoogleReviewQrTool({
       cancelled = true
       window.clearTimeout(timer)
     }
-  }, [action, source, targetUrl, usagePage])
+  }, [kind, targetUrl])
 
   const copy = async () => {
     if (!targetUrl) return
@@ -175,7 +172,7 @@ export function GoogleReviewQrTool({
               <a
                 href={dataUrl}
                 download="google-review-qr-code.png"
-                onClick={() => trackToolUsage(source, "qr_download", usagePage)}
+                onClick={() => trackQrDownloaded("png")}
                 className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-center text-sm font-semibold text-slate-800"
               >
                 Download PNG
@@ -207,22 +204,22 @@ export function GoogleReviewQrTool({
               </p>
             </div>
           )}
-          <div className="mt-4">
-            <SignupLink
-              href={SIGNUP_PATH}
-              location={ctaLocation}
-              className="inline-flex rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white"
-            >
-              Save this on a free review page
-            </SignupLink>
-            <p className="mt-2 text-xs leading-5 text-slate-500">
-              Free Starter account. The public Google, Facebook, and Yelp buttons stay on that page for every customer.
-            </p>
-          </div>
           {dataUrl && (
             <ReviewCardDownloads
               qrDataUrl={dataUrl}
-              onDownload={(kind) => trackToolUsage(source, kind === "tent" ? "tent_download" : "card_download", usagePage)}
+              onDownload={(format) => trackQrDownloaded(format === "tent" ? "tent" : "card")}
+            />
+          )}
+          {dataUrl && (
+            <PlanOffer
+              signupLocation={ctaLocation}
+              pricingLocation={`${ctaLocation}_pricing`}
+              heading="Next: save the link, or email the request later"
+              body={
+                outcome.status === "review"
+                  ? "The review link and the PNG are ready in this browser. This page does not store them. Close the tab and they are gone unless you saved the file."
+                  : "This QR code opens the URL you pasted. It is not a Google review link. This page does not store the file."
+              }
             />
           )}
           <LeadCaptureForm source={source} details={targetUrl} />

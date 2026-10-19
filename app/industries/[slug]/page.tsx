@@ -5,6 +5,9 @@ import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { ConversionPaths } from "@/components/marketing/conversion-paths"
+import { PlanOffer } from "@/components/marketing/plan-offer"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { tradeReplyGuides } from "@/lib/longtail-guides"
@@ -58,6 +61,26 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         />
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{industry.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{industry.intro}</p>
+        <p className="mt-4 text-sm leading-7 text-slate-600">
+          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            Make the QR code
+          </Link>
+          {" "}or{" "}
+          <PricingLink location={`industry_intro_${industry.slug}`} className="font-semibold text-indigo-700">
+            compare {PLANS.free.name} and {PLANS.pro.name}
+          </PricingLink>
+          .
+          {cityPages.length > 0 ? (
+            <>
+              {" "}
+              City versions are on the{" "}
+              <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+                city QR guides
+              </Link>
+              .
+            </>
+          ) : null}
+        </p>
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">{industry.guideHeading}</h2>
         <h3 className="mt-6 text-base font-semibold text-slate-950">Best moment to ask</h3>
@@ -77,6 +100,12 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         <blockquote className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm leading-7 text-slate-800">
           {industry.sampleMessage}
         </blockquote>
+        <PlanOffer
+          signupLocation={`industry_offer_${industry.slug}`}
+          pricingLocation={`industry_offer_${industry.slug}`}
+          heading="Keep the QR code, or email the request"
+          body="The free generator builds the link and the PNG in your browser. It does not keep the file, and it does not email customers. An account is optional."
+        />
 
         <div className="mt-10 space-y-8">
           {industry.tips.map((tip) => (
@@ -179,8 +208,13 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <Link className="font-semibold text-indigo-700" href="/industries">
             rest of the trades
           </Link>{" "}
-          if you run more than one kind of work.
+          if you run more than one kind of work. The full city list is the{" "}
+          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+            city QR guides
+          </Link>
+          .
         </p>
+        <ConversionPaths current={`/industries/${industry.slug}`} />
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">Nearby guides</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">

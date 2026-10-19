@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { PricingLink } from "@/components/marketing/pricing-link"
 import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { JsonLd } from "@/components/marketing/json-ld"
@@ -73,7 +74,11 @@ export default function ToolsIndexPage() {
           <Link className="font-semibold text-indigo-700" href="/resources">
             resource hub
           </Link>{" "}
-          lists every public page.
+          lists every public page. Account prices are on{" "}
+          <PricingLink location="tools_index" className="font-semibold text-indigo-700">
+            pricing
+          </PricingLink>
+          .
         </p>
       </section>
       <CtaBand

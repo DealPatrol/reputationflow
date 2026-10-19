@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AdsScripts } from "@/components/ads/ads-scripts"
 import { AttributionCapture } from "@/components/ads/attribution-capture"
+import { FunnelOrigin } from "@/components/funnel-origin"
 import { absoluteUrl, getSiteUrl } from "@/lib/site"
 import { googleSiteVerificationToken } from "@/lib/site-verification"
 import "./globals.css"
@@ -69,6 +70,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         {children}
         <AttributionCapture />
+        <FunnelOrigin />
         <AdsScripts />
         <Analytics />
         <SpeedInsights />

@@ -5,7 +5,6 @@ import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { ToolUpsell } from "@/components/marketing/tool-upsell"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
 import { industryBySlug } from "@/lib/industries"
@@ -111,10 +110,6 @@ export default function QrCodePage() {
             <GoogleReviewQrTool source="qr-code" allowPlainUrl ctaLocation="tool_qr_result" />
           </Suspense>
         </div>
-        <ToolUpsell
-          location="tool_qr"
-          body="A printed card can point at Google alone. A free account hosts one page for Google, Facebook, and Yelp, with a private note beside those buttons. Use the printed code either way."
-        />
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">How to make a Google review QR code</h2>
         <ol className="mt-4 space-y-6">
