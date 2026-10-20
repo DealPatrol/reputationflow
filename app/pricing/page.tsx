@@ -2,8 +2,9 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { SignupLink } from "@/components/marketing/signup-link"
-import { professionalSignupPath, SIGNUP_PATH } from "@/lib/signup"
+import { professionalSignupPath, SETUP_CTA_NOTE, SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
@@ -69,6 +70,10 @@ export default function PricingPage() {
             )
           })}
         </div>
+        <p className="mt-6 text-sm leading-6 text-slate-700">
+          <SetupLink location="pricing_setup" className="font-semibold text-indigo-700" />
+          . {SETUP_CTA_NOTE}
+        </p>
         <ul aria-label="Plan facts" className="mt-6 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
           <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Starter is free. No card needed to sign up.</li>
           <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Professional is $20 a month. No setup fee.</li>
@@ -120,7 +125,11 @@ export default function PricingPage() {
           <FaqList items={faqs} />
         </div>
       </section>
-      <CtaBand title="Start on the free plan" body="Add your Google review link and share the page. Upgrade only if you want email requests and the full history." />
+      <CtaBand
+        setupLocation="pricing_band_setup"
+        title="Start on the free plan"
+        body="Add your Google review link and share the page. Upgrade only if you want email requests and the full history."
+      />
     </MarketingShell>
   )
 }

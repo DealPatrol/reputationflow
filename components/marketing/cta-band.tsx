@@ -1,6 +1,7 @@
 import { PricingLink } from "@/components/marketing/pricing-link"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { SignupLink } from "@/components/marketing/signup-link"
-import { SIGNUP_PATH } from "@/lib/signup"
+import { SETUP_CTA_NOTE, SIGNUP_PATH } from "@/lib/signup"
 
 export function CtaBand({
   title = "Set up your review link today",
@@ -8,12 +9,14 @@ export function CtaBand({
   signupLocation = "cta",
   signupHref = SIGNUP_PATH,
   signupLabel = "Start free",
+  setupLocation,
 }: {
   title?: string
   body?: string
   signupLocation?: string
   signupHref?: string
   signupLabel?: string
+  setupLocation?: string
 }) {
   return (
     <section className="bg-indigo-700">
@@ -22,13 +25,21 @@ export function CtaBand({
           <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{title}</h2>
           <p className="mt-2 max-w-xl text-sm leading-6 text-indigo-100">{body}</p>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <SignupLink href={signupHref} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
-            {signupLabel}
-          </SignupLink>
-          <PricingLink location={`${signupLocation}_pricing`} className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
-            View pricing
-          </PricingLink>
+        <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <SignupLink href={signupHref} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
+              {signupLabel}
+            </SignupLink>
+            <PricingLink location={`${signupLocation}_pricing`} className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
+              View pricing
+            </PricingLink>
+          </div>
+          {setupLocation ? (
+            <p className="text-sm leading-6 text-indigo-100">
+              <SetupLink location={setupLocation} className="font-semibold text-white underline decoration-white/40 underline-offset-4" />
+              . {SETUP_CTA_NOTE}
+            </p>
+          ) : null}
         </div>
       </div>
     </section>

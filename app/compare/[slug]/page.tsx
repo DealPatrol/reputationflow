@@ -6,10 +6,11 @@ import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { PricingLink } from "@/components/marketing/pricing-link"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { comparisonBySlug, comparisons } from "@/lib/marketing-content"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
-import { professionalSignupPath, SIGNUP_PATH } from "@/lib/signup"
+import { professionalSignupPath, SETUP_CTA_NOTE } from "@/lib/signup"
 
 export function generateStaticParams() {
   return comparisons.map((comparison) => ({ slug: comparison.slug }))
@@ -83,6 +84,10 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
             See the $20 plan
           </PricingLink>
         </div>
+        <p className="mt-3 text-sm leading-6 text-slate-600">
+          <SetupLink location={`compare_${comparison.slug}_setup`} className="font-semibold text-indigo-700" />
+          . {SETUP_CTA_NOTE}
+        </p>
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">Side by side</h2>
         <div className="mt-4 overflow-x-auto">
@@ -137,13 +142,10 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           <section className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
             <h3 className="font-semibold text-slate-950">Choose ReputationFlow when</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">{comparison.chooseUs}</p>
-            <SignupLink
-              href={SIGNUP_PATH}
-              location={`compare_${comparison.slug}_free`}
+            <SetupLink
+              location={`compare_${comparison.slug}_choose`}
               className="mt-4 inline-flex text-sm font-semibold text-indigo-700"
-            >
-              Start on the free plan
-            </SignupLink>
+            />
           </section>
         </div>
 
@@ -189,6 +191,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         </ul>
       </article>
       <CtaBand
+        setupLocation={`compare_${comparison.slug}_band`}
         signupLocation={`compare_${comparison.slug}`}
         signupHref={professionalSignupPath()}
         signupLabel="Create a free account, then checkout"

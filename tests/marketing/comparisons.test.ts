@@ -64,6 +64,8 @@ describe("competitor comparisons", () => {
     expect(compare).toContain("faqJsonLd")
     expect(compare).toContain('"/tools/qr-code"')
     expect(compare).toContain("professionalSignupPath()")
+    expect(compare).toContain("SetupLink")
+    expect(compare).toContain("SETUP_CTA_NOTE")
     expect(professionalSignupPath()).toBe("/signup?plan=professional")
   })
 })

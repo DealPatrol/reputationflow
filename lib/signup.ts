@@ -1,6 +1,8 @@
 export const SIGNUP_PATH = "/signup"
 export const PROFESSIONAL_PLAN = "professional"
 export const BILLING_TAB_PATH = "/dashboard?tab=billing"
+export const SETUP_CTA_LABEL = "Set up your Google review link free"
+export const SETUP_CTA_NOTE = "No card. The next screen is the Google review link, then the QR code."
 
 export function professionalSignupPath(): string {
   return `${SIGNUP_PATH}?plan=${PROFESSIONAL_PLAN}`

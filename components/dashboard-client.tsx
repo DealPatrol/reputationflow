@@ -18,6 +18,8 @@ import { AnalyticsView } from "@/components/analytics-view"
 import { QRCodeGenerator } from "@/components/qr-code-generator"
 import { ReviewMonitoringView } from "@/components/review-monitoring-view"
 import { OnboardingTour } from "@/components/onboarding-tour"
+import { ProfessionalUpgrade } from "@/components/professional-upgrade"
+import { canOfferProfessionalCheckout } from "@/lib/setup-funnel"
 import { reviewPageUrl } from "@/lib/site"
 
 interface DashboardClientProps {
@@ -197,6 +199,20 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
           <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
           <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+            {typeof settings.googleLink === "string" &&
+              settings.googleLink.trim().length > 0 &&
+              activeTab !== "billing" &&
+              canOfferProfessionalCheckout({
+                isPremium: settings.isPremium,
+                subscriptionStatus: initialBusiness.subscription_status,
+              }) && (
+                <ProfessionalUpgrade
+                  location="dashboard_banner"
+                  variant="banner"
+                  heading="Your Google review link is saved"
+                  detail="Email requests, the full history, export, and reply drafts are on Professional."
+                />
+              )}
             {demoMode && (
               <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
                 This is sample data for the keyless demo. Connect a database before you share the review page with customers.

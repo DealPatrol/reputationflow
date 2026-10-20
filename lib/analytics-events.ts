@@ -9,6 +9,9 @@ export const FUNNEL_EVENT = {
   qrDownloaded: "QR Downloaded",
   pricingClicked: "Pricing Clicked",
   signupStarted: "Signup Started",
+  setupCtaClicked: "Setup CTA Clicked",
+  setupCompleted: "Setup Completed",
+  upgradeClicked: "Upgrade Clicked",
   checkoutStarted: "Checkout Started",
 } as const
 
@@ -49,6 +52,22 @@ export function trackSignupClick(location: string) {
   rememberCurrentPage()
   const origin = readFunnelOrigin() || pagePath()
   trackEvent(FUNNEL_EVENT.signupStarted, { origin, location: cleanLocation(location) })
+}
+
+export function trackSetupCtaClick(location: string) {
+  rememberCurrentPage()
+  const origin = readFunnelOrigin() || pagePath()
+  trackEvent(FUNNEL_EVENT.setupCtaClicked, { origin, location: cleanLocation(location) })
+}
+
+export function trackSetupCompleted(result: "saved" | "qr") {
+  rememberCurrentPage()
+  trackEvent(FUNNEL_EVENT.setupCompleted, { origin: readFunnelOrigin(), result: cleanLocation(result) })
+}
+
+export function trackUpgradeClick(location: string) {
+  rememberCurrentPage()
+  trackEvent(FUNNEL_EVENT.upgradeClicked, { origin: readFunnelOrigin(), location: cleanLocation(location) })
 }
 
 export function trackCheckoutStart(plan: "professional") {
