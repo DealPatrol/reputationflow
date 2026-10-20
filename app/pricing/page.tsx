@@ -84,7 +84,7 @@ export default function PricingPage() {
           <h2 className="text-lg font-semibold text-slate-950">What happens at checkout</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-600">
             <li>Create a Starter account. That plan is free and does not ask for a card.</li>
-            <li>Open Billing and choose Professional when you want email requests, full history, export, and reply drafts.</li>
+            <li>Choosing Professional opens Stripe checkout as soon as the account exists. That plan adds email requests, full history, export, and reply drafts.</li>
             <li>Stripe charges {formatPlanPrice(PLANS.pro.price)} per month. There is no trial on top of Starter and no setup fee.</li>
             <li>Cancel in the Stripe customer portal whenever you want. Access lasts through the period you already paid.</li>
           </ol>

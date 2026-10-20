@@ -1,6 +1,17 @@
 export const SIGNUP_PATH = "/signup"
 export const PROFESSIONAL_PLAN = "professional"
 export const BILLING_TAB_PATH = "/dashboard?tab=billing"
+export const BILLING_CHECKOUT_FAILED_PATH = `${BILLING_TAB_PATH}&checkout=failed`
+
+export type AfterAuthDestination = { type: "checkout" } | { type: "path"; path: string }
+
+export function afterAuthDestination(input: { isSignUp: boolean; wantsProfessional: boolean }): AfterAuthDestination {
+  if (input.isSignUp && input.wantsProfessional) return { type: "checkout" }
+  if (input.wantsProfessional) return { type: "path", path: BILLING_TAB_PATH }
+  if (input.isSignUp) return { type: "path", path: "/onboarding" }
+  return { type: "path", path: "/dashboard" }
+}
+
 export const SETUP_CTA_LABEL = "Set up your Google review link free"
 export const SETUP_CTA_NOTE = "No card. The next screen is the Google review link, then the QR code."
 

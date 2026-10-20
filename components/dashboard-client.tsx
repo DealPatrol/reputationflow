@@ -36,6 +36,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
   const [loading, setLoading] = useState(true)
   const [saved, setSaved] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [checkoutFailed, setCheckoutFailed] = useState(false)
 
   const { toasts, showToast, dismissToast } = useToast()
 
@@ -59,6 +60,10 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
     }
     if (params.get("canceled") === "true") {
       showToast("Checkout was canceled. You are still on the current plan.", "info")
+    }
+    if (params.get("checkout") === "failed") {
+      setCheckoutFailed(true)
+      showToast("Stripe checkout did not open. Use the button below to try again.", "error")
     }
 
     const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding")
@@ -286,6 +291,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
               <BillingView
                 isPremium={settings.isPremium}
                 subscriptionStatus={initialBusiness.subscription_status}
+                checkoutFailed={checkoutFailed}
                 showToast={showToast}
               />
             )}

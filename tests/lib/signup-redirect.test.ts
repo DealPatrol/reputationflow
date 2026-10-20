@@ -4,7 +4,15 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import robots from "@/app/robots"
 import SignupPage from "@/app/signup/page"
 import { indexablePaths } from "@/lib/marketing-content"
-import { isProfessionalIntent, professionalSignupPath, SIGNUP_PATH, signupDestination } from "@/lib/signup"
+import {
+  afterAuthDestination,
+  BILLING_CHECKOUT_FAILED_PATH,
+  BILLING_TAB_PATH,
+  isProfessionalIntent,
+  professionalSignupPath,
+  SIGNUP_PATH,
+  signupDestination,
+} from "@/lib/signup"
 
 const redirectTo = vi.hoisted(() => vi.fn())
 
@@ -43,6 +51,23 @@ describe("signup entry", () => {
     expect(url.searchParams.get("fbclid")).toBe("xyz")
     expect(url.searchParams.get("utm_source")).toBe("google")
     expect(url.searchParams.get("utm_medium")).toBe("cpc")
+  })
+
+  it("opens Stripe after a new professional account and keeps free signup on setup", () => {
+    expect(afterAuthDestination({ isSignUp: true, wantsProfessional: true })).toEqual({ type: "checkout" })
+    expect(afterAuthDestination({ isSignUp: true, wantsProfessional: false })).toEqual({
+      type: "path",
+      path: "/onboarding",
+    })
+    expect(afterAuthDestination({ isSignUp: false, wantsProfessional: true })).toEqual({
+      type: "path",
+      path: BILLING_TAB_PATH,
+    })
+    expect(afterAuthDestination({ isSignUp: false, wantsProfessional: false })).toEqual({
+      type: "path",
+      path: "/dashboard",
+    })
+    expect(BILLING_CHECKOUT_FAILED_PATH).toBe("/dashboard?tab=billing&checkout=failed")
   })
 
   it("keeps the professional plan intent on the way to the account form", () => {
