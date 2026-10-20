@@ -19,7 +19,10 @@ describe("funnel origin", () => {
     expect(isSeoLanding("/google-review-qr-by-city")).toBe(true)
     expect(isSeoLanding("/industries/plumber")).toBe(true)
     expect(isSeoLanding("/industries/cleaning-service/chicago")).toBe(true)
+    expect(isSeoLanding("/compare/podium")).toBe(true)
+    expect(isSeoLanding("/compare/grade-us")).toBe(true)
     expect(isSeoLanding("/pricing")).toBe(false)
+    expect(isSeoLanding("/compare")).toBe(false)
     expect(isSeoLanding("/industries")).toBe(false)
   })
 
@@ -41,6 +44,13 @@ describe("funnel origin", () => {
     expect(nextFunnelOrigin("/google-review-qr-by-city", "/industries/roofer/dallas")).toBe("/industries/roofer/dallas")
     expect(nextFunnelOrigin("/", "/pricing")).toBe("/")
     expect(nextFunnelOrigin("/tools/qr-code", "/pricing")).toBe("/tools/qr-code")
+    expect(nextFunnelOrigin(null, "/compare/podium")).toBe("/compare/podium")
+    expect(nextFunnelOrigin("/", "/compare/nicejob")).toBe("/compare/nicejob")
+    expect(nextFunnelOrigin("/guides", "/compare/grade-us")).toBe("/compare/grade-us")
+    expect(nextFunnelOrigin("/compare/podium", "/pricing")).toBe("/compare/podium")
+    expect(nextFunnelOrigin("/compare/podium", "/auth/signin")).toBe("/compare/podium")
+    expect(nextFunnelOrigin("/compare/birdeye", "/compare/podium")).toBe("/compare/birdeye")
+    expect(nextFunnelOrigin("/review-management-software", "/compare/grade-us")).toBe("/compare/grade-us")
   })
 
   it("caps custom event properties at two non-empty values", () => {
@@ -48,6 +58,8 @@ describe("funnel origin", () => {
       path: "/tools/qr-code",
       kind: "review",
     })
-    expect(capProperties({ origin: "", plan: "professional" })).toEqual({ plan: "professional" })
+    expect(capProperties({ origin: "", plan: "professional" })).toEqual({
+      plan: "professional",
+    })
   })
 })

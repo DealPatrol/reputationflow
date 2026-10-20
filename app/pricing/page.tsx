@@ -2,12 +2,13 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { CtaBand } from "@/components/marketing/cta-band"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { SignupLink } from "@/components/marketing/signup-link"
-import { SIGNUP_PATH } from "@/lib/signup"
+import { professionalSignupPath, SETUP_CTA_NOTE, SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { faqs } from "@/lib/marketing-content"
+import { comparisons, faqs } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { faqJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -57,7 +58,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <SignupLink
-                  href={SIGNUP_PATH}
+                  href={featured ? professionalSignupPath() : SIGNUP_PATH}
                   location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
                     featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
@@ -69,6 +70,10 @@ export default function PricingPage() {
             )
           })}
         </div>
+        <p className="mt-6 text-sm leading-6 text-slate-700">
+          <SetupLink location="pricing_setup" className="font-semibold text-indigo-700" />
+          . {SETUP_CTA_NOTE}
+        </p>
         <ul aria-label="Plan facts" className="mt-6 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
           <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Starter is free. No card needed to sign up.</li>
           <li className="rounded-lg border border-slate-200 bg-white px-4 py-3">Professional is $20 a month. No setup fee.</li>
@@ -100,11 +105,17 @@ export default function PricingPage() {
         <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-lg font-semibold text-slate-950">What $20 does not include</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If you need a full inbox and payments product, read the{" "}
-            <Link href="/compare/podium" className="font-semibold text-indigo-700">Podium comparison</Link>
-            {" "}before you buy. For review-request marketing, read the{" "}
-            <Link href="/compare/nicejob" className="font-semibold text-indigo-700">NiceJob comparison</Link>.
+            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If that is the product you need, compare it here before you buy:
           </p>
+          <ul className="mt-4 space-y-2 text-sm leading-7">
+            {comparisons.map((comparison) => (
+              <li key={comparison.slug}>
+                <Link href={`/compare/${comparison.slug}`} className="font-semibold text-indigo-700">
+                  {comparison.name} alternative
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <ConversionPaths current="/pricing" />
@@ -114,7 +125,11 @@ export default function PricingPage() {
           <FaqList items={faqs} />
         </div>
       </section>
-      <CtaBand title="Start on the free plan" body="Add your Google review link and share the page. Upgrade only if you want email requests and the full history." />
+      <CtaBand
+        setupLocation="pricing_band_setup"
+        title="Start on the free plan"
+        body="Add your Google review link and share the page. Upgrade only if you want email requests and the full history."
+      />
     </MarketingShell>
   )
 }

@@ -76,6 +76,7 @@ describe("indexable paths", () => {
       "/industries/tattoo-shop",
       "/compare/birdeye",
       "/compare/podium",
+      "/compare/grade-us",
       "/guides",
       "/guides/how-to-ask-customers-for-reviews",
       "/guides/incentivizing-reviews-ftc-rules",

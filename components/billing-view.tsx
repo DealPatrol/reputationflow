@@ -1,9 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Check, Zap, Loader2 } from "lucide-react"
-import { trackCheckoutStart } from "@/lib/analytics-events"
+import { trackUpgradeClick } from "@/lib/analytics-events"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
+import { startProfessionalCheckout } from "@/lib/start-checkout"
 
 interface BillingViewProps {
   isPremium: boolean
@@ -15,28 +17,14 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
   const [loading, setLoading] = useState(false)
 
   const handleUpgrade = async () => {
+    trackUpgradeClick("billing")
     setLoading(true)
     try {
-      const res = await fetch("/api/stripe/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planType: "pro" }),
-      })
-
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to create checkout session")
-      }
-
-      // Redirect to Stripe Checkout
-      if (data.url) {
-        trackCheckoutStart("professional")
-        window.location.href = data.url
-      }
-    } catch (error: any) {
+      await startProfessionalCheckout()
+    } catch (error: unknown) {
       console.error("[v0] Upgrade error:", error)
-      showToast(error.message || "Failed to start upgrade", "error")
+      const message = error instanceof Error ? error.message : "Failed to start upgrade"
+      showToast(message, "error")
       setLoading(false)
     }
   }
@@ -150,7 +138,8 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
           )}
           {!isPremium && (
             <p className="mt-3 text-sm leading-5 text-indigo-100">
-              Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.
+              Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.{" "}
+              <Link href="/onboarding" className="font-semibold underline">Add your Google review link</Link> before or after you subscribe.
             </p>
           )}
         </div>

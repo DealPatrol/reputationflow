@@ -6,7 +6,17 @@ vi.mock("@vercel/analytics", () => ({
   track: (...args: unknown[]) => track(...args),
 }))
 
-import { FUNNEL_EVENT, trackCheckoutStart, trackGeneratorUsed, trackPricingClick, trackQrDownloaded, trackSignupClick } from "@/lib/analytics-events"
+import {
+  FUNNEL_EVENT,
+  trackCheckoutStart,
+  trackGeneratorUsed,
+  trackPricingClick,
+  trackQrDownloaded,
+  trackSetupCompleted,
+  trackSetupCtaClick,
+  trackSignupClick,
+  trackUpgradeClick,
+} from "@/lib/analytics-events"
 
 function installBrowser() {
   let pathname = "/"
@@ -96,6 +106,86 @@ describe("funnel analytics events", () => {
     expect(track).toHaveBeenNthCalledWith(3, FUNNEL_EVENT.checkoutStarted, {
       origin: "/tools/qr-code",
       plan: "professional",
+    })
+  })
+
+  it("attributes signup on a comparison page to that page", () => {
+    const browser = installBrowser()
+    browser.go("/compare/podium")
+    trackSignupClick("compare_podium_checkout")
+    browser.go("/auth/signin")
+    trackSignupClick("auth_form")
+    browser.go("/dashboard/billing")
+    trackCheckoutStart("professional")
+
+    expect(track).toHaveBeenNthCalledWith(1, FUNNEL_EVENT.signupStarted, {
+      origin: "/compare/podium",
+      location: "compare_podium_checkout",
+    })
+    expect(track).toHaveBeenNthCalledWith(2, FUNNEL_EVENT.signupStarted, {
+      origin: "/compare/podium",
+      location: "auth_form",
+    })
+    expect(track).toHaveBeenNthCalledWith(3, FUNNEL_EVENT.checkoutStarted, {
+      origin: "/compare/podium",
+      plan: "professional",
+    })
+  })
+
+  it("keeps the originating page on setup, completion, upgrade, and checkout", () => {
+    const browser = installBrowser()
+    browser.go("/tools/qr-code")
+    trackSetupCtaClick("tool_qr_setup")
+    browser.go("/compare/nicejob")
+    trackSetupCtaClick("compare_nicejob_setup")
+    browser.go("/onboarding")
+    trackSetupCompleted("saved")
+    trackUpgradeClick("onboarding_success")
+    browser.go("/dashboard")
+    trackUpgradeClick("dashboard_banner")
+    trackCheckoutStart("professional")
+
+    expect(track).toHaveBeenNthCalledWith(1, FUNNEL_EVENT.setupCtaClicked, {
+      origin: "/tools/qr-code",
+      location: "tool_qr_setup",
+    })
+    expect(track).toHaveBeenNthCalledWith(2, FUNNEL_EVENT.setupCtaClicked, {
+      origin: "/tools/qr-code",
+      location: "compare_nicejob_setup",
+    })
+    expect(track).toHaveBeenNthCalledWith(3, FUNNEL_EVENT.setupCompleted, {
+      origin: "/tools/qr-code",
+      result: "saved",
+    })
+    expect(track).toHaveBeenNthCalledWith(4, FUNNEL_EVENT.upgradeClicked, {
+      origin: "/tools/qr-code",
+      location: "onboarding_success",
+    })
+    expect(track).toHaveBeenNthCalledWith(5, FUNNEL_EVENT.upgradeClicked, {
+      origin: "/tools/qr-code",
+      location: "dashboard_banner",
+    })
+    expect(track).toHaveBeenNthCalledWith(6, FUNNEL_EVENT.checkoutStarted, {
+      origin: "/tools/qr-code",
+      plan: "professional",
+    })
+    for (const call of track.mock.calls) {
+      expect(Object.keys(call[1] as object).length).toBeLessThanOrEqual(2)
+    }
+  })
+
+  it("records a pricing setup click with that page as the origin", () => {
+    const browser = installBrowser()
+    browser.go("/pricing")
+    trackSetupCtaClick("pricing_setup")
+    trackSetupCtaClick("not a location")
+
+    expect(track).toHaveBeenNthCalledWith(1, FUNNEL_EVENT.setupCtaClicked, {
+      origin: "/pricing",
+      location: "pricing_setup",
+    })
+    expect(track).toHaveBeenNthCalledWith(2, FUNNEL_EVENT.setupCtaClicked, {
+      origin: "/pricing",
     })
   })
 })

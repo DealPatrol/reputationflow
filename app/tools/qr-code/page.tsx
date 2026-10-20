@@ -5,11 +5,13 @@ import { CtaBand } from "@/components/marketing/cta-band"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
 import { industryBySlug } from "@/lib/industries"
 import { qrCityHub, qrCityPagesForTrade, qrCityPath, qrCityTradeOrder } from "@/lib/qr-city-pages"
 import { breadcrumbJsonLd, faqJsonLd, freeToolJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
+import { SETUP_CTA_NOTE } from "@/lib/signup"
 
 const path = "/tools/qr-code"
 const toolName = "Google review QR code generator"
@@ -105,9 +107,18 @@ export default function QrCodePage() {
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Paste a Place ID, a review link, or the long Google Maps URL for your listing. You get the official write-a-review link and a QR code you can download. The tool runs in your browser. It does not need an API key or an account.
         </p>
+        <p className="mt-4 text-sm leading-6 text-slate-700">
+          <SetupLink location="tool_qr_setup" className="font-semibold text-indigo-700" />
+          . {SETUP_CTA_NOTE}
+        </p>
         <div className="mt-8">
           <Suspense fallback={<div className="h-48 rounded-2xl border border-slate-200 bg-slate-50" />}>
-            <GoogleReviewQrTool source="qr-code" allowPlainUrl ctaLocation="tool_qr_result" />
+            <GoogleReviewQrTool
+              source="qr-code"
+              allowPlainUrl
+              ctaLocation="tool_qr_result"
+              setupLocation="tool_qr_result_setup"
+            />
           </Suspense>
         </div>
 
@@ -201,6 +212,7 @@ export default function QrCodePage() {
         </ul>
       </article>
       <CtaBand
+        setupLocation="tool_qr_band_setup"
         signupLocation="tool_qr_cta"
         title="Use the QR code on your ReputationFlow page"
         body="A free account hosts the customer page, so the QR code can include Google, Facebook, Yelp, and a private note."

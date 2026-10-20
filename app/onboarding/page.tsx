@@ -1,10 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toDataURL } from "qrcode"
+import { ProfessionalUpgrade } from "@/components/professional-upgrade"
+import { trackSetupCompleted } from "@/lib/analytics-events"
 import { buildGoogleReviewLink } from "@/lib/google-review-link"
+import { canOfferProfessionalCheckout, isProfessionalSubscriber, setupCompletionToReport } from "@/lib/setup-funnel"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { reviewPageUrl } from "@/lib/site"
 
@@ -22,6 +25,11 @@ export default function OnboardingPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState("")
   const [copied, setCopied] = useState(false)
+  const [isPremium, setIsPremium] = useState(false)
+  const [subscriptionStatus, setSubscriptionStatus] = useState("")
+  const [arrivedWithSavedLink, setArrivedWithSavedLink] = useState(false)
+  const [linkSavedThisVisit, setLinkSavedThisVisit] = useState(false)
+  const reportedSetup = useRef(false)
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -33,9 +41,13 @@ export default function OnboardingPage() {
         }
         const business = data.user.business
         const savedLink = typeof business?.google_link === "string" ? business.google_link : ""
+        const status = typeof business?.subscription_status === "string" ? business.subscription_status : ""
         setBusinessId(business?.id ?? null)
         setGoogleLink(savedLink)
         setRawInput(savedLink)
+        setIsPremium(isProfessionalSubscriber(business ?? null))
+        setSubscriptionStatus(status)
+        setArrivedWithSavedLink(savedLink.trim().length > 0)
         setStep(savedLink.trim() ? "qr" : "link")
         setReady(true)
       })
@@ -70,6 +82,20 @@ export default function OnboardingPage() {
     }
   }, [step, reviewLink, googleLink])
 
+  const qrReadyWithoutLink = step === "qr" && pageQr.length > 0 && googleLink.trim().length === 0 && !linkSavedThisVisit
+
+  useEffect(() => {
+    const result = setupCompletionToReport({
+      alreadyReported: reportedSetup.current,
+      arrivedWithSavedLink,
+      linkSavedThisVisit,
+      qrReadyWithoutLink,
+    })
+    if (!result) return
+    reportedSetup.current = true
+    trackSetupCompleted(result)
+  }, [arrivedWithSavedLink, linkSavedThisVisit, qrReadyWithoutLink])
+
   const saveLink = async () => {
     const built = buildGoogleReviewLink(rawInput)
     if (!built.ok) {
@@ -88,6 +114,7 @@ export default function OnboardingPage() {
       if (!response.ok) throw new Error(data.error || "Could not save your review link")
       setGoogleLink(built.url)
       setRawInput(built.url)
+      setLinkSavedThisVisit(true)
       setStep("qr")
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : "Could not save your review link")
@@ -106,6 +133,10 @@ export default function OnboardingPage() {
   if (!ready) {
     return <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">Loading your account...</div>
   }
+
+  const showUpgrade =
+    (googleLink.trim().length > 0 || pageQr.length > 0) &&
+    canOfferProfessionalCheckout({ isPremium, subscriptionStatus })
 
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-12">
@@ -149,7 +180,19 @@ export default function OnboardingPage() {
 
           {step === "qr" && (
             <div>
-              <h2 className="text-xl font-semibold">Your review QR code</h2>
+              {showUpgrade && (
+                <ProfessionalUpgrade
+                  location="onboarding_success"
+                  variant="card"
+                  heading={googleLink.trim() ? "Your Google review link is saved" : "Your review QR code is ready"}
+                  detail={
+                    googleLink.trim()
+                      ? "Download the QR code on this screen and share it. Email requests, the full history, export, and reply drafts are on Professional."
+                      : "This code opens your review page. Email requests, the full history, export, and reply drafts are on Professional."
+                  }
+                />
+              )}
+              <h2 className={`text-xl font-semibold ${showUpgrade ? "mt-6" : ""}`}>Your review QR code</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 This code opens your ReputationFlow page. Put it on the counter, the invoice, or a card. Customers see the public review links you have saved.
               </p>
