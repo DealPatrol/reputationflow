@@ -14,7 +14,7 @@ const fits = [
   },
   {
     need: "Listings, surveys, and reporting across many locations",
-    lookAt: "Birdeye. It is a broad reputation suite. ReputationFlow does not manage map listings.",
+    lookAt: "Birdeye. It is a platform for multi-location brands, including listings. ReputationFlow does not manage map listings.",
   },
   {
     need: "Texting, webchat, or payments in the same login as reviews",
@@ -22,7 +22,11 @@ const fits = [
   },
   {
     need: "Review requests as a marketing product for a service business",
-    lookAt: "NiceJob. ReputationFlow does not run a review-marketing suite or republish reviews as ads.",
+    lookAt: "NiceJob. Their public pricing page lists SMS and email requests. ReputationFlow does not text customers.",
+  },
+  {
+    need: "White-label review software to resell to clients",
+    lookAt: "Grade.us. It is built for agencies. ReputationFlow is the tool the shop owner uses, not a reseller platform.",
   },
 ]
 
@@ -35,7 +39,7 @@ const faqs = [
   {
     question: "Is this a ranked award or a sponsored list?",
     answer:
-      "No. ReputationFlow sells the product on this site. The notes above say when Birdeye, Podium, or NiceJob is the clearer fit. We do not publish their prices, ratings, or customer counts.",
+      "No. ReputationFlow sells the product on this site. The notes above say when Birdeye, Podium, NiceJob, or Grade.us is the clearer fit. A comparison page quotes a price only when that company’s own page showed it. We do not publish ratings or customer counts.",
   },
   {
     question: "Does the best option include a free trial?",
@@ -55,6 +59,7 @@ export const metadata = pageMetadata({
     "birdeye alternative",
     "podium alternative",
     "nicejob alternative",
+    "grade.us alternative",
   ],
 })
 
@@ -104,7 +109,7 @@ export default function ReviewSoftwarePage() {
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">What we will not claim</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
-          We do not publish another company’s price, star rating, or customer count. We do not say ReputationFlow imports your Google reviews, texts customers, or hides public review buttons after a low rating. It does none of those.
+          A narrower page quotes another company’s price only when we could read it on their public page, and it names the month we checked. We do not publish their star rating or customer count. We do not say ReputationFlow imports your Google reviews, texts customers, or hides public review buttons after a low rating. It does none of those.
         </p>
 
         <h2 className="mt-10 text-xl font-semibold text-slate-950">Read the narrower pages</h2>

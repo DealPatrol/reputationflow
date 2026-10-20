@@ -48,6 +48,7 @@ export function isOriginCandidate(path: string): boolean {
 
 export function isSeoLanding(path: string): boolean {
   if (path === "/tools/qr-code" || path === "/tools/google-review-link" || path === "/google-review-qr-by-city") return true
+  if (/^\/compare\/[a-z0-9-]+$/.test(path)) return true
   return /^\/industries\/[a-z0-9-]+(?:\/[a-z0-9-]+)?$/.test(path)
 }
 
@@ -57,6 +58,7 @@ function isDescendant(parent: string, child: string) {
 }
 
 function shouldYield(current: string, path: string) {
+  if (current === "/review-management-software" && /^\/compare\/[a-z0-9-]+$/.test(path)) return true
   if (!WEAK_INDEXES.has(current) || path === current) return false
   if (isDescendant(current, path)) return true
   if (current === "/" || current === "/guides" || current === "/resources" || current === "/tools" || current === "/industries") {

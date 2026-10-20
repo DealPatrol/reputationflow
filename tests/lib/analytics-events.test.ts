@@ -6,7 +6,14 @@ vi.mock("@vercel/analytics", () => ({
   track: (...args: unknown[]) => track(...args),
 }))
 
-import { FUNNEL_EVENT, trackCheckoutStart, trackGeneratorUsed, trackPricingClick, trackQrDownloaded, trackSignupClick } from "@/lib/analytics-events"
+import {
+  FUNNEL_EVENT,
+  trackCheckoutStart,
+  trackGeneratorUsed,
+  trackPricingClick,
+  trackQrDownloaded,
+  trackSignupClick,
+} from "@/lib/analytics-events"
 
 function installBrowser() {
   let pathname = "/"
@@ -95,6 +102,29 @@ describe("funnel analytics events", () => {
     })
     expect(track).toHaveBeenNthCalledWith(3, FUNNEL_EVENT.checkoutStarted, {
       origin: "/tools/qr-code",
+      plan: "professional",
+    })
+  })
+
+  it("attributes signup on a comparison page to that page", () => {
+    const browser = installBrowser()
+    browser.go("/compare/podium")
+    trackSignupClick("compare_podium_checkout")
+    browser.go("/auth/signin")
+    trackSignupClick("auth_form")
+    browser.go("/dashboard/billing")
+    trackCheckoutStart("professional")
+
+    expect(track).toHaveBeenNthCalledWith(1, FUNNEL_EVENT.signupStarted, {
+      origin: "/compare/podium",
+      location: "compare_podium_checkout",
+    })
+    expect(track).toHaveBeenNthCalledWith(2, FUNNEL_EVENT.signupStarted, {
+      origin: "/compare/podium",
+      location: "auth_form",
+    })
+    expect(track).toHaveBeenNthCalledWith(3, FUNNEL_EVENT.checkoutStarted, {
+      origin: "/compare/podium",
       plan: "professional",
     })
   })

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Check, Zap, Loader2 } from "lucide-react"
 import { trackCheckoutStart } from "@/lib/analytics-events"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
@@ -150,7 +151,8 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
           )}
           {!isPremium && (
             <p className="mt-3 text-sm leading-5 text-indigo-100">
-              Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.
+              Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.{" "}
+              <Link href="/onboarding" className="font-semibold underline">Add your Google review link</Link> before or after you subscribe.
             </p>
           )}
         </div>

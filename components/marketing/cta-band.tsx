@@ -6,10 +6,14 @@ export function CtaBand({
   title = "Set up your review link today",
   body = "Create a free account, add your Google review link, and share one page with every customer.",
   signupLocation = "cta",
+  signupHref = SIGNUP_PATH,
+  signupLabel = "Start free",
 }: {
   title?: string
   body?: string
   signupLocation?: string
+  signupHref?: string
+  signupLabel?: string
 }) {
   return (
     <section className="bg-indigo-700">
@@ -19,8 +23,8 @@ export function CtaBand({
           <p className="mt-2 max-w-xl text-sm leading-6 text-indigo-100">{body}</p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <SignupLink href={SIGNUP_PATH} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
-            Start free
+          <SignupLink href={signupHref} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-indigo-700">
+            {signupLabel}
           </SignupLink>
           <PricingLink location={`${signupLocation}_pricing`} className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
             View pricing

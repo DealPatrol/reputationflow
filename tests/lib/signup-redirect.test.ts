@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import robots from "@/app/robots"
 import SignupPage from "@/app/signup/page"
 import { indexablePaths } from "@/lib/marketing-content"
-import { SIGNUP_PATH, signupDestination } from "@/lib/signup"
+import { isProfessionalIntent, professionalSignupPath, SIGNUP_PATH, signupDestination } from "@/lib/signup"
 
 const redirectTo = vi.hoisted(() => vi.fn())
 
@@ -43,6 +43,17 @@ describe("signup entry", () => {
     expect(url.searchParams.get("fbclid")).toBe("xyz")
     expect(url.searchParams.get("utm_source")).toBe("google")
     expect(url.searchParams.get("utm_medium")).toBe("cpc")
+  })
+
+  it("keeps the professional plan intent on the way to the account form", () => {
+    expect(professionalSignupPath()).toBe("/signup?plan=professional")
+    expect(isProfessionalIntent("professional")).toBe(true)
+    expect(isProfessionalIntent("pro")).toBe(false)
+    const destination = signupDestination(new URLSearchParams("plan=professional"))
+    const url = new URL(destination, "https://reviews.example.com")
+    expect(url.pathname).toBe("/auth/signin")
+    expect(url.searchParams.get("signup")).toBe("1")
+    expect(url.searchParams.get("plan")).toBe("professional")
   })
 
   it("redirects the public /signup page without dropping the query string", async () => {

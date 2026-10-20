@@ -3,11 +3,11 @@ import { Check } from "lucide-react"
 import { ConversionPaths } from "@/components/marketing/conversion-paths"
 import { CtaBand } from "@/components/marketing/cta-band"
 import { SignupLink } from "@/components/marketing/signup-link"
-import { SIGNUP_PATH } from "@/lib/signup"
+import { professionalSignupPath, SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
-import { faqs } from "@/lib/marketing-content"
+import { comparisons, faqs } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { faqJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -57,7 +57,7 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 <SignupLink
-                  href={SIGNUP_PATH}
+                  href={featured ? professionalSignupPath() : SIGNUP_PATH}
                   location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
                     featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
@@ -100,11 +100,17 @@ export default function PricingPage() {
         <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-lg font-semibold text-slate-950">What $20 does not include</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If you need a full inbox and payments product, read the{" "}
-            <Link href="/compare/podium" className="font-semibold text-indigo-700">Podium comparison</Link>
-            {" "}before you buy. For review-request marketing, read the{" "}
-            <Link href="/compare/nicejob" className="font-semibold text-indigo-700">NiceJob comparison</Link>.
+            ReputationFlow does not text customers, import Google reviews, manage map listings, or offer a white-label app. SMS is not part of either plan. If that is the product you need, compare it here before you buy:
           </p>
+          <ul className="mt-4 space-y-2 text-sm leading-7">
+            {comparisons.map((comparison) => (
+              <li key={comparison.slug}>
+                <Link href={`/compare/${comparison.slug}`} className="font-semibold text-indigo-700">
+                  {comparison.name} alternative
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <ConversionPaths current="/pricing" />

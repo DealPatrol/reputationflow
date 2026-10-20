@@ -60,7 +60,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
     }
 
     const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding")
-    if (!hasSeenOnboarding) {
+    if (!hasSeenOnboarding && tab !== "billing") {
       setTimeout(() => setShowOnboarding(true), 1000)
     }
 

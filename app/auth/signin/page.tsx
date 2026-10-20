@@ -8,6 +8,8 @@ import { Star } from "lucide-react"
 import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { readStoredAttribution } from "@/lib/attribution"
+import { formatPlanPrice, PLANS } from "@/lib/plans"
+import { BILLING_TAB_PATH, isProfessionalIntent } from "@/lib/signup"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -15,12 +17,14 @@ export default function SignInPage() {
   const [password, setPassword] = useState("")
   const [businessName, setBusinessName] = useState("")
   const [isSignUp, setIsSignUp] = useState(false)
+  const [wantsProfessional, setWantsProfessional] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get("signup") === "1") setIsSignUp(true)
+    if (isProfessionalIntent(params.get("plan"))) setWantsProfessional(true)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,7 +52,7 @@ export default function SignInPage() {
       }
 
       if (isSignUp) trackSignup()
-      router.push(isSignUp ? "/onboarding" : "/dashboard")
+      router.push(wantsProfessional ? BILLING_TAB_PATH : isSignUp ? "/onboarding" : "/dashboard")
       router.refresh()
     } catch (err: any) {
       console.error("[v0] Auth error:", err)
@@ -79,9 +83,22 @@ export default function SignInPage() {
           <h1 className="text-2xl font-bold text-slate-900 mb-2 text-center">
             {isSignUp ? "Create Account" : "Welcome Back"}
           </h1>
-          <p className="text-slate-500 text-center mb-8">
-            {isSignUp ? "Start managing your reputation today" : "Sign in to your account"}
+          <p className="text-slate-500 text-center mb-6">
+            {wantsProfessional
+              ? isSignUp
+                ? "Free Starter account first. Billing and the $20 plan are next."
+                : "Sign in, then billing opens the $20 plan."
+              : isSignUp
+                ? "Starter is free. This form does not ask for a card."
+                : "Sign in to your account"}
           </p>
+          {wantsProfessional && (
+            <div className="mb-6 rounded-lg border border-indigo-100 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
+              Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe. There is no trial on top of Starter.
+              You can cancel in the Stripe customer portal, and access lasts through the period you already paid.
+              {isSignUp ? " After this form, billing opens." : " After you sign in, billing opens."}
+            </div>
+          )}
 
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>
@@ -133,7 +150,7 @@ export default function SignInPage() {
               disabled={loading}
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-bold shadow-lg shadow-indigo-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Loading..." : isSignUp ? "Create Account" : "Sign In"}
+              {loading ? "Loading..." : isSignUp ? (wantsProfessional ? "Create free account" : "Create Account") : "Sign In"}
             </button>
           </form>
 
