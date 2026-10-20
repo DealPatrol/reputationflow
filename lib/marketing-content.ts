@@ -123,7 +123,7 @@ export const comparisons: ComparisonPage[] = [
       {
         question: "Can I try the review link without a sales call?",
         answer:
-          "Yes. Create a free Starter account, or use the free Google review QR code generator on this site with no account. Professional checkout is on the billing screen after the account exists. There is no trial on top of Starter.",
+          "Yes. Create a free Starter account, or use the free Google review QR code generator on this site with no account. Choosing Professional opens Stripe checkout as soon as the account exists. There is no trial on top of Starter.",
       },
     ],
   },

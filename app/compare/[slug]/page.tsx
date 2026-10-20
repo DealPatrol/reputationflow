@@ -196,7 +196,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         signupHref={professionalSignupPath()}
         signupLabel="Create a free account, then checkout"
         title={`Use ReputationFlow instead of ${comparison.name}`}
-        body="Starter is free and does not ask for a card. The next screen is Professional checkout at $20 a month. There is no trial. Cancel in the Stripe customer portal."
+        body="The account form does not ask for a card. Stripe checkout for Professional at $20 a month opens as soon as the account exists. There is no trial. Cancel in the Stripe customer portal."
       />
     </MarketingShell>
   )

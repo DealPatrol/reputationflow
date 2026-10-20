@@ -10,10 +10,11 @@ import { startProfessionalCheckout } from "@/lib/start-checkout"
 interface BillingViewProps {
   isPremium: boolean
   subscriptionStatus?: string
+  checkoutFailed?: boolean
   showToast: (message: string, type: "success" | "error") => void
 }
 
-export function BillingView({ isPremium, subscriptionStatus, showToast }: BillingViewProps) {
+export function BillingView({ isPremium, subscriptionStatus, checkoutFailed = false, showToast }: BillingViewProps) {
   const [loading, setLoading] = useState(false)
 
   const handleUpgrade = async () => {
@@ -58,6 +59,15 @@ export function BillingView({ isPremium, subscriptionStatus, showToast }: Billin
         <h1 className="text-2xl font-bold text-slate-900">Billing & Plans</h1>
         <p className="text-slate-500">Choose the plan that works best for your business</p>
       </div>
+
+      {checkoutFailed && !isPremium && (
+        <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-950">
+          <p className="font-semibold">Stripe checkout did not open</p>
+          <p className="mt-1 text-sm leading-6">
+            Your account is ready. Use the Professional button on this page to open checkout.
+          </p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Free Plan */}

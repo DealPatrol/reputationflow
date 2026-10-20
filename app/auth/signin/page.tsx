@@ -9,7 +9,8 @@ import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { readStoredAttribution } from "@/lib/attribution"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
-import { BILLING_TAB_PATH, isProfessionalIntent } from "@/lib/signup"
+import { startProfessionalCheckout } from "@/lib/start-checkout"
+import { afterAuthDestination, BILLING_CHECKOUT_FAILED_PATH, isProfessionalIntent } from "@/lib/signup"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -19,6 +20,7 @@ export default function SignInPage() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [wantsProfessional, setWantsProfessional] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [openingCheckout, setOpeningCheckout] = useState(false)
   const [error, setError] = useState("")
 
   useEffect(() => {
@@ -52,12 +54,32 @@ export default function SignInPage() {
       }
 
       if (isSignUp) trackSignup()
-      router.push(wantsProfessional ? BILLING_TAB_PATH : isSignUp ? "/onboarding" : "/dashboard")
-      router.refresh()
-    } catch (err: any) {
+      const next = afterAuthDestination({ isSignUp, wantsProfessional })
+      switch (next.type) {
+        case "checkout": {
+          setOpeningCheckout(true)
+          try {
+            await startProfessionalCheckout()
+          } catch (checkoutError) {
+            console.error("[v0] Checkout redirect error:", checkoutError)
+            router.push(BILLING_CHECKOUT_FAILED_PATH)
+            router.refresh()
+          }
+          return
+        }
+        case "path":
+          router.push(next.path)
+          router.refresh()
+          return
+        default: {
+          const unreachable: never = next
+          return unreachable
+        }
+      }
+    } catch (err: unknown) {
       console.error("[v0] Auth error:", err)
-      setError(err.message || "Something went wrong. Please try again.")
-    } finally {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again."
+      setError(message)
       setLoading(false)
     }
   }
@@ -86,7 +108,7 @@ export default function SignInPage() {
           <p className="text-slate-500 text-center mb-6">
             {wantsProfessional
               ? isSignUp
-                ? "Free Starter account first. Billing and the $20 plan are next."
+                ? "The account form does not ask for a card. Stripe checkout opens next."
                 : "Sign in, then billing opens the $20 plan."
               : isSignUp
                 ? "Starter is free. This form does not ask for a card."
@@ -96,7 +118,7 @@ export default function SignInPage() {
             <div className="mb-6 rounded-lg border border-indigo-100 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
               Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe. There is no trial on top of Starter.
               You can cancel in the Stripe customer portal, and access lasts through the period you already paid.
-              {isSignUp ? " After this form, billing opens." : " After you sign in, billing opens."}
+              {isSignUp ? " After this form, Stripe checkout opens." : " After you sign in, billing opens."}
             </div>
           )}
 
@@ -150,7 +172,7 @@ export default function SignInPage() {
               disabled={loading}
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-bold shadow-lg shadow-indigo-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Loading..." : isSignUp ? (wantsProfessional ? "Create free account" : "Create Account") : "Sign In"}
+              {openingCheckout ? "Opening Stripe..." : loading ? "Loading..." : isSignUp ? (wantsProfessional ? "Create free account" : "Create Account") : "Sign In"}
             </button>
           </form>
 
