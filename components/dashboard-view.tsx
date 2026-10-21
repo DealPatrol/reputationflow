@@ -1,18 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import { MessageSquare, TrendingUp, ShieldAlert, Star, Lock, Send, AlertTriangle, Users, Sparkles, Link2, Copy, CheckCircle2 } from "lucide-react"
 import { EmptyState } from "./ui/empty-state"
 import { AIResponseModal } from "./ai-response-modal"
+import { ReplyHelper } from "@/components/dashboard/reply-helper"
+import { ReviewGoalTracker } from "@/components/dashboard/review-goal-tracker"
+import { ReviewRequestComposer } from "@/components/tools/review-request-composer"
+import { reviewPageUrl } from "@/lib/site"
 
 export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, links, setActiveTab }: any) => {
   const [selectedFeedback, setSelectedFeedback] = useState<any>(null)
   const [showAIModal, setShowAIModal] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const reviewLink = businessId
-    ? `${typeof window !== "undefined" ? window.location.origin : ""}/review/${businessId}`
-    : ""
+  const reviewLink = businessId ? reviewPageUrl(businessId) : ""
 
   const handleCopyLink = () => {
     if (reviewLink) {
@@ -100,23 +102,29 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
           </div>
         )}
 
+        <div className="grid gap-4 lg:grid-cols-2">
+          <ReviewGoalTracker businessId={businessId || "local"} />
+          <ReplyHelper businessName={businessName || ""} />
+        </div>
+
+        <ReviewRequestComposer
+          heading="Text or email to copy"
+          initialBusinessName={businessName || ""}
+          initialReviewLink={reviewLink}
+        />
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard label="Feedback" value={total} icon={<MessageSquare size={18} />} color="indigo" />
-          <StatCard
-            label="Average rating"
-            value={average}
-            icon={<TrendingUp size={18} />}
-            color="emerald"
-          />
-          <StatCard label="Ratings of 3 or less" value={lowRatings} icon={<ShieldAlert size={18} />} color="rose" />
-          <div className="col-span-2 lg:col-span-1 bg-gradient-to-br from-indigo-600 to-violet-700 p-6 rounded-xl text-white shadow-lg">
-            <div className="text-indigo-200 text-xs font-bold uppercase tracking-wider mb-2">Quick Action</div>
+          <StatCard label="Feedback" value={total} icon={<MessageSquare size={18} />} />
+          <StatCard label="Average rating" value={average} icon={<TrendingUp size={18} />} />
+          <StatCard label="Ratings of 3 or less" value={lowRatings} icon={<ShieldAlert size={18} />} />
+          <div className="col-span-2 lg:col-span-1 rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Next step</p>
             <button
               onClick={() => setActiveTab("campaigns")}
-              className="w-full bg-white/10 hover:bg-white/20 p-2.5 rounded-lg text-sm font-bold flex items-center justify-center space-x-2 transition-colors"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-800 px-3 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
             >
               <Send size={14} />
-              <span>Send Request</span>
+              Review requests
             </button>
           </div>
         </div>
@@ -134,11 +142,11 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
             {feedbacks.length === 0 ? (
               <EmptyState
                 icon={Users}
-                title="No feedback yet"
-                description="Start collecting reviews by sending your first campaign or sharing your feedback link with customers."
+                title="No private notes yet"
+                description="Share your review link or print a card. Notes a customer types on your page show up here. Reviews they publish on Google stay on Google."
                 action={{
-                  label: "Send First Request",
-                  onClick: () => setActiveTab("campaigns"),
+                  label: "Open your link and QR code",
+                  onClick: () => setActiveTab("links"),
                 }}
               />
             ) : (
@@ -182,13 +190,13 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
   )
 }
 
-const StatCard = ({ label, value, icon, color, suffix }: any) => (
-  <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
-    <div className={`flex items-center space-x-2 mb-2 text-${color}-600`}>
+const StatCard = ({ label, value, icon, suffix }: { label: string; value: string | number; icon: ReactNode; suffix?: string }) => (
+  <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
+    <div className="mb-2 flex items-center gap-2 text-indigo-800">
       {icon}
-      <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{label}</span>
+      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</span>
     </div>
-    <div className="text-2xl sm:text-3xl font-bold text-slate-900">
+    <div className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
       {value}
       {suffix}
     </div>
@@ -219,7 +227,7 @@ const FeedbackItem = ({ item, isPremium, onUnlock, onGenerateResponse }: any) =>
       {isPremium ? (
         <button
           onClick={() => onGenerateResponse(item)}
-          className="opacity-0 group-hover:opacity-100 transition-opacity text-xs bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg font-medium whitespace-nowrap flex-shrink-0 flex items-center gap-1 hover:bg-indigo-100"
+          className="flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-800 hover:bg-indigo-100"
         >
           <Sparkles size={12} />
           Reply with AI

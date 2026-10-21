@@ -1,7 +1,6 @@
 "use client"
 
 import {
-  Star,
   LayoutDashboard,
   Users,
   Menu,
@@ -42,13 +41,10 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
 
   return (
     <>
-      <div className="md:hidden bg-[#0F172A] text-white p-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-800 shadow-lg">
-        <div className="flex items-center space-x-2">
-          <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-1.5 rounded-lg shadow-sm">
-            <Star size={16} fill="currentColor" />
-          </div>
-          <span className="font-bold text-base">ReputationFlow</span>
-        </div>
+      <div className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-800 bg-[#0F172A] p-4 text-white md:hidden">
+        <span className="text-base font-semibold tracking-tight">
+          Reputation<span className="text-indigo-300">Flow</span>
+        </span>
         <div className="flex items-center space-x-2">
           {!isPremium && (
             <button
@@ -60,8 +56,9 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
           )}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-            aria-label="Toggle menu"
+            className="rounded-lg p-2 hover:bg-slate-800"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

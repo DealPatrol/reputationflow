@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { PricingLink } from "@/components/marketing/pricing-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
+import { ReviewRequestComposer } from "@/components/tools/review-request-composer"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
 import { breadcrumbJsonLd, faqJsonLd, freeToolJsonLd, howToJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -103,6 +104,10 @@ export default function GoogleReviewLinkPage() {
           <Suspense fallback={<div className="h-48 rounded-2xl border border-slate-200 bg-slate-50" />}>
             <GoogleReviewQrTool source="google-review-link" ctaLocation="tool_review_link_result" />
           </Suspense>
+        </div>
+
+        <div className="mt-10">
+          <ReviewRequestComposer heading="Turn that link into a text or email" />
         </div>
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">How to make a Google review link</h2>
