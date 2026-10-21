@@ -1,14 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { CARD_COLOR_PRESETS, DEFAULT_CARD_COLOR, normalizeHexColor } from "@/lib/card-style"
 
 type CardKind = "tent" | "card"
+
+const MAX_LOGO_BYTES = 1_500_000
 
 function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image()
     image.onload = () => resolve(image)
-    image.onerror = () => reject(new Error("Could not read the QR code image."))
+    image.onerror = () => reject(new Error("Could not read that image."))
     image.src = src
   })
 }
@@ -40,6 +43,8 @@ function drawFace(
   upsideDown: boolean,
   businessName: string,
   qr: HTMLImageElement,
+  accent: string,
+  logo: HTMLImageElement | null,
 ) {
   ctx.save()
   if (upsideDown) {
@@ -50,17 +55,29 @@ function drawFace(
 
   ctx.fillStyle = "#ffffff"
   ctx.fillRect(0, 0, width, height)
-  ctx.strokeStyle = "#e2e8f0"
+  ctx.fillStyle = accent
+  ctx.fillRect(0, 0, width, Math.max(18, Math.round(height * 0.045)))
+  ctx.strokeStyle = "#e7e3dc"
   ctx.lineWidth = 2
   ctx.strokeRect(24, 24, width - 48, height - 48)
 
-  const headingSize = Math.max(28, Math.round(height * 0.06))
-  const nameSize = Math.max(32, Math.round(height * 0.07))
-  const captionSize = Math.max(20, Math.round(height * 0.042))
-  ctx.fillStyle = "#0f172a"
+  let cursor = Math.round(height * 0.12)
+  if (logo) {
+    const maxW = width * 0.42
+    const maxH = height * 0.16
+    const scale = Math.min(maxW / logo.width, maxH / logo.height)
+    const logoW = logo.width * scale
+    const logoH = logo.height * scale
+    ctx.drawImage(logo, (width - logoW) / 2, cursor, logoW, logoH)
+    cursor += logoH + 16
+  }
+
+  const headingSize = Math.max(28, Math.round(height * 0.055))
+  const nameSize = Math.max(32, Math.round(height * 0.065))
+  const captionSize = Math.max(20, Math.round(height * 0.04))
+  ctx.fillStyle = "#142033"
   ctx.textAlign = "center"
   ctx.font = `600 ${headingSize}px sans-serif`
-  let cursor = Math.round(height * 0.16)
   ctx.fillText("How was your visit?", width / 2, cursor)
 
   cursor += headingSize + 8
@@ -84,7 +101,13 @@ function drawFace(
   ctx.restore()
 }
 
-async function renderCard(kind: CardKind, businessName: string, qrDataUrl: string) {
+async function renderCard(
+  kind: CardKind,
+  businessName: string,
+  qrDataUrl: string,
+  accent: string,
+  logo: HTMLImageElement | null,
+) {
   const qr = await loadImage(qrDataUrl)
   const canvas = document.createElement("canvas")
   if (kind === "card") {
@@ -100,19 +123,19 @@ async function renderCard(kind: CardKind, businessName: string, qrDataUrl: strin
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   if (kind === "card") {
-    drawFace(ctx, canvas.width, canvas.height, false, businessName, qr)
+    drawFace(ctx, canvas.width, canvas.height, false, businessName, qr, accent, logo)
   } else {
     const half = canvas.height / 2
     ctx.save()
     ctx.beginPath()
     ctx.rect(0, 0, canvas.width, half)
     ctx.clip()
-    drawFace(ctx, canvas.width, half, true, businessName, qr)
+    drawFace(ctx, canvas.width, half, true, businessName, qr, accent, logo)
     ctx.restore()
 
     ctx.save()
     ctx.translate(0, half)
-    drawFace(ctx, canvas.width, half, false, businessName, qr)
+    drawFace(ctx, canvas.width, half, false, businessName, qr, accent, logo)
     ctx.restore()
 
     ctx.save()
@@ -139,21 +162,102 @@ function downloadDataUrl(dataUrl: string, filename: string) {
 export function ReviewCardDownloads({
   qrDataUrl,
   onDownload,
+  initialBusinessName = "",
 }: {
   qrDataUrl: string
   onDownload?: (kind: CardKind) => void
+  initialBusinessName?: string
 }) {
-  const [businessName, setBusinessName] = useState("")
+  const [businessName, setBusinessName] = useState(initialBusinessName)
+  const [accent, setAccent] = useState<string>(DEFAULT_CARD_COLOR)
+  const [customColor, setCustomColor] = useState("")
+  const [logoUrl, setLogoUrl] = useState("")
+  const [logo, setLogo] = useState<HTMLImageElement | null>(null)
   const [error, setError] = useState("")
   const [preview, setPreview] = useState("")
   const [busy, setBusy] = useState<CardKind | null>(null)
+
+  useEffect(() => {
+    if (!initialBusinessName) return
+    setBusinessName((current) => current || initialBusinessName)
+  }, [initialBusinessName])
+
+  useEffect(() => {
+    let cancelled = false
+    if (!logoUrl) {
+      setLogo(null)
+      return
+    }
+    loadImage(logoUrl)
+      .then((image) => {
+        if (!cancelled) setLogo(image)
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLogo(null)
+          setError("Could not read that logo. Use a PNG, JPEG, or WebP.")
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [logoUrl])
+
+  useEffect(() => {
+    let cancelled = false
+    const timer = window.setTimeout(() => {
+      renderCard("card", businessName, qrDataUrl, accent, logo)
+        .then((dataUrl) => {
+          if (!cancelled) setPreview(dataUrl)
+        })
+        .catch(() => {
+          if (!cancelled) setPreview("")
+        })
+    }, 200)
+    return () => {
+      cancelled = true
+      window.clearTimeout(timer)
+    }
+  }, [accent, businessName, logo, qrDataUrl])
+
+  const applyCustomColor = () => {
+    const next = normalizeHexColor(customColor)
+    if (!next) {
+      setError("Use a 6-digit hex color such as #142033.")
+      return
+    }
+    setError("")
+    setAccent(next)
+  }
+
+  const onLogo = (file: File | undefined) => {
+    setError("")
+    if (!file) {
+      setLogoUrl("")
+      return
+    }
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+      setError("Use a PNG, JPEG, or WebP logo.")
+      return
+    }
+    if (file.size > MAX_LOGO_BYTES) {
+      setError("That logo is over 1.5 MB. Export a smaller file.")
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === "string") setLogoUrl(reader.result)
+    }
+    reader.onerror = () => setError("Could not read that logo.")
+    reader.readAsDataURL(file)
+  }
 
   const download = async (kind: CardKind) => {
     setBusy(kind)
     setError("")
     try {
-      const dataUrl = await renderCard(kind, businessName, qrDataUrl)
-      setPreview(dataUrl)
+      const dataUrl = await renderCard(kind, businessName, qrDataUrl, accent, logo)
+      if (kind === "card") setPreview(dataUrl)
       downloadDataUrl(dataUrl, kind === "tent" ? "google-review-table-tent.png" : "google-review-card.png")
       onDownload?.(kind)
     } catch (downloadError) {
@@ -167,7 +271,7 @@ export function ReviewCardDownloads({
     <div className="mt-6 border-t border-slate-200 pt-4">
       <h2 className="text-sm font-semibold text-slate-950">Printable review card</h2>
       <p className="mt-1 text-sm leading-6 text-slate-600">
-        The table tent is a letter-size PNG. Fold it on the dashed line so it stands on the counter. The review card is about 3.5 by 2 inches. Nothing is uploaded to build either file.
+        Pick a color and, if you want, a logo. The table tent is a letter-size PNG. Fold it on the dashed line so it stands on the counter. The review card is about 3.5 by 2 inches. Nothing is uploaded to build either file. The logo stays in this browser.
       </p>
       <label htmlFor="card-business-name" className="mt-3 block text-xs font-medium text-slate-600">
         Name to print on the card
@@ -179,12 +283,68 @@ export function ReviewCardDownloads({
           className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900"
         />
       </label>
-      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+      <fieldset className="mt-4">
+        <legend className="text-xs font-medium text-slate-600">Color band</legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {CARD_COLOR_PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              onClick={() => {
+                setAccent(preset.value)
+                setError("")
+              }}
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold ${
+                accent === preset.value ? "border-slate-950 text-slate-950" : "border-slate-300 text-slate-700"
+              }`}
+              aria-pressed={accent === preset.value}
+            >
+              <span className="h-3.5 w-3.5 rounded-sm border border-black/10" style={{ backgroundColor: preset.value }} />
+              {preset.label}
+            </button>
+          ))}
+        </div>
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <label className="block flex-1 text-xs font-medium text-slate-600" htmlFor="card-custom-color">
+            Custom hex
+            <input
+              id="card-custom-color"
+              value={customColor}
+              onChange={(event) => setCustomColor(event.target.value)}
+              placeholder="#142033"
+              className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900"
+            />
+          </label>
+          <button
+            type="button"
+            onClick={applyCustomColor}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-800 sm:self-end"
+          >
+            Use color
+          </button>
+        </div>
+      </fieldset>
+      <label htmlFor="card-logo" className="mt-4 block text-xs font-medium text-slate-600">
+        Logo, optional
+        <input
+          id="card-logo"
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          onChange={(event) => onLogo(event.target.files?.[0])}
+          className="mt-1 block w-full text-sm text-slate-700"
+        />
+      </label>
+      {logoUrl && (
+        <button type="button" onClick={() => setLogoUrl("")} className="mt-2 text-sm font-semibold text-indigo-800">
+          Remove logo
+        </button>
+      )}
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
         <button
           type="button"
           onClick={() => download("tent")}
           disabled={busy !== null}
-          className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
+          className="rounded-lg bg-slate-950 px-3 py-2 text-sm font-semibold text-white disabled:opacity-60"
         >
           {busy === "tent" ? "Preparing..." : "Download table tent"}
         </button>

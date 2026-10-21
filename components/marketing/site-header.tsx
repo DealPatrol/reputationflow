@@ -20,7 +20,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -47,7 +47,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href={SIGNUP_PATH}
-            className="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+            className="rounded-lg bg-indigo-800 px-3.5 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
             onClick={() => trackSignupClick("header")}
           >
             Start free
@@ -95,7 +95,7 @@ export function SiteHeader() {
             </Link>
             <Link
               href={SIGNUP_PATH}
-              className="mt-1 rounded-lg bg-indigo-600 px-3 py-2.5 text-center text-sm font-semibold text-white"
+              className="mt-1 rounded-lg bg-indigo-800 px-3 py-2.5 text-center text-sm font-semibold text-white"
               onClick={() => {
                 trackSignupClick("header_mobile")
                 setOpen(false)

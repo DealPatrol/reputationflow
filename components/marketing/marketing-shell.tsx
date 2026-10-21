@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/marketing/site-header"
 
 export function MarketingShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900">
+    <div className="flex min-h-screen flex-col bg-[#f6f5f1] text-slate-950">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-3 focus:py-2 focus:shadow"

@@ -75,7 +75,12 @@ export function ReviewMonitoringView({ feedbacks, googleLink, facebookLink, yelp
           <h2 className="font-semibold text-slate-900">Private page responses</h2>
         </div>
         {feedbacks.length === 0 ? (
-          <p className="px-5 py-10 text-sm text-slate-500">No responses yet. Share your review link to start collecting them.</p>
+          <div className="px-5 py-10">
+            <h3 className="text-base font-semibold text-slate-950">No private notes yet</h3>
+            <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">
+              Share your review link. Notes typed on your page show up here. Reviews published on Google, Facebook, or Yelp stay on those sites. Open the links above to read them.
+            </p>
+          </div>
         ) : (
           <ul className="divide-y divide-slate-100">
             {feedbacks.map((item) => (

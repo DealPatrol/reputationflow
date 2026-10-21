@@ -4,7 +4,6 @@ import type React from "react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Star } from "lucide-react"
 import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { readStoredAttribution } from "@/lib/attribution"
@@ -85,27 +84,33 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]"></div>
+    <div className="min-h-screen bg-[#f6f5f1] text-slate-950 lg:grid lg:grid-cols-[minmax(0,1fr)_32rem]">
+      <aside className="border-b border-slate-200 px-6 py-10 sm:px-10 lg:border-b-0 lg:border-r lg:px-12 lg:py-16">
+        <div>
+          <Link href="/" className="inline-flex">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand-header.png" alt="Reputation Flow" width={208} height={36} className="h-9 w-auto" />
+          </Link>
+          <p className="mt-8 max-w-md text-2xl font-semibold tracking-tight text-slate-950">
+            One review link for every customer.
+          </p>
+          <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
+            Starter is free and does not ask for a card. Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe, with no trial on top of Starter.
+          </p>
+        </div>
+        <ul className="mt-8 max-w-md space-y-3 text-sm leading-6 text-slate-700 lg:mt-10">
+          <li>Google, Facebook, and Yelp stay on the page at every rating.</li>
+          <li>The next screen after a free signup is the Google review link, then the QR code.</li>
+          <li>Choosing Professional opens Stripe checkout as soon as the account exists.</li>
+        </ul>
+      </aside>
 
-      <div className="w-full max-w-md relative z-10">
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          {/* Logo */}
-          <div className="flex justify-center mb-8">
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-2.5 rounded-lg shadow-lg">
-                <Star className="text-white h-6 w-6" fill="currentColor" />
-              </div>
-              <span className="font-bold text-2xl">
-                Reputation<span className="text-indigo-600">Flow</span>
-              </span>
-            </div>
-          </div>
-
-          <h1 className="text-2xl font-bold text-slate-900 mb-2 text-center">
+      <div className="flex items-center justify-center px-4 py-10 sm:px-8">
+        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
             {isSignUp ? "Create Account" : "Welcome Back"}
           </h1>
-          <p className="text-slate-500 text-center mb-6">
+          <p className="mt-2 mb-6 text-sm leading-6 text-slate-600">
             {wantsProfessional
               ? isSignUp
                 ? "The account form does not ask for a card. Stripe checkout opens next."
@@ -115,7 +120,7 @@ export default function SignInPage() {
                 : "Sign in to your account"}
           </p>
           {wantsProfessional && (
-            <div className="mb-6 rounded-lg border border-indigo-100 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
+            <div className="mb-6 rounded-lg border border-indigo-200 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
               Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe. There is no trial on top of Starter.
               You can cancel in the Stripe customer portal, and access lasts through the period you already paid.
               {isSignUp ? " After this form, Stripe checkout opens." : " After you sign in, billing opens."}
@@ -134,8 +139,8 @@ export default function SignInPage() {
                   type="text"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                  placeholder="Mario's Pizza"
+                  className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                  placeholder="Your business"
                   required={isSignUp}
                 />
               </div>
@@ -147,8 +152,9 @@ export default function SignInPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
+                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
                 placeholder="you@example.com"
+                autoComplete="email"
                 required
               />
             </div>
@@ -159,8 +165,9 @@ export default function SignInPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                placeholder="••••••••"
+                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                placeholder="Password"
+                autoComplete={isSignUp ? "new-password" : "current-password"}
                 required
                 minLength={6}
               />
@@ -170,7 +177,7 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-bold shadow-lg shadow-indigo-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full rounded-lg bg-indigo-800 py-3 font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {openingCheckout ? "Opening Stripe..." : loading ? "Loading..." : isSignUp ? (wantsProfessional ? "Create free account" : "Create Account") : "Sign In"}
             </button>
@@ -183,15 +190,15 @@ export default function SignInPage() {
                 setIsSignUp(!isSignUp)
                 setError("")
               }}
-              className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+              className="text-sm font-semibold text-indigo-800 hover:text-indigo-700"
             >
               {isSignUp ? "Already have an account? Sign in" : "Don't have an account? Sign up"}
             </button>
           </div>
 
           <div className="mt-6 text-center">
-            <Link href="/" className="text-sm text-slate-500 hover:text-slate-700">
-              ← Back to home
+            <Link href="/" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+              Back to home
             </Link>
           </div>
         </div>

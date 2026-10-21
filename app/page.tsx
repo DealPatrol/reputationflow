@@ -8,6 +8,7 @@ import { SIGNUP_PATH } from "@/lib/signup"
 import { FaqList } from "@/components/marketing/faq-list"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
+import { ProductPreview } from "@/components/marketing/product-preview"
 import { faqs, industries } from "@/lib/marketing-content"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { faqJsonLd, organizationJsonLd, softwareJsonLd } from "@/lib/seo"
@@ -91,11 +92,11 @@ export default function HomePage() {
     <MarketingShell>
       <JsonLd data={[organizationJsonLd(), softwareJsonLd(), faqJsonLd(faqs)]} />
 
-      <section className="border-b border-slate-200 bg-slate-50">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+      <section className="border-b border-slate-200">
+        <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:py-24">
           <div>
-            <p className="text-sm font-semibold text-indigo-700">Review requests for local businesses</p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
+            <p className="text-sm font-semibold text-indigo-800">Review requests for local businesses</p>
+            <h1 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.08]">
               Turn every customer visit into a Google review request.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
@@ -105,111 +106,103 @@ export default function HomePage() {
               <SignupLink
                 href={SIGNUP_PATH}
                 location="homepage"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-800 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-700"
               >
                 Start free, no card
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </SignupLink>
               <Link
                 href="/how-it-works"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
               >
                 See how it works
               </Link>
             </div>
-            <ul className="mt-6 grid gap-2 text-sm text-slate-600 sm:grid-cols-3">
-              <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-indigo-600" aria-hidden="true" />No review gating</li>
-              <li className="flex items-center gap-2"><CreditCard className="h-4 w-4 text-indigo-600" aria-hidden="true" />Starter is free</li>
-              <li className="flex items-center gap-2"><Scale className="h-4 w-4 text-indigo-600" aria-hidden="true" />Pro {formatPlanPrice(PLANS.pro.price)}/month, cancel anytime</li>
+            <ul className="mt-8 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
+              <li className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-indigo-800" aria-hidden="true" />
+                No review gating
+              </li>
+              <li className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <CreditCard className="h-4 w-4 shrink-0 text-indigo-800" aria-hidden="true" />
+                Starter is free
+              </li>
+              <li className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <Scale className="h-4 w-4 shrink-0 text-indigo-800" aria-hidden="true" />
+                Pro {formatPlanPrice(PLANS.pro.price)}/month, cancel anytime
+              </li>
             </ul>
           </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">What the customer sees</p>
-            <div className="mt-4 rounded-xl bg-slate-950 px-5 py-6 text-white">
-              <p className="text-sm text-slate-300">How was your visit?</p>
-              <p className="mt-1 text-lg font-semibold">Your business</p>
-              <div className="mt-4 flex gap-1 text-amber-300" aria-hidden="true">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <span key={index}>★</span>
-                ))}
-              </div>
-            </div>
-            <div className="mt-4 space-y-2">
-              {["Google", "Facebook", "Yelp"].map((platform) => (
-                <div key={platform} className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-medium">
-                  <span>Leave a {platform} review</span>
-                  <span className="text-slate-400">Open</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 text-sm leading-6 text-slate-600">
-              The same buttons appear for every rating. A private comment is optional and does not hide these links.
-            </p>
-          </div>
+          <ProductPreview />
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">How it works</h2>
-        <ol className="mt-8 grid gap-6 md:grid-cols-3">
-          {steps.map((step, index) => (
-            <li key={step.title} className="rounded-2xl border border-slate-200 p-6">
-              <p className="text-sm font-semibold text-indigo-700">Step {index + 1}</p>
-              <h3 className="mt-2 text-lg font-semibold text-slate-950">{step.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{step.body}</p>
-            </li>
-          ))}
-        </ol>
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">How it works</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+            Three steps. The customer page stays the same whether they tap one star or five.
+          </p>
+          <ol className="mt-10 grid gap-10 md:grid-cols-3">
+            {steps.map((step, index) => (
+              <li key={step.title} className="border-t border-slate-200 pt-5">
+                <p className="font-mono text-sm font-semibold text-indigo-800">0{index + 1}</p>
+                <h3 className="mt-3 text-lg font-semibold text-slate-950">{step.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
-      <section className="bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What you can do with it</h2>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">What you can do with it</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {features.map((feature) => (
+            <article key={feature.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+              <feature.icon className="h-5 w-5 text-indigo-800" aria-hidden="true" />
+              <h3 className="mt-4 text-lg font-semibold text-slate-950">{feature.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{feature.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">What changes when you use it</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+            A review page, a QR code, and one dashboard for the notes customers send you. Everything below is what the product does today, with nothing hidden behind a sales call.
+          </p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {features.map((feature) => (
-              <article key={feature.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                <feature.icon className="h-5 w-5 text-indigo-600" aria-hidden="true" />
-                <h3 className="mt-4 text-lg font-semibold text-slate-950">{feature.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{feature.body}</p>
+            {outcomes.map((outcome) => (
+              <article key={outcome.title}>
+                <h3 className="text-lg font-semibold text-slate-950">{outcome.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{outcome.body}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">What changes when you use it</h2>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-          A review page, a QR code, and one dashboard for the notes customers send you. Everything below is what the product does today, with nothing hidden behind a sales call.
-        </p>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {outcomes.map((outcome) => (
-            <article key={outcome.title} className="rounded-2xl border border-slate-200 p-6">
-              <h3 className="text-lg font-semibold text-slate-950">{outcome.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{outcome.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Built for the businesses that live on Google reviews</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            <p className="text-sm font-semibold text-indigo-800">Use cases</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">Built for the businesses that live on Google reviews</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
               These pages describe how to ask in each trade. Each one covers when to ask, what to say, and where to put the QR code. The{" "}
-              <Link className="font-semibold text-indigo-700" href="/resources">resource hub</Link>
+              <Link className="font-semibold text-indigo-800" href="/resources">resource hub</Link>
               , the{" "}
-              <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
+              <Link className="font-semibold text-indigo-800" href="/guides">review guides</Link>
               , and the{" "}
-              <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
+              <Link className="font-semibold text-indigo-800" href="/google-review-request-templates">request templates</Link>
               {" "}cover the scripts, the FTC rules, and QR code placement. Make the code with the{" "}
-              <Link className="font-semibold text-indigo-700" href="/tools/qr-code">Google review QR code generator</Link>
+              <Link className="font-semibold text-indigo-800" href="/tools/qr-code">Google review QR code generator</Link>
               . City jobs are on the{" "}
-              <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city QR guides</Link>.
+              <Link className="font-semibold text-indigo-800" href="/google-review-qr-by-city">city QR guides</Link>.
             </p>
-            <Link href="/industries" className="mt-3 inline-flex text-sm font-semibold text-indigo-700">
+            <Link href="/industries" className="mt-4 inline-flex text-sm font-semibold text-indigo-800">
               All trades
             </Link>
           </div>
@@ -219,14 +212,16 @@ export default function HomePage() {
             <Link
               key={industry.slug}
               href={`/industries/${industry.slug}`}
-              className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300"
+              className="rounded-2xl border border-slate-200 bg-white p-5 hover:border-indigo-300"
             >
-              <h3 className="font-semibold text-slate-950">{industry.name}</h3>
+              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-800">Trade</p>
+              <h3 className="mt-2 font-semibold text-slate-950">{industry.name}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{industry.intro}</p>
             </Link>
           ))}
-          <Link href="/review-management-software" className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
-            <h3 className="font-semibold text-slate-950">Comparing review software?</h3>
+          <Link href="/review-management-software" className="rounded-2xl border border-slate-200 bg-white p-5 hover:border-indigo-300">
+            <p className="text-xs font-semibold uppercase tracking-wide text-indigo-800">Compare</p>
+            <h3 className="mt-2 font-semibold text-slate-950">Comparing review software?</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">
               See when a review link is enough, and when Birdeye, Podium, or NiceJob is the clearer fit.
             </p>
@@ -235,23 +230,23 @@ export default function HomePage() {
       </section>
 
       <section className="bg-slate-950 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-semibold tracking-tight">Security, privacy, and review rules</h2>
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Security, privacy, and review rules</h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
             Your customers and your Google profile are on the line, so ReputationFlow is built to keep both safe.
           </p>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <article className="rounded-2xl border border-slate-800 p-6">
+            <article className="border-t border-slate-700 pt-5">
               <Scale className="h-5 w-5 text-indigo-300" aria-hidden="true" />
               <h3 className="mt-4 font-semibold">Follows platform review rules</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">No review gating. The public buttons stay the same at every star rating, in line with Google policy and FTC guidance on reviews.</p>
             </article>
-            <article className="rounded-2xl border border-slate-800 p-6">
+            <article className="border-t border-slate-700 pt-5">
               <CreditCard className="h-5 w-5 text-indigo-300" aria-hidden="true" />
               <h3 className="mt-4 font-semibold">Payments handled by Stripe</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">Card details go to Stripe checkout. ReputationFlow never sees or stores your card number.</p>
             </article>
-            <article className="rounded-2xl border border-slate-800 p-6">
+            <article className="border-t border-slate-700 pt-5">
               <Lock className="h-5 w-5 text-indigo-300" aria-hidden="true" />
               <h3 className="mt-4 font-semibold">Customer data stays yours</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">
@@ -263,21 +258,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Pricing</h2>
+      <section className="border-b border-slate-200 bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">Pricing</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {(["free", "pro"] as const).map((key) => {
               const plan = PLANS[key]
+              const featured = key === "pro"
               return (
-                <article key={key} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <article key={key} className={`rounded-2xl border bg-white p-6 ${featured ? "border-indigo-800" : "border-slate-200"}`}>
                   <h3 className="text-lg font-semibold">{plan.name}</h3>
-                  <p className="mt-2 text-3xl font-semibold tracking-tight">
+                  <p className="mt-3 text-4xl font-semibold tracking-tight">
                     {formatPlanPrice(plan.price)}
                     {plan.price > 0 && <span className="text-base font-medium text-slate-500">/month</span>}
                   </p>
-                  <p className="mt-2 text-sm text-slate-600">{plan.description}</p>
-                  <PricingLink location={key === "pro" ? "home_professional" : "home_starter"} className="mt-4 inline-flex text-sm font-semibold text-indigo-700">
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{plan.description}</p>
+                  <PricingLink location={key === "pro" ? "home_professional" : "home_starter"} className="mt-5 inline-flex text-sm font-semibold text-indigo-800">
                     Compare plans
                   </PricingLink>
                 </article>
@@ -287,8 +283,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Questions</h2>
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">Questions</h2>
         <div className="mt-8">
           <FaqList items={faqs} />
         </div>
