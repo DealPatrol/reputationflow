@@ -112,7 +112,11 @@ export default function GoogleReviewsGuidePage() {
           <FaqList items={faqs} />
         </div>
         <p className="mt-10 text-sm leading-7 text-slate-600">
-          For a bad review that is already public, use the{" "}
+          Trade-specific timing and scripts are in{" "}
+          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+            how to get more Google reviews for a trade
+          </Link>
+          . For a bad review that is already public, use the{" "}
           <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">response templates</Link>
           . Scripts by trade are in the{" "}
           <Link className="font-semibold text-indigo-700" href="/guides/how-to-ask-customers-for-reviews">ask scripts</Link>

@@ -1,6 +1,7 @@
 import { guides } from "@/lib/guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/industries"
 import { qrCityHub, qrCityPages, qrCityPath } from "@/lib/qr-city-pages"
+import { tradeReviewGuideHub, tradeReviewGuidePath, tradeReviewGuides } from "@/lib/trade-review-guides"
 
 export type { IndustryPage } from "@/lib/industries"
 export { industries, industryBySlug, relatedIndustries }
@@ -333,6 +334,7 @@ export function indexablePaths(): SitemapEntry[] {
     { path: qrCityHub.path, priority: 0.8, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
     { path: "/guides", priority: 0.8, changeFrequency: "monthly" },
+    { path: tradeReviewGuideHub.path, priority: 0.8, changeFrequency: "monthly" },
     { path: "/google-review-request-templates", priority: 0.8, changeFrequency: "monthly" },
     { path: "/about", priority: 0.5, changeFrequency: "yearly" },
     { path: "/contact", priority: 0.5, changeFrequency: "yearly" },
@@ -359,6 +361,11 @@ export function indexablePaths(): SitemapEntry[] {
     })),
     ...guides.map((guide) => ({
       path: `/guides/${guide.slug}`,
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
+    })),
+    ...tradeReviewGuides.map((guide) => ({
+      path: tradeReviewGuidePath(guide),
       priority: 0.7,
       changeFrequency: "monthly" as const,
     })),
