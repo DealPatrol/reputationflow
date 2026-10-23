@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { Breadcrumbs } from "@/components/marketing/breadcrumbs"
 import { guideCluster, guideGroups } from "@/lib/guides"
+import { tradeReviewGuideHub, tradeReviewGuidePath, tradeReviewGuides } from "@/lib/trade-review-guides"
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo"
 
 export const metadata = pageMetadata({
@@ -38,7 +39,27 @@ export default function GuidesIndexPage() {
           </Link>
           <span> if you want the scripts in one file.</span>
         </p>
-        <div className="mt-10 space-y-12">
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold text-slate-950">By trade</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            When to ask, what to say, and when a second message is too many.{" "}
+            <Link className="font-semibold text-indigo-700" href={tradeReviewGuideHub.path}>
+              {tradeReviewGuideHub.title}
+            </Link>
+            .
+          </p>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+            {tradeReviewGuides.map((guide) => (
+              <li key={guide.slug}>
+                <Link href={tradeReviewGuidePath(guide)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+                  <h3 className="font-semibold text-slate-950">{guide.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{guide.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <div className="mt-12 space-y-12">
           {guideGroups.map((group) => (
             <section key={group.id}>
               <h2 className="text-xl font-semibold text-slate-950">{group.title}</h2>
