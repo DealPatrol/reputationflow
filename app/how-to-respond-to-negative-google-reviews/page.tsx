@@ -157,7 +157,11 @@ export default function NegativeReviewRepliesPage() {
         </div>
 
         <p className="mt-10 text-sm leading-7 text-slate-600">
-          Asking for the next review is a separate job. More wording is in{" "}
+          Asking for the next review is a separate job. Timing and scripts by trade are in{" "}
+          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+            how to get more Google reviews for a trade
+          </Link>
+          . More wording is in{" "}
           <Link className="font-semibold text-indigo-700" href="/guides/google-review-response-examples">
             Google review response examples
           </Link>{" "}

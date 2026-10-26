@@ -29,10 +29,14 @@ export default function IndustriesIndexPage() {
           Google review QR codes by trade
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-          Pick the trade you actually run. Each page covers how to get more Google reviews in that job: when to ask, a message you can copy, and where the QR code belongs. These are instructions, not customer stories. The{" "}
+          Pick the trade you actually run. Each page covers how to get more Google reviews in that job: when to ask, a message you can copy, and where the QR code belongs. These are instructions, not customer stories.           The{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
-          {" "}and the{" "}
+          , the{" "}
           <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
+          , and the{" "}
+          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+            how-to guides by trade
+          </Link>
           {" "}are the longer versions. A few trades also have{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city pages</Link>
           {" "}for the jobs where the city changes the QR placement. Other cities stay on the trade page. Make the code with the{" "}

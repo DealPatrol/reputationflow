@@ -38,12 +38,16 @@ export function GuideResources({
         to keep the link and the QR code on one page. More writing is in the{" "}
         <Link className="font-semibold text-indigo-700" href="/guides">
           guides
-        </Link>{" "}
-        and the{" "}
+        </Link>
+        , the{" "}
+        <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+          trade how-to guides
+        </Link>
+        , the{" "}
         <Link className="font-semibold text-indigo-700" href="/industries">
           trade pages
-        </Link>{" "}
-        and the{" "}
+        </Link>
+        , and the{" "}
         <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
           city QR guides
         </Link>
