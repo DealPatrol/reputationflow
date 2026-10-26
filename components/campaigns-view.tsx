@@ -5,6 +5,7 @@ import { Download, Link2, Mail, Share2 } from "lucide-react"
 import { Input } from "./ui/input"
 import type { ToastType } from "@/lib/use-toast"
 import { reviewPageUrl } from "@/lib/site"
+import { ReviewRequestComposer } from "@/components/tools/review-request-composer"
 
 interface CampaignsViewProps {
   isPremium: boolean
@@ -159,7 +160,12 @@ export const CampaignsView = ({ isPremium, businessId, showToast, businessName, 
           {sampleData && <p className="mt-1 text-xs text-amber-700">Sample rows from demo mode.</p>}
         </div>
         {campaigns.length === 0 ? (
-          <p className="px-5 py-8 text-sm text-slate-500">No email requests yet.</p>
+          <div className="px-5 py-10">
+            <h3 className="text-base font-semibold text-slate-950">No email requests yet</h3>
+            <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">
+              Starter does not send email. Copy a text or email below and send it yourself. Professional can send one email from this page when you choose the customer.
+            </p>
+          </div>
         ) : (
           <ul className="divide-y divide-slate-100">
             {campaigns.map((campaign) => (
@@ -174,6 +180,12 @@ export const CampaignsView = ({ isPremium, businessId, showToast, businessName, 
           </ul>
         )}
       </div>
+
+      <ReviewRequestComposer
+        heading="Text or email to copy"
+        initialBusinessName={businessName || ""}
+        initialReviewLink={reviewLink}
+      />
     </div>
   )
 }

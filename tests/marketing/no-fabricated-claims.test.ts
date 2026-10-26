@@ -46,6 +46,7 @@ describe("marketing copy", () => {
       join(process.cwd(), "lib/qr-city-pages.ts"),
       join(process.cwd(), "lib/guides.ts"),
       join(process.cwd(), "lib/longtail-guides.ts"),
+      join(process.cwd(), "lib/trade-review-guides.ts"),
       join(process.cwd(), "lib/ad-landings.ts"),
       join(process.cwd(), "lib/review-request-templates.ts"),
       join(process.cwd(), "lib/review-message.ts"),

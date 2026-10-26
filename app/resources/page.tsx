@@ -18,6 +18,7 @@ const staticLinks = [
   { href: "/google-review-qr-by-city", title: "Google review QR codes by city" },
   { href: "/google-review-request-templates", title: "Review request templates" },
   { href: "/how-to-get-more-google-reviews", title: "How to get more Google reviews" },
+  { href: "/how-to-get-more-google-reviews-for", title: "How to get more Google reviews for a trade" },
   { href: "/how-to-respond-to-negative-google-reviews", title: "How to respond to negative Google reviews" },
   { href: "/review-management-software", title: "Review management software" },
   { href: "/pricing", title: "Pricing" },

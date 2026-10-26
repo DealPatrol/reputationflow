@@ -16,16 +16,17 @@ interface EmptyStateProps {
 
 export const EmptyState = ({ icon: Icon, title, description, action, children }: EmptyStateProps) => {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-      <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-        <Icon size={28} className="text-slate-400" />
+    <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700">
+        <Icon size={22} aria-hidden="true" />
       </div>
-      <h3 className="text-lg font-bold text-slate-900 mb-2">{title}</h3>
-      <p className="text-slate-500 max-w-md mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-lg font-semibold text-slate-950">{title}</h3>
+      <p className="mt-2 max-w-md text-sm leading-6 text-slate-600">{description}</p>
       {action && (
         <button
+          type="button"
           onClick={action.onClick}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors"
+          className="mt-6 rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
         >
           {action.label}
         </button>

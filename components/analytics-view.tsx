@@ -239,13 +239,13 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: A
 
       {/* Recent Activity */}
       {total === 0 && (
-        <div className="bg-white p-12 rounded-xl border border-slate-200 shadow-sm text-center">
-          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BarChart3 size={28} className="text-slate-400" />
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700">
+            <BarChart3 size={22} aria-hidden="true" />
           </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">No data yet</h3>
-          <p className="text-slate-500 max-w-md mx-auto">
-            Analytics will appear here once you start collecting feedback from customers.
+          <h3 className="mt-4 text-lg font-semibold text-slate-950">No private notes in this range</h3>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">
+            This page counts notes customers leave on your ReputationFlow page. It does not import reviews that were published on Google.
           </p>
         </div>
       )}

@@ -16,6 +16,7 @@ import { useToast } from "@/lib/use-toast"
 import { DashboardSkeleton } from "@/components/ui/skeleton"
 import { AnalyticsView } from "@/components/analytics-view"
 import { QRCodeGenerator } from "@/components/qr-code-generator"
+import { DashboardShareKit } from "@/components/dashboard/share-kit"
 import { ReviewMonitoringView } from "@/components/review-monitoring-view"
 import { OnboardingTour } from "@/components/onboarding-tour"
 import { ProfessionalUpgrade } from "@/components/professional-upgrade"
@@ -142,7 +143,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex font-sans text-slate-900">
+      <div className="min-h-screen bg-[#f6f5f1] flex font-sans text-slate-950">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
           <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
@@ -199,7 +200,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
     <ErrorBoundary>
       {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
-      <div className="min-h-screen bg-slate-50 flex font-sans text-slate-900">
+      <div className="min-h-screen bg-[#f6f5f1] flex font-sans text-slate-950">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
           <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
@@ -275,6 +276,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
                   url={reviewPageUrl(initialBusiness.id)}
                   businessName={settings.businessName}
                 />
+                <DashboardShareKit url={reviewPageUrl(initialBusiness.id)} businessName={settings.businessName} />
 
                 <div className="mt-6">
                   <button

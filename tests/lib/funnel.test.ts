@@ -24,6 +24,10 @@ describe("funnel origin", () => {
     expect(isSeoLanding("/industries/cleaning-service/chicago")).toBe(true)
     expect(isSeoLanding("/compare/podium")).toBe(true)
     expect(isSeoLanding("/compare/grade-us")).toBe(true)
+    expect(isSeoLanding("/how-to-get-more-google-reviews-for")).toBe(true)
+    expect(isSeoLanding("/how-to-get-more-google-reviews-for/plumbers")).toBe(true)
+    expect(isSeoLanding("/how-to-get-more-google-reviews-for/lawn-care")).toBe(true)
+    expect(isSeoLanding("/how-to-get-more-google-reviews")).toBe(false)
     expect(isSeoLanding("/pricing")).toBe(false)
     expect(isSeoLanding("/compare")).toBe(false)
     expect(isSeoLanding("/industries")).toBe(false)
@@ -57,6 +61,21 @@ describe("funnel origin", () => {
     expect(nextFunnelOrigin("/compare/podium", "/auth/signin")).toBe("/compare/podium")
     expect(nextFunnelOrigin("/compare/birdeye", "/compare/podium")).toBe("/compare/birdeye")
     expect(nextFunnelOrigin("/review-management-software", "/compare/grade-us")).toBe("/compare/grade-us")
+    expect(nextFunnelOrigin("/", "/how-to-get-more-google-reviews-for/plumbers")).toBe(
+      "/how-to-get-more-google-reviews-for/plumbers",
+    )
+    expect(nextFunnelOrigin("/guides", "/how-to-get-more-google-reviews-for/hvac")).toBe(
+      "/how-to-get-more-google-reviews-for/hvac",
+    )
+    expect(nextFunnelOrigin("/how-to-get-more-google-reviews-for", "/how-to-get-more-google-reviews-for/roofers")).toBe(
+      "/how-to-get-more-google-reviews-for/roofers",
+    )
+    expect(nextFunnelOrigin("/how-to-get-more-google-reviews-for/plumbers", "/pricing")).toBe(
+      "/how-to-get-more-google-reviews-for/plumbers",
+    )
+    expect(nextFunnelOrigin("/how-to-get-more-google-reviews-for/plumbers", "/signup")).toBe(
+      "/how-to-get-more-google-reviews-for/plumbers",
+    )
   })
 
   it("caps custom event properties at two non-empty values", () => {

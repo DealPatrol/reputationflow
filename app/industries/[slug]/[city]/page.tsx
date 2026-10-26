@@ -22,6 +22,7 @@ import {
 } from "@/lib/qr-city-pages"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 import { SIGNUP_PATH } from "@/lib/signup"
+import { tradeReviewGuideForIndustry, tradeReviewGuidePath } from "@/lib/trade-review-guides"
 
 export const dynamicParams = false
 
@@ -57,6 +58,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
   const otherCities = otherQrCities(page)
   const otherTrades = otherTradesInQrCity(page)
   const messageLink = messageToolLinkForPath(`/industries/${page.tradeSlug}/${page.citySlug}`)
+  const tradeGuide = tradeReviewGuideForIndustry(page.tradeSlug)
 
   return (
     <MarketingShell>
@@ -123,6 +125,15 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           </Link>
           .
         </p>
+        {tradeGuide ? (
+          <p className="mt-3 text-sm leading-7 text-slate-600">
+            When to ask, the text and the email, and a review that is already public:{" "}
+            <Link className="font-semibold text-indigo-700" href={tradeReviewGuidePath(tradeGuide)}>
+              {tradeGuide.title}
+            </Link>
+            .
+          </p>
+        ) : null}
         <div className="mt-6">
           <Suspense fallback={<div className="h-48 rounded-2xl border border-slate-200 bg-slate-50" />}>
             <GoogleReviewQrTool

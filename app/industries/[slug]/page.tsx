@@ -14,6 +14,7 @@ import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
 import { messageToolLinkForPath } from "@/lib/review-message-pages"
 import { qrCityPagesForTrade, qrCityPath } from "@/lib/qr-city-pages"
+import { tradeReviewGuideForIndustry, tradeReviewGuidePath } from "@/lib/trade-review-guides"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -40,6 +41,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const related = relatedIndustries(industry.slug)
   const cityPages = qrCityPagesForTrade(industry.slug)
   const messageLink = messageToolLinkForPath(`/industries/${industry.slug}`)
+  const tradeGuide = tradeReviewGuideForIndustry(industry.slug)
 
   return (
     <MarketingShell>
@@ -63,6 +65,15 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         />
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{industry.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{industry.intro}</p>
+        {tradeGuide ? (
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            Scripts, follow-up timing, and a review that is already public are in{" "}
+            <Link className="font-semibold text-indigo-700" href={tradeReviewGuidePath(tradeGuide)}>
+              {tradeGuide.title}
+            </Link>
+            .
+          </p>
+        ) : null}
         <p className="mt-4 text-sm leading-7 text-slate-600">
           <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
             Make the QR code
