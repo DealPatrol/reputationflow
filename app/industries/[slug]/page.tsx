@@ -12,6 +12,7 @@ import { SignupLink } from "@/components/marketing/signup-link"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { tradeReplyGuides } from "@/lib/longtail-guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/marketing-content"
+import { messageToolLinkForPath } from "@/lib/review-message-pages"
 import { qrCityPagesForTrade, qrCityPath } from "@/lib/qr-city-pages"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
@@ -38,6 +39,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   if (!industry) notFound()
   const related = relatedIndustries(industry.slug)
   const cityPages = qrCityPagesForTrade(industry.slug)
+  const messageLink = messageToolLinkForPath(`/industries/${industry.slug}`)
 
   return (
     <MarketingShell>
@@ -196,11 +198,15 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <SignupLink className="font-semibold text-indigo-700" href={SIGNUP_PATH} location="industry_body">
             Create a free account
           </SignupLink>{" "}
-          to keep that link, the QR code, and the customer page together. Copy more wording from the{" "}
+          to keep that link, the QR code, and the customer page together. Copy wording from the{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
             review request templates
-          </Link>{" "}
-          or the{" "}
+          </Link>
+          , fill the names and the link with the{" "}
+          <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+            {messageLink.label}
+          </Link>
+          , or read the{" "}
           <Link className="font-semibold text-indigo-700" href="/guides">
             review guides
           </Link>

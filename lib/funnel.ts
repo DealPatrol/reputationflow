@@ -49,6 +49,7 @@ export function isOriginCandidate(path: string): boolean {
 export function isSeoLanding(path: string): boolean {
   if (path === "/tools/qr-code" || path === "/tools/google-review-link" || path === "/google-review-qr-by-city") return true
   if (/^\/compare\/[a-z0-9-]+$/.test(path)) return true
+  if (path === "/tools/review-request-message" || /^\/review-request-text\/[a-z0-9-]+$/.test(path)) return true
   return /^\/industries\/[a-z0-9-]+(?:\/[a-z0-9-]+)?$/.test(path)
 }
 

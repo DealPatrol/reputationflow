@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { PricingLink } from "@/components/marketing/pricing-link"
+import { messageToolLinkForPath, REVIEW_MESSAGE_TOOL_PATH } from "@/lib/review-message-pages"
 
 const links = [
   { href: "/tools/qr-code", label: "Google review QR code generator" },
   { href: "/tools/google-review-link", label: "Google review link generator" },
+  { href: REVIEW_MESSAGE_TOOL_PATH, label: "Review request message generator" },
   { href: "/industries", label: "Google review QR codes by trade" },
   { href: "/google-review-qr-by-city", label: "Google review QR codes by city" },
   { href: "/pricing", label: "Starter and Professional pricing" },
@@ -15,7 +17,10 @@ function locationFor(current: string) {
 }
 
 export function ConversionPaths({ current }: { current: string }) {
-  const items = links.filter((item) => item.href !== current)
+  const specific = messageToolLinkForPath(current)
+  const withTrade =
+    specific.href === REVIEW_MESSAGE_TOOL_PATH ? links : [...links, { href: specific.href, label: specific.label }]
+  const items = withTrade.filter((item) => item.href !== current)
   return (
     <nav aria-label="Tools, trades, and pricing" className="mt-10">
       <h2 className="text-xl font-semibold text-slate-950">Tools, trades, and pricing</h2>

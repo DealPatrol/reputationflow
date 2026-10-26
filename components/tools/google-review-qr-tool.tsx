@@ -1,7 +1,8 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { toDataURL } from "qrcode"
 import { PlanOffer } from "@/components/marketing/plan-offer"
 import { SetupLink } from "@/components/marketing/setup-link"
@@ -9,6 +10,7 @@ import { LeadCaptureForm } from "@/components/tools/lead-capture-form"
 import { ReviewCardDownloads } from "@/components/tools/review-card-download"
 import { trackGeneratorUsed, trackQrDownloaded } from "@/lib/analytics-events"
 import { reviewToolOutcome, type ReviewToolOutcome } from "@/lib/google-review-link"
+import { messageToolLinkForPath } from "@/lib/review-message-pages"
 import { SETUP_CTA_NOTE } from "@/lib/signup"
 
 const QR_OPTIONS = {
@@ -46,6 +48,8 @@ export function GoogleReviewQrTool({
   setupLocation?: string
 }) {
   const params = useSearchParams()
+  const pathname = usePathname() ?? ""
+  const messageLink = messageToolLinkForPath(pathname)
   const preset = params.get("url") ?? params.get("placeid") ?? ""
   const [input, setInput] = useState(preset)
   const [copied, setCopied] = useState(false)
@@ -132,6 +136,12 @@ export function GoogleReviewQrTool({
         {allowPlainUrl
           ? " You can also paste another https link, such as a ReputationFlow page, and the code will open that URL."
           : ""}
+      </p>
+      <p className="mt-3 text-sm leading-6 text-slate-600">
+        <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+          {messageLink.label}
+        </Link>{" "}
+        fills a text and an email with your business name. You copy it and send it yourself.
       </p>
 
       {outcome.status === "error" && (

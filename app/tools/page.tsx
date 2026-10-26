@@ -21,6 +21,11 @@ export const metadata = pageMetadata({
 
 const tools = [
   {
+    href: "/tools/review-request-message",
+    title: "Review request message generator",
+    body: "Text and email scripts filled with your business name, trade, and Google review link. Copy them. Nothing is sent.",
+  },
+  {
     href: "/tools/qr-code",
     title: "Google review QR code generator",
     body: "Paste a Place ID or a long Maps URL. Download the review link and a scannable QR code. No API key.",
@@ -47,7 +52,7 @@ export default function ToolsIndexPage() {
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
           Paste a Place ID and download the review link and the QR code on one page. These tools work without an account. A free ReputationFlow account is what saves them on one customer page.
         </p>
-        <ul className="mt-10 grid gap-4 sm:grid-cols-3">
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {tools.map((tool) => (
             <li key={tool.href}>
               <Link href={tool.href} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">

@@ -23,6 +23,7 @@ const staticLinks = [
   { href: "/pricing", title: "Pricing" },
   { href: "/how-it-works", title: "How it works" },
   { href: "/faq", title: "FAQ" },
+  { href: "/tools/review-request-message", title: "Review request message generator" },
 ]
 
 export const metadata = pageMetadata({

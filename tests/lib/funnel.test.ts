@@ -16,6 +16,9 @@ describe("funnel origin", () => {
   it("treats the generator, trade, and city pages as SEO landings", () => {
     expect(isSeoLanding("/tools/qr-code")).toBe(true)
     expect(isSeoLanding("/tools/google-review-link")).toBe(true)
+    expect(isSeoLanding("/tools/review-request-message")).toBe(true)
+    expect(isSeoLanding("/review-request-text/plumber")).toBe(true)
+    expect(isSeoLanding("/review-request-text")).toBe(false)
     expect(isSeoLanding("/google-review-qr-by-city")).toBe(true)
     expect(isSeoLanding("/industries/plumber")).toBe(true)
     expect(isSeoLanding("/industries/cleaning-service/chicago")).toBe(true)
@@ -39,6 +42,9 @@ describe("funnel origin", () => {
   it("replaces a directory with the specific page the visitor opens", () => {
     expect(nextFunnelOrigin("/", "/tools/qr-code")).toBe("/tools/qr-code")
     expect(nextFunnelOrigin("/tools", "/tools/qr-code")).toBe("/tools/qr-code")
+    expect(nextFunnelOrigin("/tools", "/tools/review-request-message")).toBe("/tools/review-request-message")
+    expect(nextFunnelOrigin("/industries", "/review-request-text/plumber")).toBe("/review-request-text/plumber")
+    expect(nextFunnelOrigin("/review-request-text/plumber", "/pricing")).toBe("/review-request-text/plumber")
     expect(nextFunnelOrigin("/industries", "/industries/plumber")).toBe("/industries/plumber")
     expect(nextFunnelOrigin("/industries/plumber", "/industries/plumber/houston")).toBe("/industries/plumber/houston")
     expect(nextFunnelOrigin("/google-review-qr-by-city", "/industries/roofer/dallas")).toBe("/industries/roofer/dallas")

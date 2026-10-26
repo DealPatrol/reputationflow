@@ -33,7 +33,7 @@ function rememberCurrentPage() {
   return path
 }
 
-export function trackGeneratorUsed(kind: "review" | "plain") {
+export function trackGeneratorUsed(kind: "review" | "plain" | "message") {
   const path = rememberCurrentPage()
   trackEvent(FUNNEL_EVENT.generatorUsed, { path, kind })
 }
