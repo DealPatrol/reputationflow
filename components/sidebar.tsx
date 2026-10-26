@@ -1,6 +1,6 @@
 "use client"
 
-import { Star, LayoutDashboard, Settings, LinkIcon, CreditCard, Zap, Code, Users, BarChart3, Eye } from "lucide-react"
+import { LayoutDashboard, Settings, LinkIcon, CreditCard, Zap, Code, Users, BarChart3, Eye } from "lucide-react"
 
 interface SidebarProps {
   activeTab: string
@@ -10,15 +10,12 @@ interface SidebarProps {
 
 export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) => (
   <div className="w-64 bg-[#0F172A] text-white flex flex-col h-screen fixed left-0 top-0 border-r border-slate-800 hidden md:flex z-50">
-    <div className="p-6 flex items-center space-x-3 border-b border-slate-800/50">
-      <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-2 rounded-lg shadow-lg shadow-indigo-500/20">
-        <Star className="text-white h-5 w-5" fill="currentColor" />
-      </div>
+    <div className="flex items-center border-b border-slate-800 px-6 py-5">
       <div className="flex flex-col">
-        <span className="font-bold text-lg tracking-tight leading-none">
-          Reputation<span className="text-indigo-400">Flow</span>
+        <span className="text-lg font-semibold tracking-tight leading-none">
+          Reputation<span className="text-indigo-300">Flow</span>
         </span>
-        <span className="text-[10px] text-slate-400 font-medium tracking-wider mt-1">LOCAL REVIEWS</span>
+        <span className="mt-1 text-[11px] font-medium tracking-wide text-slate-400">Local reviews</span>
       </div>
     </div>
 
@@ -99,7 +96,7 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
         {!isPremium && (
           <button
             onClick={() => setActiveTab("billing")}
-            className="w-full mt-2 text-xs bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-lg font-bold transition-all flex items-center justify-center space-x-1 shadow-lg shadow-indigo-900/20"
+            className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-indigo-700 py-2 text-xs font-semibold text-white hover:bg-indigo-600"
           >
             <Zap size={12} fill="currentColor" />
             <span>Upgrade to Pro</span>
@@ -115,7 +112,7 @@ const SidebarItem = ({ icon, label, active, onClick }: any) => (
     onClick={onClick}
     className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg transition-all duration-200 group ${
       active
-        ? "bg-indigo-600 text-white shadow-md shadow-indigo-900/20"
+        ? "bg-indigo-700 text-white"
         : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
     }`}
   >

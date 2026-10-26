@@ -5,6 +5,7 @@ import { GuideResources } from "@/components/marketing/guide-resources"
 import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { TemplatePackForm } from "@/components/marketing/template-pack-form"
+import { ReviewRequestComposer } from "@/components/tools/review-request-composer"
 import { reviewRequestTemplates } from "@/lib/review-request-templates"
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/seo"
 
@@ -68,6 +69,9 @@ export default function ReviewRequestTemplatesPage() {
           Use one channel per customer. Replace the brackets, send it yourself, and stop. These scripts ask for a Google review. They do not name a star rating, and they do not offer anything in return.
         </p>
         <TemplatePackForm />
+        <div className="mt-10">
+          <ReviewRequestComposer />
+        </div>
         <div className="mt-12 space-y-10">
           {reviewRequestTemplates.map((template) => (
             <section key={template.trade}>

@@ -38,7 +38,7 @@ export default function DashboardPage() {
     <>
       <PurchaseConversion />
       {loading || !user || !business ? (
-        <div className="min-h-screen bg-slate-50 p-8">
+        <div className="min-h-screen bg-[#f6f5f1] p-4 sm:p-8">
           <DashboardSkeleton />
         </div>
       ) : (

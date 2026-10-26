@@ -24,12 +24,12 @@ export default function PricingPage() {
   return (
     <MarketingShell>
       <JsonLd data={faqJsonLd(faqs)} />
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Pricing</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+        <p className="text-sm font-semibold text-indigo-800">Pricing</p>
+        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.08]">
           A free review link, or $20 a month when you want email requests.
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+        <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
           No setup fee. Professional is billed monthly through Stripe and can be canceled in the customer portal. There is no free trial on top of the Starter plan.
         </p>
 
@@ -40,9 +40,9 @@ export default function PricingPage() {
             return (
               <article
                 key={key}
-                className={`rounded-2xl border p-6 sm:p-8 ${featured ? "border-indigo-600 bg-indigo-50" : "border-slate-200 bg-white"}`}
+                className={`rounded-2xl border bg-white p-6 sm:p-8 ${featured ? "border-indigo-800 shadow-[0_24px_50px_-36px_rgba(49,46,129,0.8)]" : "border-slate-200"}`}
               >
-                {featured && <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700">Professional</p>}
+                {featured && <p className="text-xs font-semibold uppercase tracking-wide text-indigo-800">Professional</p>}
                 <h2 className="mt-2 text-2xl font-semibold text-slate-950">{plan.name}</h2>
                 <p className="mt-3 text-4xl font-semibold tracking-tight">
                   {formatPlanPrice(plan.price)}
@@ -52,7 +52,7 @@ export default function PricingPage() {
                 <ul className="mt-6 space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex gap-3 text-sm text-slate-700">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-indigo-600" aria-hidden="true" />
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-indigo-800" aria-hidden="true" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -61,7 +61,7 @@ export default function PricingPage() {
                   href={featured ? professionalSignupPath() : SIGNUP_PATH}
                   location={featured ? "pricing_professional" : "pricing_starter"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-semibold ${
-                    featured ? "bg-indigo-600 text-white hover:bg-indigo-500" : "border border-slate-300 bg-white text-slate-900"
+                    featured ? "bg-indigo-800 text-white hover:bg-indigo-700" : "border border-slate-300 bg-white text-slate-900"
                   }`}
                 >
                   {featured ? "Create a free account, then checkout" : "Create a free account"}
@@ -71,7 +71,7 @@ export default function PricingPage() {
           })}
         </div>
         <p className="mt-6 text-sm leading-6 text-slate-700">
-          <SetupLink location="pricing_setup" className="font-semibold text-indigo-700" />
+          <SetupLink location="pricing_setup" className="font-semibold text-indigo-800" />
           . {SETUP_CTA_NOTE}
         </p>
         <ul aria-label="Plan facts" className="mt-6 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">

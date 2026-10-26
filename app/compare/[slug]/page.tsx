@@ -46,7 +46,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           faqJsonLd(comparison.faqs),
         ]}
       />
-      <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <article className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:py-20">
         <Breadcrumbs
           items={[
             { name: "Home", path: "/" },
@@ -54,8 +54,8 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
             { name: comparison.name, path: `/compare/${comparison.slug}` },
           ]}
         />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">{comparison.name} alternative</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight text-slate-950">{comparison.title}</h1>
+        <p className="mt-4 text-sm font-semibold text-indigo-800">{comparison.name} alternative</p>
+        <h1 className="mt-2 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.08]">{comparison.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{comparison.summary}</p>
         <p className="mt-4 text-sm leading-6 text-slate-500">
           Checked in {comparison.checked} against the{" "}
@@ -73,7 +73,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           <SignupLink
             href={professionalSignupPath()}
             location={`compare_${comparison.slug}_checkout`}
-            className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+            className="inline-flex items-center justify-center rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
           >
             Create a free account, then checkout
           </SignupLink>
@@ -89,11 +89,12 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           . {SETUP_CTA_NOTE}
         </p>
 
-        <h2 className="mt-10 text-xl font-semibold text-slate-950">Side by side</h2>
-        <div className="mt-4 overflow-x-auto">
+        <h2 className="mt-12 text-2xl font-semibold tracking-tight text-slate-950">Side by side</h2>
+        <p className="mt-2 text-sm text-slate-600">On a phone, swipe the table sideways to read both columns.</p>
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
           <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-950">
+              <tr className="border-b border-slate-200 bg-slate-50 text-slate-950">
                 <th scope="col" className="py-3 pr-4 font-semibold">
                   Topic
                 </th>

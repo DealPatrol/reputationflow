@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/marketing/json-ld"
 import { MarketingShell } from "@/components/marketing/marketing-shell"
 import { SetupLink } from "@/components/marketing/setup-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
+import { QrStandGuide } from "@/components/tools/qr-stand-guide"
 import { findPlaceIdSteps } from "@/lib/google-review-link"
 import { industryBySlug } from "@/lib/industries"
 import { qrCityHub, qrCityPagesForTrade, qrCityPath, qrCityTradeOrder } from "@/lib/qr-city-pages"
@@ -121,6 +122,8 @@ export default function QrCodePage() {
             />
           </Suspense>
         </div>
+
+        <QrStandGuide />
 
         <h2 className="mt-12 text-xl font-semibold text-slate-950">How to make a Google review QR code</h2>
         <ol className="mt-4 space-y-6">
