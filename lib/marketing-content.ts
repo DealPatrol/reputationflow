@@ -1,6 +1,7 @@
 import { guides } from "@/lib/guides"
 import { industries, industryBySlug, relatedIndustries } from "@/lib/industries"
 import { qrCityHub, qrCityPages, qrCityPath } from "@/lib/qr-city-pages"
+import { REVIEW_MESSAGE_TOOL_PATH, reviewMessagePages, reviewMessagePath } from "@/lib/review-message-pages"
 import { tradeReviewGuideHub, tradeReviewGuidePath, tradeReviewGuides } from "@/lib/trade-review-guides"
 
 export type { IndustryPage } from "@/lib/industries"
@@ -331,6 +332,7 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/tools", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/google-review-link", priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/qr-code", priority: 0.9, changeFrequency: "monthly" },
+    { path: REVIEW_MESSAGE_TOOL_PATH, priority: 0.8, changeFrequency: "monthly" },
     { path: qrCityHub.path, priority: 0.8, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
     { path: "/guides", priority: 0.8, changeFrequency: "monthly" },
@@ -351,6 +353,11 @@ export function indexablePaths(): SitemapEntry[] {
     })),
     ...qrCityPages.map((page) => ({
       path: qrCityPath(page),
+      priority: 0.6,
+      changeFrequency: "monthly" as const,
+    })),
+    ...reviewMessagePages.map((page) => ({
+      path: reviewMessagePath(page),
       priority: 0.6,
       changeFrequency: "monthly" as const,
     })),

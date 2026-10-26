@@ -49,6 +49,8 @@ describe("marketing copy", () => {
       join(process.cwd(), "lib/trade-review-guides.ts"),
       join(process.cwd(), "lib/ad-landings.ts"),
       join(process.cwd(), "lib/review-request-templates.ts"),
+      join(process.cwd(), "lib/review-message.ts"),
+      join(process.cwd(), "lib/review-message-pages.ts"),
       join(process.cwd(), "lib/email.ts"),
     ]
     const hits = files.flatMap((file) => {

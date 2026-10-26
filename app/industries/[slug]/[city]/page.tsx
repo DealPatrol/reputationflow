@@ -10,6 +10,7 @@ import { PricingLink } from "@/components/marketing/pricing-link"
 import { SignupLink } from "@/components/marketing/signup-link"
 import { GoogleReviewQrTool } from "@/components/tools/google-review-qr-tool"
 import { industryBySlug } from "@/lib/industries"
+import { messageToolLinkForPath } from "@/lib/review-message-pages"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import {
   otherQrCities,
@@ -56,6 +57,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
   ]
   const otherCities = otherQrCities(page)
   const otherTrades = otherTradesInQrCity(page)
+  const messageLink = messageToolLinkForPath(`/industries/${page.tradeSlug}/${page.citySlug}`)
   const tradeGuide = tradeReviewGuideForIndustry(page.tradeSlug)
 
   return (
@@ -185,6 +187,10 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           . More wording is in the{" "}
           <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
             review request templates
+          </Link>
+          . Write the text with the{" "}
+          <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+            {messageLink.label}
           </Link>
           .
         </p>

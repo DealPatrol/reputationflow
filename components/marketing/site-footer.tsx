@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { PricingLink } from "@/components/marketing/pricing-link"
 import { comparisons, industries } from "@/lib/marketing-content"
+import { REVIEW_MESSAGE_TOOL_PATH } from "@/lib/review-message-pages"
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
 
 export function SiteFooter() {
@@ -41,6 +42,7 @@ export function SiteFooter() {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link className="hover:text-white" href="/guides">Review guides</Link></li>
             <li><Link className="hover:text-white" href="/google-review-request-templates">Review request templates</Link></li>
+            <li><Link className="hover:text-white" href={REVIEW_MESSAGE_TOOL_PATH}>Review request message generator</Link></li>
             <li><Link className="hover:text-white" href="/tools/qr-code">Google review QR code generator</Link></li>
             <li><Link className="hover:text-white" href="/google-review-qr-by-city">QR codes by city</Link></li>
             <li><Link className="hover:text-white" href="/tools/google-review-link">Google review link generator</Link></li>
