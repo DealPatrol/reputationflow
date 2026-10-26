@@ -106,6 +106,7 @@ export default async function ReviewRequestTextPage({ params }: { params: Promis
 
         <div className="mt-10">
           <ReviewMessageGenerator
+            key={page.slug}
             initialSlug={page.slug}
             heading={`Fill the ${page.templateTrade === "HVAC" ? "HVAC" : page.templateTrade.toLowerCase()} message`}
           />
