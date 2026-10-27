@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import { MessageCopyNext } from "@/components/tools/message-copy-next"
 import { trackGeneratorUsed } from "@/lib/analytics-events"
 import {
   businessFieldLabel,
@@ -63,6 +64,7 @@ export function ReviewMessageGenerator({
   const [businessName, setBusinessName] = useState("")
   const [reviewLink, setReviewLink] = useState("")
   const [copied, setCopied] = useState<CopyTarget | "">("")
+  const [lastCopied, setLastCopied] = useState<CopyTarget | "">("")
   const [copyError, setCopyError] = useState("")
   const tracked = useRef(false)
 
@@ -92,6 +94,7 @@ export function ReviewMessageGenerator({
     try {
       await navigator.clipboard.writeText(value)
       setCopied(target)
+      setLastCopied(target)
       window.setTimeout(() => setCopied(""), 2000)
     } catch {
       setCopyError("Could not copy. Select the message and copy it manually.")
@@ -181,6 +184,9 @@ export function ReviewMessageGenerator({
       >
         {copyLabel("sms", copied)}
       </button>
+      {lastCopied === "sms" ? (
+        <MessageCopyNext channel="sms" reviewLink={reviewLink} businessName={businessName} />
+      ) : null}
 
       <label className="mt-6 block text-sm font-medium text-slate-800" htmlFor="review-message-email">
         Email
@@ -193,6 +199,9 @@ export function ReviewMessageGenerator({
       >
         {copyLabel("email", copied)}
       </button>
+      {lastCopied === "email" ? (
+        <MessageCopyNext channel="email" reviewLink={reviewLink} businessName={businessName} />
+      ) : null}
 
       <label className="mt-6 block text-sm font-medium text-slate-800" htmlFor="review-message-in-person">
         In person
@@ -205,6 +214,9 @@ export function ReviewMessageGenerator({
       >
         {copyLabel("inPerson", copied)}
       </button>
+      {lastCopied === "inPerson" ? (
+        <MessageCopyNext channel="inPerson" reviewLink={reviewLink} businessName={businessName} />
+      ) : null}
 
       {composed.unresolved.length > 0 ? (
         <p className="mt-4 text-sm leading-6 text-slate-600">
