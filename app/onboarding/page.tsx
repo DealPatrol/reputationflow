@@ -7,6 +7,7 @@ import { toDataURL } from "qrcode"
 import { ProfessionalUpgrade } from "@/components/professional-upgrade"
 import { trackSetupCompleted } from "@/lib/analytics-events"
 import { buildGoogleReviewLink } from "@/lib/google-review-link"
+import { dropPendingReviewLink, reviewLinkForSetup, takePendingReviewLink } from "@/lib/message-handoff"
 import { canOfferProfessionalCheckout, isProfessionalSubscriber, setupCompletionToReport } from "@/lib/setup-funnel"
 import { SIGNUP_PATH } from "@/lib/signup"
 import { reviewPageUrl } from "@/lib/site"
@@ -29,6 +30,7 @@ export default function OnboardingPage() {
   const [subscriptionStatus, setSubscriptionStatus] = useState("")
   const [arrivedWithSavedLink, setArrivedWithSavedLink] = useState(false)
   const [linkSavedThisVisit, setLinkSavedThisVisit] = useState(false)
+  const [carriedFromMessage, setCarriedFromMessage] = useState(false)
   const reportedSetup = useRef(false)
 
   useEffect(() => {
@@ -41,14 +43,18 @@ export default function OnboardingPage() {
         }
         const business = data.user.business
         const savedLink = typeof business?.google_link === "string" ? business.google_link : ""
+        const pendingLink = takePendingReviewLink()
+        const initialLink = reviewLinkForSetup(savedLink, pendingLink)
         const status = typeof business?.subscription_status === "string" ? business.subscription_status : ""
         setBusinessId(business?.id ?? null)
         setGoogleLink(savedLink)
-        setRawInput(savedLink)
+        setRawInput(initialLink)
+        setCarriedFromMessage(savedLink.trim().length === 0 && initialLink.length > 0)
         setIsPremium(isProfessionalSubscriber(business ?? null))
         setSubscriptionStatus(status)
         setArrivedWithSavedLink(savedLink.trim().length > 0)
         setStep(savedLink.trim() ? "qr" : "link")
+        if (savedLink.trim().length > 0) dropPendingReviewLink()
         setReady(true)
       })
       .catch(() => router.replace("/auth/signin"))
@@ -115,6 +121,8 @@ export default function OnboardingPage() {
       setGoogleLink(built.url)
       setRawInput(built.url)
       setLinkSavedThisVisit(true)
+      setCarriedFromMessage(false)
+      dropPendingReviewLink()
       setStep("qr")
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : "Could not save your review link")
@@ -169,12 +177,21 @@ export default function OnboardingPage() {
                 placeholder="ChIJ... or https://search.google.com/local/writereview?placeid="
                 className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm"
               />
-              <p className="mt-3 text-sm text-slate-600">
-                <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
-                  Open the free generator
-                </Link>{" "}
-                if you want to check the link before you save it.
-              </p>
+              {carriedFromMessage ? (
+                <p className="mt-3 text-sm leading-6 text-slate-700">
+                  This is the Google review link from the message you copied. Save it to make the QR code.
+                  {canOfferProfessionalCheckout({ isPremium, subscriptionStatus })
+                    ? " The Professional upgrade is on the next screen."
+                    : ""}
+                </p>
+              ) : (
+                <p className="mt-3 text-sm text-slate-600">
+                  <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+                    Open the free generator
+                  </Link>{" "}
+                  if you want to check the link before you save it.
+                </p>
+              )}
             </div>
           )}
 

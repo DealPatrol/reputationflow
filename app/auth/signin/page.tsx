@@ -7,6 +7,7 @@ import Link from "next/link"
 import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { readStoredAttribution } from "@/lib/attribution"
+import { dropPendingBusinessName, takePendingBusinessName } from "@/lib/message-handoff"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { startProfessionalCheckout } from "@/lib/start-checkout"
 import { afterAuthDestination, BILLING_CHECKOUT_FAILED_PATH, isProfessionalIntent } from "@/lib/signup"
@@ -24,7 +25,11 @@ export default function SignInPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    if (params.get("signup") === "1") setIsSignUp(true)
+    if (params.get("signup") === "1") {
+      setIsSignUp(true)
+      const pendingName = takePendingBusinessName()
+      if (pendingName) setBusinessName((current) => current || pendingName)
+    }
     if (isProfessionalIntent(params.get("plan"))) setWantsProfessional(true)
   }, [])
 
@@ -52,7 +57,10 @@ export default function SignInPage() {
         throw new Error(data.error || "Authentication failed")
       }
 
-      if (isSignUp) trackSignup()
+      if (isSignUp) {
+        trackSignup()
+        dropPendingBusinessName()
+      }
       const next = afterAuthDestination({ isSignUp, wantsProfessional })
       switch (next.type) {
         case "checkout": {
