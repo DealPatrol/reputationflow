@@ -1,7 +1,9 @@
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, it } from "vitest"
+import { cleanLocation } from "@/lib/funnel"
 import { PLANS } from "@/lib/plans"
+import { qrCityPages } from "@/lib/qr-city-pages"
 import { SETUP_CTA_LABEL, SETUP_CTA_NOTE, SIGNUP_PATH } from "@/lib/signup"
 
 function source(path: string) {
@@ -55,5 +57,20 @@ describe("free setup call to action", () => {
     expect(source("components/dashboard-client.tsx")).toContain('location="dashboard_banner"')
     expect(source("components/billing-view.tsx")).toContain('trackUpgradeClick("billing")')
     expect(source("components/billing-view.tsx")).toContain("startProfessionalCheckout")
+    expect(source("components/marketing/plan-offer.tsx")).toContain("professionalSignupPath()")
+    expect(source("components/marketing/plan-offer.tsx")).toContain("rememberPendingReviewLink")
+    expect(source("components/marketing/plan-offer.tsx")).toContain("SetupLink")
+    expect(source("components/marketing/plan-offer.tsx")).not.toContain("plan=")
+    expect(source("components/tools/google-review-qr-tool.tsx")).toContain("reviewLink={outcome.status === \"review\" ? targetUrl : \"\"}")
+    expect(source("components/dashboard/pending-review-link.tsx")).toContain("takePendingReviewLink")
+    expect(source("components/dashboard/pending-review-link.tsx")).toContain('trackSetupCompleted("saved")')
+    expect(source("components/dashboard-client.tsx")).toContain("PendingReviewLinkSave")
+    expect(source("app/onboarding/page.tsx")).toContain("from the tool you just used")
+    for (const page of qrCityPages) {
+      const base = `qr_city_tool_${page.tradeSlug}_${page.citySlug}`
+      for (const suffix of ["_setup", "_pro", "_pricing"]) {
+        expect(cleanLocation(`${base}${suffix}`)).toBe(`${base}${suffix}`)
+      }
+    }
   })
 })

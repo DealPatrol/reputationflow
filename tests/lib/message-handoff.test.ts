@@ -13,6 +13,7 @@ import {
   reviewLinkForSetup,
   reviewLinkToCarry,
   writeMessageHandoff,
+  writePendingReviewLink,
   type MessageHandoffStorage,
 } from "@/lib/message-handoff"
 
@@ -93,5 +94,18 @@ describe("message copy handoff", () => {
     expect(messageCopyLocation("sms", "setup")).toBe("message_copy_sms_setup")
     expect(messageCopyLocation("email", "pricing")).toBe("message_copy_email_pricing")
     expect(messageCopyLocation("inPerson", "setup")).toBe("message_copy_in_person_setup")
+  })
+
+  it("stores a review link from the QR tool without clearing a business name", () => {
+    const storage = memoryStorage({
+      [PENDING_REVIEW_LINK_KEY]: "https://g.page/old",
+      [PENDING_BUSINESS_NAME_KEY]: "Harbor Services",
+    })
+    expect(writePendingReviewLink(storage, placeId)).toBe(true)
+    expect(readPendingReviewLink(storage)).toBe(reviewUrl)
+    expect(readPendingBusinessName(storage)).toBe("Harbor Services")
+    expect(writePendingReviewLink(storage, "https://example.com/not-google")).toBe(false)
+    expect(readPendingReviewLink(storage)).toBe(reviewUrl)
+    expect(writePendingReviewLink(storage, "")).toBe(false)
   })
 })

@@ -19,6 +19,7 @@ import { QRCodeGenerator } from "@/components/qr-code-generator"
 import { DashboardShareKit } from "@/components/dashboard/share-kit"
 import { ReviewMonitoringView } from "@/components/review-monitoring-view"
 import { OnboardingTour } from "@/components/onboarding-tour"
+import { PendingReviewLinkSave } from "@/components/dashboard/pending-review-link"
 import { ProfessionalUpgrade } from "@/components/professional-upgrade"
 import { canOfferProfessionalCheckout } from "@/lib/setup-funnel"
 import { reviewPageUrl } from "@/lib/site"
@@ -205,6 +206,10 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
           <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
           <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+            <PendingReviewLinkSave
+              hasSavedLink={typeof settings.googleLink === "string" && settings.googleLink.trim().length > 0}
+              onSaved={(url) => setSettings((current) => ({ ...current, googleLink: url }))}
+            />
             {typeof settings.googleLink === "string" &&
               settings.googleLink.trim().length > 0 &&
               activeTab !== "billing" &&
