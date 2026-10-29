@@ -131,6 +131,23 @@ export function rememberMessageHandoff(input: { reviewLink: string; businessName
   }
 }
 
+export function writePendingReviewLink(storage: MessageHandoffStorage, reviewLink: string): boolean {
+  const link = reviewLinkToCarry(reviewLink)
+  if (!link) return false
+  storage.setItem(PENDING_REVIEW_LINK_KEY, link)
+  return true
+}
+
+export function rememberPendingReviewLink(reviewLink: string) {
+  const storage = browserStorage()
+  if (!storage) return
+  try {
+    writePendingReviewLink(storage, reviewLink)
+  } catch {
+    // A blocked session store must not stop the signup link.
+  }
+}
+
 export function takePendingReviewLink(): string {
   const storage = browserStorage()
   if (!storage) return ""

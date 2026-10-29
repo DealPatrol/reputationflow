@@ -5,13 +5,11 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { toDataURL } from "qrcode"
 import { PlanOffer } from "@/components/marketing/plan-offer"
-import { SetupLink } from "@/components/marketing/setup-link"
 import { LeadCaptureForm } from "@/components/tools/lead-capture-form"
 import { ReviewCardDownloads } from "@/components/tools/review-card-download"
 import { trackGeneratorUsed, trackQrDownloaded } from "@/lib/analytics-events"
 import { reviewToolOutcome, type ReviewToolOutcome } from "@/lib/google-review-link"
 import { messageToolLinkForPath } from "@/lib/review-message-pages"
-import { SETUP_CTA_NOTE } from "@/lib/signup"
 
 const QR_OPTIONS = {
   errorCorrectionLevel: "M" as const,
@@ -227,21 +225,17 @@ export function GoogleReviewQrTool({
           {dataUrl && (
             <PlanOffer
               signupLocation={ctaLocation}
+              setupLocation={setupLocation}
               pricingLocation={`${ctaLocation}_pricing`}
+              reviewLink={outcome.status === "review" ? targetUrl : ""}
               heading="Next: save the link, or email the request later"
               body={
                 outcome.status === "review"
-                  ? "The review link and the PNG are ready in this browser. This page does not store them. Close the tab and they are gone unless you saved the file."
+                  ? "The review link and the PNG are ready in this browser. This page does not store them. Download the PNG if you want a copy before you leave."
                   : "This QR code opens the URL you pasted. It is not a Google review link. This page does not store the file."
               }
             />
           )}
-          {dataUrl && setupLocation ? (
-            <p className="mt-4 text-sm leading-6 text-slate-700">
-              <SetupLink location={setupLocation} className="font-semibold text-indigo-700" />
-              . {SETUP_CTA_NOTE}
-            </p>
-          ) : null}
           <LeadCaptureForm source={source} details={targetUrl} />
         </div>
       )}

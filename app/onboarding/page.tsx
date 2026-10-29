@@ -179,7 +179,7 @@ export default function OnboardingPage() {
               />
               {carriedFromMessage ? (
                 <p className="mt-3 text-sm leading-6 text-slate-700">
-                  This is the Google review link from the message you copied. Save it to make the QR code.
+                  This is the Google review link from the tool you just used. Save it to make the QR code.
                   {canOfferProfessionalCheckout({ isPremium, subscriptionStatus })
                     ? " The Professional upgrade is on the next screen."
                     : ""}

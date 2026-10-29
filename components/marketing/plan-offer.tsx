@@ -1,19 +1,31 @@
+"use client"
+
 import { PricingLink } from "@/components/marketing/pricing-link"
+import { SetupLink } from "@/components/marketing/setup-link"
 import { SignupLink } from "@/components/marketing/signup-link"
+import { rememberPendingReviewLink } from "@/lib/message-handoff"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
-import { SIGNUP_PATH } from "@/lib/signup"
+import { professionalSignupPath, SETUP_CTA_NOTE } from "@/lib/signup"
 
 export function PlanOffer({
   signupLocation,
   pricingLocation,
   heading,
   body,
+  setupLocation,
+  reviewLink = "",
 }: {
   signupLocation: string
   pricingLocation: string
   heading: string
   body: string
+  setupLocation?: string
+  reviewLink?: string
 }) {
+  const price = formatPlanPrice(PLANS.pro.price)
+  const setup = setupLocation || `${signupLocation}_setup`
+  const remember = () => rememberPendingReviewLink(reviewLink)
+
   return (
     <aside aria-label={heading} className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
       <p className="text-lg font-semibold text-slate-950">{heading}</p>
@@ -34,23 +46,35 @@ export function PlanOffer({
         })}
       </div>
       <p className="mt-3 text-sm leading-6 text-slate-700">
-        {PLANS.free.name} does not ask for a card. There is no trial on top of {PLANS.free.name}. {PLANS.pro.name} is billed monthly through Stripe. You can cancel it in the Stripe customer portal.
+        {PLANS.free.name} does not ask for a card. There is no trial on top of {PLANS.free.name}. {PLANS.pro.name} is {price} per month through Stripe. You can cancel it in the Stripe customer portal.
       </p>
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <SetupLink
+          location={setup}
+          onClick={remember}
+          className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-500"
+        />
         <SignupLink
-          href={SIGNUP_PATH}
-          location={signupLocation}
-          className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+          href={professionalSignupPath()}
+          location={`${signupLocation}_pro`}
+          onClick={remember}
+          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-900"
         >
-          Create a free {PLANS.free.name} account
+          {PLANS.pro.name}, {price}/month
         </SignupLink>
-        <PricingLink
-          location={pricingLocation}
-          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800"
-        >
-          See {PLANS.pro.name} pricing
-        </PricingLink>
       </div>
+      <p className="mt-3 text-sm leading-6 text-slate-700">
+        {SETUP_CTA_NOTE} Choosing {PLANS.pro.name} opens Stripe checkout as soon as the account exists.
+        {reviewLink
+          ? " The Google review link from this page is filled in on the free setup screen. If checkout comes first, the dashboard asks you to save that same link. This browser keeps it until you do."
+          : ""}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-700">
+        <PricingLink location={pricingLocation} onClick={remember} className="font-semibold text-indigo-700">
+          Compare {PLANS.free.name} and {PLANS.pro.name}
+        </PricingLink>
+        .
+      </p>
     </aside>
   )
 }
