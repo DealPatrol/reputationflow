@@ -3,6 +3,7 @@ import { PricingLink } from "@/components/marketing/pricing-link"
 import { comparisons, industries } from "@/lib/marketing-content"
 import { REVIEW_MESSAGE_TOOL_PATH } from "@/lib/review-message-pages"
 import { PUBLIC_CONTACT_EMAIL } from "@/lib/site"
+import { SisterSites } from '@/components/marketing/sister-sites';
 
 export function SiteFooter() {
   return (
@@ -72,6 +73,7 @@ export function SiteFooter() {
           © {new Date().getFullYear()} ReputationFlow. Reviews are written by customers on the platforms they choose.
         </p>
       </div>
-    </footer>
+          <SisterSites selfUrl="https://tryreputationflow.com" clusters={['home-services', 'reviews']} />
+</footer>
   )
 }
