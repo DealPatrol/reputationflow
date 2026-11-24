@@ -90,6 +90,10 @@ Subscribe the webhook endpoint to:
 
 Webhook signatures are verified before processing. Event IDs are persisted in `stripe_webhook_events` so retries are idempotent.
 
+## iPhone app
+
+The iOS app (Capacitor 8, `ios/`) wraps the live site with native extras and StoreKit 2 billing. Run `npm run ios:sync`, then `npm run ios:open`. See [IOS_APP_STORE.md](IOS_APP_STORE.md) for App Review, App Store Connect, and production setup (including `npm run migrate` for the App Store tables).
+
 ## Stack
 
 Next.js 16, React 19, Neon Postgres, Groq, Resend, Stripe, and Vercel.

@@ -1,11 +1,16 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
+import { isNativeIosUserAgent } from "@/lib/native/platform"
 import { getBusinessByUserId, updateBusinessStripeCustomer } from "@/lib/db"
 import { getStripeClient, PLANS } from "@/lib/stripe"
 import { absoluteUrl } from "@/lib/site"
 
 export async function POST(request: NextRequest) {
   try {
+    // The iOS app sells Professional with StoreKit only (App Review Guideline 3.1.1).
+    if (isNativeIosUserAgent(request.headers.get("user-agent"))) {
+      return NextResponse.json({ error: "In the iPhone app, Professional is available through the App Store." }, { status: 403 })
+    }
     const user = await getCurrentUser(request)
     if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
 

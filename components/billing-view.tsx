@@ -54,7 +54,7 @@ export function BillingView({ isPremium, subscriptionStatus, checkoutFailed = fa
   }
 
   return (
-    <div className="max-w-4xl animate-in fade-in duration-500">
+    <div className="web-only max-w-4xl animate-in fade-in duration-500">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900">Billing & Plans</h1>
         <p className="text-slate-500">Choose the plan that works best for your business</p>

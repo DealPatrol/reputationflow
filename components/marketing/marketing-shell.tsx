@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { SiteFooter } from "@/components/marketing/site-footer"
 import { SiteHeader } from "@/components/marketing/site-header"
+import { NativeBackBar } from "@/components/native/native-back-bar"
 
 export function MarketingShell({ children }: { children: ReactNode }) {
   return (
@@ -11,11 +12,16 @@ export function MarketingShell({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <SiteHeader />
+      <div className="web-only contents">
+        <SiteHeader />
+      </div>
+      <NativeBackBar />
       <main id="main" className="flex-1">
         {children}
       </main>
-      <SiteFooter />
+      <div className="web-only contents">
+        <SiteFooter />
+      </div>
     </div>
   )
 }

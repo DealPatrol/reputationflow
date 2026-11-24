@@ -701,3 +701,161 @@ export async function claimAdsPurchase(businessId: string | number): Promise<Pur
   if (!claimed[0]) return { state: "already" }
   return { state: "ready", transactionId: String(row.stripe_subscription_id) }
 }
+
+// ---------------------------------------------------------------------------
+// Account deletion (App Review Guideline 5.1.1(v)) and App Store entitlements (Guideline 3.1.1)
+// ---------------------------------------------------------------------------
+
+export interface AccountBillingRefs {
+  businessId: number | null
+  stripeCustomerId: string | null
+  stripeSubscriptionIds: string[]
+  hasAppStoreSubscription: boolean
+}
+
+export async function getAccountBillingRefs(userId: string): Promise<AccountBillingRefs> {
+  const empty: AccountBillingRefs = { businessId: null, stripeCustomerId: null, stripeSubscriptionIds: [], hasAppStoreSubscription: false }
+  if (!sql) return empty
+  const rows = await sql`
+    SELECT b.id, b.stripe_customer_id, b.stripe_subscription_id AS business_subscription_id,
+           s.stripe_subscription_id AS subscription_id, s.status
+    FROM businesses b
+    LEFT JOIN subscriptions s ON s.business_id = b.id
+    WHERE b.user_id = ${userId}
+    LIMIT 1
+  `
+  const row = rows[0] as
+    | { id: number; stripe_customer_id: string | null; business_subscription_id: string | null; subscription_id: string | null }
+    | undefined
+  if (!row) return empty
+  let hasAppStoreSubscription = false
+  try {
+    const apple = await sql`
+      SELECT 1 FROM app_store_subscriptions
+      WHERE business_id = ${row.id} AND revoked_at IS NULL AND expires_at > CURRENT_TIMESTAMP
+      LIMIT 1
+    `
+    hasAppStoreSubscription = apple.length > 0
+  } catch {
+    /* app_store_subscriptions is created by npm run migrate; absent means no App Store purchases */
+  }
+  const ids = [row.subscription_id, row.business_subscription_id].filter((id): id is string => Boolean(id))
+  return {
+    businessId: row.id,
+    stripeCustomerId: row.stripe_customer_id,
+    stripeSubscriptionIds: [...new Set(ids)],
+    hasAppStoreSubscription,
+  }
+}
+
+/**
+ * Permanently deletes a user, their business, and everything that cascades from it (feedback,
+ * review requests, subscriptions, follow-up settings, App Store entitlements), plus template-pack
+ * leads stored under the same email. Runs in one transaction.
+ */
+export async function deleteUserAccount(userId: string, email: string): Promise<boolean> {
+  if (!sql) return false
+  const normalizedEmail = email.trim().toLowerCase()
+  const results = await sql.transaction([
+    sql`DELETE FROM businesses WHERE user_id = ${userId}`,
+    sql`DELETE FROM leads WHERE lower(email) = ${normalizedEmail}`,
+    sql`DELETE FROM users WHERE id = ${userId} RETURNING id`,
+  ])
+  const deletedUsers = results[2] as unknown as Array<{ id: string }>
+  return Array.isArray(deletedUsers) && deletedUsers.length === 1
+}
+
+export async function getUserById(userId: string) {
+  if (!sql) return null
+  const result = await sql`SELECT id, email, password_hash FROM users WHERE id = ${userId} LIMIT 1`
+  return result[0] || null
+}
+
+export interface AppStoreEntitlementRow {
+  originalTransactionId: string
+  transactionId: string
+  productId: string
+  expiresAt: Date | null
+  revokedAt: Date | null
+  environment: string
+  appAccountToken: string | null
+  active: boolean
+}
+
+export type AppStoreSyncResult = "active" | "inactive" | "linked_elsewhere" | "unavailable"
+
+/**
+ * Records an App Store transaction for a business and updates its plan. Never downgrades or
+ * overwrites an active Stripe (web) subscription. An App Store subscription stays linked to the
+ * first ReputationFlow account that claimed it.
+ */
+export async function applyAppStoreEntitlement(
+  businessId: number,
+  entitlement: AppStoreEntitlementRow,
+): Promise<AppStoreSyncResult> {
+  if (!sql) return "unavailable"
+  const expiresAt = entitlement.expiresAt?.toISOString() ?? null
+  const revokedAt = entitlement.revokedAt?.toISOString() ?? null
+  const linked = await sql`
+    INSERT INTO app_store_subscriptions
+      (original_transaction_id, business_id, product_id, transaction_id, expires_at, revoked_at, environment, app_account_token)
+    VALUES
+      (${entitlement.originalTransactionId}, ${businessId}, ${entitlement.productId}, ${entitlement.transactionId},
+       ${expiresAt}, ${revokedAt}, ${entitlement.environment}, ${entitlement.appAccountToken})
+    ON CONFLICT (original_transaction_id) DO UPDATE
+      SET product_id = EXCLUDED.product_id,
+          transaction_id = EXCLUDED.transaction_id,
+          expires_at = EXCLUDED.expires_at,
+          revoked_at = EXCLUDED.revoked_at,
+          environment = EXCLUDED.environment,
+          updated_at = CURRENT_TIMESTAMP
+      WHERE app_store_subscriptions.business_id = EXCLUDED.business_id
+    RETURNING business_id
+  `
+  if (linked.length === 0) return "linked_elsewhere"
+  return refreshAppStorePlan(businessId)
+}
+
+/** Recomputes the plan for a business from its App Store rows. Stripe-backed plans are left alone. */
+export async function refreshAppStorePlan(businessId: number): Promise<AppStoreSyncResult> {
+  if (!sql) return "unavailable"
+  const active = await sql`
+    SELECT expires_at FROM app_store_subscriptions
+    WHERE business_id = ${businessId} AND revoked_at IS NULL AND expires_at > CURRENT_TIMESTAMP
+    ORDER BY expires_at DESC
+    LIMIT 1
+  `
+  if (active[0]) {
+    await sql`
+      INSERT INTO subscriptions (business_id, plan_type, status, current_period_end, billing_source)
+      VALUES (${businessId}, 'pro', 'active', ${active[0].expires_at}, 'app_store')
+      ON CONFLICT (business_id) DO UPDATE
+        SET plan_type = 'pro', status = 'active', current_period_end = EXCLUDED.current_period_end,
+            billing_source = 'app_store', updated_at = CURRENT_TIMESTAMP
+        WHERE NOT (subscriptions.plan_type = 'pro' AND subscriptions.status = 'active'
+                   AND COALESCE(subscriptions.billing_source, 'stripe') <> 'app_store')
+    `
+    return "active"
+  }
+  await sql`
+    UPDATE subscriptions
+    SET plan_type = 'free', status = 'active', billing_source = NULL, updated_at = CURRENT_TIMESTAMP
+    WHERE business_id = ${businessId} AND billing_source = 'app_store'
+  `
+  return "inactive"
+}
+
+/** Finds the business for an App Store Server Notification. appAccountToken is the ReputationFlow user id. */
+export async function findBusinessForAppStoreTransaction(
+  originalTransactionId: string,
+  appAccountToken: string | null,
+): Promise<number | null> {
+  if (!sql) return null
+  const linked = await sql`
+    SELECT business_id FROM app_store_subscriptions WHERE original_transaction_id = ${originalTransactionId} LIMIT 1
+  `
+  if (linked[0]) return Number(linked[0].business_id)
+  if (!appAccountToken) return null
+  const byUser = await sql`SELECT id FROM businesses WHERE lower(user_id) = ${appAccountToken.toLowerCase()} LIMIT 1`
+  return byUser[0] ? Number(byUser[0].id) : null
+}

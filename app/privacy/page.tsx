@@ -31,7 +31,7 @@ export default function PrivacyPage() {
       <main className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-12">
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Privacy Policy</h1>
-          <p className="text-slate-500 mb-8">Last updated: December 2024</p>
+          <p className="text-slate-500 mb-8">Last updated: November 2026</p>
 
           <div className="prose prose-slate max-w-none space-y-8">
             <section>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
                 <li>Account information (name, email, password)</li>
                 <li>Business information (business name, contact details)</li>
-                <li>Payment information (processed securely through Stripe)</li>
+                <li>Payment information (processed by Stripe on the website, or by Apple for App Store subscriptions in the iPhone app; we never receive full card numbers)</li>
                 <li>Customer feedback and review data that you collect</li>
               </ul>
 
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
                 Third-party vendors who perform services on our behalf:
               </p>
               <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
-                <li>Payment processing (Stripe)</li>
+                <li>Payment processing (Stripe on the website; Apple for subscriptions bought in the iPhone app)</li>
                 <li>Email delivery (Resend), when you send a review request</li>
                 <li>Cloud hosting (Vercel, Neon)</li>
                 <li>AI drafts (Groq), when you ask for a response draft</li>
@@ -121,9 +121,31 @@ export default function PrivacyPage() {
               <h2 className="text-2xl font-bold text-slate-900 mb-4">6. Data Retention</h2>
               <p className="text-slate-600 leading-relaxed">
                 We retain your information for as long as necessary to provide our services and fulfill the purposes
-                outlined in this policy. When you close your account, we will delete or anonymize your information
-                within 90 days, except where we are required to retain it for legal purposes.
+                outlined in this policy. You can delete your account at any time from Business Profile &gt; Account,
+                on the website or in the iPhone app. Deletion immediately removes your login, business profile, review
+                links, customer feedback, review requests, and settings, and cancels any web (Stripe) subscription.
+                Payment records kept by Stripe or Apple, and backups that expire within 30 days, may persist where the
+                law requires.
               </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">6a. The ReputationFlow iPhone app</h2>
+              <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
+                <li>
+                  Counter Kit saves your review link, QR code, request scripts, and reply templates on your iPhone so they
+                  work without signal. Remove that copy in Business Profile &gt; On this iPhone, or by deleting the app.
+                </li>
+                <li>
+                  Face ID, Touch ID, and passcode checks are handled by iOS. We never receive biometric data.
+                </li>
+                <li>Review check-in reminders are scheduled on your iPhone and never include customer details.</li>
+                <li>
+                  App Store subscriptions are billed by Apple. We receive a signed record of the subscription (product,
+                  dates, and transaction ID) to turn Professional on for your account.
+                </li>
+                <li>The iPhone app does not load advertising pixels and does not track you across other apps or websites.</li>
+              </ul>
             </section>
 
             <section>

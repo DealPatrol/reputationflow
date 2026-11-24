@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://tryreputationflow.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>ReputationFlow · Counter Kit</title>
+  <link rel="stylesheet" href="offline.css">
+</head>
+<body>
+  <!-- Bundled inside the iOS app. Shown when tryreputationflow.com cannot be reached (Capacitor server.errorPath),
+       so the review QR code, link, and scripts saved on this iPhone still work at the counter or job site. -->
+  <header class="bar">
+    <span class="brand">Reputation<span>Flow</span></span>
+    <span class="pill" id="status">Offline</span>
+  </header>
+  <main>
+    <section class="card center" id="kit" hidden>
+      <h1 id="business"></h1>
+      <p class="muted">Scan with your camera to leave a review</p>
+      <img id="qr" alt="Review QR code" width="256" height="256">
+      <p class="mono" id="link"></p>
+      <div class="row">
+        <button type="button" class="primary" id="fullscreen">Show customer</button>
+        <button type="button" id="share">Share link + QR</button>
+      </div>
+      <p class="muted small" id="saved"></p>
+    </section>
+    <section class="card" id="empty" hidden>
+      <h1>No connection</h1>
+      <p>Open <strong>Counter Kit</strong> once while you are online. Your review QR code, link, and scripts are then saved on this iPhone and open here without signal.</p>
+    </section>
+    <section class="card" id="requests" hidden>
+      <h2>Request scripts</h2>
+      <ul id="request-list"></ul>
+    </section>
+    <section class="card" id="replies" hidden>
+      <h2>Reply templates</h2>
+      <p class="muted small">Paste a reply on Google, Facebook, or Yelp yourself.</p>
+      <ul id="reply-list"></ul>
+    </section>
+    <button type="button" class="retry" id="retry">Try again</button>
+    <p class="muted small center" id="message" role="status"></p>
+  </main>
+  <div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-label="Review QR code">
+    <button type="button" class="close" id="close" aria-label="Close">✕</button>
+    <p class="big" id="overlay-name"></p>
+    <p class="muted">Scan with your camera to leave a review</p>
+    <img id="overlay-qr" alt="Review QR code">
+  </div>
+  <script src="offline.js"></script>
+</body>
+</html>

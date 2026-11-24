@@ -205,7 +205,7 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
           </button>
           <button
             onClick={printQR}
-            className="bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
+            className="web-only bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
           >
             <Printer size={16} />
             <span className="hidden sm:inline">Print</span>
