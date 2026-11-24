@@ -11,6 +11,7 @@ import {
   CreditCard,
   BarChart3,
   Eye,
+  QrCode,
 } from "lucide-react"
 import { useState } from "react"
 
@@ -18,20 +19,22 @@ interface MobileNavProps {
   activeTab: string
   setActiveTab: (tab: string) => void
   isPremium?: boolean
+  native?: boolean
 }
 
-export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps) => {
+export const MobileNav = ({ activeTab, setActiveTab, isPremium, native = false }: MobileNavProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems = [
     { id: "dashboard", label: "Overview", icon: <LayoutDashboard size={20} /> },
+    ...(native ? [{ id: "counter", label: "Counter Kit", icon: <QrCode size={20} /> }] : []),
     { id: "campaigns", label: "Requests", icon: <Users size={20} /> },
     { id: "analytics", label: "Analytics", icon: <BarChart3 size={20} /> },
     { id: "monitoring", label: "Monitoring", icon: <Eye size={20} /> },
     { id: "widgets", label: "Widget", icon: <Code size={20} /> },
     { id: "links", label: "Links", icon: <LinkIcon size={20} /> },
     { id: "settings", label: "Settings", icon: <Settings size={20} /> },
-    { id: "billing", label: "Billing", icon: <CreditCard size={20} /> },
+    { id: "billing", label: native ? "Plan" : "Billing", icon: <CreditCard size={20} /> },
   ]
 
   const handleNavClick = (tab: string) => {

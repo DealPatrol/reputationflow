@@ -1,14 +1,15 @@
 "use client"
 
-import { LayoutDashboard, Settings, LinkIcon, CreditCard, Zap, Code, Users, BarChart3, Eye } from "lucide-react"
+import { LayoutDashboard, Settings, LinkIcon, CreditCard, Zap, Code, Users, BarChart3, Eye, QrCode } from "lucide-react"
 
 interface SidebarProps {
   activeTab: string
   setActiveTab: (tab: string) => void
   isPremium: boolean
+  native?: boolean
 }
 
-export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) => (
+export const Sidebar = ({ activeTab, setActiveTab, isPremium, native = false }: SidebarProps) => (
   <div className="w-64 bg-[#0F172A] text-white flex flex-col h-screen fixed left-0 top-0 border-r border-slate-800 hidden md:flex z-50">
     <div className="flex items-center border-b border-slate-800 px-6 py-5">
       <div className="flex flex-col">
@@ -47,6 +48,14 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
       />
 
       <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-4 mb-2 mt-6">Growth Tools</div>
+      {native && (
+        <SidebarItem
+          icon={<QrCode size={18} />}
+          label="Counter Kit"
+          active={activeTab === "counter"}
+          onClick={() => setActiveTab("counter")}
+        />
+      )}
       <SidebarItem
         icon={<Code size={18} />}
         label="Website Widget"
@@ -69,7 +78,7 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
       />
       <SidebarItem
         icon={<CreditCard size={18} />}
-        label="Billing & Plan"
+        label={native ? "Plan" : "Billing & Plan"}
         active={activeTab === "billing"}
         onClick={() => setActiveTab("billing")}
       />

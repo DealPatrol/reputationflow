@@ -6,6 +6,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AdsScripts } from "@/components/ads/ads-scripts"
 import { AttributionCapture } from "@/components/ads/attribution-capture"
 import { FunnelOrigin } from "@/components/funnel-origin"
+import { NativeShell } from "@/components/native/native-shell"
+import { WebOnly } from "@/components/native/web-only"
+import { nativeBootScript } from "@/lib/native/platform"
 import { absoluteUrl, getSiteUrl } from "@/lib/site"
 import { googleSiteVerificationToken } from "@/lib/site-verification"
 import "./globals.css"
@@ -66,12 +69,20 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-slate-50`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-slate-50`} suppressHydrationWarning>
+      <head>
+        {/* iOS app only: hides web-only UI and leaves marketing pages before first paint. No-op on the web. */}
+        <script dangerouslySetInnerHTML={{ __html: nativeBootScript() }} />
+      </head>
       <body className="font-sans antialiased">
         {children}
+        <NativeShell />
         <AttributionCapture />
         <FunnelOrigin />
-        <AdsScripts />
+        {/* Ad pixels never load inside the iOS app (no App Tracking Transparency prompt needed). */}
+        <WebOnly>
+          <AdsScripts />
+        </WebOnly>
         <Analytics />
         <SpeedInsights />
       </body>

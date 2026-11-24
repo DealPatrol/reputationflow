@@ -185,7 +185,7 @@ export default function OnboardingPage() {
                     : ""}
                 </p>
               ) : (
-                <p className="mt-3 text-sm text-slate-600">
+                <p className="web-only mt-3 text-sm text-slate-600">
                   <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
                     Open the free generator
                   </Link>{" "}

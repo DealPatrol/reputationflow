@@ -1,0 +1,59 @@
+name: Web + iOS config
+
+# ci.yml already verifies the web app on Node 20. This adds Node 22 (the Xcode Cloud
+# ci_post_clone.sh Node version) and validates the files App Store builds depend on.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run build
+      - run: npm test
+
+  ios-config:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate plist, StoreKit, scheme and storyboard files
+        run: |
+          python3 - <<'PY'
+          import glob, json, plistlib
+          from xml.dom import minidom
+          for f in ["ios/App/App/Info.plist", "ios/App/App/PrivacyInfo.xcprivacy"]:
+              with open(f, "rb") as fh:
+                  plistlib.load(fh)
+          with open("ios/App/App/ReputationFlow.storekit") as fh:
+              json.load(fh)
+          for f in glob.glob("ios/App/**/*.storyboard", recursive=True) + glob.glob("ios/App/**/*.xcscheme", recursive=True):
+              minidom.parse(f)
+          for f in glob.glob("ios/App/App/Assets.xcassets/**/Contents.json", recursive=True):
+              with open(f) as fh:
+                  json.load(fh)
+          print("iOS config files are valid")
+          PY
+      - name: Xcode Cloud script is executable
+        run: test -x ios/App/ci_scripts/ci_post_clone.sh
+      - name: Capacitor sync
+        run: npx cap sync ios

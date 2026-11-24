@@ -96,6 +96,23 @@ export default function TermsPage() {
                 <li>Upon cancellation, you retain access until the end of the billing period</li>
                 <li>We reserve the right to modify pricing with 30 days notice</li>
               </ul>
+              <h3 className="text-xl font-bold text-slate-800 mb-3 mt-6">Subscriptions bought in the iPhone app</h3>
+              <ul className="list-disc list-inside space-y-2 text-slate-600 ml-4">
+                <li>Professional in the iPhone app is an auto-renewing App Store subscription, monthly or yearly</li>
+                <li>Payment is charged to your Apple Account when you confirm the purchase</li>
+                <li>
+                  It renews automatically unless you cancel at least 24 hours before the end of the current period, in
+                  Settings &gt; Apple Account &gt; Subscriptions
+                </li>
+                <li>Refunds for App Store purchases are handled by Apple</li>
+                <li>Deleting your ReputationFlow account does not cancel an App Store subscription</li>
+                <li>
+                  App Store purchases are also subject to Apple&apos;s{" "}
+                  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" className="text-indigo-600 underline">
+                    Licensed Application End User License Agreement
+                  </a>
+                </li>
+              </ul>
             </section>
 
             <section>

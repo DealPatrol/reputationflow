@@ -8,6 +8,7 @@ import { trackSignup } from "@/lib/ads-events"
 import { trackSignupClick } from "@/lib/analytics-events"
 import { readStoredAttribution } from "@/lib/attribution"
 import { dropPendingBusinessName, takePendingBusinessName } from "@/lib/message-handoff"
+import { isNativeIos } from "@/lib/native/platform"
 import { formatPlanPrice, PLANS } from "@/lib/plans"
 import { startProfessionalCheckout } from "@/lib/start-checkout"
 import { afterAuthDestination, BILLING_CHECKOUT_FAILED_PATH, isProfessionalIntent } from "@/lib/signup"
@@ -22,15 +23,27 @@ export default function SignInPage() {
   const [loading, setLoading] = useState(false)
   const [openingCheckout, setOpeningCheckout] = useState(false)
   const [error, setError] = useState("")
+  const [native, setNative] = useState(false)
+  const [notice, setNotice] = useState("")
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+    const inApp = isNativeIos()
+    setNative(inApp)
+    if (params.get("deleted") === "1") {
+      setNotice(
+        params.get("appstore") === "1"
+          ? "Your account and its data were deleted. Your App Store subscription is billed by Apple: cancel it in Settings > Apple Account > Subscriptions."
+          : "Your account and its data were deleted.",
+      )
+    }
     if (params.get("signup") === "1") {
       setIsSignUp(true)
       const pendingName = takePendingBusinessName()
       if (pendingName) setBusinessName((current) => current || pendingName)
     }
-    if (isProfessionalIntent(params.get("plan"))) setWantsProfessional(true)
+    // In the iPhone app, Professional is purchased with StoreKit on the Plan tab, never Stripe.
+    if (!inApp && isProfessionalIntent(params.get("plan"))) setWantsProfessional(true)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,14 +115,20 @@ export default function SignInPage() {
           <p className="mt-8 max-w-md text-2xl font-semibold tracking-tight text-slate-950">
             One review link for every customer.
           </p>
-          <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
-            Starter is free and does not ask for a card. Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe, with no trial on top of Starter.
-          </p>
+          {native ? (
+            <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
+              Starter is free. Show a review QR code at the counter, share your link from the job site, and see private feedback.
+            </p>
+          ) : (
+            <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
+              Starter is free and does not ask for a card. Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe, with no trial on top of Starter.
+            </p>
+          )}
         </div>
         <ul className="mt-8 max-w-md space-y-3 text-sm leading-6 text-slate-700 lg:mt-10">
           <li>Google, Facebook, and Yelp stay on the page at every rating.</li>
           <li>The next screen after a free signup is the Google review link, then the QR code.</li>
-          <li>Choosing Professional opens Stripe checkout as soon as the account exists.</li>
+          {!native && <li>Choosing Professional opens Stripe checkout as soon as the account exists.</li>}
         </ul>
       </aside>
 
@@ -135,6 +154,11 @@ export default function SignInPage() {
             </div>
           )}
 
+          {notice && (
+            <div className="mb-6 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900" role="status">
+              {notice}
+            </div>
+          )}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>
           )}
@@ -204,7 +228,7 @@ export default function SignInPage() {
             </button>
           </div>
 
-          <div className="mt-6 text-center">
+          <div className="web-only mt-6 text-center">
             <Link href="/" className="text-sm font-medium text-slate-600 hover:text-slate-900">
               Back to home
             </Link>

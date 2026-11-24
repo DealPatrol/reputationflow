@@ -23,6 +23,11 @@ import { PendingReviewLinkSave } from "@/components/dashboard/pending-review-lin
 import { ProfessionalUpgrade } from "@/components/professional-upgrade"
 import { canOfferProfessionalCheckout } from "@/lib/setup-funnel"
 import { reviewPageUrl } from "@/lib/site"
+import { AccountSection } from "@/components/account-section"
+import { CounterKit } from "@/components/native/counter-kit"
+import { NativeBillingView } from "@/components/native/native-billing-view"
+import { NativePreferences } from "@/components/native/native-preferences"
+import { isNativeIos } from "@/lib/native/platform"
 
 interface DashboardClientProps {
   business: any
@@ -30,10 +35,11 @@ interface DashboardClientProps {
   demoMode?: boolean
 }
 
-const DASHBOARD_TABS = ["dashboard", "analytics", "monitoring", "settings", "campaigns", "widgets", "links", "billing", "preview"]
+const DASHBOARD_TABS = ["dashboard", "analytics", "monitoring", "settings", "campaigns", "widgets", "links", "billing", "preview", "counter"]
 
-export default function DashboardClient({ business: initialBusiness, demoMode = false }: DashboardClientProps) {
+export default function DashboardClient({ business: initialBusiness, user, demoMode = false }: DashboardClientProps) {
   const [activeTab, setActiveTab] = useState("dashboard")
+  const [native, setNative] = useState(false)
   const [feedbacks, setFeedbacks] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [saved, setSaved] = useState(false)
@@ -56,7 +62,9 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const tab = params.get("tab")
-    if (tab && DASHBOARD_TABS.includes(tab)) setActiveTab(tab)
+    const inApp = isNativeIos()
+    setNative(inApp)
+    if (tab && DASHBOARD_TABS.includes(tab) && (tab !== "counter" || inApp)) setActiveTab(tab)
     if (params.get("success") === "true") {
       showToast("Checkout finished. Your plan can take a moment to update.", "success")
     }
@@ -145,9 +153,9 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f6f5f1] flex font-sans text-slate-950">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} native={native} />
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
-          <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
+          <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} native={native} />
           <main className="flex-1 p-8 overflow-y-auto">
             <DashboardSkeleton />
           </main>
@@ -202,9 +210,9 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
       {showOnboarding && <OnboardingTour onComplete={() => setShowOnboarding(false)} />}
 
       <div className="min-h-screen bg-[#f6f5f1] flex font-sans text-slate-950">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} native={native} />
         <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
-          <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} />
+          <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} isPremium={settings.isPremium} native={native} />
           <main className="flex-1 p-4 md:p-8 overflow-y-auto">
             <PendingReviewLinkSave
               hasSavedLink={typeof settings.googleLink === "string" && settings.googleLink.trim().length > 0}
@@ -256,7 +264,14 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
               />
             )}
             {activeTab === "settings" && (
-              <SettingsView settings={settings} setSettings={setSettings} onSave={handleSaveSettings} saved={saved} />
+              <>
+                <SettingsView settings={settings} setSettings={setSettings} onSave={handleSaveSettings} saved={saved} />
+                {native && <NativePreferences businessName={settings.businessName} showToast={showToast} />}
+                <AccountSection email={user?.email} demoMode={demoMode} />
+              </>
+            )}
+            {activeTab === "counter" && native && (
+              <CounterKit businessName={settings.businessName} reviewUrl={reviewPageUrl(initialBusiness.id)} />
             )}
             {activeTab === "campaigns" && (
               <CampaignsView
@@ -294,7 +309,15 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
                 </div>
               </div>
             )}
-            {activeTab === "billing" && (
+            {activeTab === "billing" && native && (
+              <NativeBillingView
+                isPremium={settings.isPremium}
+                userId={String(user?.id ?? "")}
+                onPremiumChange={(isPremium) => setSettings((current) => ({ ...current, isPremium }))}
+                showToast={showToast}
+              />
+            )}
+            {activeTab === "billing" && !native && (
               <BillingView
                 isPremium={settings.isPremium}
                 subscriptionStatus={initialBusiness.subscription_status}

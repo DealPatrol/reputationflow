@@ -121,3 +121,21 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS fbclid TEXT;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS landing_path TEXT;
 
 ALTER TABLE businesses ADD COLUMN IF NOT EXISTS ads_purchase_reported_at TIMESTAMP WITH TIME ZONE;
+
+-- iOS App Store (StoreKit 2) entitlements. Web Stripe billing is unchanged.
+ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS billing_source TEXT;
+
+CREATE TABLE IF NOT EXISTS app_store_subscriptions (
+  original_transaction_id TEXT PRIMARY KEY,
+  business_id INTEGER NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
+  product_id TEXT NOT NULL,
+  transaction_id TEXT,
+  expires_at TIMESTAMP WITH TIME ZONE,
+  revoked_at TIMESTAMP WITH TIME ZONE,
+  environment TEXT,
+  app_account_token TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_app_store_subscriptions_business_id ON app_store_subscriptions(business_id);
