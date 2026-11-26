@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#4f46e5",
+  themeColor: "#F7F5EF",
 }
 
 export default function RootLayout({
@@ -66,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-slate-50`}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} bg-[#F7F5EF]`}>
       <body className="font-sans antialiased">
         {children}
         <AttributionCapture />

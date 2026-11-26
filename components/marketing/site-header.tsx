@@ -20,14 +20,14 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-[#E6E2D6] bg-[#F7F5EF]/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand-header.png" alt="Reputation Flow" width={208} height={36} className="block h-9 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-4 text-sm font-medium text-slate-600 md:flex lg:gap-6" aria-label="Primary">
+        <nav className="hidden items-center gap-4 text-sm font-medium text-[#4E5E52] md:flex lg:gap-6" aria-label="Primary">
           {links.map((link) =>
             link.href === "/pricing" ? (
               <PricingLink key={link.href} location="header" className="hover:text-slate-950">
@@ -47,7 +47,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href={SIGNUP_PATH}
-            className="rounded-lg bg-indigo-800 px-3.5 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+            className="rounded-lg bg-[#E84630] px-3.5 py-2 text-sm font-semibold text-white hover:bg-[#D13823]"
             onClick={() => trackSignupClick("header")}
           >
             Start free
@@ -95,7 +95,7 @@ export function SiteHeader() {
             </Link>
             <Link
               href={SIGNUP_PATH}
-              className="mt-1 rounded-lg bg-indigo-800 px-3 py-2.5 text-center text-sm font-semibold text-white"
+              className="mt-1 rounded-lg bg-[#E84630] px-3 py-2.5 text-center text-sm font-semibold text-white"
               onClick={() => {
                 trackSignupClick("header_mobile")
                 setOpen(false)

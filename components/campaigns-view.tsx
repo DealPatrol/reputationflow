@@ -102,7 +102,7 @@ export const CampaignsView = ({ isPremium, businessId, showToast, businessName, 
         <label htmlFor="review-link" className="text-sm font-semibold text-slate-700">Your review link</label>
         <div className="mt-3 flex flex-col gap-3 sm:flex-row">
           <Input id="review-link" value={reviewLink} readOnly className="font-mono text-sm" />
-          <button type="button" onClick={handleCopyLink} className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">
+          <button type="button" onClick={handleCopyLink} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#E84630] px-4 py-2 text-sm font-semibold text-white">
             <Link2 size={16} />
             {copied ? "Copied" : "Copy link"}
           </button>
@@ -146,7 +146,7 @@ export const CampaignsView = ({ isPremium, businessId, showToast, businessName, 
               aria-label="Customer name"
               className="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm"
             />
-            <button type="submit" disabled={sending} className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={sending} className="inline-flex items-center gap-2 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
               <Mail size={16} />
               {sending ? "Sending..." : "Send review request"}
             </button>

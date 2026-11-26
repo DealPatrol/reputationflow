@@ -27,14 +27,14 @@ export function PlanOffer({
   const remember = () => rememberPendingReviewLink(reviewLink)
 
   return (
-    <aside aria-label={heading} className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
+    <aside aria-label={heading} className="mt-6 rounded-2xl border border-[#D6DDD7] bg-[#EEF2EE] p-5">
       <p className="text-lg font-semibold text-slate-950">{heading}</p>
       <p className="mt-2 text-sm leading-6 text-slate-700">{body}</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {(["free", "pro"] as const).map((key) => {
           const plan = PLANS[key]
           return (
-            <div key={key} className="rounded-xl border border-indigo-100 bg-white p-4">
+            <div key={key} className="rounded-xl border border-[#D6DDD7] bg-white p-4">
               <p className="text-sm font-semibold text-slate-950">{plan.name}</p>
               <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">
                 {formatPlanPrice(plan.price)}
@@ -52,13 +52,13 @@ export function PlanOffer({
         <SetupLink
           location={setup}
           onClick={remember}
-          className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-500"
+          className="inline-flex items-center justify-center rounded-lg bg-[#E84630] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#D13823]"
         />
         <SignupLink
           href={professionalSignupPath()}
           location={`${signupLocation}_pro`}
           onClick={remember}
-          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-900"
+          className="inline-flex items-center justify-center rounded-lg border border-[#D6DDD7] bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-900"
         >
           {PLANS.pro.name}, {price}/month
         </SignupLink>
@@ -70,7 +70,7 @@ export function PlanOffer({
           : ""}
       </p>
       <p className="mt-2 text-sm leading-6 text-slate-700">
-        <PricingLink location={pricingLocation} onClick={remember} className="font-semibold text-indigo-700">
+        <PricingLink location={pricingLocation} onClick={remember} className="font-semibold text-[#4E5E52]">
           Compare {PLANS.free.name} and {PLANS.pro.name}
         </PricingLink>
         .

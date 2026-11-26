@@ -78,13 +78,13 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
         </div>
 
         {reviewLink && (
-          <div className="bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="bg-gradient-to-r from-[#EEF2EE] to-violet-50 border border-[#D6DDD7] rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="bg-indigo-100 p-2 rounded-lg flex-shrink-0">
-                <Link2 size={18} className="text-indigo-600" />
+              <div className="bg-[#EEF2EE] p-2 rounded-lg flex-shrink-0">
+                <Link2 size={18} className="text-[#4E5E52]" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-0.5">Your Review Link</p>
+                <p className="text-xs font-bold text-[#4E5E52] uppercase tracking-wider mb-0.5">Your Review Link</p>
                 <p className="text-sm text-slate-700 font-mono truncate">{reviewLink}</p>
               </div>
             </div>
@@ -93,7 +93,7 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all flex-shrink-0 ${
                 copied
                   ? "bg-emerald-100 text-emerald-700"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  : "bg-[#E84630] text-white hover:bg-[#D13823]"
               }`}
             >
               {copied ? <CheckCircle2 size={14} /> : <Copy size={14} />}
@@ -121,7 +121,7 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Next step</p>
             <button
               onClick={() => setActiveTab("campaigns")}
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-800 px-3 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-[#E84630] px-3 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
             >
               <Send size={14} />
               Review requests
@@ -165,7 +165,7 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
                     className="p-4 text-center bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors"
                     onClick={() => setActiveTab("billing")}
                   >
-                    <span className="text-sm font-bold text-indigo-600 flex items-center justify-center gap-2">
+                    <span className="text-sm font-bold text-[#4E5E52] flex items-center justify-center gap-2">
                       <Lock size={14} /> Unlock {feedbacks.length - 1} more{" "}
                       {feedbacks.length === 2 ? "response" : "responses"}
                     </span>
@@ -192,7 +192,7 @@ export const DashboardView = ({ feedbacks, isPremium, businessName, businessId, 
 
 const StatCard = ({ label, value, icon, suffix }: { label: string; value: string | number; icon: ReactNode; suffix?: string }) => (
   <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
-    <div className="mb-2 flex items-center gap-2 text-indigo-800">
+    <div className="mb-2 flex items-center gap-2 text-[#4E5E52]">
       {icon}
       <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</span>
     </div>
@@ -227,7 +227,7 @@ const FeedbackItem = ({ item, isPremium, onUnlock, onGenerateResponse }: any) =>
       {isPremium ? (
         <button
           onClick={() => onGenerateResponse(item)}
-          className="flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-medium text-indigo-800 hover:bg-indigo-100"
+          className="flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-[#EEF2EE] px-3 py-1.5 text-xs font-medium text-[#4E5E52] hover:bg-[#EEF2EE]"
         >
           <Sparkles size={12} />
           Reply with AI

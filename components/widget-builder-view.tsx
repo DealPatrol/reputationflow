@@ -37,7 +37,7 @@ export const WidgetBuilderView = ({ businessId, businessName }: WidgetBuilderVie
               {copied ? "Copied" : "Copy"}
             </button>
           </div>
-          <pre className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs text-indigo-100">{code}</pre>
+          <pre className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs text-[#EEF2EE]">{code}</pre>
           <p className="mt-3 text-xs text-slate-500">Paste this where you want the button. Visitors go to the same review page as your QR code.</p>
         </div>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">

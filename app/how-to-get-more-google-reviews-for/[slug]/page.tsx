@@ -77,7 +77,7 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Guide</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Guide</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{guide.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{guide.intro}</p>
 
@@ -98,7 +98,7 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
         <Paragraphs items={guide.placement} />
         <p className="mt-2 text-sm leading-7 text-slate-600">
           The QR-code page for this trade, including the best surface for the card, is{" "}
-          <Link className="font-semibold text-indigo-700" href={`/industries/${industry.slug}`}>
+          <Link className="font-semibold text-[#4E5E52]" href={`/industries/${industry.slug}`}>
             {industry.title}
           </Link>
           .
@@ -128,18 +128,18 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
           {guide.reply ? (
             <>
               Edit a template, then post it on Google yourself:{" "}
-              <Link className="font-semibold text-indigo-700" href={guide.reply.path}>
+              <Link className="font-semibold text-[#4E5E52]" href={guide.reply.path}>
                 {guide.reply.label}
               </Link>
               .{" "}
             </>
           ) : null}
           The general process is{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">
             how to respond to negative Google reviews
           </Link>
           . A review that describes a visit you cannot find is covered in{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-remove-a-fake-google-review">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-remove-a-fake-google-review">
             how to remove a fake Google review
           </Link>
           . That page does not promise a removal.
@@ -149,7 +149,7 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
         <Paragraphs items={guide.avoid} />
         <p className="mt-2 text-sm leading-7 text-slate-600">
           Every customer sees the same Google, Facebook, and Yelp links, including after a bad visit. A private note is an extra box on that page. It does not replace those links. Incentives are covered in{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/incentivizing-reviews-ftc-rules">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/incentivizing-reviews-ftc-rules">
             whether it is allowed to incentivize Google reviews
           </Link>
           . That page is general information, not legal advice.
@@ -164,7 +164,7 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
             <ul className="mt-3 space-y-2 text-sm leading-7">
               {cities.map((city) => (
                 <li key={city.citySlug}>
-                  <Link className="font-semibold text-indigo-700" href={qrCityPath(city)}>
+                  <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(city)}>
                     {city.heading}
                   </Link>
                 </li>
@@ -174,7 +174,7 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
         ) : (
           <p className="mt-2 text-sm leading-7 text-slate-600">
             This trade does not have separate city pages. Use the ask above in every town you serve. A city name on its own is not a different script. Placement for the card is on{" "}
-            <Link className="font-semibold text-indigo-700" href={`/industries/${industry.slug}`}>
+            <Link className="font-semibold text-[#4E5E52]" href={`/industries/${industry.slug}`}>
               {industry.title}
             </Link>
             .
@@ -186,23 +186,23 @@ export default async function TradeReviewGuidePage({ params }: { params: Promise
         <h2 className="mt-10 text-xl font-semibold text-slate-950">More for this trade</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href={tradeReviewGuideHub.path}>
+            <Link className="font-semibold text-[#4E5E52]" href={tradeReviewGuideHub.path}>
               {tradeReviewGuideHub.title}
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
               Google review request templates
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
               Google review link generator
             </Link>
           </li>
           {related.map((item) => (
             <li key={item.slug}>
-              <Link className="font-semibold text-indigo-700" href={tradeReviewGuidePath(item)}>
+              <Link className="font-semibold text-[#4E5E52]" href={tradeReviewGuidePath(item)}>
                 {item.title}
               </Link>
             </li>

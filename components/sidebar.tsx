@@ -9,11 +9,11 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) => (
-  <div className="w-64 bg-[#0F172A] text-white flex flex-col h-screen fixed left-0 top-0 border-r border-slate-800 hidden md:flex z-50">
+  <div className="w-64 bg-[#1E2620] text-white flex flex-col h-screen fixed left-0 top-0 border-r border-[#2A332C] hidden md:flex z-50">
     <div className="flex items-center border-b border-slate-800 px-6 py-5">
       <div className="flex flex-col">
         <span className="text-lg font-semibold tracking-tight leading-none">
-          Reputation<span className="text-indigo-300">Flow</span>
+          Reputation<span className="text-[#8CAE93]">Flow</span>
         </span>
         <span className="mt-1 text-[11px] font-medium tracking-wide text-slate-400">Local reviews</span>
       </div>
@@ -78,13 +78,13 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
     <div className="p-4 bg-[#0B1120]">
       <div
         className={`p-4 rounded-xl border ${
-          isPremium ? "bg-indigo-500/10 border-indigo-500/20" : "bg-slate-800/50 border-slate-700/50"
+          isPremium ? "bg-[#8CAE93]/15 border-[#8CAE93]/30" : "bg-slate-800/50 border-slate-700/50"
         }`}
       >
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Status</span>
           {isPremium ? (
-            <span className="bg-indigo-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm shadow-indigo-500/20">
+            <span className="bg-[#8CAE93] text-[#1E2620] text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm shadow-[#8CAE93]/20">
               PRO ACTIVE
             </span>
           ) : (
@@ -96,7 +96,7 @@ export const Sidebar = ({ activeTab, setActiveTab, isPremium }: SidebarProps) =>
         {!isPremium && (
           <button
             onClick={() => setActiveTab("billing")}
-            className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-indigo-700 py-2 text-xs font-semibold text-white hover:bg-indigo-600"
+            className="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-[#E84630] py-2 text-xs font-semibold text-white hover:bg-[#D13823]"
           >
             <Zap size={12} fill="currentColor" />
             <span>Upgrade to Pro</span>
@@ -112,7 +112,7 @@ const SidebarItem = ({ icon, label, active, onClick }: any) => (
     onClick={onClick}
     className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg transition-all duration-200 group ${
       active
-        ? "bg-indigo-700 text-white"
+        ? "bg-[#2A332C] text-white"
         : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
     }`}
   >

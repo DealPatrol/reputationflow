@@ -53,15 +53,15 @@ export default function TradeReviewGuideHubPage() {
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">{tradeReviewGuideHub.intro}</p>
         <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
           The general workflow is{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews">
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews">
             how to get more Google reviews
           </Link>
           . Where the card goes, including cities, starts at{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
             Google review QR codes by city
           </Link>{" "}
           and the{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             trade QR pages
           </Link>
           .
@@ -69,7 +69,7 @@ export default function TradeReviewGuideHubPage() {
         <ul className="mt-10 grid gap-4 sm:grid-cols-2">
           {tradeReviewGuides.map((guide) => (
             <li key={guide.slug}>
-              <Link href={tradeReviewGuidePath(guide)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+              <Link href={tradeReviewGuidePath(guide)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-[#8CAE93]">
                 <h2 className="font-semibold text-slate-950">{guide.title}</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{guide.description}</p>
               </Link>

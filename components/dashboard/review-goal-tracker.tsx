@@ -66,7 +66,7 @@ export function ReviewGoalTracker({ businessId }: { businessId: string | number 
           <button
             type="button"
             onClick={() => setGoal((current) => withAsked(current, 1))}
-            className="rounded-lg bg-indigo-800 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+            className="rounded-lg bg-[#E84630] px-3 py-2 text-sm font-semibold text-white hover:bg-[#D13823]"
           >
             I asked someone
           </button>
@@ -81,7 +81,7 @@ export function ReviewGoalTracker({ businessId }: { businessId: string | number 
           aria-valuenow={Math.min(goal.asked, goal.target)}
           aria-label="Review asks logged this month"
         >
-          <div className="h-full rounded-full bg-indigo-700" style={{ width: `${percent}%` }} />
+          <div className="h-full rounded-full bg-[#E84630]" style={{ width: `${percent}%` }} />
         </div>
       ) : (
         <p className="mt-4 text-sm leading-6 text-slate-600">Set a number above. Zero means you have not picked a goal yet.</p>

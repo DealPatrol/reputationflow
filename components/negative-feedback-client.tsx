@@ -137,7 +137,7 @@ export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientPro
                     key={value}
                     type="button"
                     onClick={() => setRating(value)}
-                    className={`h-10 w-10 rounded-lg border text-sm font-semibold ${rating === value ? "border-indigo-600 bg-indigo-600 text-white" : "border-slate-300"}`}
+                    className={`h-10 w-10 rounded-lg border text-sm font-semibold ${rating === value ? "border-[#8CAE93] bg-[#E84630] text-white" : "border-slate-300"}`}
                     aria-pressed={rating === value}
                   >
                     {value}
@@ -166,7 +166,7 @@ export function NegativeFeedbackClient({ businessId }: NegativeFeedbackClientPro
               />
             </label>
             {error && <p className="mt-3 text-sm text-rose-700" role="alert">{error}</p>}
-            <button type="submit" disabled={submitting} className="mt-4 w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={submitting} className="mt-4 w-full rounded-lg bg-[#E84630] py-2.5 text-sm font-semibold text-white disabled:opacity-60">
               {submitting ? "Sending..." : "Send private note"}
             </button>
           </form>

@@ -39,15 +39,15 @@ export default function QrCityHubPage() {
         </p>
         <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
           Make the code with the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
             free Google review QR code generator
           </Link>
           . The{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             full trade list
           </Link>{" "}
           includes jobs that do not have a city page, such as dental and salons, because the counter does not change enough from one city to another. Cleaning, landscaping, locksmith, and garage door guides exist only for the cities listed below. The{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
             Google review link generator
           </Link>{" "}
           is the same code, with the steps written for a text or an email.
@@ -58,14 +58,14 @@ export default function QrCityHubPage() {
           {trades.map(({ trade, pages }) => (
             <section key={trade.slug}>
               <h2 className="text-xl font-semibold text-slate-950">
-                <Link className="hover:text-indigo-700" href={`/industries/${trade.slug}`}>
+                <Link className="hover:text-[#1E2620]" href={`/industries/${trade.slug}`}>
                   {trade.title}
                 </Link>
               </h2>
               <ul className="mt-4 grid gap-4 sm:grid-cols-2">
                 {pages.map((page) => (
                   <li key={page.citySlug}>
-                    <Link href={qrCityPath(page)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+                    <Link href={qrCityPath(page)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-[#8CAE93]">
                       <h3 className="font-semibold text-slate-950">{page.heading}</h3>
                       <p className="mt-2 text-sm leading-6 text-slate-600">{page.summary}</p>
                     </Link>

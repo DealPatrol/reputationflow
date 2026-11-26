@@ -34,7 +34,7 @@ export default function GuidesIndexPage() {
           Guides for asking, replying, and staying inside Google’s and the FTC’s rules. They do not invent review counts, rankings, or case results.
         </p>
         <p className="mt-4 text-sm leading-7 text-slate-600">
-          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
             Download the Google review request templates
           </Link>
           <span> if you want the scripts in one file.</span>
@@ -43,7 +43,7 @@ export default function GuidesIndexPage() {
           <h2 className="text-xl font-semibold text-slate-950">By trade</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
             When to ask, what to say, and when a second message is too many.{" "}
-            <Link className="font-semibold text-indigo-700" href={tradeReviewGuideHub.path}>
+            <Link className="font-semibold text-[#4E5E52]" href={tradeReviewGuideHub.path}>
               {tradeReviewGuideHub.title}
             </Link>
             .
@@ -51,7 +51,7 @@ export default function GuidesIndexPage() {
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {tradeReviewGuides.map((guide) => (
               <li key={guide.slug}>
-                <Link href={tradeReviewGuidePath(guide)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+                <Link href={tradeReviewGuidePath(guide)} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-[#8CAE93]">
                   <h3 className="font-semibold text-slate-950">{guide.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600">{guide.description}</p>
                 </Link>
@@ -69,7 +69,7 @@ export default function GuidesIndexPage() {
                   .filter((guide) => guide.cluster === group.id)
                   .map((guide) => (
                     <li key={guide.path}>
-                      <Link href={guide.path} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-indigo-300">
+                      <Link href={guide.path} className="block h-full rounded-2xl border border-slate-200 p-5 hover:border-[#8CAE93]">
                         <h3 className="font-semibold text-slate-950">{guide.title}</h3>
                         <p className="mt-2 text-sm leading-6 text-slate-600">{guide.description}</p>
                       </Link>

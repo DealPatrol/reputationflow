@@ -65,7 +65,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
       <JsonLd data={[breadcrumbJsonLd(crumbs), faqJsonLd(page.faqs)]} />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">{page.cityName}</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">{page.cityName}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{page.heading}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{page.intro}</p>
 
@@ -73,7 +73,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
           <SignupLink
             href={SIGNUP_PATH}
             location={`qr_city_${page.tradeSlug}_${page.citySlug}`}
-            className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+            className="inline-flex items-center justify-center rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
           >
             Start free
           </SignupLink>
@@ -112,15 +112,15 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
         <h2 className="mt-10 text-xl font-semibold text-slate-950">Make the QR code</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
           Paste a Place ID or the long Google Maps URL. The code is created in your browser. The longer printing steps are on the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
             Google review QR code generator
           </Link>
           . The same link, written for a text or an email, is the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
             Google review link generator
           </Link>
           . The national version, including the best moment to ask, is{" "}
-          <Link className="font-semibold text-indigo-700" href={`/industries/${trade.slug}`}>
+          <Link className="font-semibold text-[#4E5E52]" href={`/industries/${trade.slug}`}>
             {trade.title}
           </Link>
           .
@@ -128,7 +128,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
         {tradeGuide ? (
           <p className="mt-3 text-sm leading-7 text-slate-600">
             When to ask, the text and the email, and a review that is already public:{" "}
-            <Link className="font-semibold text-indigo-700" href={tradeReviewGuidePath(tradeGuide)}>
+            <Link className="font-semibold text-[#4E5E52]" href={tradeReviewGuidePath(tradeGuide)}>
               {tradeGuide.title}
             </Link>
             .
@@ -153,7 +153,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {otherCities.map((item) => (
             <li key={item.citySlug}>
-              <Link className="font-semibold text-indigo-700" href={qrCityPath(item)}>
+              <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(item)}>
                 {item.heading}
               </Link>
             </li>
@@ -166,7 +166,7 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
             <ul className="mt-3 space-y-2 text-sm leading-7">
               {otherTrades.map((item) => (
                 <li key={item.tradeSlug}>
-                  <Link className="font-semibold text-indigo-700" href={qrCityPath(item)}>
+                  <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(item)}>
                     {item.heading}
                   </Link>
                 </li>
@@ -177,19 +177,19 @@ export default async function QrCityPage({ params }: { params: Promise<{ slug: s
 
         <p className="mt-8 text-sm leading-7 text-slate-600">
           Every city page is listed on{" "}
-          <Link className="font-semibold text-indigo-700" href={qrCityHub.path}>
+          <Link className="font-semibold text-[#4E5E52]" href={qrCityHub.path}>
             {qrCityHub.title}
           </Link>
           . Plan details are on{" "}
-          <PricingLink location={`qr_city_footer_${page.tradeSlug}_${page.citySlug}`} className="font-semibold text-indigo-700">
+          <PricingLink location={`qr_city_footer_${page.tradeSlug}_${page.citySlug}`} className="font-semibold text-[#4E5E52]">
             pricing
           </PricingLink>
           . More wording is in the{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
             review request templates
           </Link>
           . Write the text with the{" "}
-          <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+          <Link className="font-semibold text-[#4E5E52]" href={messageLink.href}>
             {messageLink.label}
           </Link>
           .

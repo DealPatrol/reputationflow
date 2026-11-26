@@ -15,7 +15,7 @@ export default function SuccessPage() {
           Add your Google review link, then share the page. If you just finished checkout, the Professional plan can take a moment to show in billing.
         </p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Link href="/onboarding" className="rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white">
+          <Link href="/onboarding" className="rounded-lg bg-[#E84630] px-4 py-2.5 text-center text-sm font-semibold text-white">
             Finish setup
           </Link>
           <Link href="/dashboard" className="rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-semibold">

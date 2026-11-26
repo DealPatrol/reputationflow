@@ -26,7 +26,7 @@ export const EmptyState = ({ icon: Icon, title, description, action, children }:
         <button
           type="button"
           onClick={action.onClick}
-          className="mt-6 rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+          className="mt-6 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
         >
           {action.label}
         </button>

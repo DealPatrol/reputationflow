@@ -14,7 +14,7 @@ import {
 } from "@/lib/review-message"
 
 const fieldClass =
-  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
 
 type CopyTarget = "sms" | "email" | "inPerson"
 
@@ -180,7 +180,7 @@ export function ReviewMessageGenerator({
       <button
         type="button"
         onClick={() => copy("sms", composed.sms)}
-        className="mt-3 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white"
+        className="mt-3 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white"
       >
         {copyLabel("sms", copied)}
       </button>

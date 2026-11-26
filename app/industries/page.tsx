@@ -24,23 +24,23 @@ export default function IndustriesIndexPage() {
         ])}
       />
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Industries</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Industries</p>
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950">
           Google review QR codes by trade
         </h1>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
           Pick the trade you actually run. Each page covers how to get more Google reviews in that job: when to ask, a message you can copy, and where the QR code belongs. These are instructions, not customer stories.           The{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">request templates</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">request templates</Link>
           , the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides">review guides</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides">review guides</Link>
           , and the{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews-for">
             how-to guides by trade
           </Link>
           {" "}are the longer versions. A few trades also have{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">city pages</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">city pages</Link>
           {" "}for the jobs where the city changes the QR placement. Other cities stay on the trade page. Make the code with the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
             free Google review QR code generator
           </Link>
           .
@@ -51,7 +51,7 @@ export default function IndustriesIndexPage() {
             <Link
               key={industry.slug}
               href={`/industries/${industry.slug}`}
-              className="rounded-2xl border border-slate-200 p-5 hover:border-indigo-300"
+              className="rounded-2xl border border-slate-200 p-5 hover:border-[#8CAE93]"
             >
               <h2 className="font-semibold text-slate-950">{industry.name}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">{industry.intro}</p>

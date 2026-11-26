@@ -63,7 +63,7 @@ export default function ReviewRequestTemplatesPage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Templates</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Templates</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Use one channel per customer. Replace the brackets, send it yourself, and stop. These scripts ask for a Google review. They do not name a star rating, and they do not offer anything in return.
@@ -87,11 +87,11 @@ export default function ReviewRequestTemplatesPage() {
         </div>
         <p className="mt-10 text-sm leading-7 text-slate-600">
           Timing for each trade is on the{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             industry pages
           </Link>
           . The rules on incentives are in{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/incentivizing-reviews-ftc-rules">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/incentivizing-reviews-ftc-rules">
             is it legal to incentivize Google reviews
           </Link>
           .

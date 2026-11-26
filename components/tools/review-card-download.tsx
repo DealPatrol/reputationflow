@@ -335,7 +335,7 @@ export function ReviewCardDownloads({
         />
       </label>
       {logoUrl && (
-        <button type="button" onClick={() => setLogoUrl("")} className="mt-2 text-sm font-semibold text-indigo-800">
+        <button type="button" onClick={() => setLogoUrl("")} className="mt-2 text-sm font-semibold text-[#4E5E52]">
           Remove logo
         </button>
       )}

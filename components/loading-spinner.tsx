@@ -5,7 +5,7 @@ export const LoadingSpinner = ({ size = "md" }: { size?: "sm" | "md" | "lg" }) =
     lg: "h-12 w-12 border-4",
   }
 
-  return <div className={`animate-spin rounded-full ${sizes[size]} border-indigo-600 border-t-transparent`} />
+  return <div className={`animate-spin rounded-full ${sizes[size]} border-[#8CAE93] border-t-transparent`} />
 }
 
 export const LoadingOverlay = ({ message = "Loading..." }: { message?: string }) => {

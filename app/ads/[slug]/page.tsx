@@ -38,7 +38,7 @@ export default async function AdLandingPage({ params }: { params: Promise<{ slug
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">{landing.eyebrow}</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">{landing.eyebrow}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{landing.headline}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{landing.lede}</p>
         <ul className="mt-8 space-y-3 text-sm leading-7 text-slate-700">
@@ -51,7 +51,7 @@ export default async function AdLandingPage({ params }: { params: Promise<{ slug
         <SignupLink
           href={SIGNUP_PATH}
           location={`ad_${landing.slug}`}
-          className="mt-8 inline-flex rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white"
+          className="mt-8 inline-flex rounded-lg bg-[#E84630] px-5 py-3 text-sm font-semibold text-white"
         >
           Start free
         </SignupLink>

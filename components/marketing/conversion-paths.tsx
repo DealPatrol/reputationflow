@@ -28,11 +28,11 @@ export function ConversionPaths({ current }: { current: string }) {
         {items.map((item) => (
           <li key={item.href}>
             {item.href === "/pricing" ? (
-              <PricingLink location={locationFor(current)} className="font-semibold text-indigo-700">
+              <PricingLink location={locationFor(current)} className="font-semibold text-[#4E5E52]">
                 {item.label}
               </PricingLink>
             ) : (
-              <Link className="font-semibold text-indigo-700" href={item.href}>
+              <Link className="font-semibold text-[#4E5E52]" href={item.href}>
                 {item.label}
               </Link>
             )}

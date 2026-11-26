@@ -38,7 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               "w-full p-3 bg-white border rounded-lg outline-none transition-all",
               error
                 ? "border-rose-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
-                : "border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100",
+                : "border-slate-200 focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]",
               className,
             )}
           />

@@ -12,7 +12,7 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
               {last ? (
                 <span className="text-slate-700">{item.name}</span>
               ) : (
-                <Link className="font-semibold text-indigo-700" href={item.path}>
+                <Link className="font-semibold text-[#4E5E52]" href={item.path}>
                   {item.name}
                 </Link>
               )}

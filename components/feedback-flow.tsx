@@ -160,7 +160,7 @@ export const FeedbackFlow = ({ businessName, links, onComplete }: FeedbackFlowPr
                 <button
                   key={`facebook-${idx}`}
                   onClick={() => handleRedirect(`Facebook ${idx > 0 ? `(${idx + 1})` : ""}`, url)}
-                  className="w-full bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-border hover:border-blue-600 hover:shadow-lg text-foreground font-bold py-4 rounded-xl flex items-center justify-between px-4 transition-all group"
+                  className="w-full bg-gradient-to-r from-blue-50 to-[#EEF2EE] border-2 border-border hover:border-blue-600 hover:shadow-lg text-foreground font-bold py-4 rounded-xl flex items-center justify-between px-4 transition-all group"
                 >
                   <div className="flex items-center space-x-3">
                     <Facebook size={20} className="text-blue-600" fill="currentColor" />

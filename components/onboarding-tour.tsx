@@ -67,7 +67,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in duration-300">
         <div className="flex justify-between items-start mb-6">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold">
+            <div className="w-10 h-10 bg-[#EEF2EE] text-[#4E5E52] rounded-full flex items-center justify-center font-bold">
               {step + 1}
             </div>
             <span className="text-sm text-slate-500 font-medium">
@@ -97,7 +97,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
               </button>
               <button
                 onClick={nextStep}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-colors"
+                className="flex-1 bg-[#E84630] hover:bg-[#D13823] text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-colors"
               >
                 <span>Next</span>
                 <ArrowRight size={18} />
@@ -106,7 +106,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
           ) : (
             <button
               onClick={completeTour}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-colors"
+              className="w-full bg-[#E84630] hover:bg-[#D13823] text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-colors"
             >
               <Check size={18} />
               <span>Get Started</span>
@@ -119,7 +119,7 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
           {steps.map((_, index) => (
             <div
               key={index}
-              className={`h-2 rounded-full transition-all ${index === step ? "w-8 bg-indigo-600" : "w-2 bg-slate-200"}`}
+              className={`h-2 rounded-full transition-all ${index === step ? "w-8 bg-[#E84630]" : "w-2 bg-slate-200"}`}
             />
           ))}
         </div>

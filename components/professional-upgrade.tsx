@@ -42,8 +42,8 @@ export function ProfessionalUpgrade({
       aria-label="Upgrade to Professional"
       className={
         banner
-          ? "mb-6 flex flex-col gap-4 rounded-xl border border-indigo-200 bg-indigo-50 p-4 sm:flex-row sm:items-center sm:justify-between"
-          : "rounded-2xl border border-indigo-200 bg-indigo-50 p-5"
+          ? "mb-6 flex flex-col gap-4 rounded-xl border border-[#D6DDD7] bg-[#EEF2EE] p-4 sm:flex-row sm:items-center sm:justify-between"
+          : "rounded-2xl border border-[#D6DDD7] bg-[#EEF2EE] p-5"
       }
     >
       <div>
@@ -57,7 +57,7 @@ export function ProfessionalUpgrade({
           type="button"
           onClick={onUpgrade}
           disabled={loading}
-          className="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823] disabled:opacity-50 sm:w-auto"
         >
           {loading ? "Opening Stripe..." : checkoutLabel}
         </button>

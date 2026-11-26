@@ -32,7 +32,7 @@ export default function AboutPage() {
     <MarketingShell>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Company</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Company</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">About ReputationFlow</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Local businesses win on Google reviews, but asking for them is easy to forget. ReputationFlow gives every shop, clinic, and
@@ -49,8 +49,8 @@ export default function AboutPage() {
         </div>
         <p className="mt-10 text-sm leading-6 text-slate-600">
           Questions about the product or your account? Email{" "}
-          <a className="font-semibold text-indigo-700" href={`mailto:${PUBLIC_CONTACT_EMAIL}`}>{PUBLIC_CONTACT_EMAIL}</a> or visit the{" "}
-          <Link className="font-semibold text-indigo-700" href="/contact">contact page</Link>.
+          <a className="font-semibold text-[#4E5E52]" href={`mailto:${PUBLIC_CONTACT_EMAIL}`}>{PUBLIC_CONTACT_EMAIL}</a> or visit the{" "}
+          <Link className="font-semibold text-[#4E5E52]" href="/contact">contact page</Link>.
         </p>
       </article>
       <CtaBand />
