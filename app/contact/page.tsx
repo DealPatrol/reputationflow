@@ -21,14 +21,14 @@ export default function ContactPage() {
     <MarketingShell>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }])} />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Company</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Company</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Contact support</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Email us and a real person will reply. Include your business name and the email on your account so we can help faster.
         </p>
         <a
           href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
-          className="mt-8 inline-flex rounded-lg bg-indigo-600 px-4 py-3 text-sm font-semibold text-white hover:bg-indigo-500"
+          className="mt-8 inline-flex rounded-lg bg-[#E84630] px-4 py-3 text-sm font-semibold text-white hover:bg-[#D13823]"
         >
           Email {PUBLIC_CONTACT_EMAIL}
         </a>
@@ -41,8 +41,8 @@ export default function ContactPage() {
           ))}
         </div>
         <p className="mt-10 text-sm text-slate-600">
-          Read the <Link className="font-semibold text-indigo-700" href="/privacy">privacy policy</Link> and{" "}
-          <Link className="font-semibold text-indigo-700" href="/terms">terms of service</Link>.
+          Read the <Link className="font-semibold text-[#4E5E52]" href="/privacy">privacy policy</Link> and{" "}
+          <Link className="font-semibold text-[#4E5E52]" href="/terms">terms of service</Link>.
         </p>
       </article>
     </MarketingShell>

@@ -29,7 +29,7 @@ export default async function EmbedPage({ params }: { params: Promise<{ business
         </p>
         <Link
           href={`/review/${business.id}`}
-          className="mt-4 inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white"
+          className="mt-4 inline-flex rounded-lg bg-[#E84630] px-4 py-2 text-sm font-semibold text-white"
         >
           Leave a review
         </Link>

@@ -65,14 +65,14 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-in zoom-in duration-300">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 to-violet-600 p-6 text-white">
+        <div className="bg-gradient-to-r from-[#1E2620] to-violet-600 p-6 text-white">
           <div className="flex justify-between items-start">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles size={20} className="text-indigo-200" />
+                <Sparkles size={20} className="text-[#D6DDD7]" />
                 <h2 className="text-xl font-bold">AI Response Generator</h2>
               </div>
-              <p className="text-indigo-100 text-sm">
+              <p className="text-[#EEF2EE] text-sm">
                 Generate a professional response to customer feedback in seconds
               </p>
             </div>
@@ -114,7 +114,7 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
                 <p className="text-slate-500 mb-4">Click generate to create a professional response</p>
                 <button
                   onClick={generateResponse}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-bold transition-colors flex items-center gap-2 mx-auto"
+                  className="bg-[#E84630] hover:bg-[#D13823] text-white px-6 py-3 rounded-lg font-bold transition-colors flex items-center gap-2 mx-auto"
                 >
                   <Sparkles size={16} />
                   Generate Response
@@ -122,7 +122,7 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
               </div>
             ) : loading ? (
               <div className="border border-slate-200 rounded-lg p-12 text-center">
-                <Loader2 size={48} className="mx-auto mb-4 text-indigo-600 animate-spin" />
+                <Loader2 size={48} className="mx-auto mb-4 text-[#4E5E52] animate-spin" />
                 <p className="text-slate-500">Crafting the perfect response...</p>
               </div>
             ) : (
@@ -133,7 +133,7 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
                     setResponse(e.target.value)
                     setEdited(true)
                   }}
-                  className="w-full p-4 border border-slate-200 rounded-lg text-slate-700 text-sm min-h-[150px] focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                  className="w-full p-4 border border-slate-200 rounded-lg text-slate-700 text-sm min-h-[150px] focus:ring-2 focus:ring-[#8CAE93] focus:border-[#8CAE93] outline-none"
                   placeholder="Your response will appear here..."
                 />
                 {edited && (
@@ -152,7 +152,7 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
             <button
               onClick={generateResponse}
               disabled={loading}
-              className="flex-1 bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-3 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-white border border-slate-200 hover:border-[#8CAE93] hover:bg-[#EEF2EE] text-slate-700 px-4 py-3 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Regenerate
             </button>
@@ -174,7 +174,7 @@ export function AIResponseModal({ isOpen, onClose, feedback, businessName, onSav
             </button>
             <button
               onClick={handleSave}
-              className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-lg font-bold transition-colors"
+              className="flex-1 bg-[#E84630] hover:bg-[#D13823] text-white px-4 py-3 rounded-lg font-bold transition-colors"
             >
               Save Response
             </button>

@@ -103,13 +103,13 @@ export default function QrCodePage() {
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free tools", path: "/tools" }, { name: toolName, path }]} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Google review QR code generator</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Paste a Place ID, a review link, or the long Google Maps URL for your listing. You get the official write-a-review link and a QR code you can download. The tool runs in your browser. It does not need an API key or an account.
         </p>
         <p className="mt-4 text-sm leading-6 text-slate-700">
-          <SetupLink location="tool_qr_setup" className="font-semibold text-indigo-700" />
+          <SetupLink location="tool_qr_setup" className="font-semibold text-[#4E5E52]" />
           . {SETUP_CTA_NOTE}
         </p>
         <div className="mt-8">
@@ -145,11 +145,11 @@ export default function QrCodePage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Where to put it, by trade and city</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
           The generator is the same in every city. The card and the timing are not. These guides cover the jobs where a Houston slab leak, an Austin limestone line, a Chicago freeze, a Phoenix attic, a Dallas hail roof, or a cold-morning garage door changes the ask. Other cities use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             trade page
           </Link>
           . The full list is the{" "}
-          <Link className="font-semibold text-indigo-700" href={qrCityHub.path}>
+          <Link className="font-semibold text-[#4E5E52]" href={qrCityHub.path}>
             {qrCityHub.title.toLowerCase()}
           </Link>{" "}
           hub.
@@ -161,14 +161,14 @@ export default function QrCodePage() {
             return (
               <section key={tradeSlug}>
                 <h3 className="text-base font-semibold text-slate-950">
-                  <Link className="text-indigo-700" href={`/industries/${trade.slug}`}>
+                  <Link className="text-[#4E5E52]" href={`/industries/${trade.slug}`}>
                     {trade.name}
                   </Link>
                 </h3>
                 <ul className="mt-2 space-y-1 text-sm leading-7">
                   {qrCityPagesForTrade(tradeSlug).map((page) => (
                     <li key={page.citySlug}>
-                      <Link className="font-semibold text-indigo-700" href={qrCityPath(page)}>
+                      <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(page)}>
                         {page.heading}
                       </Link>
                     </li>
@@ -182,33 +182,33 @@ export default function QrCodePage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Related</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
               Google review link generator
             </Link>
             <span className="text-slate-600"> if you want the same link with the wording focused on email and text.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews">
               How to get more Google reviews
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/guides/review-qr-code-ideas">
+            <Link className="font-semibold text-[#4E5E52]" href="/guides/review-qr-code-ideas">
               Review QR code ideas
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
               Review request templates
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/industries">
+            <Link className="font-semibold text-[#4E5E52]" href="/industries">
               Where to put the card, by trade
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/pricing">
+            <Link className="font-semibold text-[#4E5E52]" href="/pricing">
               Starter and Professional pricing
             </Link>
           </li>

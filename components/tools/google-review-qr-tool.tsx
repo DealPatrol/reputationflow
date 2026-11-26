@@ -125,7 +125,7 @@ export function GoogleReviewQrTool({
           setInput(event.target.value)
         }}
         placeholder="ChIJ... or the long maps.google.com URL"
-        className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+        className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
         autoComplete="off"
         spellCheck={false}
       />
@@ -136,7 +136,7 @@ export function GoogleReviewQrTool({
           : ""}
       </p>
       <p className="mt-3 text-sm leading-6 text-slate-600">
-        <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+        <Link className="font-semibold text-[#4E5E52]" href={messageLink.href}>
           {messageLink.label}
         </Link>{" "}
         fills a text and an email with your business name. You copy it and send it yourself.
@@ -169,7 +169,7 @@ export function GoogleReviewQrTool({
             {targetUrl}
           </p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            <button type="button" onClick={copy} className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white">
+            <button type="button" onClick={copy} className="rounded-lg bg-[#E84630] px-3 py-2 text-sm font-semibold text-white">
               {copied ? "Copied" : "Copy link"}
             </button>
             <a

@@ -149,14 +149,14 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-12">
       <div className="mx-auto max-w-xl">
-        <p className="text-sm font-semibold text-indigo-700">Setup</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Setup</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">Create your review link</h1>
         <p className="mt-2 text-sm leading-6 text-slate-600">
           Paste the Google review link, then download the QR code. You can leave the rest of the settings for later.
         </p>
         <ol className="mt-6 flex gap-2" aria-label="Progress">
-          <li className="h-1.5 flex-1 rounded-full bg-indigo-600" />
-          <li className={`h-1.5 flex-1 rounded-full ${step === "qr" ? "bg-indigo-600" : "bg-slate-200"}`} />
+          <li className="h-1.5 flex-1 rounded-full bg-[#E84630]" />
+          <li className={`h-1.5 flex-1 rounded-full ${step === "qr" ? "bg-[#E84630]" : "bg-slate-200"}`} />
         </ol>
 
         <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
@@ -186,7 +186,7 @@ export default function OnboardingPage() {
                 </p>
               ) : (
                 <p className="mt-3 text-sm text-slate-600">
-                  <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+                  <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
                     Open the free generator
                   </Link>{" "}
                   if you want to check the link before you save it.
@@ -228,7 +228,7 @@ export default function OnboardingPage() {
                 <div className="mt-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={pageQr} alt="QR code for your review page" width={224} height={224} className="h-56 w-56 rounded-lg border border-slate-200" />
-                  <a href={pageQr} download="review-page-qr.png" className="mt-4 inline-flex rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white">
+                  <a href={pageQr} download="review-page-qr.png" className="mt-4 inline-flex rounded-lg bg-[#E84630] px-3 py-2 text-sm font-semibold text-white">
                     Download review page QR
                   </a>
                 </div>
@@ -266,12 +266,12 @@ export default function OnboardingPage() {
                 type="button"
                 onClick={saveLink}
                 disabled={saving || rawInput.trim().length === 0}
-                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                className="rounded-lg bg-[#E84630] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
               >
                 {saving ? "Saving..." : "Save link and make the QR code"}
               </button>
             ) : (
-              <button type="button" onClick={() => router.push("/dashboard")} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">
+              <button type="button" onClick={() => router.push("/dashboard")} className="rounded-lg bg-[#E84630] px-4 py-2 text-sm font-semibold text-white">
                 Open dashboard
               </button>
             )}

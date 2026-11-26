@@ -41,15 +41,15 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
 
   return (
     <>
-      <div className="sticky top-0 z-50 flex items-center justify-between border-b border-slate-800 bg-[#0F172A] p-4 text-white md:hidden">
+      <div className="sticky top-0 z-50 flex items-center justify-between border-b border-[#2A332C] bg-[#1E2620] p-4 text-white md:hidden">
         <span className="text-base font-semibold tracking-tight">
-          Reputation<span className="text-indigo-300">Flow</span>
+          Reputation<span className="text-[#8CAE93]">Flow</span>
         </span>
         <div className="flex items-center space-x-2">
           {!isPremium && (
             <button
               onClick={() => handleNavClick("billing")}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
+              className="bg-[#E84630] hover:bg-[#D13823] text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
             >
               Upgrade
             </button>
@@ -71,7 +71,7 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
             className="md:hidden fixed inset-0 bg-black/50 z-40 animate-in fade-in duration-200"
             onClick={() => setIsMenuOpen(false)}
           />
-          <div className="md:hidden fixed top-[73px] right-0 bottom-0 w-64 bg-[#0F172A] border-l border-slate-800 z-40 animate-in slide-in-from-right duration-300">
+          <div className="md:hidden fixed top-[73px] right-0 bottom-0 w-64 bg-[#1E2620] border-l border-[#2A332C] z-40 animate-in slide-in-from-right duration-300">
             <nav className="p-4 space-y-1">
               <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">Menu</div>
               {navItems.map((item) => (
@@ -80,7 +80,7 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
                   onClick={() => handleNavClick(item.id)}
                   className={`w-full flex items-center space-x-3 px-3 py-3 rounded-lg transition-all ${
                     activeTab === item.id
-                      ? "bg-indigo-600 text-white shadow-lg"
+                      ? "bg-[#2A332C] text-white shadow-lg"
                       : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
                   }`}
                 >
@@ -93,13 +93,13 @@ export const MobileNav = ({ activeTab, setActiveTab, isPremium }: MobileNavProps
             <div className="absolute bottom-4 left-4 right-4">
               <div
                 className={`p-3 rounded-lg border ${
-                  isPremium ? "bg-indigo-500/10 border-indigo-500/20" : "bg-slate-800/50 border-slate-700/50"
+                  isPremium ? "bg-[#8CAE93]/15 border-[#8CAE93]/30" : "bg-slate-800/50 border-slate-700/50"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Status</span>
                   {isPremium ? (
-                    <span className="bg-indigo-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">PRO</span>
+                    <span className="bg-[#8CAE93] text-[#1E2620] text-[10px] px-2 py-0.5 rounded-full font-bold">PRO</span>
                   ) : (
                     <span className="bg-slate-600 text-slate-300 text-[10px] px-2 py-0.5 rounded-full font-bold">
                       FREE

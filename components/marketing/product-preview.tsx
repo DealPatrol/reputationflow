@@ -11,7 +11,7 @@ export function ProductPreview() {
           <p className="ml-2 truncate text-xs font-medium text-slate-500">Customer review page</p>
         </div>
         <div className="px-5 py-6 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-800">What the customer sees</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#4E5E52]">What the customer sees</p>
           <p className="mt-3 text-sm text-slate-500">How was your visit?</p>
           <p className="mt-1 text-2xl font-semibold tracking-tight text-slate-950">Your business</p>
           <div className="mt-4 flex gap-1 text-amber-500" aria-hidden="true">

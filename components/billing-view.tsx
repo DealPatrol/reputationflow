@@ -96,7 +96,7 @@ export function BillingView({ isPremium, subscriptionStatus, checkoutFailed = fa
         </div>
 
         {/* Pro Plan */}
-        <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#1E2620] to-violet-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
           <div className="absolute top-4 right-4">
             <span className="bg-emerald-400 text-emerald-900 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
               <Zap size={12} fill="currentColor" />
@@ -108,9 +108,9 @@ export function BillingView({ isPremium, subscriptionStatus, checkoutFailed = fa
             <h3 className="text-2xl font-bold mb-2">{PLANS.pro.name}</h3>
             <div className="flex items-baseline gap-2 mb-4">
               <span className="text-4xl font-bold">${PLANS.pro.price / 100}</span>
-              <span className="text-indigo-200">/month</span>
+              <span className="text-[#D6DDD7]">/month</span>
             </div>
-            <p className="text-indigo-100">{PLANS.pro.description}</p>
+            <p className="text-[#EEF2EE]">{PLANS.pro.description}</p>
           </div>
 
           <ul className="space-y-3 mb-8">
@@ -140,14 +140,14 @@ export function BillingView({ isPremium, subscriptionStatus, checkoutFailed = fa
             <button
               onClick={handleUpgrade}
               disabled={loading}
-              className="w-full bg-white hover:bg-slate-50 text-indigo-600 py-4 rounded-xl font-bold shadow-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-white hover:bg-slate-50 text-[#4E5E52] py-4 rounded-xl font-bold shadow-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading && <Loader2 size={16} className="animate-spin" />}
               {loading ? "Opening Stripe..." : `Continue to Stripe · ${formatPlanPrice(PLANS.pro.price)}/month`}
             </button>
           )}
           {!isPremium && (
-            <p className="mt-3 text-sm leading-5 text-indigo-100">
+            <p className="mt-3 text-sm leading-5 text-[#EEF2EE]">
               Stripe bills {formatPlanPrice(PLANS.pro.price)} monthly. There is no trial. Cancel in the Stripe customer portal and keep access through the period already paid. Fees are non-refundable except where the law requires a refund.{" "}
               <Link href="/onboarding" className="font-semibold underline">Add your Google review link</Link> before or after you subscribe.
             </p>

@@ -15,7 +15,7 @@ export function ReviewMessageOffer({
 }) {
   const price = formatPlanPrice(PLANS.pro.price)
   return (
-    <aside aria-label={heading} className="mt-8 rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
+    <aside aria-label={heading} className="mt-8 rounded-2xl border border-[#D6DDD7] bg-[#EEF2EE] p-5">
       <h2 className="text-lg font-semibold text-slate-950">{heading}</h2>
       <p className="mt-2 text-sm leading-6 text-slate-700">
         {body ??
@@ -24,12 +24,12 @@ export function ReviewMessageOffer({
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <SetupLink
           location={`${location}_setup`}
-          className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-indigo-500"
+          className="inline-flex items-center justify-center rounded-lg bg-[#E84630] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#D13823]"
         />
         <SignupLink
           href={professionalSignupPath()}
           location={`${location}_pro`}
-          className="inline-flex items-center justify-center rounded-lg border border-indigo-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-900"
+          className="inline-flex items-center justify-center rounded-lg border border-[#D6DDD7] bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-900"
         >
           Professional, {price}/month
         </SignupLink>
@@ -38,7 +38,7 @@ export function ReviewMessageOffer({
         {SETUP_CTA_NOTE} Choosing Professional opens Stripe checkout as soon as the account exists.
       </p>
       <p className="mt-2 text-sm leading-6 text-slate-700">
-        <PricingLink location={`${location}_pricing`} className="font-semibold text-indigo-700">
+        <PricingLink location={`${location}_pricing`} className="font-semibold text-[#4E5E52]">
           Compare Starter and Professional
         </PricingLink>
         .

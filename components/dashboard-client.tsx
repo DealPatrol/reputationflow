@@ -286,7 +286,7 @@ export default function DashboardClient({ business: initialBusiness, demoMode = 
                 <div className="mt-6">
                   <button
                     onClick={() => setActiveTab("preview")}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-4 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-indigo-900/20"
+                    className="w-full bg-[#E84630] hover:bg-[#D13823] text-white px-6 py-4 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-[#1E2620]/20"
                   >
                     <QrCode size={20} />
                     Open Live Preview

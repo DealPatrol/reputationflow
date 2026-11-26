@@ -68,18 +68,18 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         {tradeGuide ? (
           <p className="mt-4 text-sm leading-7 text-slate-600">
             Scripts, follow-up timing, and a review that is already public are in{" "}
-            <Link className="font-semibold text-indigo-700" href={tradeReviewGuidePath(tradeGuide)}>
+            <Link className="font-semibold text-[#4E5E52]" href={tradeReviewGuidePath(tradeGuide)}>
               {tradeGuide.title}
             </Link>
             .
           </p>
         ) : null}
         <p className="mt-4 text-sm leading-7 text-slate-600">
-          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
             Make the QR code
           </Link>
           {" "}or{" "}
-          <PricingLink location={`industry_intro_${industry.slug}`} className="font-semibold text-indigo-700">
+          <PricingLink location={`industry_intro_${industry.slug}`} className="font-semibold text-[#4E5E52]">
             compare {PLANS.free.name} and {PLANS.pro.name}
           </PricingLink>
           .
@@ -87,7 +87,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             <>
               {" "}
               City versions are on the{" "}
-              <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+              <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
                 city QR guides
               </Link>
               .
@@ -138,7 +138,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             <ul className="mt-3 space-y-2 text-sm leading-7">
               {cityPages.map((page) => (
                 <li key={page.citySlug}>
-                  <Link className="font-semibold text-indigo-700" href={qrCityPath(page)}>
+                  <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(page)}>
                     {page.heading}
                   </Link>
                 </li>
@@ -161,7 +161,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             <ul className="mt-3 space-y-2 text-sm leading-7">
               {industry.spokes.map((spoke) => (
                 <li key={spoke.slug}>
-                  <Link className="font-semibold text-indigo-700" href={`/industries/${spoke.slug}`}>
+                  <Link className="font-semibold text-[#4E5E52]" href={`/industries/${spoke.slug}`}>
                     {spoke.label}
                   </Link>
                 </li>
@@ -173,7 +173,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         {tradeReplyGuides[industry.slug] ? (
           <p className="mt-4 text-sm leading-7 text-slate-600">
             When a review is already public, use the{" "}
-            <Link className="font-semibold text-indigo-700" href={tradeReplyGuides[industry.slug].path}>
+            <Link className="font-semibold text-[#4E5E52]" href={tradeReplyGuides[industry.slug].path}>
               {tradeReplyGuides[industry.slug].label.toLowerCase()}
             </Link>
             . Those are reply templates, not the ask.
@@ -183,7 +183,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         {industry.seeAlso ? (
           <p className="mt-4 text-sm leading-7 text-slate-600">
             {industry.seeAlso.lead}{" "}
-            <Link className="font-semibold text-indigo-700" href={`/industries/${industry.seeAlso.slug}`}>
+            <Link className="font-semibold text-[#4E5E52]" href={`/industries/${industry.seeAlso.slug}`}>
               {industry.seeAlso.label}
             </Link>
             .
@@ -198,35 +198,35 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         <h2 className="mt-10 text-xl font-semibold text-slate-950">Make the link and the QR code</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
           Paste a Place ID or the long Google Maps URL into the{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
             free Google review QR code generator
           </Link>
           . It builds the write-a-review link and a PNG you can download, in the browser, with no API key. The{" "}
-          <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+          <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
             Google review link generator
           </Link>{" "}
           is the same tool, with the steps written for a text or an email.{" "}
-          <SignupLink className="font-semibold text-indigo-700" href={SIGNUP_PATH} location="industry_body">
+          <SignupLink className="font-semibold text-[#4E5E52]" href={SIGNUP_PATH} location="industry_body">
             Create a free account
           </SignupLink>{" "}
           to keep that link, the QR code, and the customer page together. Copy wording from the{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
             review request templates
           </Link>
           , fill the names and the link with the{" "}
-          <Link className="font-semibold text-indigo-700" href={messageLink.href}>
+          <Link className="font-semibold text-[#4E5E52]" href={messageLink.href}>
             {messageLink.label}
           </Link>
           , or read the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides">
             review guides
           </Link>
           . Browse the{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             rest of the trades
           </Link>{" "}
           if you run more than one kind of work. The full city list is the{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
             city QR guides
           </Link>
           .
@@ -237,7 +237,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {related.map((item) => (
             <li key={item.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/industries/${item.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/industries/${item.slug}`}>
                 {item.title}
               </Link>
             </li>

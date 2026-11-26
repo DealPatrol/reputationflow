@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { REPLY_HELPER_NOTE, REPLY_SITUATIONS, REPLY_SITUATION_LABELS, replyDraft, type ReplySituation } from "@/lib/reply-templates"
 
 const fieldClass =
-  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
 
 export function ReplyHelper({ businessName }: { businessName: string }) {
   const [situation, setSituation] = useState<ReplySituation>("thanks")
@@ -61,7 +61,7 @@ export function ReplyHelper({ businessName }: { businessName: string }) {
       <button
         type="button"
         onClick={copy}
-        className="mt-4 rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+        className="mt-4 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
       >
         {copied ? "Copied" : "Copy reply"}
       </button>

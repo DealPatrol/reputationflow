@@ -16,12 +16,12 @@ export default function TermsPage() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-2 rounded-lg">
+            <div className="bg-gradient-to-tr from-[#8CAE93] to-violet-500 p-2 rounded-lg">
               <Star size={20} className="text-white" fill="currentColor" />
             </div>
             <span className="font-bold text-lg">ReputationFlow</span>
           </Link>
-          <Link href="/dashboard" className="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+          <Link href="/dashboard" className="text-sm text-[#4E5E52] hover:text-[#1E2620] font-medium">
             Go to Dashboard
           </Link>
         </div>
@@ -146,7 +146,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-bold text-slate-900 mb-4">11. Contact Information</h2>
               <p className="text-slate-600 leading-relaxed">
                 If you have questions about these Terms of Service, please contact us at:{" "}
-                <a href={`mailto:${PUBLIC_CONTACT_EMAIL}`} className="text-indigo-600 hover:text-indigo-700 font-medium">
+                <a href={`mailto:${PUBLIC_CONTACT_EMAIL}`} className="text-[#4E5E52] hover:text-[#1E2620] font-medium">
                   {PUBLIC_CONTACT_EMAIL}
                 </a>
               </p>

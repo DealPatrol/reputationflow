@@ -7,7 +7,7 @@ import { SisterSites } from '@/components/marketing/sister-sites';
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-slate-200 bg-slate-950 text-slate-300">
+    <footer className="border-t border-[#2A332C] bg-[#1E2620] text-[#D6DDD7]">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:grid-cols-5">
         <div>
           <p className="text-sm font-semibold text-white">ReputationFlow</p>
@@ -68,7 +68,7 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-slate-800">
+      <div className="border-t border-[#2A332C]">
         <p className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6">
           © {new Date().getFullYear()} ReputationFlow. Reviews are written by customers on the platforms they choose.
         </p>

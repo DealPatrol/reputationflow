@@ -95,7 +95,7 @@ export default function GoogleReviewLinkPage() {
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Free tools", path: "/tools" }, { name: toolName, path }]} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">Google review link generator</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Paste a Google Place ID, a review link that already contains one, or the long Maps URL for your listing. You get the official write-a-review URL and a QR code for that URL. The tool does not look your business up, and it does not require an account.
@@ -130,49 +130,49 @@ export default function GoogleReviewLinkPage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Use the link</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Google review QR code generator
             </Link>
             <span className="text-slate-600"> for the same tool, with printing steps and a plain https URL option.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews">
               How to get more Google reviews
             </Link>
             <span className="text-slate-600">, including when to ask.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
               Google review request templates
             </Link>
             <span className="text-slate-600"> for in-person, text, and email scripts.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/guides">
+            <Link className="font-semibold text-[#4E5E52]" href="/guides">
               Review guides
             </Link>
             <span className="text-slate-600"> on asking, incentives, fake reviews, and QR codes.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/industries">
+            <Link className="font-semibold text-[#4E5E52]" href="/industries">
               Trade guides
             </Link>
             <span className="text-slate-600"> with a sample message for plumbers, dentists, salons, and other local businesses.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
               Google review QR codes by city
             </Link>
             <span className="text-slate-600"> for plumbers, HVAC, roofers, electricians, landscapers, cleaners, locksmiths, and garage door companies in major metros.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">
               Reply templates for a negative Google review
             </Link>
             <span className="text-slate-600"> after the reviews start coming in.</span>
           </li>
           <li>
-            <PricingLink location="tool_review_link_related" className="font-semibold text-indigo-700">
+            <PricingLink location="tool_review_link_related" className="font-semibold text-[#4E5E52]">
               Starter and Professional pricing
             </PricingLink>
             <span className="text-slate-600"> if you want the link saved on a page, or sent by email.</span>

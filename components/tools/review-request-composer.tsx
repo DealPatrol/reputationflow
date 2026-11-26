@@ -16,7 +16,7 @@ const channelLabels: Record<RequestChannel, string> = {
 }
 
 const fieldClass =
-  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+  "mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
 
 export function ReviewRequestComposer({
   initialBusinessName = "",
@@ -76,7 +76,7 @@ export function ReviewRequestComposer({
               <label
                 key={item}
                 className={`cursor-pointer rounded-lg border px-3 py-2 text-sm font-semibold ${
-                  channel === item ? "border-indigo-700 bg-indigo-50 text-indigo-900" : "border-slate-300 text-slate-800"
+                  channel === item ? "border-[#8CAE93] bg-[#EEF2EE] text-[#1E2620]" : "border-slate-300 text-slate-800"
                 }`}
               >
                 <input
@@ -132,7 +132,7 @@ export function ReviewRequestComposer({
       <button
         type="button"
         onClick={copy}
-        className="mt-4 rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+        className="mt-4 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
       >
         {copied ? "Copied" : "Copy message"}
       </button>

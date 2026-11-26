@@ -128,7 +128,7 @@ export default function SignInPage() {
                 : "Sign in to your account"}
           </p>
           {wantsProfessional && (
-            <div className="mb-6 rounded-lg border border-indigo-200 bg-indigo-50 p-4 text-sm leading-6 text-slate-700">
+            <div className="mb-6 rounded-lg border border-[#D6DDD7] bg-[#EEF2EE] p-4 text-sm leading-6 text-slate-700">
               Professional is {formatPlanPrice(PLANS.pro.price)} a month through Stripe. There is no trial on top of Starter.
               You can cancel in the Stripe customer portal, and access lasts through the period you already paid.
               {isSignUp ? " After this form, Stripe checkout opens." : " After you sign in, billing opens."}
@@ -147,7 +147,7 @@ export default function SignInPage() {
                   type="text"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                  className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
                   placeholder="Your business"
                   required={isSignUp}
                 />
@@ -160,7 +160,7 @@ export default function SignInPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
                 placeholder="you@example.com"
                 autoComplete="email"
                 required
@@ -173,7 +173,7 @@ export default function SignInPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-indigo-700 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-[#8CAE93] focus:ring-2 focus:ring-[#D6DDD7]"
                 placeholder="Password"
                 autoComplete={isSignUp ? "new-password" : "current-password"}
                 required
@@ -185,7 +185,7 @@ export default function SignInPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-indigo-800 py-3 font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-[#E84630] py-3 font-semibold text-white hover:bg-[#D13823] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {openingCheckout ? "Opening Stripe..." : loading ? "Loading..." : isSignUp ? (wantsProfessional ? "Create free account" : "Create Account") : "Sign In"}
             </button>
@@ -198,7 +198,7 @@ export default function SignInPage() {
                 setIsSignUp(!isSignUp)
                 setError("")
               }}
-              className="text-sm font-semibold text-indigo-800 hover:text-indigo-700"
+              className="text-sm font-semibold text-[#4E5E52] hover:text-[#1E2620]"
             >
               {isSignUp ? "Already have an account? Sign in" : "Don't have an account? Sign up"}
             </button>

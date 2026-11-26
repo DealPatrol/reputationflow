@@ -149,7 +149,7 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
         <div className="bg-white p-6 rounded-xl shadow-lg mb-4 relative">
           {loading && (
             <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center rounded-xl">
-              <Loader2 className="animate-spin text-indigo-600" size={32} />
+              <Loader2 className="animate-spin text-[#4E5E52]" size={32} />
             </div>
           )}
           {qrCodeUrl ? (
@@ -175,19 +175,19 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
           <div className="flex bg-white rounded-lg border border-slate-200 p-1">
             <button
               onClick={() => setSize(200)}
-              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 200 ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100"}`}
+              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 200 ? "bg-[#E84630] text-white" : "text-slate-600 hover:bg-slate-100"}`}
             >
               Small
             </button>
             <button
               onClick={() => setSize(300)}
-              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 300 ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100"}`}
+              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 300 ? "bg-[#E84630] text-white" : "text-slate-600 hover:bg-slate-100"}`}
             >
               Medium
             </button>
             <button
               onClick={() => setSize(500)}
-              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 500 ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100"}`}
+              className={`px-3 py-1 text-xs font-medium rounded transition-all ${size === 500 ? "bg-[#E84630] text-white" : "text-slate-600 hover:bg-slate-100"}`}
             >
               Large
             </button>
@@ -198,28 +198,28 @@ export function QRCodeGenerator({ url, businessName }: QRCodeGeneratorProps) {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full">
           <button
             onClick={downloadQR}
-            className="bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
+            className="bg-white border border-slate-200 hover:border-[#8CAE93] hover:bg-[#EEF2EE] text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
           >
             <Download size={16} />
             <span className="hidden sm:inline">Download</span>
           </button>
           <button
             onClick={printQR}
-            className="bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
+            className="bg-white border border-slate-200 hover:border-[#8CAE93] hover:bg-[#EEF2EE] text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
           >
             <Printer size={16} />
             <span className="hidden sm:inline">Print</span>
           </button>
           <button
             onClick={shareQR}
-            className="bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
+            className="bg-white border border-slate-200 hover:border-[#8CAE93] hover:bg-[#EEF2EE] text-slate-700 px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
           >
             <Share2 size={16} />
             <span className="hidden sm:inline">Share</span>
           </button>
           <button
             onClick={copyLink}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
+            className="bg-[#E84630] hover:bg-[#D13823] text-white px-4 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 text-sm"
           >
             {copied ? (
               <>

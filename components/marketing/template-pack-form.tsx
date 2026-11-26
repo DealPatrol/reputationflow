@@ -75,7 +75,7 @@ export function TemplatePackForm() {
       <button
         type="button"
         onClick={downloadTemplatePack}
-        className="mt-4 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white"
+        className="mt-4 rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white"
       >
         Download the templates
       </button>

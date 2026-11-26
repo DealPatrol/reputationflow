@@ -89,7 +89,7 @@ export default function ReviewReplyGeneratorPage() {
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{REVIEW_REPLY_TOOL_TITLE}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           How do you reply to a Google review? Thank the person, mention one real detail, and keep it to two or three sentences. For a complaint, apologize once and give a way to reach the owner. Pick the rating below and copy a draft to edit. No account, and nothing is posted.
@@ -123,22 +123,22 @@ export default function ReviewReplyGeneratorPage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Related</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">
               How to respond to negative Google reviews
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/review-request-message">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/review-request-message">
               Google review request message generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Google review QR code generator
             </Link>
           </li>
           <li>
-            <a className="font-semibold text-indigo-700" href="https://support.google.com/business/answer/3474050" rel="noopener" target="_blank">
+            <a className="font-semibold text-[#4E5E52]" href="https://support.google.com/business/answer/3474050" rel="noopener" target="_blank">
               Google Business Profile Help: Manage customer reviews
             </a>
           </li>

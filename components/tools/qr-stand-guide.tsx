@@ -1,7 +1,7 @@
 export function QrStandGuide({ url }: { url?: string }) {
   return (
     <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6" aria-labelledby="stand-guide-title">
-      <p className="text-sm font-semibold text-indigo-800">Print and NFC</p>
+      <p className="text-sm font-semibold text-[#4E5E52]">Print and NFC</p>
       <h2 id="stand-guide-title" className="mt-2 text-xl font-semibold tracking-tight text-slate-950">
         A table tent, a card, or an NFC tag that opens the same link
       </h2>

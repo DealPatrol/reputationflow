@@ -33,9 +33,9 @@ export default function DemoPage() {
   const steps = ["Creating your demo account...", "Setting up your dashboard...", "Loading sample data..."]
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-[#1E2620] to-slate-900">
       <div className="text-center max-w-md px-4">
-        <div className="bg-gradient-to-tr from-indigo-500 to-violet-500 p-4 rounded-2xl inline-flex mb-6 shadow-2xl shadow-indigo-500/20">
+        <div className="bg-gradient-to-tr from-[#8CAE93] to-violet-500 p-4 rounded-2xl inline-flex mb-6 shadow-2xl shadow-[#8CAE93]/20">
           <Star size={48} className="text-white" fill="currentColor" />
         </div>
 
@@ -60,7 +60,7 @@ export default function DemoPage() {
                   </svg>
                 </div>
               ) : step === index ? (
-                <Loader2 size={24} className="animate-spin text-indigo-400 flex-shrink-0" />
+                <Loader2 size={24} className="animate-spin text-[#8CAE93] flex-shrink-0" />
               ) : (
                 <div className="w-6 h-6 border-2 border-white/30 rounded-full flex-shrink-0" />
               )}
@@ -69,7 +69,7 @@ export default function DemoPage() {
           ))}
         </div>
 
-        <div className="flex items-center justify-center space-x-2 text-indigo-300">
+        <div className="flex items-center justify-center space-x-2 text-[#8CAE93]">
           <Sparkles size={16} fill="currentColor" />
           <p className="text-sm">Full-featured demo with sample data</p>
         </div>

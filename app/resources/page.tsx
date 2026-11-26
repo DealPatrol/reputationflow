@@ -50,7 +50,7 @@ export default function ResourcesPage() {
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {staticLinks.map((item) => (
             <li key={item.href}>
-              <Link className="font-semibold text-indigo-700" href={item.href}>
+              <Link className="font-semibold text-[#4E5E52]" href={item.href}>
                 {item.title}
               </Link>
             </li>
@@ -66,7 +66,7 @@ export default function ResourcesPage() {
                 .filter((guide) => guide.cluster === group.id)
                 .map((guide) => (
                   <li key={guide.path}>
-                    <Link className="font-semibold text-indigo-700" href={guide.path}>
+                    <Link className="font-semibold text-[#4E5E52]" href={guide.path}>
                       {guide.title}
                     </Link>
                   </li>
@@ -81,7 +81,7 @@ export default function ResourcesPage() {
         <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry) => (
             <li key={industry.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/industries/${industry.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/industries/${industry.slug}`}>
                 {industry.title}
               </Link>
             </li>
@@ -92,7 +92,7 @@ export default function ResourcesPage() {
         <ul className="mt-4 space-y-2">
           {comparisons.map((comparison) => (
             <li key={comparison.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/compare/${comparison.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/compare/${comparison.slug}`}>
                 {comparison.title}
               </Link>
             </li>

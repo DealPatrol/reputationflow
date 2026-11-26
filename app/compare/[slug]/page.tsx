@@ -54,13 +54,13 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
             { name: comparison.name, path: `/compare/${comparison.slug}` },
           ]}
         />
-        <p className="mt-4 text-sm font-semibold text-indigo-800">{comparison.name} alternative</p>
+        <p className="mt-4 text-sm font-semibold text-[#4E5E52]">{comparison.name} alternative</p>
         <h1 className="mt-2 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.08]">{comparison.title}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{comparison.summary}</p>
         <p className="mt-4 text-sm leading-6 text-slate-500">
           Checked in {comparison.checked} against the{" "}
           <a
-            className="font-semibold text-indigo-700"
+            className="font-semibold text-[#4E5E52]"
             href={comparison.sourceUrl}
             rel="noopener noreferrer"
             target="_blank"
@@ -73,7 +73,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           <SignupLink
             href={professionalSignupPath()}
             location={`compare_${comparison.slug}_checkout`}
-            className="inline-flex items-center justify-center rounded-lg bg-indigo-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+            className="inline-flex items-center justify-center rounded-lg bg-[#E84630] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#D13823]"
           >
             Create a free account, then checkout
           </SignupLink>
@@ -85,7 +85,7 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
           </PricingLink>
         </div>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          <SetupLink location={`compare_${comparison.slug}_setup`} className="font-semibold text-indigo-700" />
+          <SetupLink location={`compare_${comparison.slug}_setup`} className="font-semibold text-[#4E5E52]" />
           . {SETUP_CTA_NOTE}
         </p>
 
@@ -140,12 +140,12 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
             <h3 className="font-semibold text-slate-950">Choose {comparison.name} when</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">{comparison.chooseThem}</p>
           </section>
-          <section className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5">
+          <section className="rounded-2xl border border-[#D6DDD7] bg-[#EEF2EE] p-5">
             <h3 className="font-semibold text-slate-950">Choose ReputationFlow when</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">{comparison.chooseUs}</p>
             <SetupLink
               location={`compare_${comparison.slug}_choose`}
-              className="mt-4 inline-flex text-sm font-semibold text-indigo-700"
+              className="mt-4 inline-flex text-sm font-semibold text-[#4E5E52]"
             />
           </section>
         </div>
@@ -159,33 +159,33 @@ export default async function ComparisonPage({ params }: { params: Promise<{ slu
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {others.map((item) => (
             <li key={item.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/compare/${item.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/compare/${item.slug}`}>
                 {item.name} alternative
               </Link>
             </li>
           ))}
           <li>
-            <Link className="font-semibold text-indigo-700" href="/review-management-software">
+            <Link className="font-semibold text-[#4E5E52]" href="/review-management-software">
               Best review management software for a small business
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Free Google review QR code generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
               Free Google review link generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/guides/how-to-choose-review-management-software">
+            <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-choose-review-management-software">
               How to choose review management software
             </Link>
           </li>
           <li>
-            <PricingLink location={`compare_${comparison.slug}_pricing_list`} className="font-semibold text-indigo-700">
+            <PricingLink location={`compare_${comparison.slug}_pricing_list`} className="font-semibold text-[#4E5E52]">
               ReputationFlow pricing
             </PricingLink>
           </li>

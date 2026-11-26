@@ -19,15 +19,15 @@ export function CtaBand({
   setupLocation?: string
 }) {
   return (
-    <section className="bg-slate-950">
+    <section className="bg-[#1E2620]">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-16 sm:px-6 md:flex-row md:items-center">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{title}</h2>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300">{body}</p>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-[#D6DDD7]">{body}</p>
         </div>
         <div className="flex flex-col items-start gap-3">
           <div className="flex flex-col gap-3 sm:flex-row">
-            <SignupLink href={signupHref} location={signupLocation} className="rounded-lg bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-950">
+            <SignupLink href={signupHref} location={signupLocation} className="rounded-lg bg-[#E84630] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#D13823]">
               {signupLabel}
             </SignupLink>
             <PricingLink location={`${signupLocation}_pricing`} className="rounded-lg border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white">
@@ -35,7 +35,7 @@ export function CtaBand({
             </PricingLink>
           </div>
           {setupLocation ? (
-            <p className="text-sm leading-6 text-slate-300">
+            <p className="text-sm leading-6 text-[#D6DDD7]">
               <SetupLink location={setupLocation} className="font-semibold text-white underline decoration-white/40 underline-offset-4" />
               . {SETUP_CTA_NOTE}
             </p>

@@ -53,7 +53,7 @@ export default function ToolsIndexPage() {
       <JsonLd data={breadcrumbJsonLd(crumbs)} />
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-4 text-sm font-semibold text-indigo-800">No account required</p>
+        <p className="mt-4 text-sm font-semibold text-[#4E5E52]">No account required</p>
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.08]">Free Google review tools</h1>
         <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
           Paste a Place ID and download the review link and the QR code on one page. These tools work without an account. A free ReputationFlow account is what saves them on one customer page.
@@ -61,8 +61,8 @@ export default function ToolsIndexPage() {
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool, index) => (
             <li key={tool.href}>
-              <Link href={tool.href} className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 hover:border-indigo-300">
-                <p className="font-mono text-sm font-semibold text-indigo-800">0{index + 1}</p>
+              <Link href={tool.href} className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 hover:border-[#8CAE93]">
+                <p className="font-mono text-sm font-semibold text-[#4E5E52]">0{index + 1}</p>
                 <h2 className="mt-3 font-semibold text-slate-950">{tool.title}</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{tool.body}</p>
               </Link>
@@ -71,23 +71,23 @@ export default function ToolsIndexPage() {
         </ul>
         <p className="mt-8 text-sm leading-7 text-slate-600">
           Placement and wording are in the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides">
             guides
           </Link>
           , the{" "}
-          <Link className="font-semibold text-indigo-700" href="/industries">
+          <Link className="font-semibold text-[#4E5E52]" href="/industries">
             trade pages
           </Link>
           , and the{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
             city QR guides
           </Link>
           . The{" "}
-          <Link className="font-semibold text-indigo-700" href="/resources">
+          <Link className="font-semibold text-[#4E5E52]" href="/resources">
             resource hub
           </Link>{" "}
           lists every public page. Account prices are on{" "}
-          <PricingLink location="tools_index" className="font-semibold text-indigo-700">
+          <PricingLink location="tools_index" className="font-semibold text-[#4E5E52]">
             pricing
           </PricingLink>
           .

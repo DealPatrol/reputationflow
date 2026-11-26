@@ -72,11 +72,11 @@ export default async function ReviewRequestTextPage({ params }: { params: Promis
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Text template</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Text template</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{heading}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">{page.intro}</p>
         <p className="mt-4 text-sm leading-6 text-slate-700">
-          <SetupLink location={`message_${page.slug}_intro`} className="font-semibold text-indigo-700" />
+          <SetupLink location={`message_${page.slug}_intro`} className="font-semibold text-[#4E5E52]" />
           . {SETUP_CTA_NOTE}
         </p>
 
@@ -122,7 +122,7 @@ export default async function ReviewRequestTextPage({ params }: { params: Promis
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {industry ? (
             <li>
-              <Link className="font-semibold text-indigo-700" href={`/industries/${industry.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/industries/${industry.slug}`}>
                 {industry.title}
               </Link>
               <span className="text-slate-600"> for where the QR code goes.</span>
@@ -130,29 +130,29 @@ export default async function ReviewRequestTextPage({ params }: { params: Promis
           ) : null}
           {cities.map((city) => (
             <li key={city.citySlug}>
-              <Link className="font-semibold text-indigo-700" href={qrCityPath(city)}>
+              <Link className="font-semibold text-[#4E5E52]" href={qrCityPath(city)}>
                 {city.heading}
               </Link>
             </li>
           ))}
           <li>
-            <Link className="font-semibold text-indigo-700" href={REVIEW_MESSAGE_TOOL_PATH}>
+            <Link className="font-semibold text-[#4E5E52]" href={REVIEW_MESSAGE_TOOL_PATH}>
               {REVIEW_MESSAGE_TOOL_TITLE}
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Google review QR code generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
               All review request templates
             </Link>
           </li>
           {related.map((item) => (
             <li key={item.slug}>
-              <Link className="font-semibold text-indigo-700" href={reviewMessagePath(item)}>
+              <Link className="font-semibold text-[#4E5E52]" href={reviewMessagePath(item)}>
                 {reviewMessageHeading(item)}
               </Link>
             </li>

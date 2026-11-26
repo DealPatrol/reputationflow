@@ -75,18 +75,18 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         <h2 className="mt-10 text-xl font-semibold text-slate-950">More guides</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews">
               How to get more Google reviews
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">
               How to respond to negative Google reviews
             </Link>
           </li>
           {related.map((item) => (
             <li key={item.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/guides/${item.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/guides/${item.slug}`}>
                 {item.title}
               </Link>
             </li>

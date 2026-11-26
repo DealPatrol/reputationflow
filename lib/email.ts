@@ -154,14 +154,14 @@ export async function sendReviewRequest(
       <html>
       <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7fafc;margin:0;padding:0;">
         <div style="max-width:600px;margin:40px auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-          <div style="background:linear-gradient(135deg,#4f46e5,#4338ca);padding:32px;text-align:center;">
+          <div style="background:linear-gradient(135deg,#1E2620,#4338ca);padding:32px;text-align:center;">
             <h1 style="color:white;margin:0;font-size:24px;">How was your visit?</h1>
           </div>
           <div style="padding:32px;">
             <p style="color:#2d3748;font-size:16px;">Hi ${safeName},</p>
             <p style="color:#4a5568;font-size:16px;line-height:1.6;">Thank you for choosing <strong>${safeBusiness}</strong>. If you have a minute, you can leave a public review. The page shows the same review links to every customer.</p>
             <div style="margin:32px 0;text-align:center;">
-              <a href="${safeLink}" style="background:#4f46e5;color:white;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:700;font-size:18px;">Leave a review</a>
+              <a href="${safeLink}" style="background:#1E2620;color:white;padding:16px 40px;border-radius:8px;text-decoration:none;font-weight:700;font-size:18px;">Leave a review</a>
             </div>
             <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0;">
             <p style="color:#a0aec0;font-size:12px;text-align:center;">${safeBusiness} sent this with ReputationFlow.</p>

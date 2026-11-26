@@ -118,7 +118,7 @@ export default function NegativeReviewRepliesPage() {
             { name: "How to respond to negative Google reviews", path: "/how-to-respond-to-negative-google-reviews" },
           ]}
         />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Templates</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Templates</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
           How to respond to negative Google reviews
         </h1>
@@ -158,19 +158,19 @@ export default function NegativeReviewRepliesPage() {
 
         <p className="mt-10 text-sm leading-7 text-slate-600">
           Asking for the next review is a separate job. Timing and scripts by trade are in{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews-for">
             how to get more Google reviews for a trade
           </Link>
           . More wording is in{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/google-review-response-examples">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/google-review-response-examples">
             Google review response examples
           </Link>{" "}
           and{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-remove-a-fake-google-review">
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-remove-a-fake-google-review">
             how to remove a fake Google review
           </Link>
           . Read{" "}
-          <Link className="font-semibold text-indigo-700" href="/pricing">
+          <Link className="font-semibold text-[#4E5E52]" href="/pricing">
             pricing
           </Link>{" "}
           before you turn on reply drafts.
@@ -179,7 +179,7 @@ export default function NegativeReviewRepliesPage() {
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {Object.values(tradeReplyGuides).map((guide) => (
             <li key={guide.path}>
-              <Link className="font-semibold text-indigo-700" href={guide.path}>
+              <Link className="font-semibold text-[#4E5E52]" href={guide.path}>
                 {guide.label}
               </Link>
             </li>

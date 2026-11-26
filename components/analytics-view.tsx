@@ -98,7 +98,7 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: A
                 key={p}
                 onClick={() => setPeriod(p)}
                 className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
-                  period === p ? "bg-indigo-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                  period === p ? "bg-[#E84630] text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 {p === "all" ? "All Time" : p.toUpperCase()}
@@ -117,9 +117,9 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: A
       </div>
 
       {!isPremium && (
-        <div className="bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200 rounded-xl p-6 mb-8">
+        <div className="bg-gradient-to-r from-[#EEF2EE] to-violet-50 border border-[#D6DDD7] rounded-xl p-6 mb-8">
           <div className="flex items-start gap-4">
-            <div className="bg-indigo-600 text-white p-3 rounded-lg">
+            <div className="bg-[#E84630] text-white p-3 rounded-lg">
               <BarChart3 size={24} />
             </div>
             <div className="flex-1">
@@ -130,7 +130,7 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: A
               <button
                 type="button"
                 onClick={onUpgrade}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
+                className="bg-[#E84630] hover:bg-[#D13823] text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors"
               >
                 See Professional
               </button>
@@ -173,7 +173,7 @@ export const AnalyticsView = ({ feedbacks, isPremium, businessId, onUpgrade }: A
                 <div className="flex-1">
                   <div className="h-8 bg-slate-100 rounded-lg overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500 flex items-center justify-end pr-2"
+                      className="h-full bg-gradient-to-r from-[#8CAE93] to-violet-500 transition-all duration-500 flex items-center justify-end pr-2"
                       style={{ width: `${item.percentage}%` }}
                     >
                       {item.percentage > 10 && <span className="text-xs font-bold text-white">{item.count}</span>}
@@ -271,7 +271,7 @@ const TrendCard = ({ label, value, change }: any) => {
   return (
     <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
       <div className="flex items-center space-x-2 mb-2">
-        <Users size={18} className="text-indigo-600" />
+        <Users size={18} className="text-[#4E5E52]" />
         <span className="text-xs font-bold uppercase tracking-wider text-slate-400">{label}</span>
       </div>
       <div className="flex items-baseline gap-2">

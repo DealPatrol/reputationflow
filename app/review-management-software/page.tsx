@@ -76,7 +76,7 @@ export default function ReviewSoftwarePage() {
         ]}
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Comparison</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Comparison</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">
           Best review management software for small business
         </h1>
@@ -116,28 +116,28 @@ export default function ReviewSoftwarePage() {
         <ul className="mt-3 space-y-2 text-sm leading-7">
           {comparisons.map((comparison) => (
             <li key={comparison.slug}>
-              <Link className="font-semibold text-indigo-700" href={`/compare/${comparison.slug}`}>
+              <Link className="font-semibold text-[#4E5E52]" href={`/compare/${comparison.slug}`}>
                 {comparison.name} alternative
               </Link>
             </li>
           ))}
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
               Free Google review link generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Free QR code and table tent
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">
+            <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">
               How to respond to negative Google reviews
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/pricing">
+            <Link className="font-semibold text-[#4E5E52]" href="/pricing">
               Pricing and what Stripe checkout includes
             </Link>
           </li>
@@ -149,7 +149,7 @@ export default function ReviewSoftwarePage() {
         </div>
         <p className="mt-10 text-sm leading-7 text-slate-600">
           Comparing vendors? Use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-choose-review-management-software">review software buyer checklist</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-choose-review-management-software">review software buyer checklist</Link>
           {" "}before you book a demo.
         </p>
       </article>

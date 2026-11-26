@@ -34,7 +34,7 @@ export default function HowItWorksPage() {
     <MarketingShell>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "How it works", path: "/how-it-works" }])} />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <p className="text-sm font-semibold text-indigo-700">Product</p>
+        <p className="text-sm font-semibold text-[#4E5E52]">Product</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">How it works</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           ReputationFlow is a review request page for a local business. It is not a filter that decides who is allowed to review you in public.

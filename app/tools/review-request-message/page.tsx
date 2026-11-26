@@ -103,13 +103,13 @@ export default function ReviewRequestMessagePage() {
       />
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <Breadcrumbs items={crumbs} />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Free tool</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Free tool</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">{REVIEW_MESSAGE_TOOL_TITLE}</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           Type the business name, pick the trade, and paste the Google review link. You get a text and an email you can copy. The tool does not send either one, and it does not need an account.
         </p>
         <p className="mt-4 text-sm leading-6 text-slate-700">
-          <SetupLink location="message_tool_intro" className="font-semibold text-indigo-700" />
+          <SetupLink location="message_tool_intro" className="font-semibold text-[#4E5E52]" />
           . {SETUP_CTA_NOTE}
         </p>
         <div className="mt-8">
@@ -132,7 +132,7 @@ export default function ReviewRequestMessagePage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Text templates by trade</h2>
         <p className="mt-2 text-sm leading-7 text-slate-600">
           The generator uses the same scripts on every trade page. Open the trade when you want the timing and the words you should leave out. The{" "}
-          <Link className="font-semibold text-indigo-700" href="/google-review-request-templates">
+          <Link className="font-semibold text-[#4E5E52]" href="/google-review-request-templates">
             template pack
           </Link>{" "}
           is the same wording as a file you can download.
@@ -140,7 +140,7 @@ export default function ReviewRequestMessagePage() {
         <ul className="mt-4 space-y-4">
           {reviewMessagePages.map((page) => (
             <li key={page.slug}>
-              <Link className="font-semibold text-indigo-700" href={reviewMessagePath(page)}>
+              <Link className="font-semibold text-[#4E5E52]" href={reviewMessagePath(page)}>
                 {reviewMessageHeading(page)}
               </Link>
               <p className="mt-1 text-sm leading-6 text-slate-600">{page.description}</p>
@@ -156,33 +156,33 @@ export default function ReviewRequestMessagePage() {
         <h2 className="mt-12 text-xl font-semibold text-slate-950">Related</h2>
         <ul className="mt-3 space-y-2 text-sm leading-7">
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/qr-code">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/qr-code">
               Google review QR code generator
             </Link>
             <span className="text-slate-600"> if you still need the link or a printable code.</span>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/tools/google-review-link">
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/google-review-link">
               Google review link generator
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/guides/review-request-text-message-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/guides/review-request-text-message-templates">
               Review request text message templates
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/guides/review-request-email-templates">
+            <Link className="font-semibold text-[#4E5E52]" href="/guides/review-request-email-templates">
               Review request email templates
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/industries">
+            <Link className="font-semibold text-[#4E5E52]" href="/industries">
               When to ask, by trade
             </Link>
           </li>
           <li>
-            <Link className="font-semibold text-indigo-700" href="/google-review-qr-by-city">
+            <Link className="font-semibold text-[#4E5E52]" href="/google-review-qr-by-city">
               Google review QR codes by city
             </Link>
           </li>

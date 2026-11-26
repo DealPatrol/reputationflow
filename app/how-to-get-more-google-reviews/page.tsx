@@ -94,7 +94,7 @@ export default function GoogleReviewsGuidePage() {
             { name: "How to get more Google reviews", path: "/how-to-get-more-google-reviews" },
           ]}
         />
-        <p className="mt-3 text-sm font-semibold text-indigo-700">Guide</p>
+        <p className="mt-3 text-sm font-semibold text-[#4E5E52]">Guide</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-950">How to get more Google reviews</h1>
         <p className="mt-4 text-lg leading-8 text-slate-600">
           More reviews come from asking more customers at the right moment, with a link that opens the review form. This is the workflow local businesses can actually run.
@@ -113,21 +113,21 @@ export default function GoogleReviewsGuidePage() {
         </div>
         <p className="mt-10 text-sm leading-7 text-slate-600">
           Trade-specific timing and scripts are in{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-get-more-google-reviews-for">
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-get-more-google-reviews-for">
             how to get more Google reviews for a trade
           </Link>
           . For a bad review that is already public, use the{" "}
-          <Link className="font-semibold text-indigo-700" href="/how-to-respond-to-negative-google-reviews">response templates</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/how-to-respond-to-negative-google-reviews">response templates</Link>
           . Scripts by trade are in the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-ask-customers-for-reviews">ask scripts</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-ask-customers-for-reviews">ask scripts</Link>
           . Read{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-many-google-reviews-to-rank">how many Google reviews it takes to rank</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-many-google-reviews-to-rank">how many Google reviews it takes to rank</Link>
           {" "}and{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/incentivizing-reviews-ftc-rules">whether incentives are allowed</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/incentivizing-reviews-ftc-rules">whether incentives are allowed</Link>
           {" "}before you change the ask. Starting from zero? Follow the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-get-google-reviews-for-a-new-business">first reviews plan for a new business</Link>
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-get-google-reviews-for-a-new-business">first reviews plan for a new business</Link>
           , and reply to praise with the{" "}
-          <Link className="font-semibold text-indigo-700" href="/guides/how-to-respond-to-positive-google-reviews">positive review reply examples</Link>.
+          <Link className="font-semibold text-[#4E5E52]" href="/guides/how-to-respond-to-positive-google-reviews">positive review reply examples</Link>.
         </p>
         <GuideResources signupLocation="more_reviews" />
       </article>

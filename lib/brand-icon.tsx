@@ -1,6 +1,6 @@
 import type { ReactElement } from "react"
 
-/** Indigo rounded square with a filled star, matching the site header mark. */
+/** Forest-charcoal rounded square with a filled star, matching the site header mark. */
 export function brandIconMarkup(size: number): ReactElement {
   const star = Math.round(size * 0.52)
   return (
@@ -11,7 +11,7 @@ export function brandIconMarkup(size: number): ReactElement {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#4f46e5",
+        background: "#1E2620",
         borderRadius: Math.round(size * 0.25),
       }}
     >
