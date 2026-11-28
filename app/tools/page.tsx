@@ -21,6 +21,11 @@ export const metadata = pageMetadata({
 
 const tools = [
   {
+    href: "/tools/review-request-checker",
+    title: "Review request checker",
+    body: "Paste a review request text or email. See incentives, five-star asks, and review gating that break Google's rules, and copy a fixed version.",
+  },
+  {
     href: "/tools/review-reply-generator",
     title: "Google review reply generator",
     body: "Pick the star rating and what the review mentions. Copy two replies to edit and paste yourself. Nothing is posted.",

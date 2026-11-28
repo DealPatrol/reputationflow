@@ -76,7 +76,7 @@ const faqs = [
 export const metadata = pageMetadata({
   title: "How to respond to negative Google reviews",
   description:
-    "How to respond to a negative Google review, with templates you can edit. Reply in public, move the details offline, and do not offer a reward for changing the review.",
+    "How to respond to a negative Google review, with editable templates. Reply in public, move details offline, and never offer a reward to change the review.",
   path: "/how-to-respond-to-negative-google-reviews",
   keywords: [
     "how to respond to negative google reviews",
@@ -98,7 +98,7 @@ export default function NegativeReviewRepliesPage() {
           articleJsonLd({
             title: "How to respond to negative Google reviews",
             description:
-              "How to respond to a negative Google review, with templates you can edit. Reply in public, move the details offline, and do not offer a reward for changing the review.",
+              "How to respond to a negative Google review, with editable templates. Reply in public, move details offline, and never offer a reward to change the review.",
             path: "/how-to-respond-to-negative-google-reviews",
           }),
           howToJsonLd({

@@ -67,7 +67,7 @@ export const reviewMessagePages: ReviewMessagePage[] = [
     templateTrade: "HVAC",
     title: "HVAC review request text template",
     description:
-      "An HVAC review request text template and email for after the system is running. Fill in the company and the Google review link, and name the visit before you send it.",
+      "An HVAC review request text and email for after the system is running. Add the company and Google review link, and name the visit before you send it.",
     keyword: "hvac review request text template",
     intro:
       "This is the text and the email for an HVAC visit after the customer has felt the air change. The email still has the visit type in brackets. Keep one of tune-up, no-heat, or replacement, delete the others, and send a single message.",

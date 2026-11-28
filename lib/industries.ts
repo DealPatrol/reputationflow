@@ -120,7 +120,7 @@ export const industries: IndustryPage[] = [
     keyword: "google review qr code for electricians",
     title: "Google review QR code for electricians",
     description:
-      "How to get more Google reviews as an electrician. Ask when the lights or the panel are back on, put a QR code on the invoice, and wait for the inspection on permitted work.",
+      "How to get more Google reviews as an electrician: ask when the power is back on, put a QR code on the invoice, and wait for inspection on permitted work.",
     guideHeading: "How to get more Google reviews as an electrician",
     intro:
       "People search for an electrician after a dead outlet or a panel that looks wrong, and they choose from a handful of recent Google reviews.",
@@ -867,7 +867,7 @@ export const industries: IndustryPage[] = [
     keyword: "google review qr code for tattoo shops",
     title: "Google review QR code for tattoo shops",
     description:
-      "How to get more Google reviews as a tattoo shop. Ask when the piece is finished and covered, put a QR code with the aftercare card, and do not require a healed photo.",
+      "How to get more Google reviews as a tattoo shop: ask when the piece is done, put a QR code on the aftercare card, and never require a healed photo.",
     guideHeading: "How to get more Google reviews as a tattoo shop",
     intro:
       "Tattoo clients read Google reviews to judge whether the shop is clean and whether the artist does the work in the photos. Ask when they have seen the piece, not days later as a condition of aftercare.",

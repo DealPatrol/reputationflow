@@ -134,6 +134,7 @@ Sitemap: https://tryreputationflow.com/sitemap.xml
 - [Google review QR code generator · ReputationFlow](https://tryreputationflow.com/tools/qr-code): Free Google review QR code generator. Paste a Place ID or a Maps URL and download a scannable QR code plus the official review link. No API key and no account.
 - [Google review request message generator · ReputationFlow](https://tryreputationflow.com/tools/review-request-message): Free Google review request message generator. Type a business name, a trade, and a review link to copy a text and an email. Nothing is sent.
 - [Google review reply generator · ReputationFlow](https://tryreputationflow.com/tools/review-reply-generator): Free Google review reply generator. Pick the star rating and what the review mentions, and copy two replies to edit. No account. Nothing is posted.
+- [Review request checker · ReputationFlow](https://tryreputationflow.com/tools/review-request-checker): Free review request checker. Paste a text or email to flag incentives, five-star asks, review gating, change-your-review requests, staff-name requests, and on-site pressure, per Google's Maps content policy and the FTC review rule (16 CFR Part 465, effective October 21, 2024). Runs in the browser; no AI model; not legal advice.
 
 ## Other sites from the same maker
 Cole Collins also operates these official sites. Each is its own brand.
