@@ -334,6 +334,7 @@ export function indexablePaths(): SitemapEntry[] {
     { path: "/tools/qr-code", priority: 0.9, changeFrequency: "monthly" },
     { path: REVIEW_MESSAGE_TOOL_PATH, priority: 0.8, changeFrequency: "monthly" },
     { path: "/tools/review-reply-generator", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/tools/review-request-checker", priority: 0.8, changeFrequency: "monthly" },
     { path: qrCityHub.path, priority: 0.8, changeFrequency: "monthly" },
     { path: "/industries", priority: 0.8, changeFrequency: "monthly" },
     { path: "/guides", priority: 0.8, changeFrequency: "monthly" },

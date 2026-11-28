@@ -128,6 +128,11 @@ export default function ReviewReplyGeneratorPage() {
             </Link>
           </li>
           <li>
+            <Link className="font-semibold text-[#4E5E52]" href="/tools/review-request-checker">
+              Review request checker (Google and FTC rules)
+            </Link>
+          </li>
+          <li>
             <Link className="font-semibold text-[#4E5E52]" href="/tools/review-request-message">
               Google review request message generator
             </Link>

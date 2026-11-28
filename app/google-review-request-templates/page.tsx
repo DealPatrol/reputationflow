@@ -11,7 +11,7 @@ import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/lib/
 
 const title = "Google review request templates"
 const description =
-  "Free in-person, text, and email scripts for asking customers for a Google review, organized by trade. Download the pack or have it emailed. No star target and no discount."
+  "Free in-person, text, and email scripts for asking for a Google review, by trade. Download the pack or get it by email. No star target, no discount."
 const path = "/google-review-request-templates"
 
 const faqs = [
